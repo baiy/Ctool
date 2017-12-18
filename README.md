@@ -2,7 +2,6 @@
 使用过程中的任何问题或者需要新的工具欢迎提交`Issue`,新工具如果可以提供实现代码就完美了O(∩_∩)O
 
 ## 安装
-
  - 方法1: 在 [Chrome 网上应用店](https://chrome.google.com/webstore/detail/ipfcebkfhpkjeikaammlkcnalknjahmh)安装
  - 方法2: [下载 .crx 安装包](https://github.com/baiy/chrome-tool/releases/latest)手动安装 [猛戳这里查看手动安装教程](http://www.cnplugins.com/tool/outline-install-crx-file.html)
 
