@@ -4,7 +4,7 @@
 ## 安装
 
  - 在 [Chrome 网上应用店](https://chrome.google.com/webstore/detail/ipfcebkfhpkjeikaammlkcnalknjahmh)安装
- - [下载 .crx 安装包](https://github.com/baiy/chrome-tool/releases/latest)手动安装
+ - [下载 .crx 安装包](https://github.com/baiy/chrome-tool/releases/latest)手动安装 [猛戳这里查看手动安装教程](http://www.cnplugins.com/tool/outline-install-crx-file.html)
 
 ## 功能列表
 |功能|说明|离线使用|
