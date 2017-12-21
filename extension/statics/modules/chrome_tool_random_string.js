@@ -35,7 +35,7 @@ layui.define(['chromeTool', 'jquery', 'chromeToolBase'], function (exports) {
                 var chars = "";
                 if (data.option_is_num) chars += "0123456789";
                 if (data.option_is_lowercase) chars += "abcdefghijklmnopqrstuvwxyz";
-                if (data.option_is_lowercase) chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                if (data.option_is_uppercase) chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                 if (data.option_is_punctuation) chars += "`~!@#$%^&*()-_=+[{]}\|;:',<.>/?";
 
                 var random_string_lists = [];
