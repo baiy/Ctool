@@ -145,10 +145,6 @@ layui.define(['laytpl', 'layer', 'jquery', 'element', 'form', 'chromeToolConfig'
             form.render();
         },
         option:function(){
-            // 关于我们链接
-            $("#about").on('click',function(){
-                chrome.tabs.create({url:"https://github.com/baiy/chrome-tool",selected:true});
-            });
             // 新窗口打开
             $("#blank").on('click',function(){
                 chrome.tabs.create({url:window.location.href,selected:true});
