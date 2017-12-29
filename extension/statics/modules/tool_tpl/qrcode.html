@@ -14,7 +14,23 @@
                     </div>
                     <div class="layui-form-item">
                         <button class="layui-btn submit_button">生成</button>
+                        {{#  if(d.getPageData('generate','is_short_url')){ }}
+                        <input type="checkbox" checked="checked" lay-filter="short_url" class="short_url" title="转短链接" lay-skin="primary">
+                        {{#  } else { }}
+                        <input type="checkbox" lay-filter="short_url" class="short_url" title="转短链接" lay-skin="primary">
+                        {{#  } }}
+
                     </div>
+                    {{#  if(d.getPageData('generate','is_short_url')){ }}
+                    <blockquote class="layui-elem-quote short_url_text">
+                        短链接API由 <a href="http://t.cn/" target="_blank">t.cn</a> 提供
+                    </blockquote>
+                    {{#  } else { }}
+                    <blockquote class="layui-elem-quote short_url_text" style="display: none">
+                        短链接API由 <a href="http://t.cn/" target="_blank">t.cn</a> 提供
+                    </blockquote>
+                    {{#  } }}
+
                 </div>
                 <div class="layui-col-xs6">
                     <div class="layui-form-item output_content" style="padding-left: 40px">
