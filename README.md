@@ -4,7 +4,7 @@
 ## 安装
  - 方法1: 在 [Chrome 网上应用店](https://chrome.google.com/webstore/detail/ipfcebkfhpkjeikaammlkcnalknjahmh)安装
  - 方法2: [下载 .crx 安装包](https://github.com/baiy/chrome-tool/releases/latest)手动安装 [猛戳这里查看手动安装教程](http://www.cnplugins.com/tool/outline-install-crx-file.html)
- - 方法3: [百度网盘下载](https://pan.baidu.com/s/1mhWbqWC) 安装方法和方法2一致 
+ - 方法3: [百度网盘下载](https://pan.baidu.com/s/1mhWbqWC) 安装方法和方法2一致
  
 > 方法3 不定期维护 仅供网络环境特别恶劣的同学使用
 
@@ -19,24 +19,44 @@
 |二维码|`生成`,`解析`|√|
 |汉字转拼音|`声调`,`首字母`,`分隔符`|√|
 |IP地址查询|`运营商`,`城市`|`×`|
-|代码格式化|`json`, `xml`, `sql`, `css`|√|
+|代码格式化|`js`, `html`, `css`, `json`, `xml`, `sql`|√|
 |Unicode|双向转换|√|
-|进制转换|2-32进制互转|√|
+|进制转换|2-64进制互转|√|
 |正则表达式|字符匹配|√|
 |随机字符生成器|`批量`,`特殊字符`|√|
+|php数组/序列化|`数组`,`serialize`,`json`|√|
+|文本差异化对比|`行`,`单词`,`css`|√|
 
 ## 第三方开源库
 项目诞生离不开这些优秀的开源程序
-
- - [layui](https://github.com/sentsin/layui/)
- - [jquery](https://github.com/jquery/jquery)
- - [js-base64](https://github.com/dankogai/js-base64)
- - [jquery.format](https://github.com/zachofalltrades/jquery.format)
- - [crypto-js](https://github.com/brix/crypto-js)
- - [pinyinjs](https://github.com/sxei/pinyinjs)
- - [jsqrcode-production](https://github.com/aray894/jsqrcode-production)
- - [qrcodejs](https://github.com/davidshimjs/qrcodejs)
- - [pconline](http://whois.pconline.com.cn/)
+ 
+- [ajax-request](https://www.npmjs.com/package/ajax-request) 
+- [code-formatter](https://www.npmjs.com/package/code-formatter)
+- [crypto-js](https://www.npmjs.com/package/crypto-js)
+- [ipinyinjs](https://www.npmjs.com/package/ipinyinjs) 
+- [is-url](https://www.npmjs.com/package/is-url) 
+- [iview](https://www.npmjs.com/package/iview) 
+- [js-base64](https://www.npmjs.com/package/js-base64) 
+- [lscache](https://www.npmjs.com/package/lscache) 
+- [php-array-parser](https://www.npmjs.com/package/php-array-parser) 
+- [phparr](https://www.npmjs.com/package/phparr) 
+- [qrcode](https://www.npmjs.com/package/qrcode) 
+- [qrcode-parser](https://www.npmjs.com/package/qrcode-parser) 
+- [radix.js](https://www.npmjs.com/package/radix.js)
+- [serialize-php](https://www.npmjs.com/package/serialize-php) 
+- [diff](https://www.npmjs.com/package/diff) 
+- [vue](https://www.npmjs.com/package/vue) 
+- [vue-prismjs](https://www.npmjs.com/package/vue-prismjs) 
+- [vue-router](https://www.npmjs.com/package/vue-router)
+- [taobao](http://ip.taobao.com/)
+- [layui](https://github.com/sentsin/layui/)
+- [jquery](https://github.com/jquery/jquery)
+- [js-base64](https://github.com/dankogai/js-base64)
+- [jquery.format](https://github.com/zachofalltrades/jquery.format)
+- [pinyinjs](https://github.com/sxei/pinyinjs)
+- [jsqrcode-production](https://github.com/aray894/jsqrcode-production)
+- [qrcodejs](https://github.com/davidshimjs/qrcodejs)
+- [pconline](http://whois.pconline.com.cn/)
 
  > 当然项目中还使用很多不知道姓名的大神的代码, 在这里就不一一感谢
  
