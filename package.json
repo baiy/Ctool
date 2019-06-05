@@ -1,6 +1,6 @@
 {
     "name": "chrome-tool",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve --port 8081",
