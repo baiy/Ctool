@@ -38,7 +38,7 @@
 - [iview](https://www.npmjs.com/package/iview) 
 - [js-base64](https://www.npmjs.com/package/js-base64) 
 - [lscache](https://www.npmjs.com/package/lscache) 
-- [php-array-parser](https://www.npmjs.com/package/php-array-parser) 
+- [php-array-reader](https://www.npmjs.com/package/php-array-reader) 
 - [phparr](https://www.npmjs.com/package/phparr) 
 - [qrcode](https://www.npmjs.com/package/qrcode) 
 - [qrcode-parser](https://www.npmjs.com/package/qrcode-parser) 

@@ -23,7 +23,7 @@
 </template>
 <script>
     import jsonToPhpArray from "phparr"
-    import phpArrayToJson from "php-array-parser"
+    import phpArrayToJson from "php-array-reader"
     import phpSerialize from "serialize-php"
 
     export default {
@@ -37,9 +37,10 @@
                     let source = {};
                     try {
                         switch (this.current.source) {
-                            case "phpArray":
-                                source = phpArrayToJson.parse(this.current.input);
+                            case "phpArray": {
+                                source = phpArrayToJson.fromString(this.current.input);
                                 break;
+                            }
                             case "phpSerialize":
                                 source = phpSerialize.unserialize(this.current.input);
                                 break;
