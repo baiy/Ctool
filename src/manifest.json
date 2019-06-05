@@ -3,6 +3,7 @@
     "description": "常用开发工具集合,哈希/加解密/编码转换/时间戳/二维码/拼音/IP查询/代码优化/Unicode/正则等...",
     "version": "##version##",
     "author": "wo@baiy.org",
+    "offline_enabled": true,
     "homepage_url": "https://github.com/baiy/chrome-tool",
     "manifest_version": 2,
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.baiy.org; object-src 'self'",
