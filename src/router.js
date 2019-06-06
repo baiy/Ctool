@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import {trim} from "./helper";
+import {trim,stat} from "./helper";
+
 
 // 路由配置
 const routes = [
@@ -30,5 +31,11 @@ routeComponent.keys().forEach(fileName => {
 Vue.use(Router);
 
 const router = new Router({routes});
+
+stat('index');
+
+router.afterEach(to => {
+    stat('tool',{tool:to.name})
+});
 
 export default router

@@ -4,9 +4,16 @@ const config = {
         index: {
             entry: 'src/main.js',
             template: 'src/index.html',
-            stat: "https://www.baiy.org/chrome_tool/stat.php?version=" + process.env.npm_package_version
         },
-    }
+    },
+    chainWebpack: config => {
+        config.plugin('define').tap(args => {
+            args[0]['process.chromeTool'] = JSON.stringify({
+                version: process.env.npm_package_version,
+            });
+            return args
+        })
+    },
 };
 let fs = require('fs');
 fs.readFile('./src/manifest.json', 'utf8', function (err, files) {

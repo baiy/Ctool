@@ -1,3 +1,5 @@
+import {stringify as queryStringify} from "query-string"
+
 export const trim = function (str, char, type) {
     if (char) {
         if (type === 'left') {
@@ -21,4 +23,22 @@ export const openTab = function (url) {
         return window.open(url);
     }
     chrome.tabs.create({url: url, selected: true});
+};
+
+export const stat = function (action, data = {}) {
+    try {
+        let img = new Image(1, 1);
+        img.src = 'https://www.baiy.org/chrome_tool/stat/?' + queryStringify(
+            Object.assign(
+                {
+                    v: process['chromeTool']['version'],
+                    a: action,
+                    r: Math.random()
+                },
+                data
+            )
+        );
+    } catch (e) {
+        // todo
+    }
 };
