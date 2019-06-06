@@ -60,10 +60,10 @@
             categorySelect(name) {
                 switch (name) {
                     case "_feedback":
-                        openTab("https://github.com/baiy/chrome-tool/issues");
+                        openTab("https://github.com/baiy/Ctool/issues");
                         break;
                     case "_about":
-                        openTab("https://github.com/baiy/chrome-tool");
+                        openTab("https://github.com/baiy/Ctool");
                         break;
                     case "_new":
                         openTab(window.location.href);

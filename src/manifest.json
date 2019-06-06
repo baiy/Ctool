@@ -4,7 +4,7 @@
     "version": "##version##",
     "author": "wo@baiy.org",
     "offline_enabled": true,
-    "homepage_url": "https://github.com/baiy/chrome-tool",
+    "homepage_url": "https://github.com/baiy/Ctool",
     "manifest_version": 2,
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.baiy.org; object-src 'self'",
     "browser_action": {
