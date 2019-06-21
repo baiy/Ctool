@@ -2,20 +2,25 @@
     <div>
         <Menu mode="horizontal" theme="light" :active-name="currentCategory" @on-select="categorySelect" style="height: 45px;line-height: 45px;">
             <MenuItem :name="cat.name" v-for="(cat) in category" :key="cat.name">
-                {{cat.title}}
-            </MenuItem>
-            <Submenu name="_options" style="float: right">
-                <template slot="title">
-                    选项
+                <Badge v-if="badgeCategoryIsShow(cat.name)" dot :offset="[15,-10]">
+                    {{cat.title}}
+                </Badge>
+                <template v-else>
+                    {{cat.title}}
                 </template>
-                <MenuItem name="_about">关于</MenuItem>
-                <MenuItem name="_new">新窗口</MenuItem>
-            </Submenu>
-            <MenuItem name="_feedback" style="float: right">问题反馈</MenuItem>
+            </MenuItem>
+            <MenuItem style="padding: 0 10px;float: right" name="_new">新窗口</MenuItem>
+            <MenuItem style="padding: 0 10px;float: right" name="_feedback">反馈</MenuItem>
+            <MenuItem style="padding: 0 10px;float: right" name="_about"><Icon type="logo-github" :size="24" /></MenuItem>
         </Menu>
         <RadioGroup size="large" :value="currentTool" @on-change="toolSelect" style="margin: 10px 0 10px 20px;line-height: 30px;">
             <Radio :label="tool.name" v-for="(tool) in tools" :key="tool.name">
-                {{tool.title}}
+                <Badge v-if="badgeToolIsShow(tool.name)" dot :offset="[5,-5]">
+                    {{tool.title}}
+                </Badge>
+                <template v-else>
+                    {{tool.title}}
+                </template>
             </Radio>
         </RadioGroup>
         <div>
@@ -78,6 +83,12 @@
             toolSelect(name) {
                 model.setToolHistory(this.currentCategory, name)
                 this.currentTool = name
+            },
+            badgeToolIsShow(tool) {
+                return config.badgeToolIsShow(tool);
+            },
+            badgeCategoryIsShow(cat) {
+                return config.badgeCategoryIsShow(cat);
             }
         },
     }

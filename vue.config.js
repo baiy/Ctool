@@ -8,8 +8,9 @@ const config = {
     },
     chainWebpack: config => {
         config.plugin('define').tap(args => {
-            args[0]['process.chromeTool'] = JSON.stringify({
+            args[0]['process.ctool'] = JSON.stringify({
                 version: process.env.npm_package_version,
+                updateTime: Date.parse((new Date()).toString())/1000,
             });
             return args
         })

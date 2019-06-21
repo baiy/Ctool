@@ -66,6 +66,10 @@ const routes = [
         path: "/tool/url",
         component: r => require(['./views/tool/url.vue'], r)
     },
+    {
+        path: "/tool/crontab",
+        component: r => require(['./views/tool/crontab.vue'], r)
+    },
 ];
 
 const router = new Router({routes});

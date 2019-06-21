@@ -1,6 +1,6 @@
 {
     "name": "c-tool",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve --port 8081",
@@ -10,6 +10,8 @@
     "dependencies": {
         "ajax-request": "^1.2.3",
         "code-formatter": "0.0.1",
+        "cron-parser": "^2.12.0",
+        "cronstrue": "^1.72.0",
         "crypto-js": "^3.1.9-1",
         "diff": "^4.0.1",
         "ipinyinjs": "^1.0.0",
