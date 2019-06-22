@@ -70,6 +70,10 @@ const routes = [
         path: "/tool/crontab",
         component: r => require(['./views/tool/crontab.vue'], r)
     },
+    {
+        path: "/tool/websocket",
+        component: r => require(['./views/tool/websocket.vue'], r)
+    },
 ];
 
 const router = new Router({routes});

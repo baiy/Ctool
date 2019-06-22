@@ -40,7 +40,8 @@ const tool = [
     {"name": "randomString", "title": "随机字符生成", cat: ["other"]},
     {"name": "phpArraySerialize", "title": "PHP数组/序列化", cat: ["conversion"]},
     {"name": "diffs", "title": "文本差异化对比", cat: ["other"]},
-    {"name": "crontab", "title": "Crontab校验工具", cat: ["other"]},
+    {"name": "crontab", "title": "crontab校验", cat: ["other"]},
+    {"name": "websocket", "title": "websocket调试", cat: ["other"]},
 ];
 
 // 徽章是否显示
