@@ -51,20 +51,22 @@ export const env = function (key) {
 };
 
 export const stat = function (action, data = {}) {
-    try {
-        let img = new Image(1, 1);
-        img.src = 'https://www.baiy.org/chrome_tool/stat/?' + queryStringify(
-            Object.assign(
-                {
-                    v: env('version'),
-                    a: action,
-                    r: Math.random()
-                },
-                data
-            )
-        );
-    } catch (e) {
-        // todo
-    }
+    setTimeout(function () {
+        try {
+            let img = new Image(1, 1);
+            img.src = 'https://www.baiy.org/chrome_tool/stat/?' + queryStringify(
+                Object.assign(
+                    {
+                        v: env('version'),
+                        a: action,
+                        r: Math.random()
+                    },
+                    data
+                )
+            );
+        } catch (e) {
+            // todo
+        }
+    }, 3000)
 };
 
