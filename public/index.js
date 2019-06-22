@@ -1,1 +1,3 @@
-window.location = "/tool.html";
+setTimeout(function () {
+    window.location = "/tool.html";
+}, 1);
