@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
-import router from './router'
+import router from './tool.router'
 import optionBlock from './components/optionBlock'
 import codeHighlight from './components/codeHighlight'
 import {plugin as modelPlugin} from './tool/model'
-import App from './Tool.vue'
+import App from './tool.vue'
 
 Vue.config.productionTip = false;
 

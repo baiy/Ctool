@@ -4,6 +4,10 @@ const config = {
         tool: {
             entry: 'src/tool.js',
             template: 'public/tool.html',
+        },
+        setting: {
+            entry: 'src/setting.js',
+            template: 'public/setting.html',
         }
     },
     chainWebpack: config => {

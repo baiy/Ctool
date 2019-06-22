@@ -14,5 +14,12 @@ export default {
     get(name, defaultValue = null) {
         let data = lsCache.get(cacheNameConvert(name));
         return data ? data : defaultValue
+    },
+    setnNoVersion(name, value, expiry = 0) {
+        return lsCache.set('nv_' + name, value, expiry / 60);
+    },
+    getNoVersion(name, defaultValue = null) {
+        let data = lsCache.get('nv_' + name);
+        return data ? data : defaultValue
     }
 }
