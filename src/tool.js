@@ -5,7 +5,7 @@ import router from './router'
 import optionBlock from './components/optionBlock'
 import codeHighlight from './components/codeHighlight'
 import {plugin as modelPlugin} from './tool/model'
-import App from './App.vue'
+import App from './Tool.vue'
 
 Vue.config.productionTip = false;
 

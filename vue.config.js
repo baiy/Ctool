@@ -1,10 +1,10 @@
 const config = {
     productionSourceMap: true,
     pages: {
-        index: {
-            entry: 'src/main.js',
-            template: 'src/index.html',
-        },
+        tool: {
+            entry: 'src/tool.js',
+            template: 'public/tool.html',
+        }
     },
     chainWebpack: config => {
         config.plugin('define').tap(args => {
