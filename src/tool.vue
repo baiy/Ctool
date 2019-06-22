@@ -9,9 +9,10 @@
                     {{cat.title}}
                 </template>
             </MenuItem>
-            <MenuItem style="padding: 0 10px;float: right" name="_new">新窗口</MenuItem>
-            <MenuItem style="padding: 0 10px;float: right" name="_feedback">反馈</MenuItem>
-            <MenuItem style="padding: 0 10px;float: right" name="_about"><Icon type="logo-github" :size="24" /></MenuItem>
+            <MenuItem style="padding: 0 5px;float: right" name="_new"><Icon type="md-expand" :size="24" /></MenuItem>
+            <MenuItem style="padding: 0 5px;float: right" name="_feedback"><Icon type="md-help-circle" :size="24" /></MenuItem>
+            <MenuItem style="padding: 0 5px;float: right" name="_setting"><Icon type="md-settings" :size="24" /></MenuItem>
+            <MenuItem style="padding: 0 5px;float: right" name="_about"><Icon type="logo-github" :size="24" /></MenuItem>
         </Menu>
         <RadioGroup size="large" :value="currentTool" @on-change="toolSelect" style="margin: 10px 0 10px 20px;line-height: 30px;">
             <Radio :label="tool.name" v-for="(tool) in tools" :key="tool.name">
@@ -69,6 +70,9 @@
                         break;
                     case "_about":
                         openTab("https://github.com/baiy/Ctool");
+                        break;
+                    case "_setting":
+                        openTab("/setting.html");
                         break;
                     case "_new":
                         openTab(window.location.href);
