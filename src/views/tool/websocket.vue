@@ -29,10 +29,10 @@
                 <div class="lists-block" id="log" style="height: 300px;overflow: hidden;overflow-y:auto;">
                     <div v-for="(item,key) in lists" :key="key">
                         <div class="item" v-if="item.type === 'send'" style="color:green">
-                            你发送的信息 {{item.time}}
+                            你 {{item.time}}
                         </div>
                         <div class="item" v-else-if="item.type === 'accept'" style="color:blue">
-                            服务端响应消息 {{item.time}}
+                            服务端 {{item.time}}
                         </div>
                         <div class="item" v-else>
                             {{item.time}}
