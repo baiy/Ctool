@@ -8,7 +8,7 @@ export const BADGE_EXPIRY = 10;
 // 分类徽章
 export const BADGE_CATEGORY = ["other"];
 // 工具徽章
-export const BADGE_TOOL = ["crontab"];
+export const BADGE_TOOL = ["websocket"];
 // 默认常用工具
 export const DEFAULT_COMMON_TOOL = [
     "hash", "encrypt", "base64", "url", "timestamp",
