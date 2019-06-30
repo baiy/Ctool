@@ -25,7 +25,7 @@
                 } else {
                     let newDate = new Date();
                     newDate.setTime(this.current.input * 1000);
-                    this.current.output = this.formatDate(newDate);
+                    this.current.output = formatDate(newDate);
                 }
                 this.$clipboardCopy(this.current.output);
                 this.$saveToolData(this.current);
