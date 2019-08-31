@@ -1,6 +1,6 @@
 {
     "name": "c-tool",
-    "version": "0.0.15",
+    "version": "0.0.17",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve --port 8081",
@@ -10,8 +10,8 @@
     "dependencies": {
         "ajax-request": "^1.2.3",
         "code-formatter": "0.0.1",
-        "cron-parser": "^2.12.0",
-        "cronstrue": "^1.72.0",
+        "cron-parser": "^2.13.0",
+        "cronstrue": "^1.83.0",
         "crypto-js": "^3.1.9-1",
         "diff": "^4.0.1",
         "ipinyinjs": "^1.0.0",
@@ -21,22 +21,22 @@
         "lscache": "^1.3.0",
         "php-array-reader": "^1.2.0",
         "phparr": "^0.2.0",
-        "qrcode": "^1.3.3",
+        "qrcode": "^1.4.1",
         "qrcode-parser": "^1.2.0",
-        "query-string": "^6.8.1",
+        "query-string": "^6.8.2",
         "radix.js": "0.0.1",
         "serialize-php": "^1.1.2",
         "vue": "^2.6.10",
         "vue-prismjs": "^1.2.0",
-        "vue-router": "^3.0.1"
+        "vue-router": "^3.1.3"
     },
     "devDependencies": {
-        "@vue/cli-plugin-babel": "^3.5.5",
-        "@vue/cli-plugin-eslint": "^3.5.0",
-        "@vue/cli-service": "^3.8.4",
-        "babel-eslint": "^10.0.2",
+        "@vue/cli-plugin-babel": "^3.11.0",
+        "@vue/cli-plugin-eslint": "^3.11.0",
+        "@vue/cli-service": "^3.11.0",
+        "babel-eslint": "^10.0.3",
         "eslint": "^5.16.0",
-        "eslint-plugin-vue": "^5.0.0",
+        "eslint-plugin-vue": "^5.2.3",
         "vue-cli-plugin-iview": "^1.0.6",
         "vue-template-compiler": "^2.6.10"
     },
