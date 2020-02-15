@@ -8,7 +8,7 @@ export const BADGE_EXPIRY = 10
 // 分类徽章
 export const BADGE_CATEGORY = ['other']
 // 工具徽章
-export const BADGE_TOOL = ['unit']
+export const BADGE_TOOL = ['time']
 // 默认常用工具
 export const DEFAULT_COMMON_TOOL = [
     'hash', 'encrypt', 'base64', 'url', 'timestamp',
@@ -43,6 +43,7 @@ const tool = [
     { 'name': 'crontab', 'title': 'crontab校验', cat: ['other'] },
     { 'name': 'websocket', 'title': 'websocket调试', cat: ['other'] },
     { 'name': 'unit', 'title': '单位换算', cat: ['other'] },
+    { 'name': 'time', 'title': '时间计算器', cat: ['other'] },
 ]
 
 // 徽章是否显示
