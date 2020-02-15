@@ -63,7 +63,6 @@
                         this.current.output = moment(parseInt(this.current.input)).format('YYYY-MM-DD HH:mm:ss.SSS')
                         break
                 }
-                console.log(type)
                 this.$clipboardCopy(this.current.output)
                 this.$saveToolData(this.current)
             },
