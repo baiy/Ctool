@@ -1,13 +1,21 @@
 <template>
   <div>
-    <Input v-model="current.input" :rows="7" type="textarea" placeholder="内容(标准时间(YYYY-MM-DD HH:mm:s[.SSS])/时间戳(秒/毫秒))"></Input>
+    <Input v-model="current.input" :rows="7" type="textarea" placeholder="内容(标准时间(YYYY-MM-DD HH:mm:ss[.SSS])/时间戳(秒/毫秒))"></Input>
     <option-block>
       <FormItem>
-        <ButtonGroup>
           <Button type="primary" @click="handle()">转换</Button>
-          <Button type="primary" @click="currentTime('second')">当前时间(秒)</Button>
-          <Button type="primary" @click="currentTime('millisecond')">当前时间(毫秒)</Button>
-        </ButtonGroup>
+          <Dropdown style="margin-left: 10px" @on-click="currentTime">
+            <Button type="primary">
+              当前时间
+              <Icon type="ios-arrow-down"></Icon>
+            </Button>
+            <DropdownMenu slot="list">
+              <DropdownItem name="normalSecond">标准时间(秒)</DropdownItem>
+              <DropdownItem name="normalMillisecond">标准时间(毫秒)</DropdownItem>
+              <DropdownItem name="unixSecond">UNIX时间戳(秒)</DropdownItem>
+              <DropdownItem name="unixMillisecond">UNIX时间戳(毫秒)</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
       </FormItem>
     </option-block>
     <Input v-model="current.output" :rows="7" type="textarea" placeholder="结果"></Input>
@@ -67,11 +75,17 @@
                 this.$saveToolData(this.current)
             },
             currentTime (type) {
-                if(type === "second"){
+                if(type === "normalSecond"){
                     this.current.input = moment().format('YYYY-MM-DD HH:mm:ss')
                 }
-                else{
+                else if(type === "normalMillisecond"){
                     this.current.input = moment().format('YYYY-MM-DD HH:mm:ss.SSS')
+                }
+                else if(type === "unixSecond"){
+                    this.current.input = moment().format('X')
+                }
+                else{
+                    this.current.input = moment().format('x')
                 }
                 this.handle();
             },
