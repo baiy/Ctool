@@ -29,6 +29,7 @@
 |crontab校验|`Crontab`,`规则`,`校验`,`例子`|√|
 |websocket调试|`websocket`,`在线调试`|×|
 |单位换算|`长度`,`面积`,`体积`,`质量`,`温度`,`压力`,`功率`,`功`,`密度`,`力`,`时间`,`速度`,`数据存储`,`角度`|√|
+|时间计算器| - |√|
 
 ## 第三方开源库
 项目诞生离不开这些优秀的开源程序
@@ -60,6 +61,7 @@
 - [jsqrcode-production](https://github.com/aray894/jsqrcode-production)
 - [qrcodejs](https://github.com/davidshimjs/qrcodejs)
 - [pconline](http://whois.pconline.com.cn/)
+- [moment](https://momentjs.com/)
 
  > 当然项目中还使用很多不知道姓名的大神的代码, 在这里就不一一感谢
  
