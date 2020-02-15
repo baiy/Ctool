@@ -26,7 +26,7 @@
 <script>
     import cronstrue from 'cronstrue/i18n';
     import parser from 'cron-parser';
-    import {formatDate} from "../../helper";
+    import moment from "moment"
 
     export default {
         computed: {
@@ -38,7 +38,8 @@
                     list.push("\n最近10次执行时间");
                     let interval = parser.parseExpression(this.current.input);
                     for (let i = 1; i <= 10; i++) {
-                        list.push(`第${i}次: ` + formatDate(new Date(interval.next().toString())))
+                        console.log(interval.next().toString())
+                        list.push(`第${i}次: ` +  moment(interval.next().toString()).format("YYYY-MM-DD HH:mm:ss"))
                     }
                     this.$saveToolData(this.current);
                 } catch (err) {

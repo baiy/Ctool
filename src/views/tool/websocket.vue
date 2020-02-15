@@ -48,7 +48,7 @@
     </Row>
 </template>
 <script>
-    import {formatDate} from "../../helper";
+    import moment from 'moment'
 
     export default {
         created() {
@@ -84,7 +84,7 @@
                 this.lists = [];
             },
             log(content, type = "other") {
-                this.lists.push({content, type,time:formatDate(new Date())});
+                this.lists.push({content, type,time:moment().format("YYYY-MM-DD HH:mm:ss")});
                 this.$nextTick(() => {
                     let log = document.getElementById('log');
                     log.scrollTop = log.scrollHeight;
