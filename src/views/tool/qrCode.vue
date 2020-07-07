@@ -21,18 +21,10 @@
                   </DropdownMenu>
                 </Dropdown>
               </FormItem>
-              <FormItem>
-                <Checkbox v-model="current.generateIsShort">生成短连接</Checkbox>
-              </FormItem>
-              <FormItem v-if="current.generateIsShort">
-                <Alert>短链接API由 t.cn 提供</Alert>
-              </FormItem>
             </option-block>
           </Col>
           <Col span="10">
             <div style="text-align: center" v-html="current.generateOutput"></div>
-            <p style="text-align: center" v-if="current.generateIsShort && current.generateShortUrl">
-              短连接:{{current.generateShortUrl}}</p>
           </Col>
         </Row>
       </TabPane>
@@ -135,36 +127,14 @@
                 }
                 let history = this.generateHistory.getValue(index)
                 this.current.generateInput = history.input
-                this.current.generateIsShort = history.isShort
                 this.generate(false)
             },
             generate (insertHistory = true) {
                 if (!this.current.generateInput) return
-                if (this.current.generateIsShort) {
-                    if (!isUrl(this.current.generateInput)) {
-                        return this.$Message.error('生成短连接的内容是url')
-                    }
-                    request({
-                        url: 'http://api.t.sina.com.cn/short_url/shorten.json',
-                        data: { 'source': '2815391962', 'url_long': this.current.generateInput },
-                    }, (err, res, result) => {
-                        if (err) return this.$Message.error('二维码短连接生成错误:' + err)
-                        result = JSON.parse(result)
-                        if (!result[0]['url_short']) {
-                            return this.$Message.error('短连接生成错误')
-                        } else {
-                            this.current.generateShortUrl = result[0]['url_short']
-                            this.generateHandle(this.current.generateShortUrl)
-                        }
-                    })
-                } else {
-                    this.current.generateShortUrl = ''
-                    this.generateHandle(this.current.generateInput)
-                }
+                this.generateHandle(this.current.generateInput)
                 if (insertHistory) {
                     this.generateHistory.push({
-                        input: this.current.generateInput,
-                        isShort: this.current.generateIsShort,
+                        input: this.current.generateInput
                     })
                 }
                 this.$saveToolData(this.current)
