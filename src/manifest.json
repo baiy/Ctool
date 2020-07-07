@@ -21,9 +21,6 @@
     "permissions": [
         "clipboardWrite",
         "clipboardRead",
-        "contextMenus",
-        "webRequest",
-        "webRequestBlocking",
         "storage"
     ],
     "update_url": "http://clients2.google.com/service/update2/crx"
