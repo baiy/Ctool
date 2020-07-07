@@ -16,7 +16,7 @@
                     <Icon type="ios-arrow-down"></Icon>
                   </a>
                   <DropdownMenu slot="list">
-                    <DropdownItem v-for="(v,i) in generateHistory.lists()" :v-key="i" :name="i">{{substr(v.input)}}</DropdownItem>
+                    <DropdownItem v-for="(v,i) in generateHistory.lists()" :key="i" :name="i">{{substr(v.input)}}</DropdownItem>
                     <DropdownItem divided name="clear">清空历史记录</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>

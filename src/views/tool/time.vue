@@ -20,7 +20,7 @@
           <FormItem>
             <Input v-model="poor">
               <Select transfer v-model="current.poor.unit" slot="append" style="width: 60px">
-                <Option v-for="v in poorUnit" :value="v.v" :v-key="v.v">{{v.n}}</Option>
+                <Option v-for="v in poorUnit" :value="v.v" :key="v.v">{{v.n}}</Option>
               </Select>
             </Input>
           </FormItem>
@@ -44,7 +44,7 @@
           <FormItem>
             <Input v-model="current.duration.length" type="number" number>
               <Select transfer v-model="current.duration.unit" slot="append" style="width: 60px">
-                <Option v-for="v in poorUnit" :value="v.v" :v-key="v.v">{{v.n}}</Option>
+                <Option v-for="v in poorUnit" :value="v.v" :key="v.v">{{v.n}}</Option>
               </Select>
             </Input>
           </FormItem>
