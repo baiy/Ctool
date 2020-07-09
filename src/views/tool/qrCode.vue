@@ -53,9 +53,7 @@
 <script>
     import generator from 'qrcode'
     import qrcodeParser from 'qrcode-parser'
-    import request from 'ajax-request'
     import cache from '../../tool/cache'
-    import isUrl from 'is-url'
     import { trim } from '../../helper'
 
     const generateHistoryCacheName = 'qrCodeGenerateHistoryCacheName'
@@ -179,8 +177,6 @@
                 current: {
                     generateInput: '',
                     generateOutput: '',
-                    generateIsShort: false,
-                    generateShortUrl: '',
                     readerInput: '',
                     readerOutput: '',
                     operation: 'generate',
