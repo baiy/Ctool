@@ -30,8 +30,11 @@
             handle() {
                 if (this.current.input) {
                     request({
-                        url:"http://ip.taobao.com/service/getIpInfo.php",
-                        data:{"ip":this.current.input === "localhost" ? 'myip' : this.current.input},
+                        url:"http://ip.taobao.com/outGetIpInfo",
+                        data:{
+                            "ip":this.current.input === "localhost" ? 'myip' : this.current.input,
+                            "accessKey": "alibaba-inc"
+                        },
                     },(err, res, result)=>{
                         if (err) return this.$Message.error("ip地址信息查询错误:"+err);
                         this.current.output = JSON.stringify(JSON.parse(result),null, 4);
