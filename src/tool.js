@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import iView from 'iview'
-import 'iview/dist/styles/iview.css'
+import ViewUI from 'view-design';
+import 'view-design/dist/styles/iview.css';
 import router from './tool.router'
 import optionBlock from './components/optionBlock'
 import codeHighlight from './components/codeHighlight'
@@ -9,7 +9,7 @@ import App from './tool.vue'
 
 Vue.config.productionTip = false;
 
-Vue.use(iView);
+Vue.use(ViewUI);
 Vue.use(modelPlugin);
 Vue.component('option-block',optionBlock);
 Vue.component('code-highlight',codeHighlight);

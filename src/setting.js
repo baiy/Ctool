@@ -1,11 +1,11 @@
 import Vue from 'vue'
-import iView from 'iview'
-import 'iview/dist/styles/iview.css'
+import ViewUI from 'view-design';
+import 'view-design/dist/styles/iview.css';
 import App from './setting.vue'
 
 Vue.config.productionTip = false;
 
-Vue.use(iView);
+Vue.use(ViewUI);
 
 new Vue({
     render: h => h(App)
