@@ -21,7 +21,6 @@
     "permissions": [
         "clipboardWrite",
         "clipboardRead",
-        "webRequest",
         "storage",
         "http://ip.taobao.com/*"
     ],
