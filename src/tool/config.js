@@ -6,21 +6,21 @@ export const TOOL_DATA_EXPIRY = 1800
 // 徽章过期时间(天)
 export const BADGE_EXPIRY = 10
 // 分类徽章
-export const BADGE_CATEGORY = ['other']
+export const BADGE_CATEGORY = ['json']
 // 工具徽章
-export const BADGE_TOOL = ['time']
+export const BADGE_TOOL = ['json']
 // 默认常用工具
 export const DEFAULT_COMMON_TOOL = [
-    'hash', 'encrypt', 'base64', 'url', 'timestamp',
+    'hash', 'encrypt', 'json' ,'base64', 'url', 'timestamp',
     'qrCode', 'pinyin', 'ip', 'code', 'unicode',
-    'decimalConvert', 'regex', 'randomString', 'phpArraySerialize',
-    'diffs'
+    'decimalConvert', 'randomString','diffs'
 ]
 
 const category = [
     { 'name': 'common', 'title': '常用工具' },
     { 'name': 'encryption', 'title': '加密解密' },
     { 'name': 'conversion', 'title': '编码转换' },
+    { 'name': 'json', 'title': 'JSON' },
     { 'name': 'other', 'title': '其他工具' },
 ]
 
@@ -28,6 +28,7 @@ const tool = [
     { 'name': 'hash', 'title': '哈希(hash)', cat: ['encryption'] },
     { 'name': 'encrypt', 'title': '加密/解密', cat: ['encryption'] },
     { 'name': 'base64', 'title': 'BASE64编码', cat: ['encryption'] },
+    { 'name': 'json', 'title': 'JSON常用工具', cat: ['conversion','json'] },
     { 'name': 'url', 'title': 'URL编码', cat: ['conversion'] },
     { 'name': 'timestamp', 'title': '时间戳', cat: ['conversion'] },
     { 'name': 'qrCode', 'title': '二维码', cat: ['other'] },
@@ -38,7 +39,7 @@ const tool = [
     { 'name': 'decimalConvert', 'title': '进制转换', cat: ['conversion'] },
     { 'name': 'regex', 'title': '正则表达式', cat: ['other'] },
     { 'name': 'randomString', 'title': '随机字符生成', cat: ['other'] },
-    { 'name': 'phpArraySerialize', 'title': 'PHP数组/序列化', cat: ['conversion'] },
+    { 'name': 'phpArraySerialize', 'title': 'PHP数组/序列化', cat: ['conversion','json'] },
     { 'name': 'diffs', 'title': '文本差异化对比', cat: ['other'] },
     { 'name': 'crontab', 'title': 'crontab校验', cat: ['other'] },
     { 'name': 'websocket', 'title': 'websocket调试', cat: ['other'] },
