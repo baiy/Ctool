@@ -81,6 +81,10 @@ const routes = [
     {
         path: '/tool/time',
         component: r => require(['./views/tool/time.vue'], r)
+    },
+    {
+        path: '/tool/json',
+        component: r => require(['./views/tool/json.vue'], r)
     }
 ]
 
