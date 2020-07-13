@@ -19,7 +19,7 @@
 |二维码|`生成`,`解析`|√|
 |汉字转拼音|`声调`,`首字母`,`分隔符`|√|
 |IP地址查询|`运营商`,`城市`|`×`|
-|代码格式化|`js`, `html`, `css`, `json`, `xml`, `sql`|√|
+|代码格式化|`js`, `html`, `css`, `xml`, `sql`, `压缩`|√|
 |Unicode|双向转换|√|
 |进制转换|2-64进制互转|√|
 |正则表达式|字符匹配|√|
@@ -30,6 +30,7 @@
 |websocket调试|`websocket`,`在线调试`|×|
 |单位换算|`长度`,`面积`,`体积`,`质量`,`温度`,`压力`,`功率`,`功`,`密度`,`力`,`时间`,`速度`,`数据存储`,`角度`|√|
 |时间计算器| - |√|
+|JSON工具|`格式化`,`校验`,`压缩`,`转义`,`去除转义`,`Unicode转中文`,`中文转Unicode`,`转GET参数`|√|
 
 ## 第三方开源库
 项目诞生离不开这些优秀的开源程序
@@ -50,7 +51,6 @@
 - [serialize-php](https://www.npmjs.com/package/serialize-php) 
 - [diff](https://www.npmjs.com/package/diff) 
 - [vue](https://www.npmjs.com/package/vue) 
-- [vue-prismjs](https://www.npmjs.com/package/vue-prismjs) 
 - [vue-router](https://www.npmjs.com/package/vue-router)
 - [taobao](http://ip.taobao.com/)
 - [layui](https://github.com/sentsin/layui/)
@@ -62,6 +62,7 @@
 - [qrcodejs](https://github.com/davidshimjs/qrcodejs)
 - [pconline](http://whois.pconline.com.cn/)
 - [moment](https://momentjs.com/)
+- [vue-codemirror](https://www.npmjs.com/package/vue-codemirror)
 
  > 当然项目中还使用很多不知道姓名的大神的代码, 在这里就不一一感谢
  

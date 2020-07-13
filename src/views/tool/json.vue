@@ -30,7 +30,7 @@
             this.current = Object.assign(this.current, this.$getToolData('content'))
         },
         mounted(){
-            this.codemirror.setSize(null, 385)
+            this.codemirror.setSize(null, 350)
         },
         computed: {
             codemirror() {

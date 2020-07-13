@@ -14,17 +14,36 @@
                 <Alert>ip信息来源 <a href="http://ip.taobao.com/" target="_blank">http://ip.taobao.com/</a></Alert>
             </FormItem>
         </option-block>
-        <div>
-            <code-highlight lang="json" :code="this.current.output"></code-highlight>
+        <div style="border: 1px solid #dcdee2;border-radius: 4px;">
+            <codemirror ref="code" v-model="current.output" :options="options"></codemirror>
         </div>
     </div>
 </template>
 <script>
     import request from "ajax-request"
+    import { codemirror } from 'vue-codemirror'
+    import 'codemirror/lib/codemirror.css'
+    import 'codemirror/mode/javascript/javascript.js'
+    import 'codemirror/addon/fold/foldcode.js'
+    import 'codemirror/addon/fold/foldgutter.js'
+    import 'codemirror/addon/fold/brace-fold.js'
+    import 'codemirror/addon/fold/comment-fold.js'
+    import 'codemirror/addon/fold/foldgutter.css'
 
     export default {
+        components: {
+            codemirror,
+        },
         created() {
             this.current = Object.assign(this.current,this.$getToolData("input"))
+        },
+        mounted(){
+            this.codemirror.setSize(null, 350)
+        },
+        computed: {
+            codemirror() {
+                return this.$refs.code.codemirror
+            }
         },
         methods: {
             handle() {
@@ -52,6 +71,14 @@
                 current:{
                     input: "",
                     output: "",
+                },
+                options: {
+                    mode: 'application/json',
+                    lineNumbers: true,
+                    lineWrapping: false,
+                    foldGutter: true,
+                    indentUnit: 4,
+                    gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
                 },
             }
         },
