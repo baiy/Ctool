@@ -28,7 +28,7 @@ const tool = [
     { 'name': 'hash', 'title': '哈希(hash)', cat: ['encryption'] },
     { 'name': 'encrypt', 'title': '加密/解密', cat: ['encryption'] },
     { 'name': 'base64', 'title': 'BASE64编码', cat: ['encryption'] },
-    { 'name': 'json', 'title': 'JSON常用工具', cat: ['conversion','json'] },
+    { 'name': 'json', 'title': 'JSON工具', cat: ['conversion','json'] },
     { 'name': 'url', 'title': 'URL编码', cat: ['conversion'] },
     { 'name': 'timestamp', 'title': '时间戳', cat: ['conversion'] },
     { 'name': 'qrCode', 'title': '二维码', cat: ['other'] },

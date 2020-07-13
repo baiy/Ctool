@@ -34,7 +34,6 @@
         "view-design": "^4.0.0",
         "vue": "^2.6.11",
         "vue-codemirror": "^4.0.6",
-        "vue-prismjs": "^1.2.0",
         "vue-router": "^3.3.4"
     },
     "devDependencies": {
