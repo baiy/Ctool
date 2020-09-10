@@ -1,6 +1,6 @@
 {
     "name": "c-tool",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve --port 8081",
@@ -30,6 +30,7 @@
         "query-string": "^6.13.1",
         "radix.js": "0.0.1",
         "serialize-php": "^1.1.2",
+        "sm-crypto": "^0.1.4",
         "system": "^2.0.1",
         "view-design": "^4.3.2",
         "vue": "^2.6.12",

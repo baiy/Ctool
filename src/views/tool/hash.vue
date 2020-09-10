@@ -33,6 +33,9 @@
                         case "sha512":
                             this.current.output = crypto.SHA512(this.current.input).toString();
                             break;
+                        case "sm3":
+                            this.current.output = require('sm-crypto').sm3(this.current.input);
+                            break;
                         default:
                             return;
                     }
@@ -49,7 +52,7 @@
                     output: "",
                     operation:""
                 },
-                type: ['md5', 'sha1', 'sha256', 'sha512']
+                type: ['md5', 'sha1', 'sha256', 'sha512',"sm3"]
             }
         },
     }
