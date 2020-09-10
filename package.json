@@ -44,7 +44,7 @@
         "eslint": "^5.16.0",
         "eslint-plugin-vue": "^5.2.3",
         "vue-cli-plugin-iview": "^1.0.6",
-        "vue-template-compiler": "^2.6.11"
+        "vue-template-compiler": "^2.6.12"
     },
     "eslintConfig": {
         "root": true,
