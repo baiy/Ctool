@@ -11,8 +11,8 @@
 ## 功能列表
 |功能|说明|离线使用|
 |---|---|---|
-|哈希|`md5`, `sha1`, `sha256`, `sha512`|√|
-|加密/解密|`AES`,`DES`,`RC4`,`Rabbit`,`TripleDes`|√|
+|哈希|`md5`, `sha1`, `sha256`, `sha512`,`sm3`|√|
+|加密/解密|`AES`,`DES`,`RC4`,`Rabbit`,`TripleDes`,`sm2`|√|
 |BASE64编码|`加密`,`解密`|√|
 |URL编码|`编码`,`解码`|√|
 |时间戳|双向转换|√|
@@ -63,6 +63,7 @@
 - [pconline](http://whois.pconline.com.cn/)
 - [moment](https://momentjs.com/)
 - [vue-codemirror](https://www.npmjs.com/package/vue-codemirror)
+- [sm-crypto](https://github.com/JuneAndGreen/sm-crypto)
 
  > 当然项目中还使用很多不知道姓名的大神的代码, 在这里就不一一感谢
  
