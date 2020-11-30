@@ -9,18 +9,6 @@
               <FormItem>
                 <Button type="primary" @click="generate()">生成</Button>
               </FormItem>
-              <FormItem v-if="generateHistory.length() > 0">
-                <Dropdown placement="top-start" trigger="click" style="margin-left: 10px" @on-click="history">
-                  <a href="javascript:void(0)">
-                    历史记录
-                    <Icon type="ios-arrow-down"></Icon>
-                  </a>
-                  <DropdownMenu slot="list">
-                    <DropdownItem v-for="(v,i) in generateHistory.lists()" :key="i" :name="i">{{substr(v.input)}}</DropdownItem>
-                    <DropdownItem divided name="clear">清空历史记录</DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-              </FormItem>
             </option-block>
           </Col>
           <Col span="10">
@@ -53,56 +41,7 @@
 <script>
     import generator from 'qrcode'
     import qrcodeParser from 'qrcode-parser'
-    import cache from '../../tool/cache'
     import { trim } from '../../helper'
-
-    const generateHistoryCacheName = 'qrCodeGenerateHistoryCacheName'
-    const generateHistoryMaxLength = 15
-
-    class generateHistory {
-        data = []
-
-        constructor () {
-            this.data = cache.get(generateHistoryCacheName, [])
-        }
-
-        find (value) {
-            for (let i = 0; i < this.data.length; i++) {
-                if (this.data[i].input === value.input && this.data[i].isShort === value.isShort) {
-                    return true
-                }
-            }
-            return false
-        }
-
-        push (value) {
-            if (this.find(value)) {
-                return
-            }
-            if (this.data.length > generateHistoryMaxLength) {
-                this.data.pop()
-            }
-            this.data.push(value)
-            cache.set(generateHistoryCacheName, this.data, 86400)
-        }
-
-        getValue (index) {
-            return this.data[index]
-        }
-
-        lists () {
-            return this.data
-        }
-
-        length () {
-            return this.data.length
-        }
-
-        clear () {
-            this.data = []
-            cache.remove(generateHistoryCacheName)
-        }
-    }
 
     export default {
         computed: {
@@ -114,27 +53,12 @@
             },
         },
         created () {
-            this.generateHistory = new generateHistory()
             this.current = Object.assign(this.current, this.$getToolData())
         },
         methods: {
-            history (index) {
-                if (index === 'clear') {
-                    this.generateHistory.clear()
-                    return
-                }
-                let history = this.generateHistory.getValue(index)
-                this.current.generateInput = history.input
-                this.generate(false)
-            },
-            generate (insertHistory = true) {
+            generate () {
                 if (!this.current.generateInput) return
                 this.generateHandle(this.current.generateInput)
-                if (insertHistory) {
-                    this.generateHistory.push({
-                        input: this.current.generateInput
-                    })
-                }
                 this.$saveToolData(this.current)
             },
             reader () {
@@ -173,7 +97,6 @@
         },
         data () {
             return {
-                generateHistory: {},
                 current: {
                     generateInput: '',
                     generateOutput: '',

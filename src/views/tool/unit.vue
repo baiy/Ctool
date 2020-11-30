@@ -134,7 +134,6 @@
                 this.$saveToolData(history)
             },
             getToolData () {
-                console.log(this.$getToolData())
                 let type = this.current.type
                 let history = this.$getToolData()
                 let unitHistory = history['data'] && history['data'][type] ? history['data'][type] : null

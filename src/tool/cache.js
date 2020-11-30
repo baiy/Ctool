@@ -18,7 +18,7 @@ export default {
     remove (name) {
         lsCache.remove(cacheNameConvert(name))
     },
-    setnNoVersion (name, value, expiry = 0) {
+    setNoVersion (name, value, expiry = 0) {
         return lsCache.set('nv_' + name, value, expiry / 60)
     },
     getNoVersion (name, defaultValue = null) {
