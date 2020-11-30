@@ -2,18 +2,18 @@ import { env, inArray } from '../helper'
 import cache from './cache'
 
 // 工具缓存数据过期时间(秒)
-export const TOOL_DATA_EXPIRY = 1800
+export const TOOL_DATA_EXPIRY = 3600 * 24
 // 徽章过期时间(天)
 export const BADGE_EXPIRY = 10
 // 分类徽章
-export const BADGE_CATEGORY = ['json']
+export const BADGE_CATEGORY = []
 // 工具徽章
-export const BADGE_TOOL = ['json']
+export const BADGE_TOOL = []
 // 默认常用工具
 export const DEFAULT_COMMON_TOOL = [
-    'hash', 'encrypt', 'json' ,'base64', 'url', 'timestamp',
+    'hash', 'encrypt', 'json', 'base64', 'url', 'timestamp',
     'qrCode', 'pinyin', 'ip', 'code', 'unicode',
-    'decimalConvert', 'randomString','diffs'
+    'decimalConvert', 'randomString', 'diffs',
 ]
 
 const category = [
@@ -28,7 +28,7 @@ const tool = [
     { 'name': 'hash', 'title': '哈希(hash)', cat: ['encryption'] },
     { 'name': 'encrypt', 'title': '加密/解密', cat: ['encryption'] },
     { 'name': 'base64', 'title': 'BASE64编码', cat: ['encryption'] },
-    { 'name': 'json', 'title': 'JSON工具', cat: ['conversion','json'] },
+    { 'name': 'json', 'title': 'JSON工具', cat: ['conversion', 'json'] },
     { 'name': 'url', 'title': 'URL编码', cat: ['conversion'] },
     { 'name': 'timestamp', 'title': '时间戳', cat: ['conversion'] },
     { 'name': 'qrCode', 'title': '二维码', cat: ['other'] },
@@ -39,7 +39,11 @@ const tool = [
     { 'name': 'decimalConvert', 'title': '进制转换', cat: ['conversion'] },
     { 'name': 'regex', 'title': '正则表达式', cat: ['other'] },
     { 'name': 'randomString', 'title': '随机字符生成', cat: ['other'] },
-    { 'name': 'phpArraySerialize', 'title': 'PHP数组/序列化', cat: ['conversion','json'] },
+    {
+        'name': 'phpArraySerialize',
+        'title': 'PHP数组/序列化',
+        cat: ['conversion', 'json'],
+    },
     { 'name': 'diffs', 'title': '文本差异化对比', cat: ['other'] },
     { 'name': 'crontab', 'title': 'crontab校验', cat: ['other'] },
     { 'name': 'websocket', 'title': 'websocket调试', cat: ['other'] },
@@ -49,7 +53,8 @@ const tool = [
 
 // 徽章是否显示
 const badgeIsShow = function () {
-    return (Date.parse((new Date()).toString()) / 1000) - env('updateTime') < BADGE_EXPIRY * 86400
+    return (Date.parse((new Date()).toString()) / 1000) - env('updateTime') <
+        BADGE_EXPIRY * 86400
 }
 
 const getUserCommon = function () {
@@ -58,13 +63,23 @@ const getUserCommon = function () {
 }
 
 const setUserCommon = function (tools) {
-    cache.setnNoVersion('user_common', tools)
+    cache.setNoVersion('user_common', tools)
+}
+
+const getToolTitle = function (name) {
+    for (let i = 0; i < tool.length; i++) {
+        if (tool[i].name === name) {
+            return tool[i].title
+        }
+    }
+    return ""
 }
 
 export default {
     tool,
     category,
     setUserCommon,
+    getToolTitle,
     getUserCommon,
     getToolByCategory (cat) {
         return tool.filter((t) => {
@@ -79,5 +94,5 @@ export default {
     },
     badgeCategoryIsShow (cat) {
         return badgeIsShow() && inArray(cat, BADGE_CATEGORY)
-    }
+    },
 }
