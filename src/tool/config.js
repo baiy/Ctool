@@ -25,30 +25,30 @@ const category = [
 ]
 
 const tool = [
-    { 'name': 'hash', 'title': '哈希(hash)', cat: ['encryption'] },
-    { 'name': 'encrypt', 'title': '加密/解密', cat: ['encryption'] },
-    { 'name': 'base64', 'title': 'BASE64编码', cat: ['encryption'] },
-    { 'name': 'json', 'title': 'JSON工具', cat: ['conversion', 'json'] },
-    { 'name': 'url', 'title': 'URL编码', cat: ['conversion'] },
-    { 'name': 'timestamp', 'title': '时间戳', cat: ['conversion'] },
-    { 'name': 'qrCode', 'title': '二维码', cat: ['other'] },
-    { 'name': 'pinyin', 'title': '汉字转拼音', cat: ['conversion'] },
-    { 'name': 'ip', 'title': 'IP地址查询', cat: ['other'] },
-    { 'name': 'code', 'title': '代码格式化', cat: ['other'] },
-    { 'name': 'unicode', 'title': 'Unicode', cat: ['conversion'] },
-    { 'name': 'decimalConvert', 'title': '进制转换', cat: ['conversion'] },
-    { 'name': 'regex', 'title': '正则表达式', cat: ['other'] },
-    { 'name': 'randomString', 'title': '随机字符生成', cat: ['other'] },
+    { 'name': 'hash', 'title': '哈希(hash)', 'cat': ['encryption'] },
+    { 'name': 'encrypt', 'title': '加密/解密', 'cat': ['encryption'] },
+    { 'name': 'base64', 'title': 'BASE64编码', 'cat': ['encryption'] },
+    { 'name': 'json', 'title': 'JSON工具', 'cat': ['conversion', 'json'] },
+    { 'name': 'url', 'title': 'URL编码', 'cat': ['conversion'] },
+    { 'name': 'timestamp', 'title': '时间戳', 'cat': ['conversion'] },
+    { 'name': 'qrCode', 'title': '二维码', 'cat': ['other'] },
+    { 'name': 'pinyin', 'title': '汉字转拼音', 'cat': ['conversion'] },
+    { 'name': 'ip', 'title': 'IP地址查询', 'cat': ['other'] },
+    { 'name': 'code', 'title': '代码格式化', 'cat': ['other'] },
+    { 'name': 'unicode', 'title': 'Unicode', 'cat': ['conversion'] },
+    { 'name': 'decimalConvert', 'title': '进制转换', 'cat': ['conversion'] },
+    { 'name': 'regex', 'title': '正则表达式', 'cat': ['other'] },
+    { 'name': 'randomString', 'title': '随机字符生成', 'cat': ['other'] },
     {
         'name': 'phpArraySerialize',
         'title': 'PHP数组/序列化',
-        cat: ['conversion', 'json'],
+        'cat': ['conversion', 'json'],
     },
-    { 'name': 'diffs', 'title': '文本差异化对比', cat: ['other'] },
-    { 'name': 'crontab', 'title': 'crontab校验', cat: ['other'] },
-    { 'name': 'websocket', 'title': 'websocket调试', cat: ['other'] },
-    { 'name': 'unit', 'title': '单位换算', cat: ['other'] },
-    { 'name': 'time', 'title': '时间计算器', cat: ['other'] },
+    { 'name': 'diffs', 'title': '文本差异化对比', 'cat': ['other'] },
+    { 'name': 'crontab', 'title': 'crontab校验', 'cat': ['other'] },
+    { 'name': 'websocket', 'title': 'websocket调试', 'cat': ['other'] },
+    { 'name': 'unit', 'title': '单位换算', 'cat': ['other'] },
+    { 'name': 'time', 'title': '时间计算器', 'cat': ['other'] },
 ]
 
 // 徽章是否显示
@@ -72,11 +72,24 @@ const getToolTitle = function (name) {
             return tool[i].title
         }
     }
-    return ""
+    return ''
+}
+
+const getSetting = function (name, defaultValue = null) {
+    let setting = cache.getNoVersion('setting', {})
+    return !setting.hasOwnProperty(name) ? defaultValue : setting[name]
+}
+
+const saveSetting = function (name, value) {
+    let setting = cache.getNoVersion('setting', {})
+    setting[name] = value
+    cache.setNoVersion('setting',setting);
 }
 
 export default {
     tool,
+    saveSetting,
+    getSetting,
     category,
     setUserCommon,
     getToolTitle,

@@ -58,23 +58,31 @@
                 <Button type="primary" @click="historyClear">清空历史记录</Button>
             </div>
         </Drawer>
+        <Drawer title="设置" v-model="settingShow" :width="300">
+            <setting-block v-if="settingShow"></setting-block>
+        </Drawer>
     </div>
 </template>
 
 <script>
 import config from './tool/config'
+import settingBlock from "./views/setting/block"
 import model from './tool/model'
 import historyFactory from './tool/history'
 import {setLoadHistoryIndex} from './tool/history'
 import { openTab } from './helper'
 
 export default {
+    components: {
+        "setting-block": settingBlock
+    },
     data () {
         return {
             category: config.category,
             currentCategory: '',
             currentTool: '',
             historyData: [],
+            settingShow:false,
             historyShow: false,
             historyColumns: [
                 {
@@ -134,7 +142,7 @@ export default {
                     openTab('https://github.com/baiy/Ctool')
                     break
                 case '_setting':
-                    openTab('/setting.html')
+                    this.settingShow = true;
                     break
                 case '_new':
                     openTab(window.location.href)
@@ -161,7 +169,19 @@ export default {
             return JSON.stringify(value)
         },
         historyView(index){
-            console.log(historyFactory(this.currentTool).get(index))
+            this.$Modal.info({
+                render: (h) => {
+                    return h('Input', {
+                        props: {
+                            type:"textarea",
+                            rows:"10",
+                            value: JSON.stringify(historyFactory(this.currentTool).get(index), null, "\t"),
+                        }
+                    })
+                },
+                width:700,
+                okText:"关闭"
+            })
         },
         historyClear(){
             historyFactory(this.currentTool).clear()

@@ -1,4 +1,5 @@
 import config from './config'
+import setting from './setting'
 import cache from './cache'
 import history from './history.js'
 
@@ -44,9 +45,11 @@ export const plugin = {
     install: function (Vue) {
         Vue.prototype.$getToolData = function (clipboardField = '') {
             let data = history(model.getCurrentTool()).current()
-            let paste = clipboardPaste()
-            if (clipboardField && !data[clipboardField] && paste) {
-                data[clipboardField] = paste
+            if (setting.autoReadCopy()){
+                let paste = clipboardPaste()
+                if (clipboardField && !data[clipboardField] && paste) {
+                    data[clipboardField] = paste
+                }
             }
             return data
         }
@@ -54,7 +57,7 @@ export const plugin = {
             return history(model.getCurrentTool()).push(data)
         }
         Vue.prototype.$clipboardCopy = function (data) {
-            if (!data) return
+            if (!setting.autoSaveCopy() || !data) return
             document.querySelector(
                 '#clipboard').innerHTML = '<textarea id="clipboard-text"></textarea>'
             document.querySelector('#clipboard-text').value = data
