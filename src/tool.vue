@@ -49,7 +49,7 @@
                 <template slot-scope="{ row }" slot="_value">
                     <div>{{ historyValue(row.value) }}}</div>
                 </template>
-                <template slot-scope="{ index,row }" slot="_op">
+                <template slot-scope="{ index }" slot="_op">
                     <Button type="primary" size="small" @click="historyView(index)">查看</Button>
                     <Button type="primary" style="margin-left: 5px" @click="historyLoad(index)" size="small">加载</Button>
                 </template>
@@ -85,7 +85,7 @@ export default {
                 {
                     title: '数据',
                     slot: '_value',
-                    ellipsis:true
+                    ellipsis:true,
                 },
                 {
                     title: '操作',
