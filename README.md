@@ -6,7 +6,7 @@
  - 方法2: [下载 .crx 安装包](https://github.com/baiy/Ctool/releases/latest)手动安装 [猛戳这里查看手动安装教程](http://www.cnplugins.com/tool/outline-install-crx-file.html)
  - 方法3: [百度网盘下载](https://pan.baidu.com/s/1mhWbqWC) 安装方法和方法2一致
  
-> 方法3 不定期维护 仅供网络环境特别恶劣的同学使用
+> 方法2 / 方法3 不定期维护 仅供网络环境特别恶劣的同学使用
 
 ## 功能列表
 |功能|说明|离线使用|
@@ -24,13 +24,15 @@
 |进制转换|2-64进制互转|√|
 |正则表达式|字符匹配|√|
 |随机字符生成器|`批量`,`特殊字符`|√|
-|php数组/序列化|`数组`,`serialize`,`json`|√|
+|序列化转换|`json`, `xml`, `yaml`, `phpArray`, `phpSerialize`, `properties`|√|
 |文本差异化对比|`行`,`单词`,`css`|√|
 |crontab校验|`Crontab`,`规则`,`校验`,`例子`|√|
 |websocket调试|`websocket`,`在线调试`|×|
 |单位换算|`长度`,`面积`,`体积`,`质量`,`温度`,`压力`,`功率`,`功`,`密度`,`力`,`时间`,`速度`,`数据存储`,`角度`|√|
 |时间计算器| - |√|
 |JSON工具|`格式化`,`校验`,`压缩`,`转义`,`去除转义`,`Unicode转中文`,`中文转Unicode`,`转GET参数`|√|
+|UUID|在线生成uuid|√|
+|JSON转实体类|`Java`, `C#`, `Go`|√|
 
 ## 第三方开源库
 项目诞生离不开这些优秀的开源程序
