@@ -35,6 +35,7 @@
         "serialize-php": "^1.1.2",
         "sm-crypto": "^0.1.4",
         "system": "^2.0.1",
+        "uuid": "^8.3.2",
         "view-design": "^4.3.2",
         "vue": "^2.6.12",
         "vue-codemirror": "^4.0.6",
