@@ -89,6 +89,10 @@ const routes = [
     {
         path: '/tool/uuid',
         component: r => require(['./views/tool/uuid.vue'], r)
+    },
+    {
+        path: '/tool/jsonToObject',
+        component: r => require(['./views/tool/jsonToObject.vue'], r)
     }
 ]
 
