@@ -1,37 +1,35 @@
 <template>
     <Row :gutter="10">
         <Col span="10">
-            <Card>
+            <Card :padding="0">
                 <p slot="title">JSON内容</p>
+                <codemirror ref="json" v-model="current.json" :options="options('Json')"></codemirror>
+            </Card>
+            <option-block>
+                <FormItem>
+                    <Input v-model="current.package">
+                        <div slot="prepend">namespace/package</div>
+                    </Input>
+                </FormItem>
+            </option-block>
+            <option-block>
+                <FormItem>
+                    <Input v-model="current.class">
+                        <div slot="prepend">class/struct</div>
+                    </Input>
+                </FormItem>
+            </option-block>
+        </Col>
+        <Col span="14">
+            <Card :padding="0">
+                <p slot="title">转换结果</p>
                 <template slot="extra">
                     <Button style="margin-right: 5px" size="small" v-for="(item,key) in type" :key="key" type="primary"
                             @click="handle(item)">转 {{ item }} 实体
                     </Button>
                 </template>
-                <div style="border: 1px solid #dcdee2;border-radius: 4px;">
-                    <codemirror ref="json" v-model="current.json" :options="options('Json')"></codemirror>
-                </div>
-                <option-block :style="{textAlign:'center'}">
-                    <FormItem>
-                        <Input v-model="current.package">
-                            <div slot="prepend">namespace/package</div>
-                        </Input>
-                    </FormItem>
-                    <FormItem>
-                        <Input v-model="current.class">
-                            <div slot="prepend">class/struct</div>
-                        </Input>
-                    </FormItem>
-                </option-block>
-            </Card>
-        </Col>
-        <Col span="14">
-            <Card>
-                <p slot="title">转换结果</p>
-                <div style="border: 1px solid #dcdee2;border-radius: 4px;">
-                    <codemirror ref="output" v-model="current.output"
-                                :options="options(this.current.type)"></codemirror>
-                </div>
+                <codemirror ref="output" v-model="current.output"
+                            :options="options(this.current.type)"></codemirror>
             </Card>
         </Col>
     </Row>
@@ -59,8 +57,8 @@ export default {
         this.current = Object.assign(this.current, this.$getToolData())
     },
     mounted() {
-        this.$refs.json.codemirror.setSize(null, window.innerHeight - 351)
-        this.$refs.output.codemirror.setSize(null, window.innerHeight - 300)
+        this.$refs.json.codemirror.setSize(null, window.innerHeight - 330)
+        this.$refs.output.codemirror.setSize(null, window.innerHeight - 230)
     },
     methods: {
         handle(type) {
@@ -95,7 +93,6 @@ export default {
         options(mode) {
             return {
                 mode: this.codemirrorMode[mode],
-                lineNumbers: true,
                 lineWrapping: false,
                 foldGutter: true,
                 indentUnit: 4,
