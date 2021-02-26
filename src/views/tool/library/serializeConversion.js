@@ -4,7 +4,7 @@ import phpSerialize from "serialize-php"
 import propertiesToJSON from "properties-to-json"
 import jsonToPropertiesParser from "json-to-properties/src/scripts/parser"
 import yaml from "js-yaml"
-import xmlFormatter from "xml-formatter"
+import formatter from "./formatter"
 import X2JS from "x2js"
 
 export const TYPE = ["json", "xml", "yaml", "phpArray", "phpSerialize", "properties"];
@@ -75,11 +75,7 @@ class serializeConversion {
     getXml() {
         let x2js = new X2JS();
         this.input = Object.keys(this.input).length > 1 ? {default_root:this.input} : this.input;
-        return xmlFormatter(x2js.json2xml_str(this.input), {
-            indentation: '  ',
-            collapseContent: true,
-            lineSeparator: '\n'
-        });
+        return formatter(x2js.json2xml_str(this.input),'xml');
     }
 
     getYaml() {
