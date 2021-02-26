@@ -6,9 +6,9 @@ export const TOOL_DATA_EXPIRY = 3600 * 24
 // 徽章过期时间(天)
 export const BADGE_EXPIRY = 10
 // 分类徽章
-export const BADGE_CATEGORY = []
+export const BADGE_CATEGORY = ['serialize','other']
 // 工具徽章
-export const BADGE_TOOL = []
+export const BADGE_TOOL = ['uuid','serializeConversion']
 // 默认常用工具
 export const DEFAULT_COMMON_TOOL = [
     'hash', 'encrypt', 'json', 'base64', 'url', 'timestamp',
@@ -45,6 +45,7 @@ const tool = [
     {'name': 'websocket', 'title': 'websocket调试', 'cat': ['other']},
     {'name': 'unit', 'title': '单位换算', 'cat': ['other']},
     {'name': 'time', 'title': '时间计算器', 'cat': ['other']},
+    {'name': 'uuid', 'title': 'UUID生成', 'cat': ['other']},
 ]
 
 // 徽章是否显示
