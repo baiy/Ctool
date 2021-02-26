@@ -35,8 +35,8 @@ const routes = [
         component: r => require(['./views/tool/ip.vue'], r)
     },
     {
-        path: '/tool/phpArraySerialize',
-        component: r => require(['./views/tool/phpArraySerialize.vue'], r)
+        path: '/tool/serializeConversion',
+        component: r => require(['./views/tool/serializeConversion.vue'], r)
     },
     {
         path: '/tool/pinyin',
