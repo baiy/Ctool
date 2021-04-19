@@ -3,6 +3,8 @@
 /desktop/node_modules
 /dist
 /public/manifest.json
+/public/plugin.json
+/public/README.md
 /id_rsa.pem
 
 # local env files

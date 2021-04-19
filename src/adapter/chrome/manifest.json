@@ -12,7 +12,6 @@
         "default_title": "常用开发工具",
         "default_popup": "index.html"
     },
-    "options_page": "setting.html",
     "icons": {
         "16": "img/icon128.png",
         "48": "img/icon128.png",

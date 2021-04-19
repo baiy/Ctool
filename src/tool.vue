@@ -10,7 +10,7 @@
                     {{ cat.title }}
                 </template>
             </MenuItem>
-            <MenuItem style="padding: 0 5px;float: right" name="_new">
+            <MenuItem style="padding: 0 5px;float: right" name="_new" v-if="!isUtools">
                 <Icon type="md-expand" :size="24"/>
             </MenuItem>
             <MenuItem style="padding: 0 5px;float: right" name="_feedback">
@@ -70,7 +70,7 @@ import settingBlock from "./views/setting/block"
 import model from './tool/model'
 import historyFactory from './tool/history'
 import {setLoadHistoryIndex} from './tool/history'
-import { openTab } from './helper'
+import { openTab,isUtools } from './helper'
 
 export default {
     components: {
@@ -78,6 +78,7 @@ export default {
     },
     data () {
         return {
+            isUtools:isUtools,
             category: config.category,
             currentCategory: '',
             currentTool: '',
@@ -145,7 +146,7 @@ export default {
                     this.settingShow = true;
                     break
                 case '_new':
-                    openTab(window.location.href)
+                   openTab(window.location.href)
                     break
                 case '_history':
                     this.history()

@@ -8,7 +8,7 @@
     </Card>
 </template>
 <script>
-    import common from "./views/setting/common"
+    import common from "./common"
     export default {
         components: {
             "setting-common": common
