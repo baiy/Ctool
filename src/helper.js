@@ -1,5 +1,13 @@
 import {stringify as queryStringify} from "query-string"
 
+export const env = function (key) {
+    return process['ctool'][key] ? process['ctool'][key] : "";
+};
+
+export const isChrome = !!env('isChrome')
+export const isWeb = !!env('isWeb')
+export const isUtools = !!env('isUtools')
+
 export const trim = function (str, char, type) {
     if (char) {
         if (type === 'left') {
@@ -19,14 +27,13 @@ export const inArray = function (value, arr) {
 };
 
 export const openTab = function (url) {
-    if (!chrome.tabs) {
-        return window.open(url);
+    if (isChrome && chrome.tabs) {
+        return chrome.tabs.create({url: url, selected: true});
     }
-    chrome.tabs.create({url: url, selected: true});
-};
-
-export const env = function (key) {
-    return process['ctool'][key] ? process['ctool'][key] : "";
+    if (isUtools && window.utools){
+        return window.utools.shellOpenExternal(url)
+    }
+    return window.open(url);
 };
 
 export const stat = function (action, data = {}) {

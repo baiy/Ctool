@@ -1,29 +1,40 @@
 <template>
     <div>
-        <CellGroup @on-click="open">
-            <Cell title="常用工具设置" name="setting"/>
-            <Cell title="快捷键设置" name="shortcuts"/>
-        </CellGroup>
-        <CellGroup>
-            <Cell title="自动复制结果到剪贴板">
-                <i-switch v-model="auto_save_copy" slot="extra"/>
-            </Cell>
-            <Cell title="自动读取剪贴板内容">
-                <i-switch v-model="auto_read_copy" slot="extra"/>
-            </Cell>
-        </CellGroup>
+        <div>
+            <CellGroup @on-click="open">
+                <Cell title="常用工具设置" name="setting"/>
+                <Cell v-if="isChrome" title="快捷键设置" name="shortcuts"/>
+            </CellGroup>
+            <CellGroup>
+                <Cell title="自动复制结果到剪贴板">
+                    <i-switch v-model="auto_save_copy" slot="extra"/>
+                </Cell>
+                <Cell title="自动读取剪贴板内容">
+                    <i-switch v-model="auto_read_copy" slot="extra"/>
+                </Cell>
+            </CellGroup>
+        </div>
+        <Drawer title="设置" placement="left" v-model="settingShow" :width="90">
+            <setting-block v-if="settingShow"></setting-block>
+        </Drawer>
     </div>
 </template>
 
 <script>
-import { openTab } from '../../helper'
+import { openTab,isChrome } from '../../helper'
 import setting from '../../tool/setting'
+import settingBlock from './setting'
 
 export default {
+    components: {
+        "setting-block": settingBlock
+    },
     data () {
         return {
+            settingShow:false,
             auto_save_copy: true,
             auto_read_copy: true,
+            isChrome: isChrome,
         }
     },
     created () {
@@ -42,7 +53,7 @@ export default {
                     openTab('chrome://extensions/shortcuts')
                     break
                 case 'setting':
-                    openTab('/setting.html')
+                    this.settingShow = true
                     break
             }
         },
