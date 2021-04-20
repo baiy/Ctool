@@ -9,8 +9,5 @@
     "pluginSetting": {
         "single": true
     },
-    "features": "##features##",
-    "development": {
-        "main": "http://localhost:8081/utools.html"
-    }
+    "features": "##features##"
 }

@@ -3,7 +3,7 @@
         <div>
             <CellGroup @on-click="open">
                 <Cell title="常用工具设置" name="setting"/>
-                <Cell v-if="isChrome" title="快捷键设置" name="shortcuts"/>
+                <Cell v-if="is_chrome" title="快捷键设置" name="shortcuts"/>
             </CellGroup>
             <CellGroup>
                 <Cell title="自动复制结果到剪贴板">
@@ -11,6 +11,9 @@
                 </Cell>
                 <Cell title="自动读取剪贴板内容">
                     <i-switch v-model="auto_read_copy" slot="extra"/>
+                </Cell>
+                <Cell v-if="is_utools" title="页面开发者工具">
+                    <i-switch v-model="is_dev_tools_opened" slot="extra" @on-change="toggleDevTools"/>
                 </Cell>
             </CellGroup>
         </div>
@@ -21,7 +24,7 @@
 </template>
 
 <script>
-import { openTab,isChrome } from '../../helper'
+import {isChrome, isUtools, openTab} from '../../helper'
 import setting from '../../tool/setting'
 import settingBlock from './setting'
 
@@ -29,25 +32,29 @@ export default {
     components: {
         "setting-block": settingBlock
     },
-    data () {
+    data() {
         return {
-            settingShow:false,
+            settingShow: false,
             auto_save_copy: true,
+            is_dev_tools_opened: false,
             auto_read_copy: true,
-            isChrome: isChrome,
+            is_chrome: isChrome,
+            is_utools: isUtools,
         }
     },
-    created () {
+    created() {
+        if (isUtools) {
+            this.is_dev_tools_opened = window.ctool.isDevToolsOpened();
+        }
         this.auto_save_copy = setting.autoSaveCopy()
         this.auto_read_copy = setting.autoReadCopy()
     },
-    beforeDestroy () {
+    beforeDestroy() {
         setting.autoSaveCopy(this.auto_save_copy)
         setting.autoReadCopy(this.auto_read_copy)
     },
     methods: {
-        open (name) {
-            console.log(name)
+        open(name) {
             switch (name) {
                 case 'shortcuts':
                     openTab('chrome://extensions/shortcuts')
@@ -57,6 +64,11 @@ export default {
                     break
             }
         },
+        toggleDevTools() {
+            if (isUtools) {
+                window.ctool.toggleDevTools()
+            }
+        }
     },
 }
 </script>
