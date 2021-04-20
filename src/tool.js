@@ -32,6 +32,7 @@ Vue.component('option-block', optionBlock);
         page.style.width = 'auto'
         page.style.padding = '0 50px'
         page.style.height = 'auto'
+        page.style.minHeight = '600px'
     }
 })()
 new Vue({
