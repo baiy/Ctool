@@ -24,17 +24,15 @@
         if (code.indexOf('ctool-') !== -1) {
             tool = code.replace(/ctool-/g, "")
         }
-
         setToolCode(tool)
         window.utools.createBrowserWindow(
             'tool.html',
             {
                 width: 1200,
-                minWidth: 900,
-                minHeight: 650,
                 height: 650,
+                show: false,
                 webPreferences: {
-                    preload: 'utools_preload.js'
+                    preload: 'tool_preload.js'
                 }
             }
         )

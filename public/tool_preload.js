@@ -10,15 +10,15 @@ browserWindow.webContents.on('before-input-event', (event, input) => {
         }
     }
 })
+browserWindow.once('ready-to-show', () => {
+    browserWindow.show()
+})
+
 window.ctool = {}
 window.ctool.isDevToolsOpened = function () {
     return browserWindow.webContents.isDevToolsOpened();
 }
 window.ctool.toggleDevTools = function () {
-    if (window.ctool.isDevToolsOpened) {
-        return browserWindow.webContents.closeDevTools();
-    }
-    return browserWindow.webContents.openDevTools();
+    return browserWindow.webContents.toggleDevTools();
 }
-
-
+window.ctool.browserWindow = browserWindow;
