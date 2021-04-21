@@ -21,4 +21,3 @@ window.ctool.isDevToolsOpened = function () {
 window.ctool.toggleDevTools = function () {
     return browserWindow.webContents.toggleDevTools();
 }
-window.ctool.browserWindow = browserWindow;
