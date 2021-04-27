@@ -3,7 +3,7 @@
     <option-block style="text-align: center">
       <FormItem>
         <ButtonGroup>
-          <Button :type="current.type === v.key ? 'success' : 'primary'"
+          <Button :type="current.type === v.key ? 'info' : 'primary'"
                   @click="handle(v.key)"
                   v-for="v in unitLists"
                   style="padding: 5px 10px 6px;"

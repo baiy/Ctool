@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import ViewUI from 'view-design'
-import 'view-design/dist/styles/iview.css'
+import './statics/theme.less'
 import router from './tool.router'
 import optionBlock from './components/optionBlock'
 import {plugin as modelPlugin} from './tool/model'
@@ -13,6 +13,7 @@ import {isUtools} from './helper'
         const page = document.getElementById('page')
         page.style.width = 'auto'
         page.style.height = 'auto'
+        page.style.minHeight = '500px'
     }
 })()
 
