@@ -1,7 +1,7 @@
 let adapter = require('./src/tool/adapter');
 
 const config = {
-    productionSourceMap: true,
+    productionSourceMap: false,
     publicPath:"./",
     pages: {
         tool: {
