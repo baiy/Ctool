@@ -11,7 +11,7 @@
                 </ButtonGroup>
             </FormItem>
             <FormItem>
-                <Alert>ip信息来源 <a href="http://ip.taobao.com/" target="_blank">http://ip.taobao.com/</a></Alert>
+                <Alert>ip信息来源 <a href="https://ip.taobao.com/" target="_blank">https://ip.taobao.com/</a></Alert>
             </FormItem>
         </option-block>
         <div style="border: 1px solid #dcdee2;border-radius: 4px;">
@@ -49,7 +49,7 @@
             handle() {
                 if (this.current.input) {
                     request({
-                        url:"http://ip.taobao.com/outGetIpInfo",
+                        url:"https://ip.taobao.com/outGetIpInfo",
                         data:{
                             "ip":this.current.input === "localhost" ? 'myip' : this.current.input,
                             "accessKey": "alibaba-inc"

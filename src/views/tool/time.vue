@@ -36,7 +36,7 @@
                         format="yyyy-MM-dd HH:mm:ss"></DatePicker>
           </FormItem>
           <FormItem>
-            <Select transfer v-model="current.duration.type" style="width: 60px">
+            <Select transfer v-model="current.duration.type" style="width: 100px">
               <Option value="+">添加</Option>
               <Option value="-">减少</Option>
             </Select>
