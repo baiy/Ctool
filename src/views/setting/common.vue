@@ -1,7 +1,7 @@
 <template>
     <div>
         <CheckboxGroup v-model="tools" @on-change="toolUpdate" style="line-height: 30px;">
-            <Checkbox size="large" v-for="(t,k) in all" :key="k" :label="t.name">{{t.title}}</Checkbox>
+            <Checkbox v-for="(t,k) in all" :key="k" :label="t.name">{{t.title}}</Checkbox>
         </CheckboxGroup>
     </div>
 </template>

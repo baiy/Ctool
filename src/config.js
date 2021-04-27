@@ -7,8 +7,18 @@ const category = [
 ]
 
 const tool = [
-    {'name': 'hash', 'title': '哈希(hash)', 'cat': ['encryption']},
-    {'name': 'encrypt', 'title': '加密/解密', 'cat': ['encryption']},
+    {
+        'name': 'hash',
+        'title': '哈希(hash)',
+        'cat': ['encryption'],
+        'keyword': ['md5', 'sha1', 'sha256', 'sha512', 'sm3']
+    },
+    {
+        'name': 'encrypt',
+        'title': '加密/解密',
+        'cat': ['encryption'],
+        'keyword': ['AES', 'DES', 'RC4', 'Rabbit', 'TripleDes', 'sm2']
+    },
     {'name': 'base64', 'title': 'BASE64编码', 'cat': ['encryption']},
     {'name': 'json', 'title': 'JSON工具', 'cat': ['conversion', 'serialize']},
     {'name': 'url', 'title': 'URL编码', 'cat': ['conversion']},

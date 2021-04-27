@@ -71,4 +71,4 @@
  > 当然项目中还使用很多不知道姓名的大神的代码, 在这里就不一一感谢
  
  ## 先睹为快
- ![](dome.jpg)
+ ![](https://raw.githubusercontent.com/baiy/Ctool/master/dome.jpg)

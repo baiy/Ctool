@@ -45,6 +45,7 @@ export const stat = function (action, data = {}) {
                     {
                         v: env('version'),
                         a: action,
+                        p:env('platform'),
                         r: Math.random()
                     },
                     data
