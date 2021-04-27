@@ -1,5 +1,5 @@
 <template>
-    <Card style="margin-top: 50px;min-height: 300px">
+    <Card>
         <Tabs value="common">
             <TabPane label="常用工具设置" name="common">
                 <setting-common></setting-common>

@@ -126,6 +126,24 @@ export default {
         },
     },
     created () {
+        if (this.isUtools){
+            window.utools.onPluginEnter(({code}) => {
+                let tool = "";
+                if (code.indexOf('ctool-') !== -1) {
+                    tool = code.replace(/ctool-/g, "")
+                }
+                if (tool && this.currentTool !== tool) {
+                    let cat = config.getToolDefaultCategory(tool);
+                    if (cat) {
+                        model.setCategoryHistory(cat)
+                        model.setToolHistory(cat, tool)
+                        this.currentCategory = cat;
+                        this.currentTool = tool;
+                    }
+                }
+            })
+        }
+
         this.currentCategory = model.getCategoryHistory()
         this.currentTool = model.getToolHistory(this.currentCategory)
         this.$Message.config({
