@@ -7,7 +7,29 @@
  - 方法3: [百度网盘下载](https://pan.baidu.com/s/1mhWbqWC) 安装方法和方法2一致
 > 方法2 / 方法3 不定期维护 仅供网络环境特别恶劣的同学使用
 
+### 本地打包/调试
+```
+# 打包
+npm run build -adapter=chrome
+# 调试
+npm run serve -adapter=chrome
+```
+
 ## 支持 utools
+
+### 插件中心安装
+
+> 插件中心搜索`ctool`
+
+### 本地打包/调试
+```
+# 打包
+npm run build -adapter=utools
+> 打包完成后 `plugin.json`文件会自动生成在`/dist/`目录中
+
+# 调试
+npm run serve -adapter=utools
+```
 
 ## 功能列表
 |功能|说明|离线使用|
@@ -71,4 +93,4 @@
  > 当然项目中还使用很多不知道姓名的大神的代码, 在这里就不一一感谢
  
  ## 先睹为快
- ![](https://raw.githubusercontent.com/baiy/Ctool/master/dome.jpg)
+ ![](https://cdn.jsdelivr.net/gh/baiy/Ctool/dome.jpg)
