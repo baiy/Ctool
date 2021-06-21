@@ -47,7 +47,7 @@ const utoolsConfigWrite = () => {
                     "cmds": ['ctool', '程序开发常用工具']
                 },
                 ...toolConfig.tool.map((item) => {
-                    let keyword = item.hasOwnProperty("keyword") ? item['keyword'] : [];
+                    let keyword = toolConfig['keyword'].hasOwnProperty(item.name) ? toolConfig['keyword'][item.name] : [];
                     return {
                         "code": "ctool-" + item.name,
                         "explain": item.title,

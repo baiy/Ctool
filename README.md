@@ -89,6 +89,7 @@ npm run serve -adapter=utools
 - [moment](https://momentjs.com/)
 - [vue-codemirror](https://www.npmjs.com/package/vue-codemirror)
 - [sm-crypto](https://github.com/JuneAndGreen/sm-crypto)
+- [camelcaseplugin](https://github.com/netnexus/camelcaseplugin)
 
  > 当然项目中还使用很多不知道姓名的大神的代码, 在这里就不一一感谢
  

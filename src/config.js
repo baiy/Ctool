@@ -10,14 +10,12 @@ const tool = [
     {
         'name': 'hash',
         'title': '哈希(hash)',
-        'cat': ['encryption'],
-        'keyword': ['md5', 'sha1', 'sha256', 'sha512', 'sm3']
+        'cat': ['encryption']
     },
     {
         'name': 'encrypt',
         'title': '加密/解密',
-        'cat': ['encryption'],
-        'keyword': ['AES', 'DES', 'RC4', 'Rabbit', 'TripleDes', 'sm2']
+        'cat': ['encryption']
     },
     {'name': 'base64', 'title': 'BASE64编码', 'cat': ['encryption']},
     {'name': 'json', 'title': 'JSON工具', 'cat': ['conversion', 'serialize']},
@@ -40,9 +38,18 @@ const tool = [
     {'name': 'uuid', 'title': 'UUID生成', 'cat': ['other']},
     {'name': 'jsonToObject', 'title': 'JSON转实体类', 'cat': ['conversion', 'serialize']},
     {'name': 'ascii', 'title': 'ascii转换', 'cat': ['conversion']},
+    {'name': 'variableConversion', 'title': '变量名转换', 'cat': ['conversion']},
 ]
+
+const utools = {
+    keyword: {
+        hash: ['md5', 'sha1', 'sha256', 'sha512', 'sm3'],
+        encrypt: ['AES', 'DES', 'RC4', 'Rabbit', 'TripleDes', 'sm2']
+    }
+}
 
 module.exports = {
     category,
-    tool
+    tool,
+    utools
 }
