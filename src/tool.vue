@@ -193,7 +193,7 @@ export default {
                     return h('Input', {
                         props: {
                             type:"textarea",
-                            rows:"10",
+                            rows:10,
                             value: JSON.stringify(historyFactory(this.currentTool).get(index), null, "\t"),
                         }
                     })

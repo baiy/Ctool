@@ -97,6 +97,10 @@ const routes = [
     {
         path: '/tool/ascii',
         component: r => require(['./views/tool/ascii.vue'], r)
+    },
+    {
+        path: '/tool/variableConversion',
+        component: r => require(['./views/tool/variableConversion.vue'], r)
     }
 ]
 
