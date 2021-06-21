@@ -39,6 +39,7 @@ const tool = [
     {'name': 'time', 'title': '时间计算器', 'cat': ['other']},
     {'name': 'uuid', 'title': 'UUID生成', 'cat': ['other']},
     {'name': 'jsonToObject', 'title': 'JSON转实体类', 'cat': ['conversion', 'serialize']},
+    {'name': 'ascii', 'title': 'ascii转换', 'cat': ['conversion']},
 ]
 
 module.exports = {
