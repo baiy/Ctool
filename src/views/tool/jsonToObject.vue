@@ -25,7 +25,7 @@
                 <p slot="title">转换结果</p>
                 <template slot="extra">
                     <Button style="margin-right: 5px" size="small" v-for="(item,key) in type" :key="key" type="primary"
-                            @click="handle(item)">转 {{ item }} 实体
+                            @click="handle(item)">{{ item }}
                     </Button>
                 </template>
                 <codemirror ref="output" v-model="current.output"
@@ -38,10 +38,12 @@
 import json2Go from './library/json2Go'
 import json2CSharp from './library/json2CSharp'
 import json2Java from './library/json2Java'
+import json2Dart from './library/json2Dart'
 import {codemirror} from 'vue-codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/mode/javascript/javascript.js'
 import 'codemirror/mode/go/go.js'
+import 'codemirror/mode/dart/dart'
 import 'codemirror/mode/clike/clike.js'
 import 'codemirror/addon/fold/foldcode.js'
 import 'codemirror/addon/fold/foldgutter.js'
@@ -76,9 +78,11 @@ export default {
                     case "Java":
                         this.current.output = json2Java(JSON.parse(this.current.json), this.current.class, this.current.package)
                         break;
+                    case "Dart":
+                        this.current.output = json2Dart(JSON.parse(this.current.json), this.current.class)
+                        break;
                     case "C#":
                         this.current.output = json2CSharp.convert(JSON.parse(this.current.json), this.current.class, this.current.package)
-
                         break;
                 }
             } catch (error) {
@@ -109,10 +113,11 @@ export default {
                 class: "RootName",
                 output: "",
             },
-            type: ["Java", "C#", "Go"],
+            type: ["Java", "C#", "Go",'Dart'],
             codemirrorMode: {
                 "Json": "application/json",
                 "Java": "text/x-java",
+                "Dart": "application/dart",
                 "C#": "text/x-csharp",
                 "Go": "text/x-go"
             },
