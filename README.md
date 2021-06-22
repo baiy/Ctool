@@ -55,7 +55,9 @@ npm run serve -adapter=utools
 |时间计算器| - |√|
 |JSON工具|`格式化`,`校验`,`压缩`,`转义`,`去除转义`,`Unicode转中文`,`中文转Unicode`,`转GET参数`|√|
 |UUID|在线生成uuid|√|
-|JSON转实体类|`Java`, `C#`, `Go`|√|
+|JSON转实体类|`Java`, `C#`, `Go`, `Dart`|√|
+|ascii编码转换|`十进制`, `十六进制`, `八进制`, `二进制`, `字符串`|√|
+|变量名格式转换|`Var Name`, `var-name`, `VAR_NAME`, `VarName`, `varName`, `var_name`, `var name`|√|
 
 ## 第三方开源库
 项目诞生离不开这些优秀的开源程序
