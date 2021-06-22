@@ -1,4 +1,5 @@
-let path = require('path');
+const path = require('path');
+const _ = require('lodash');
 // 运行平台适配
 let platform = process.env.hasOwnProperty('npm_config_adapter') ? process.env.npm_config_adapter : "";
 platform = ["chrome", 'utools'].includes(platform) ? platform : "web"
@@ -6,6 +7,20 @@ platform = ["chrome", 'utools'].includes(platform) ? platform : "web"
 const IS_CHROME = "chrome" === platform
 const IS_UTOOLS = "utools" === platform
 const IS_WEB = "web" === platform
+
+const toolConfig = require('../config')
+const tools = toolConfig.tool
+const utoolsConfig = toolConfig.utools
+const featureConfig = toolConfig.feature
+
+const getToolFeatureTitle = (name, features = []) => {
+    for (let i = 0; i < features.length; i++) {
+        if (features[i]['name'] === name) {
+            return features[i].title
+        }
+    }
+    return name
+}
 
 const chromeConfigWrite = () => {
     let fs = require('fs');
@@ -33,12 +48,61 @@ const utoolsConfigWrite = () => {
         fs.unlink(filePath, () => {
         });
     })
-
     if (IS_UTOOLS) {
-        const toolConfig = require('../config')
         let pluginPath = path.join(__dirname, '../../public/plugin.json');
         fs.readFile(path.join(__dirname, "../adapter/utools/plugin.json"), 'utf8', function (err, files) {
             if (err) return console.log(err);
+            let utoolsToolFeature = {};
+            for (let tool of tools) {
+                // 初始化数据
+                let code = "ctool-" + tool.name;
+                let toolFeatures = featureConfig.hasOwnProperty(tool.name) ? featureConfig[tool.name] : []
+                if (!utoolsToolFeature.hasOwnProperty(code)) {
+                    utoolsToolFeature[code] = {
+                        "code": code,
+                        "explain": tool.title,
+                        "cmds": []
+                    }
+                    if (toolFeatures.length > 0) {
+                        for (let toolFeature of toolFeatures) {
+                            let toolFeatureCode = code + '-' + toolFeature['name']
+                            utoolsToolFeature[toolFeatureCode] = {
+                                "code": toolFeatureCode,
+                                "explain": tool.title + ' - ' + toolFeature['title'],
+                                "cmds": []
+                            }
+                        }
+                    }
+                }
+
+                // 关键字
+                let keyword = utoolsConfig['keyword'].hasOwnProperty(tool.name) ? utoolsConfig['keyword'][tool.name] : []
+                utoolsToolFeature[code].cmds.push(
+                    ...Array.from(new Set([tool.name, tool.title, "ctool-" + tool.name, ...keyword]))
+                )
+
+                // cmds手动配置
+                let cmds = utoolsConfig['cmds'].hasOwnProperty(tool.name) ? utoolsConfig['cmds'][tool.name] : []
+                if (!cmds.length) {
+                    continue;
+                }
+
+                for (let _cmd of cmds) {
+                    let cmd = _.cloneDeep(_cmd);
+                    if (!cmd.hasOwnProperty('feature')) {
+                        cmd['label'] = tool.title
+                        utoolsToolFeature[code].cmds.push(cmd)
+                        continue;
+                    }
+                    let toolFeatureCode = code + '-' + cmd.feature
+                    if (utoolsToolFeature.hasOwnProperty(toolFeatureCode)) {
+                        cmd['label'] = tool.title + ' - ' + getToolFeatureTitle(cmd.feature, toolFeatures)
+                        delete cmd.feature
+                        utoolsToolFeature[toolFeatureCode].cmds.push(cmd)
+                    }
+                }
+
+            }
 
             let features = [
                 {
@@ -46,15 +110,9 @@ const utoolsConfigWrite = () => {
                     "explain": "程序开发常用工具",
                     "cmds": ['ctool', '程序开发常用工具']
                 },
-                ...toolConfig.tool.map((item) => {
-                    let keyword = toolConfig['keyword'].hasOwnProperty(item.name) ? toolConfig['keyword'][item.name] : [];
-                    return {
-                        "code": "ctool-" + item.name,
-                        "explain": item.title,
-                        "cmds": Array.from(new Set([item.name, item.title, "ctool-" + item.name, ...keyword]))
-                    }
-                })
-            ]
+                ...Object.values(utoolsToolFeature)
+            ];
+
             let result = files
                 .replace(/##version##/g, process.env.npm_package_version)
                 .replace(/"##features##"/g, JSON.stringify(features));

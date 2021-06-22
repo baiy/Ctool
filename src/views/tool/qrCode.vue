@@ -42,6 +42,7 @@
     import generator from 'qrcode'
     import qrcodeParser from 'qrcode-parser'
     import { trim } from '../../helper'
+    import model from '../../tool/model'
 
     export default {
         computed: {
@@ -53,7 +54,18 @@
             },
         },
         created () {
-            this.current = Object.assign(this.current, this.$getToolData())
+            let feature = model.getToolCurrentFeature('generate')
+            if(feature === 'generate'){
+                this.current = Object.assign(this.current, this.$getToolData('generateInput'))
+                this.current.operation = feature;
+            }
+            else if(feature === 'reader'){
+                this.current = Object.assign(this.current, this.$getToolData('readerInput'))
+                this.current.operation = feature;
+            }
+            else{
+                this.current = Object.assign(this.current, this.$getToolData())
+            }
         },
         methods: {
             generate () {

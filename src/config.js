@@ -41,15 +41,64 @@ const tool = [
     {'name': 'variableConversion', 'title': '变量名转换', 'cat': ['conversion']},
 ]
 
+// 工具类功能配置
+const feature = {
+    qrCode: [
+        {name: "generate", title: '生成'},
+        {name: "reader", title: '解析'}
+    ]
+}
+
 const utools = {
     keyword: {
         hash: ['md5', 'sha1', 'sha256', 'sha512', 'sm3'],
         encrypt: ['AES', 'DES', 'RC4', 'Rabbit', 'TripleDes', 'sm2']
+    },
+    cmds: {
+        timestamp: [
+            {
+                "type": "regex",
+                // "label": "", //程序自动根据tool title填充
+                "match": "/(^\\d{10}(?:\\d{3})?$)|(^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}(?:\\.\\d{3})?$)/i",
+                "minLength": 10,
+                "maxLength": 25
+            }
+        ],
+        qrCode: [
+            {
+                "type": "regex",
+                "match": "/[a-zA-z]+://[^\\s]*/i",
+                "minLength": 8,
+                "feature":'generate' // 适配工具内功能
+
+            },
+            {
+                "type": "regex",
+                "match": "/[a-zA-z]+://[^\\s]*/i",
+                "minLength": 8,
+                "feature":'reader' // 适配工具内功能
+            }
+        ],
+        ip: [
+            {
+                "type": "regex",
+                "match": "/\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}/i",
+                "minLength": 7,
+                "maxLength": 15
+            }
+        ],
+        unicode: [
+            {
+                "type": "regex",
+                "match": "/\\\\u[0-9a-f]{4}/i",
+                "minLength": 6
+            }
+        ]
     }
 }
-
 module.exports = {
     category,
     tool,
+    feature,
     utools
 }
