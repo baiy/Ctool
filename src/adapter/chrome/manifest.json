@@ -8,19 +8,19 @@
     "manifest_version": 2,
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.baiy.org; object-src 'self'",
     "browser_action": {
-        "default_icon": "img/icon128.png",
+        "default_icon": "img/icon_chrome.png",
         "default_title": "常用开发工具",
         "default_popup": "index.html"
     },
     "icons": {
-        "16": "img/icon128.png",
-        "48": "img/icon128.png",
-        "128": "img/icon128.png"
+        "16": "img/icon_chrome.png",
+        "48": "img/icon_chrome.png",
+        "128": "img/icon_chrome.png"
     },
     "permissions": [
         "clipboardWrite",
         "clipboardRead",
-        "http://ip.taobao.com/*"
+        "*://ifconfig.co/*"
     ],
     "update_url": "http://clients2.google.com/service/update2/crx"
 }
