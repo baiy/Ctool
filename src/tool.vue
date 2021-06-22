@@ -42,7 +42,7 @@
             </Radio>
         </RadioGroup>
         <div>
-            <router-view :key="$route.path + $route.query.t"/>
+            <router-view v-if="isRouterAlive" :key="$route.path + $route.query.t"/>
         </div>
         <Drawer :title="currentToolTitle+' - 历史记录'" v-model="historyShow" :width="100">
             <Table ref="historyTable" border :columns="historyColumns" :data="historyData" :height="historyTableHeight">
@@ -78,6 +78,7 @@ export default {
     },
     data () {
         return {
+            isRouterAlive:true,
             isUtools:isUtools,
             category: config.category,
             currentCategory: '',
@@ -127,11 +128,28 @@ export default {
     },
     created () {
         if (this.isUtools){
-            window.utools.onPluginEnter(({code}) => {
+            window.utools.onPluginEnter(({code,payload,type}) => {
                 let tool = "";
+                let feature = "";
                 if (code.indexOf('ctool-') !== -1) {
                     tool = code.replace(/ctool-/g, "")
+                    if (tool.indexOf('-') !== -1){
+                        let temp = tool.split('-');
+                        tool = temp[0]
+                        feature = temp[1]
+                    }
                 }
+
+                // 写入正则匹配数据到固定数据数据
+                if (type === "regex" && payload){
+                    model.setFixeInputData(payload)
+
+                }
+                if(feature){
+                    // 设置工具内功能
+                    model.setToolCurrentFeature(feature)
+                }
+
                 if (tool && this.currentTool !== tool) {
                     let cat = config.getToolDefaultCategory(tool);
                     if (cat) {
@@ -141,6 +159,7 @@ export default {
                         this.currentTool = tool;
                     }
                 }
+                this.reload()
             })
         }
 
@@ -152,6 +171,10 @@ export default {
     },
     mounted () {},
     methods: {
+        reload () {
+            this.isRouterAlive = false
+            this.$nextTick(() => (this.isRouterAlive = true))
+        },
         categorySelect (name) {
             switch (name) {
                 case '_feedback':
