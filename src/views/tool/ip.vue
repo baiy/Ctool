@@ -11,7 +11,7 @@
                 </ButtonGroup>
             </FormItem>
             <FormItem>
-                <Alert>ip信息来源 <a href="https://ip.taobao.com/" target="_blank">https://ip.taobao.com/</a></Alert>
+                <Alert>ip信息来源 <a href="https://ifconfig.co/json" target="_blank">https://ifconfig.co/json</a></Alert>
             </FormItem>
         </option-block>
         <div style="border: 1px solid #dcdee2;border-radius: 4px;">
@@ -49,11 +49,8 @@
             handle() {
                 if (this.current.input) {
                     request({
-                        url:"https://ip.taobao.com/outGetIpInfo",
-                        data:{
-                            "ip":this.current.input === "localhost" ? 'myip' : this.current.input,
-                            "accessKey": "alibaba-inc"
-                        },
+                        url:"https://ifconfig.co/json",
+                        data:this.current.input !== "localhost" ? {ip:this.current.input} : null,
                     },(err, res, result)=>{
                         if (err) return this.$Message.error("ip地址信息查询错误:"+err);
                         this.current.output = JSON.stringify(JSON.parse(result),null, 4);
