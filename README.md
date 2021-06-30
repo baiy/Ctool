@@ -15,6 +15,10 @@ npm run build -adapter=chrome
 npm run serve -adapter=chrome
 ```
 
+## 微软 Edge 安装
+
+> 审核中 稍后提供
+
 ## 支持 utools
 
 ### 插件中心安装
