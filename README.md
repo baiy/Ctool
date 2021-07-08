@@ -2,7 +2,7 @@
 使用过程中的任何问题或者需要新的工具欢迎提交`Issue`,新工具如果可以提供实现代码就完美了O(∩_∩)O
 
 ## chrome 安装
- - 方法1: 在 [Chrome 网上应用店](https://chrome.google.com/webstore/detail/ipfcebkfhpkjeikaammlkcnalknjahmh)安装
+ - 方法1: 在 [Chrome 应用商店](https://chrome.google.com/webstore/detail/ipfcebkfhpkjeikaammlkcnalknjahmh) 安装
  - 方法2: [下载 .crx 安装包](https://github.com/baiy/Ctool/releases/latest)手动安装 [猛戳这里查看手动安装教程](http://www.cnplugins.com/tool/outline-install-crx-file.html)
  - 方法3: [百度网盘下载](https://pan.baidu.com/s/1mhWbqWC) 安装方法和方法2一致
 > 方法2 / 方法3 不定期维护 仅供网络环境特别恶劣的同学使用
@@ -17,7 +17,7 @@ npm run serve -adapter=chrome
 
 ## 微软 Edge 安装
 
-> 审核中 稍后提供
+- 在 [微软 Edge 应用商店](https://microsoftedge.microsoft.com/addons/detail/cihekagpnnadjjplgljkmkpcfiopfplc) 安装
 
 ## 支持 utools
 
