@@ -39,6 +39,7 @@ const tool = [
     {'name': 'jsonToObject', 'title': 'JSON转实体类', 'cat': ['conversion', 'serialize']},
     {'name': 'ascii', 'title': 'ascii转换', 'cat': ['conversion']},
     {'name': 'variableConversion', 'title': '变量名转换', 'cat': ['conversion']},
+    {'name': 'jwt', 'title': 'jwt解码', 'cat': ['conversion']},
 ]
 
 // 工具类功能配置
@@ -52,7 +53,8 @@ const feature = {
 const utools = {
     keyword: {
         hash: ['md5', 'sha1', 'sha256', 'sha512', 'sm3'],
-        encrypt: ['AES', 'DES', 'RC4', 'Rabbit', 'TripleDes', 'sm2']
+        encrypt: ['AES', 'DES', 'RC4', 'Rabbit', 'TripleDes', 'sm2'],
+        jwt: ['jwtDecode']
     },
     cmds: {
         timestamp: [

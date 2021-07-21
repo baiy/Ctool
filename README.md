@@ -62,6 +62,7 @@ npm run serve -adapter=utools
 |JSON转实体类|`Java`, `C#`, `Go`, `Dart`|√|
 |ascii编码转换|`十进制`, `十六进制`, `八进制`, `二进制`, `字符串`|√|
 |变量名格式转换|`Var Name`, `var-name`, `VAR_NAME`, `VarName`, `varName`, `var_name`, `var name`|√|
+|jwt解码|`header`, `payload`|√|
 
 ## 第三方开源库
 项目诞生离不开这些优秀的开源程序
@@ -96,6 +97,7 @@ npm run serve -adapter=utools
 - [vue-codemirror](https://www.npmjs.com/package/vue-codemirror)
 - [sm-crypto](https://github.com/JuneAndGreen/sm-crypto)
 - [camelcaseplugin](https://github.com/netnexus/camelcaseplugin)
+- [jwt-decode](https://www.npmjs.com/package/jwt-decode)
 
  > 当然项目中还使用很多不知道姓名的大神的代码, 在这里就不一一感谢
  
