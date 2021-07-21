@@ -101,6 +101,10 @@ const routes = [
     {
         path: '/tool/variableConversion',
         component: r => require(['./views/tool/variableConversion.vue'], r)
+    },
+    {
+        path: '/tool/jwt',
+        component: r => require(['./views/tool/jwt.vue'], r)
     }
 ]
 
