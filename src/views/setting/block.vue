@@ -12,6 +12,9 @@
                 <Cell title="自动读取剪贴板内容">
                     <i-switch v-model="auto_read_copy" slot="extra"/>
                 </Cell>
+                <Cell title="读取剪贴板内容过滤首尾不可见字符">
+                    <i-switch v-model="auto_read_copy_filter" slot="extra"/>
+                </Cell>
             </CellGroup>
         </div>
         <Drawer title="设置" placement="left" v-model="settingShow" :width="90">
@@ -34,6 +37,7 @@ export default {
             settingShow: false,
             auto_save_copy: true,
             auto_read_copy: true,
+            auto_read_copy_filter: false,
             is_chrome: isChrome,
             is_utools: isUtools,
         }
@@ -41,10 +45,12 @@ export default {
     created() {
         this.auto_save_copy = setting.autoSaveCopy()
         this.auto_read_copy = setting.autoReadCopy()
+        this.auto_read_copy_filter = setting.autoReadCopyFilter()
     },
     beforeDestroy() {
         setting.autoSaveCopy(this.auto_save_copy)
         setting.autoReadCopy(this.auto_read_copy)
+        setting.autoReadCopyFilter(this.auto_read_copy_filter)
     },
     methods: {
         open(name) {

@@ -1,6 +1,6 @@
 {
     "name": "c-tool",
-    "version": "1.6.3",
+    "version": "1.6.4",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve --port 8081",

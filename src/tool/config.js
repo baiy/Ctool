@@ -55,15 +55,26 @@ const getToolDefaultCategory = function (name) {
     return ''
 }
 
+/**
+ * @param name
+ * @param defaultValue
+ * @return {any}
+ */
 const getSetting = function (name, defaultValue = null) {
     let setting = cache.getNoVersion('setting', {})
     return !setting.hasOwnProperty(name) ? defaultValue : setting[name]
 }
 
+/**
+ * @param name
+ * @param value
+ * @return {boolean}
+ */
 const saveSetting = function (name, value) {
     let setting = cache.getNoVersion('setting', {})
     setting[name] = value
     cache.setNoVersion('setting', setting);
+    return true
 }
 
 export default {
