@@ -65,6 +65,9 @@ export const plugin = {
                 } else if (setting.autoReadCopy()) {
                     let paste = clipboardPaste()
                     if (!data[clipboardField] && paste) {
+                        if (setting.autoReadCopyFilter()){
+                            paste = paste.trim()
+                        }
                         data[clipboardField] = paste
                     }
                 }

@@ -58,7 +58,7 @@
                 <Button type="primary" @click="historyClear">清空历史记录</Button>
             </div>
         </Drawer>
-        <Drawer title="设置" v-model="settingShow" :width="300">
+        <Drawer title="设置" v-model="settingShow" :width="400">
             <setting-block v-if="settingShow"></setting-block>
         </Drawer>
     </div>
