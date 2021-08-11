@@ -40,6 +40,7 @@ const tool = [
     {'name': 'ascii', 'title': 'ascii转换', 'cat': ['conversion']},
     {'name': 'variableConversion', 'title': '变量名转换', 'cat': ['conversion']},
     {'name': 'jwt', 'title': 'jwt解码', 'cat': ['conversion']},
+    {'name': 'hexString', 'title': 'Hex/String转换', 'cat': ['conversion']},
 ]
 
 // 工具类功能配置
@@ -54,7 +55,8 @@ const utools = {
     keyword: {
         hash: ['md5', 'sha1', 'sha256', 'sha512', 'sm3'],
         encrypt: ['AES', 'DES', 'RC4', 'Rabbit', 'TripleDes', 'sm2'],
-        jwt: ['jwtDecode']
+        jwt: ['jwtDecode'],
+        hexString: ['hex to string', 'string to hex', '十六进制转字符串', '字符串转十六机制'],
     },
     cmds: {
         timestamp: [
@@ -71,14 +73,14 @@ const utools = {
                 "type": "regex",
                 "match": "/[a-zA-z]+://[^\\s]*/i",
                 "minLength": 8,
-                "feature":'generate' // 适配工具内功能
+                "feature": 'generate' // 适配工具内功能
 
             },
             {
                 "type": "regex",
                 "match": "/[a-zA-z]+://[^\\s]*/i",
                 "minLength": 8,
-                "feature":'reader' // 适配工具内功能
+                "feature": 'reader' // 适配工具内功能
             }
         ],
         ip: [

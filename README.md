@@ -40,7 +40,7 @@ npm run serve -adapter=utools
 |---|---|---|
 |哈希|`md5`, `sha1`, `sha256`, `sha512`,`sm3`|√|
 |加密/解密|`AES`,`DES`,`RC4`,`Rabbit`,`TripleDes`,`sm2`|√|
-|BASE64编码|`加密`,`解密`|√|
+|BASE64编码|`加密`,`解密`,`支持文件`|√|
 |URL编码|`编码`,`解码`|√|
 |时间戳|双向转换|√|
 |二维码|`生成`,`解析`|√|
@@ -63,6 +63,7 @@ npm run serve -adapter=utools
 |ascii编码转换|`十进制`, `十六进制`, `八进制`, `二进制`, `字符串`|√|
 |变量名格式转换|`Var Name`, `var-name`, `VAR_NAME`, `VarName`, `varName`, `var_name`, `var name`|√|
 |jwt解码|`header`, `payload`|√|
+|Hex/String转换|`hex to string`, `string to hex`, `十六进制转字符串`, `字符串转十六进制`|√|
 
 ## 第三方开源库
 项目诞生离不开这些优秀的开源程序
