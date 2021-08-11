@@ -105,6 +105,10 @@ const routes = [
     {
         path: '/tool/jwt',
         component: r => require(['./views/tool/jwt.vue'], r)
+    },
+    {
+        path: '/tool/hexString',
+        component: r => require(['./views/tool/hexString.vue'], r)
     }
 ]
 
