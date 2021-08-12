@@ -1,22 +1,18 @@
 import {env, inArray} from '../helper'
 import cache from './cache'
 
-// 工具缓存数据过期时间(秒)
-export const TOOL_DATA_EXPIRY = 3600 * 24
-// 徽章过期时间(天)
-export const BADGE_EXPIRY = 10
-// 分类徽章
-export const BADGE_CATEGORY = []
-// 工具徽章
-export const BADGE_TOOL = []
-// 默认常用工具
-export const DEFAULT_COMMON_TOOL = [
-    'hash', 'encrypt', 'json', 'base64', 'url', 'timestamp',
-    'qrCode', 'pinyin', 'ip', 'code', 'unicode',
-    'decimalConvert', 'randomString', 'diffs',
-]
-
 const toolConfig = require('../config')
+
+// 工具缓存数据过期时间(秒)
+export const TOOL_DATA_EXPIRY = toolConfig.toolDataExpiry
+// 徽章过期时间(天)
+export const BADGE_EXPIRY = toolConfig.badgeExpiry
+// 分类徽章
+export const BADGE_CATEGORY = toolConfig.badgeCategory
+// 工具徽章
+export const BADGE_TOOL = toolConfig.badgeTool
+// 默认常用工具
+export const DEFAULT_COMMON_TOOL = toolConfig.defaultCommonTool
 
 const category = toolConfig.category
 

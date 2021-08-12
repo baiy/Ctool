@@ -1,13 +1,17 @@
 # 程序开发常用工具
+
 使用过程中的任何问题或者需要新的工具欢迎提交`Issue`,新工具如果可以提供实现代码就完美了O(∩_∩)O
 
 ## chrome 安装
- - 方法1: 在 [Chrome 应用商店](https://chrome.google.com/webstore/detail/ipfcebkfhpkjeikaammlkcnalknjahmh) 安装
- - 方法2: [下载 .crx 安装包](https://github.com/baiy/Ctool/releases/latest)手动安装 [猛戳这里查看手动安装教程](http://www.cnplugins.com/tool/outline-install-crx-file.html)
- - 方法3: [百度网盘下载](https://pan.baidu.com/s/1mhWbqWC) 安装方法和方法2一致
+
+- 方法1: 在 [Chrome 应用商店](https://chrome.google.com/webstore/detail/ipfcebkfhpkjeikaammlkcnalknjahmh) 安装
+- 方法2: [下载 .crx 安装包](https://github.com/baiy/Ctool/releases/latest)手动安装 [猛戳这里查看手动安装教程](http://www.cnplugins.com/tool/outline-install-crx-file.html)
+- 方法3: [百度网盘下载](https://pan.baidu.com/s/1mhWbqWC) 安装方法和方法2一致
+
 > 方法2 / 方法3 不定期维护 仅供网络环境特别恶劣的同学使用
 
 ### 本地打包/调试
+
 ```
 # 打包
 npm run build -adapter=chrome
@@ -26,6 +30,7 @@ npm run serve -adapter=chrome
 > 插件中心搜索`ctool`
 
 ### 本地打包/调试
+
 ```
 # 打包
 npm run build -adapter=utools
@@ -36,6 +41,7 @@ npm run serve -adapter=utools
 ```
 
 ## 功能列表
+
 |功能|说明|离线使用|
 |---|---|---|
 |哈希|`md5`, `sha1`, `sha256`, `sha512`,`sm3`|√|
@@ -64,26 +70,28 @@ npm run serve -adapter=utools
 |变量名格式转换|`Var Name`, `var-name`, `VAR_NAME`, `VarName`, `varName`, `var_name`, `var name`|√|
 |jwt解码|`header`, `payload`|√|
 |Hex/String转换|`hex to string`, `string to hex`, `十六进制转字符串`, `字符串转十六进制`|√|
+|文本处理|'大小写转换', '中英文标点转换', '简繁转换', '替换', '字符统计', '行去重', '添加行号', '行排序', '过滤行首尾不可见字符','过滤空行'|√|
 
 ## 第三方开源库
+
 项目诞生离不开这些优秀的开源程序
- 
-- [ajax-request](https://www.npmjs.com/package/ajax-request) 
+
+- [ajax-request](https://www.npmjs.com/package/ajax-request)
 - [code-formatter](https://www.npmjs.com/package/code-formatter)
 - [crypto-js](https://www.npmjs.com/package/crypto-js)
-- [ipinyinjs](https://www.npmjs.com/package/ipinyinjs) 
-- [is-url](https://www.npmjs.com/package/is-url) 
-- [iview](https://www.npmjs.com/package/iview) 
-- [js-base64](https://www.npmjs.com/package/js-base64) 
-- [lscache](https://www.npmjs.com/package/lscache) 
-- [php-array-reader](https://www.npmjs.com/package/php-array-reader) 
-- [phparr](https://www.npmjs.com/package/phparr) 
-- [qrcode](https://www.npmjs.com/package/qrcode) 
-- [qrcode-parser](https://www.npmjs.com/package/qrcode-parser) 
+- [ipinyinjs](https://www.npmjs.com/package/ipinyinjs)
+- [is-url](https://www.npmjs.com/package/is-url)
+- [iview](https://www.npmjs.com/package/iview)
+- [js-base64](https://www.npmjs.com/package/js-base64)
+- [lscache](https://www.npmjs.com/package/lscache)
+- [php-array-reader](https://www.npmjs.com/package/php-array-reader)
+- [phparr](https://www.npmjs.com/package/phparr)
+- [qrcode](https://www.npmjs.com/package/qrcode)
+- [qrcode-parser](https://www.npmjs.com/package/qrcode-parser)
 - [radix.js](https://www.npmjs.com/package/radix.js)
-- [serialize-php](https://www.npmjs.com/package/serialize-php) 
-- [diff](https://www.npmjs.com/package/diff) 
-- [vue](https://www.npmjs.com/package/vue) 
+- [serialize-php](https://www.npmjs.com/package/serialize-php)
+- [diff](https://www.npmjs.com/package/diff)
+- [vue](https://www.npmjs.com/package/vue)
 - [vue-router](https://www.npmjs.com/package/vue-router)
 - [taobao](http://ip.taobao.com/)
 - [layui](https://github.com/sentsin/layui/)
@@ -99,8 +107,10 @@ npm run serve -adapter=utools
 - [sm-crypto](https://github.com/JuneAndGreen/sm-crypto)
 - [camelcaseplugin](https://github.com/netnexus/camelcaseplugin)
 - [jwt-decode](https://www.npmjs.com/package/jwt-decode)
+- [jian_fan](https://www.npmjs.com/package/jian_fan)
 
- > 当然项目中还使用很多不知道姓名的大神的代码, 在这里就不一一感谢
- 
- ## 先睹为快
- ![](https://cdn.jsdelivr.net/gh/baiy/Ctool/dome.jpg)
+> 当然项目中还使用很多不知道姓名的大神的代码, 在这里就不一一感谢
+
+## 先睹为快
+
+![](https://cdn.jsdelivr.net/gh/baiy/Ctool/dome.jpg)
