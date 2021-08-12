@@ -27,7 +27,7 @@
     ],
     "commands": {
         "panel": {
-            "description": "打开独立工具串口",
+            "description": "打开独立工具窗口",
             "global": true
         }
     }
