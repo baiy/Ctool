@@ -115,4 +115,4 @@ npm run serve -adapter=utools
 
 ## 先睹为快
 
-![](https://cdn.jsdelivr.net/gh/baiy/Ctool/dome.jpg)
+![](https://cdn.jsdelivr.net/gh/baiy/Ctool/images/v2_1.png)
