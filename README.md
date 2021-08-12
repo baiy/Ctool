@@ -9,37 +9,29 @@
 - 方法3: [百度网盘下载](https://pan.baidu.com/s/1mhWbqWC) 安装方法和方法2一致
 
 > 方法2 / 方法3 不定期维护 仅供网络环境特别恶劣的同学使用
-> 
+>
 > [猛戳这里查看手动安装`.crx`教程](http://www.cnplugins.com/tool/outline-install-crx-file.html)
-
-### 本地打包/调试
-
-```
-# 打包
-npm run build -adapter=[chrome|edge|utools|web]
-# 调试
-npm run serve -adapter=[chrome|edge|utools|web]
-```
 
 ## 微软 Edge 安装
 
 - 在 [微软 Edge 应用商店](https://microsoftedge.microsoft.com/addons/detail/cihekagpnnadjjplgljkmkpcfiopfplc) 安装
 
-## 支持 utools
+## utools 安装
 
 ### 插件中心安装
 
-> 插件中心搜索`ctool`
+> 插件中心搜索 `ctool`
 
-### 本地打包/调试
+## 开发
 
 ```
-# 打包
-npm run build -adapter=utools
-> 打包完成后 `plugin.json`文件会自动生成在`/dist/`目录中
-
+# 安装依赖
+npm install
 # 调试
-npm run serve -adapter=utools
+npm run serve -adapter=[chrome|edge|utools|web]
+# 编译 
+npm run build -adapter=[chrome|edge|utools|web]
+// 编译输出目录: `/dist/`
 ```
 
 ## 功能列表
