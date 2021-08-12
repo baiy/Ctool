@@ -1,9 +1,26 @@
+// 工具缓存数据过期时间(秒)
+const TOOL_DATA_EXPIRY = 3600 * 24
+// 徽章过期时间(天)
+const BADGE_EXPIRY = 5
+// 分类徽章
+const BADGE_CATEGORY = ['other']
+// 工具徽章
+const BADGE_TOOL = ['text','hexString']
+// 默认常用工具
+const DEFAULT_COMMON_TOOL = [
+    'hash', 'encrypt', 'json', 'base64', 'url', 'timestamp',
+    'qrCode', 'pinyin', 'ip', 'code', 'unicode',
+    'text', 'randomString', 'diffs',
+]
+
 const category = [
-    {'name': 'common', 'title': '常用工具'},
-    {'name': 'encryption', 'title': '加密解密'},
-    {'name': 'conversion', 'title': '编码转换'},
+    {'name': 'common', 'title': '常用'},
+    {'name': 'encryption', 'title': '加解密'},
+    {'name': 'conversion', 'title': '转换'},
     {'name': 'serialize', 'title': '序列化'},
-    {'name': 'other', 'title': '其他工具'},
+    {'name': 'check', 'title': '校验'},
+    {'name': 'generate', 'title': '生成'},
+    {'name': 'other', 'title': '其他'},
 ]
 
 const tool = [
@@ -27,20 +44,21 @@ const tool = [
     {'name': 'code', 'title': '代码格式化', 'cat': ['other']},
     {'name': 'unicode', 'title': 'Unicode', 'cat': ['conversion']},
     {'name': 'decimalConvert', 'title': '进制转换', 'cat': ['conversion']},
-    {'name': 'regex', 'title': '正则表达式', 'cat': ['other']},
-    {'name': 'randomString', 'title': '随机字符生成', 'cat': ['other']},
+    {'name': 'regex', 'title': '正则表达式', 'cat': ['check']},
+    {'name': 'randomString', 'title': '随机字符生成', 'cat': ['generate']},
     {'name': 'serializeConversion', 'title': '序列化转换', 'cat': ['conversion', 'serialize']},
-    {'name': 'diffs', 'title': '文本差异化对比', 'cat': ['other']},
-    {'name': 'crontab', 'title': 'crontab校验', 'cat': ['other']},
+    {'name': 'diffs', 'title': '文本差异化对比', 'cat': ['check']},
+    {'name': 'crontab', 'title': 'crontab校验', 'cat': ['check']},
     {'name': 'websocket', 'title': 'websocket调试', 'cat': ['other']},
     {'name': 'unit', 'title': '单位换算', 'cat': ['other']},
     {'name': 'time', 'title': '时间计算器', 'cat': ['other']},
-    {'name': 'uuid', 'title': 'UUID生成', 'cat': ['other']},
+    {'name': 'uuid', 'title': 'UUID生成', 'cat': ['generate']},
     {'name': 'jsonToObject', 'title': 'JSON转实体类', 'cat': ['conversion', 'serialize']},
-    {'name': 'ascii', 'title': 'ascii转换', 'cat': ['conversion']},
+    {'name': 'ascii', 'title': 'ASCII转换', 'cat': ['conversion']},
     {'name': 'variableConversion', 'title': '变量名转换', 'cat': ['conversion']},
-    {'name': 'jwt', 'title': 'jwt解码', 'cat': ['conversion']},
+    {'name': 'jwt', 'title': 'JWT解码', 'cat': ['conversion']},
     {'name': 'hexString', 'title': 'Hex/String转换', 'cat': ['conversion']},
+    {'name': 'text', 'title': '文本处理', 'cat': ['other']},
 ]
 
 // 工具类功能配置
@@ -57,6 +75,7 @@ const utools = {
         encrypt: ['AES', 'DES', 'RC4', 'Rabbit', 'TripleDes', 'sm2'],
         jwt: ['jwtDecode'],
         hexString: ['hex to string', 'string to hex', '十六进制转字符串', '字符串转十六机制'],
+        text: ['文本处理', '大小写转换', '中英文标点转换', '简繁转换', '字符替换', '字符统计', '行去重', '添加行号', '行排序', '过滤行首尾不可见字符', '过滤空行'],
     },
     cmds: {
         timestamp: [
@@ -104,5 +123,10 @@ module.exports = {
     category,
     tool,
     feature,
-    utools
+    utools,
+    toolDataExpiry: TOOL_DATA_EXPIRY,
+    badgeExpiry: BADGE_EXPIRY,
+    badgeCategory: BADGE_CATEGORY,
+    badgeTool: BADGE_TOOL,
+    defaultCommonTool: DEFAULT_COMMON_TOOL
 }

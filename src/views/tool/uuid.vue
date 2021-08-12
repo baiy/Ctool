@@ -15,7 +15,7 @@
                 <Checkbox v-model="current.filterLine">过滤中划线(-)</Checkbox>
             </FormItem>
             <FormItem>
-                <Checkbox v-model="current.isUpper">大写字母</Checkbox>
+                <Checkbox v-model="current.isUpper">大写</Checkbox>
             </FormItem>
             <FormItem>
                 <Checkbox v-model="current.isAddQuote">添加引号</Checkbox>
