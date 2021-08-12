@@ -5,18 +5,20 @@
 ## chrome 安装
 
 - 方法1: 在 [Chrome 应用商店](https://chrome.google.com/webstore/detail/ipfcebkfhpkjeikaammlkcnalknjahmh) 安装
-- 方法2: [下载 .crx 安装包](https://github.com/baiy/Ctool/releases/latest)手动安装 [猛戳这里查看手动安装教程](http://www.cnplugins.com/tool/outline-install-crx-file.html)
+- 方法2: [下载 .crx 安装包](https://github.com/baiy/Ctool/releases/latest)
 - 方法3: [百度网盘下载](https://pan.baidu.com/s/1mhWbqWC) 安装方法和方法2一致
 
 > 方法2 / 方法3 不定期维护 仅供网络环境特别恶劣的同学使用
+> 
+> [猛戳这里查看手动安装`.crx`教程](http://www.cnplugins.com/tool/outline-install-crx-file.html)
 
 ### 本地打包/调试
 
 ```
 # 打包
-npm run build -adapter=chrome
+npm run build -adapter=[chrome|edge|utools|web]
 # 调试
-npm run serve -adapter=chrome
+npm run serve -adapter=[chrome|edge|utools|web]
 ```
 
 ## 微软 Edge 安装

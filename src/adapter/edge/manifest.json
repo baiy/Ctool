@@ -30,6 +30,5 @@
             "description": "打开独立工具串口",
             "global": true
         }
-    },
-    "update_url": "http://clients2.google.com/service/update2/crx"
+    }
 }

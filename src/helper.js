@@ -5,6 +5,8 @@ export const env = function (key) {
 };
 
 export const isChrome = !!env('isChrome')
+export const isEdge = !!env('isEdge')
+export const isChromium = !!env('isChromium')
 export const isWeb = !!env('isWeb')
 export const isUtools = !!env('isUtools')
 
@@ -27,10 +29,10 @@ export const inArray = function (value, arr) {
 };
 
 export const openTab = function (url) {
-    if (isChrome && chrome.tabs) {
+    if (isChromium && chrome.tabs) {
         return chrome.tabs.create({url: url, selected: true});
     }
-    if (isUtools && window.utools){
+    if (isUtools && window.utools) {
         return window.utools.shellOpenExternal(url)
     }
     return window.open(url);
@@ -45,7 +47,7 @@ export const stat = function (action, data = {}) {
                     {
                         v: env('version'),
                         a: action,
-                        p:env('platform'),
+                        p: env('platform'),
                         r: Math.random()
                     },
                     data
