@@ -1,14 +1,20 @@
 let adapter = require('./src/tool/adapter');
 
+let pages = {}
+pages.tool = {
+    entry: 'src/tool.js',
+    template: 'public/tool.html',
+};
+if (adapter.isChromium) {
+    pages.background = {
+        entry: 'src/background.js',
+        template: 'public/background.html',
+    };
+}
 const config = {
     productionSourceMap: false,
-    publicPath:"./",
-    pages: {
-        tool: {
-            entry: 'src/tool.js',
-            template: 'public/tool.html',
-        }
-    },
+    publicPath: "./",
+    pages: pages,
     chainWebpack: config => {
         config.plugin('define').tap(args => {
             args[0]['process.ctool'] = JSON.stringify({
@@ -16,6 +22,8 @@ const config = {
                 updateTime: Date.parse((new Date()).toString()) / 1000,
                 platform: adapter.platform,
                 isChrome: adapter.isChrome,
+                isEdge: adapter.isEdge,
+                isChromium: adapter.isChromium,
                 isWeb: adapter.isWeb,
                 isUtools: adapter.isUtools,
             });

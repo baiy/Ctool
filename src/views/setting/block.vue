@@ -3,7 +3,7 @@
         <div>
             <CellGroup @on-click="open">
                 <Cell title="常用工具设置" name="setting"/>
-                <Cell v-if="is_chrome" title="快捷键设置" name="shortcuts"/>
+                <Cell v-if="is_chromium" title="快捷键设置" name="shortcuts"/>
             </CellGroup>
             <CellGroup>
                 <Cell title="自动复制结果到剪贴板">
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import {isChrome, isUtools, openTab} from '../../helper'
+import {isChromium, isUtools, openTab} from '../../helper'
 import setting from '../../tool/setting'
 import settingBlock from './setting'
 
@@ -38,7 +38,7 @@ export default {
             auto_save_copy: true,
             auto_read_copy: true,
             auto_read_copy_filter: false,
-            is_chrome: isChrome,
+            is_chromium: isChromium,
             is_utools: isUtools,
         }
     },
