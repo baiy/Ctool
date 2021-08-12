@@ -72,7 +72,7 @@ npm run serve -adapter=utools
 |变量名格式转换|`Var Name`, `var-name`, `VAR_NAME`, `VarName`, `varName`, `var_name`, `var name`|√|
 |jwt解码|`header`, `payload`|√|
 |Hex/String转换|`hex to string`, `string to hex`, `十六进制转字符串`, `字符串转十六进制`|√|
-|文本处理|'大小写转换', '中英文标点转换', '简繁转换', '替换', '字符统计', '行去重', '添加行号', '行排序', '过滤行首尾不可见字符','过滤空行'|√|
+|文本处理|`大小写转换`, `中英文标点转换`, `简繁转换`, `替换`, `字符统计`, `行去重`, `添加行号`, `行排序`, `过滤行首尾不可见字符`,`过滤空行`|√|
 
 ## 第三方开源库
 
