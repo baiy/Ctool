@@ -6,10 +6,10 @@ const panel = {
         chrome.windows.create({
             url: chrome.runtime.getURL("tool.html"),
             type: "popup",
-            width: 850,
+            width: 810,
             left: 200,
             top: 200,
-            height: 580,
+            height: 610,
         }, (w) => {
             cache.set(this.cacheName, w.id)
         })

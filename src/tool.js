@@ -13,7 +13,7 @@ import {isUtools} from './helper'
         const page = document.getElementById('page')
         page.style.width = 'auto'
         page.style.height = 'auto'
-        page.style.minHeight = '500px'
+        page.style.minHeight = '550px'
     }
 })()
 

@@ -23,7 +23,6 @@
 </template>
 <script>
     import moment from 'moment'
-    import { trim } from '../../helper'
 
     let inputType = {
         'normalSecond': 1,
@@ -53,7 +52,7 @@
                         return inputType.unixMillisecond
                     }
                     return inputType.error
-                }(trim(this.current.input))
+                }(this.current.input.trim())
                 if (type === inputType.error) {
                     return this.$Message.error('输入时间格式错误')
                 }

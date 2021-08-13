@@ -1,8 +1,28 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import { stat } from './helper'
+import {env} from './helper'
+import {stringify as queryStringify} from "query-string";
+import user from "./tool/user";
 
 Vue.use(Router)
+
+export const stat = (action, data = {}) => {
+    setTimeout(() => {
+        try {
+            let img = new Image(1, 1);
+            img.src = 'https://www.baiy.org/chrome_tool/stat/?' + queryStringify({
+                v: env('version'),
+                a: action,
+                u: user.uid(),
+                p: env('platform'),
+                r: Math.random(),
+                ...data
+            });
+        } catch (e) {
+            // todo
+        }
+    }, 3000)
+};
 
 // 路由配置
 const routes = [
@@ -116,12 +136,12 @@ const routes = [
     }
 ]
 
-const router = new Router({ routes })
+const router = new Router({routes})
 
 stat('index')
 
 router.afterEach(to => {
-    stat('tool', { tool: to.path })
+    stat('tool', {tool: to.path})
 })
 
 export default router

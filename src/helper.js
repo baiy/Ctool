@@ -1,6 +1,8 @@
-import {stringify as queryStringify} from "query-string"
+import {v4 as uuidV4} from 'uuid';
+import {openUrl as chromiumOpenUrl} from './adapter/chromium/helper';
+import {openUrl as utoolsOpenUrl} from './adapter/utools/helper';
 
-export const env = function (key) {
+export const env = (key) => {
     return process['ctool'][key] ? process['ctool'][key] : "";
 };
 
@@ -10,52 +12,16 @@ export const isChromium = !!env('isChromium')
 export const isWeb = !!env('isWeb')
 export const isUtools = !!env('isUtools')
 
-export const trim = function (str, char, type) {
-    if (char) {
-        if (type === 'left') {
-            return str.replace(new RegExp('^\\' + char + '+', 'g'), '');
-        } else if (type === 'right') {
-            return str.replace(new RegExp('\\' + char + '+$', 'g'), '');
-        }
-        return str.replace(new RegExp('^\\' + char + '+|\\' + char + '+$', 'g'), '');
-    }
-    return str.replace(/^\s+|\s+$/g, '');
-};
+export const uuid = () => {
+    return uuidV4().toLowerCase();
+}
 
-export const inArray = function (value, arr) {
-    return arr.findIndex((v) => {
-        return value === v
-    }) !== -1
-};
-
-export const openTab = function (url) {
-    if (isChromium && chrome.tabs) {
-        return chrome.tabs.create({url: url, selected: true});
+export const openUrl = (url) => {
+    if (isChromium) {
+        return chromiumOpenUrl(url)
     }
-    if (isUtools && window.utools) {
-        return window.utools.shellOpenExternal(url)
+    if (isUtools) {
+        return utoolsOpenUrl(url)
     }
     return window.open(url);
 };
-
-export const stat = function (action, data = {}) {
-    setTimeout(function () {
-        try {
-            let img = new Image(1, 1);
-            img.src = 'https://www.baiy.org/chrome_tool/stat/?' + queryStringify(
-                Object.assign(
-                    {
-                        v: env('version'),
-                        a: action,
-                        p: env('platform'),
-                        r: Math.random()
-                    },
-                    data
-                )
-            );
-        } catch (e) {
-            // todo
-        }
-    }, 3000)
-};
-

@@ -2,6 +2,10 @@
 
 使用过程中的任何问题或者需要新的工具欢迎提交`Issue`,新工具如果可以提供实现代码就完美了O(∩_∩)O
 
+## 先睹为快
+
+![](https://cdn.jsdelivr.net/gh/baiy/Ctool@master/images/v2_1.png)
+
 ## chrome 安装
 
 - 方法1: 在 [Chrome 应用商店](https://chrome.google.com/webstore/detail/ipfcebkfhpkjeikaammlkcnalknjahmh) 安装
@@ -45,9 +49,9 @@ npm run build -adapter=[chrome|edge|utools|web]
 |时间戳|双向转换|√|
 |二维码|`生成`,`解析`|√|
 |汉字转拼音|`声调`,`首字母`,`分隔符`|√|
-|IP地址查询|`运营商`,`城市`|`×`|
+|IP地址查询|`运营商`,`城市`|×|
 |代码格式化|`js`, `html`, `css`, `xml`, `sql`, `压缩`|√|
-|Unicode|双向转换|√|
+|Unicode|`双向转换`,`emoji`,`html 实体`,`css 实体`|√|
 |进制转换|2-64进制互转|√|
 |正则表达式|字符匹配|√|
 |随机字符生成器|`批量`,`特殊字符`|√|
@@ -70,7 +74,6 @@ npm run build -adapter=[chrome|edge|utools|web]
 
 项目诞生离不开这些优秀的开源程序
 
-- [ajax-request](https://www.npmjs.com/package/ajax-request)
 - [code-formatter](https://www.npmjs.com/package/code-formatter)
 - [crypto-js](https://www.npmjs.com/package/crypto-js)
 - [ipinyinjs](https://www.npmjs.com/package/ipinyinjs)
@@ -102,9 +105,6 @@ npm run build -adapter=[chrome|edge|utools|web]
 - [camelcaseplugin](https://github.com/netnexus/camelcaseplugin)
 - [jwt-decode](https://www.npmjs.com/package/jwt-decode)
 - [jian_fan](https://www.npmjs.com/package/jian_fan)
+- [axios](https://www.npmjs.com/package/axios)
 
 > 当然项目中还使用很多不知道姓名的大神的代码, 在这里就不一一感谢
-
-## 先睹为快
-
-![](https://cdn.jsdelivr.net/gh/baiy/Ctool@master/images/v2_1.png)

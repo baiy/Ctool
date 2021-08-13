@@ -41,7 +41,6 @@
 <script>
     import generator from 'qrcode'
     import qrcodeParser from 'qrcode-parser'
-    import { trim } from '../../helper'
     import model from '../../tool/model'
 
     export default {
@@ -102,7 +101,7 @@
                 return false
             },
             substr (str) {
-                str = trim(str.replace(/[\r\n]/g, ''))
+                str = str.replace(/[\r\n]/g, '').trim()
                 const strLength = 100
                 return str.length > strLength ? str.substr(0, strLength) + '...' : str
             },

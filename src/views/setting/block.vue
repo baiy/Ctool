@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import {isChromium, isUtools, openTab} from '../../helper'
+import {isChromium, isUtools, openUrl} from '../../helper'
 import setting from '../../tool/setting'
 import settingBlock from './setting'
 
@@ -56,7 +56,7 @@ export default {
         open(name) {
             switch (name) {
                 case 'shortcuts':
-                    openTab('chrome://extensions/shortcuts')
+                    openUrl('chrome://extensions/shortcuts')
                     break
                 case 'setting':
                     this.settingShow = true

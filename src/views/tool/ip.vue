@@ -20,7 +20,7 @@
     </div>
 </template>
 <script>
-    import request from "ajax-request"
+    import axios from "axios"
     import { codemirror } from 'vue-codemirror'
     import 'codemirror/lib/codemirror.css'
     import 'codemirror/mode/javascript/javascript.js'
@@ -48,13 +48,17 @@
         methods: {
             handle() {
                 if (this.current.input) {
-                    request({
-                        url:"https://ifconfig.co/json",
-                        data:this.current.input !== "localhost" ? {ip:this.current.input} : null,
-                    },(err, res, result)=>{
-                        if (err) return this.$Message.error("ip地址信息查询错误:"+err);
-                        this.current.output = JSON.stringify(JSON.parse(result),null, 4);
-                        this.$saveToolData(this.current);
+                    axios({
+                        url: 'https://ifconfig.co/json',
+                        responseType: 'json',
+                        params: this.current.input !== "localhost" ? {ip:this.current.input} : {}
+                    }).then((response)=>{
+                        console.log(response)
+                        // if (err) return this.$Message.error("ip地址信息查询错误:"+err);
+                        // this.current.output = JSON.stringify(JSON.parse(result),null, 4);
+                        // this.$saveToolData(this.current);
+                    }).catch((error)=>{
+                        console.log(error)
                     });
                 }
             },
