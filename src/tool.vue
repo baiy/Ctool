@@ -61,79 +61,82 @@
         <Drawer title="设置" v-model="settingShow" :width="400">
             <setting-block v-if="settingShow"></setting-block>
         </Drawer>
+        <bottom-block/>
     </div>
 </template>
 
 <script>
 import config from './tool/config'
+import instance from './tool/instance'
+import BottomBlock from './bottom'
 import settingBlock from "./views/setting/block"
 import model from './tool/model'
-import historyFactory from './tool/history'
-import {setLoadHistoryIndex} from './tool/history'
-import { openTab,isUtools } from './helper'
+import historyFactory, {setLoadHistoryIndex} from './tool/history'
+import {isUtools, openUrl} from './helper'
 
 export default {
     components: {
-        "setting-block": settingBlock
+        "setting-block": settingBlock,
+        "bottom-block": BottomBlock
     },
-    data () {
+    data() {
         return {
-            isRouterAlive:true,
-            isUtools:isUtools,
+            isRouterAlive: true,
+            isUtools: isUtools,
             category: config.category,
             currentCategory: '',
             currentTool: '',
             historyData: [],
-            settingShow:false,
+            settingShow: false,
             historyShow: false,
             historyColumns: [
                 {
                     title: '操作时间',
                     key: 'time',
-                    width:180
+                    width: 180
                 },
                 {
                     title: '数据',
                     slot: '_value',
-                    ellipsis:true,
+                    ellipsis: true,
                 },
                 {
                     title: '操作',
                     slot: '_op',
-                    width:150
+                    width: 150
                 }
             ],
         }
     },
     computed: {
-        tools () {
+        tools() {
             return config.getToolByCategory(this.currentCategory)
         },
-        historyLength(){
+        historyLength() {
             return historyFactory(this.currentTool).length()
         },
         historyTableHeight() {
             // 设置表格高度
             return window.innerHeight - 140
         },
-        currentToolTitle(){
+        currentToolTitle() {
             return config.getToolTitle(this.currentTool)
         }
     },
     watch: {
-        currentTool (name) {
+        currentTool(name) {
             model.setCurrentTool(name)
             this.$router.push('/tool/' + name)
         },
     },
-    created () {
-        if (this.isUtools){
-            window.utools.onPluginEnter(({code,payload,type}) => {
+    created() {
+        if (this.isUtools) {
+            window.utools.onPluginEnter(({code, payload, type}) => {
                 let tool = "";
                 let feature = "";
                 if (code.indexOf('ctool-') !== -1) {
                     tool = code.replace(/ctool-/g, "")
-                    if (tool.indexOf('-') !== -1){
+                    if (tool.indexOf('-') !== -1) {
                         let temp = tool.split('-');
                         tool = temp[0]
                         feature = temp[1]
@@ -141,11 +144,11 @@ export default {
                 }
 
                 // 写入正则匹配数据到固定数据数据
-                if (type === "regex" && payload){
+                if (type === "regex" && payload) {
                     model.setFixeInputData(payload)
 
                 }
-                if(feature){
+                if (feature) {
                     // 设置工具内功能
                     model.setToolCurrentFeature(feature)
                 }
@@ -169,25 +172,27 @@ export default {
             top: 150,
         })
     },
-    mounted () {},
+    mounted() {
+        instance.set(this)
+    },
     methods: {
-        reload () {
+        reload() {
             this.isRouterAlive = false
             this.$nextTick(() => (this.isRouterAlive = true))
         },
-        categorySelect (name) {
+        categorySelect(name) {
             switch (name) {
                 case '_feedback':
-                    openTab('https://github.com/baiy/Ctool/issues')
+                    openUrl('https://github.com/baiy/Ctool/issues')
                     break
                 case '_about':
-                    openTab('https://github.com/baiy/Ctool')
+                    openUrl('https://github.com/baiy/Ctool')
                     break
                 case '_setting':
                     this.settingShow = true;
                     break
                 case '_new':
-                   openTab(window.location.href)
+                    openUrl(window.location.href)
                     break
                 case '_history':
                     this.history()
@@ -199,7 +204,7 @@ export default {
                     break
             }
         },
-        history () {
+        history() {
             let history = historyFactory(this.currentTool)
             if (history.length() < 1) {
                 return this.$Message.error('暂无历史记录')
@@ -207,53 +212,53 @@ export default {
             this.historyData = history.all()
             this.historyShow = true
         },
-        historyValue (value) {
+        historyValue(value) {
             return JSON.stringify(value)
         },
-        historyView(index){
+        historyView(index) {
             this.$Modal.info({
                 render: (h) => {
                     return h('Input', {
                         props: {
-                            type:"textarea",
-                            rows:10,
+                            type: "textarea",
+                            rows: 10,
                             value: JSON.stringify(historyFactory(this.currentTool).get(index), null, "\t"),
                         }
                     })
                 },
-                width:700,
-                okText:"关闭"
+                width: 700,
+                okText: "关闭"
             })
         },
-        historyClear(){
+        historyClear() {
             historyFactory(this.currentTool).clear()
             this.historyShow = false;
         },
-        historyLoad(index){
+        historyLoad(index) {
             setLoadHistoryIndex(index)
             this.historyShow = false;
             this.$router.push({
-                path:this.$router.currentRoute.fullPath,
-                query:{
-                    t:Date.now(),
+                path: this.$router.currentRoute.fullPath,
+                query: {
+                    t: Date.now(),
                 },
             });
         },
-        toolSelect (name) {
+        toolSelect(name) {
             model.setToolHistory(this.currentCategory, name)
             this.currentTool = name
         },
-        badgeToolIsShow (tool) {
+        badgeToolIsShow(tool) {
             return config.badgeToolIsShow(tool)
         },
-        badgeCategoryIsShow (cat) {
+        badgeCategoryIsShow(cat) {
             return config.badgeCategoryIsShow(cat)
         },
     },
 }
 </script>
 <style scoped>
-.drawer-footer{
+.drawer-footer {
     width: 100%;
     position: absolute;
     bottom: 0;

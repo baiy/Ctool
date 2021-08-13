@@ -1,4 +1,4 @@
-import {env, inArray} from '../helper'
+import {env} from '../helper'
 import cache from './cache'
 
 const toolConfig = require('../config')
@@ -84,16 +84,16 @@ export default {
     getToolByCategory(cat) {
         return tool.filter((t) => {
             if (cat === 'common') {
-                return inArray(t.name, getUserCommon())
+                return getUserCommon().includes(t.name)
             }
-            return inArray(cat, t.cat)
+            return t.cat.includes(cat);
         })
     },
     getToolDefaultCategory,
     badgeToolIsShow(tool) {
-        return badgeIsShow() && inArray(tool, BADGE_TOOL)
+        return badgeIsShow() && BADGE_TOOL.includes(tool)
     },
     badgeCategoryIsShow(cat) {
-        return badgeIsShow() && inArray(cat, BADGE_CATEGORY)
+        return badgeIsShow() && BADGE_CATEGORY.includes(cat)
     },
 }

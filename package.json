@@ -1,6 +1,6 @@
 {
     "name": "c-tool",
-    "version": "1.6.7",
+    "version": "1.6.8",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve --port 8081",
@@ -8,7 +8,7 @@
         "lint": "vue-cli-service lint"
     },
     "dependencies": {
-        "ajax-request": "^1.2.3",
+        "axios": "^0.21.1",
         "babel-runtime": "^6.26.0",
         "code-formatter": "0.0.1",
         "cron-parser": "^2.16.3",
