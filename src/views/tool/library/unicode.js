@@ -16,7 +16,7 @@ export default {
         html_entity_16,
         css_entitie
     },
-    decode(str, type) {
+    decode(str, type = unicode_point_default) {
         const errorListener = (item, callback) => {
             try {
                 return callback && callback()
