@@ -21,6 +21,7 @@
     import 'codemirror/addon/fold/brace-fold.js'
     import 'codemirror/addon/fold/comment-fold.js'
     import 'codemirror/addon/fold/foldgutter.css'
+    import Unicode from "./library/unicode"
 
     export default {
         components: {
@@ -110,29 +111,12 @@
                 }
             },
             unicode2zh () {
-                let content = this.current.content
-                if (content) {
-                    let newStr = ''
-                    let t = 1
-                    for (let i = 0; i < content.length; i += t) {
-                        let str = content.charAt(i)
-                        if (str === '\\' && 'u' === content.charAt(i + 1)) {
-                            console.log(parseInt(parseInt(content.substr(i + 2, 4), 16).toString(10), 10))
-                            newStr += String.fromCharCode(
-                                parseInt(
-                                    parseInt(content.substr(i + 2, 4), 16).toString(10),
-                                    10
-                                )
-                            )
-                            t = 6
-                        } else {
-                            t = 1
-                            newStr += str
-                        }
-                    }
-                    return newStr
-                }
-                return content
+                return Unicode.decode(
+                    this.current.content.replace(/\\U[0-9a-fA-F]{4}/g,(item)=>{
+                        // \Uxxxx=>\uxxxx
+                        return item.replace("\\U","\\u");
+                    })
+                )
             },
             zh2unicode () {
                 let content = this.current.content

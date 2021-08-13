@@ -55,7 +55,7 @@ const handleNoticeItems = ({code, data, info}) => {
 }
 
 const logError = (e) => {
-    // console.log(e)
+    console.log(e)
 }
 
 export default {
