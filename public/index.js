@@ -1,3 +1,3 @@
 setTimeout(function () {
-    window.location = "/tool.html";
+    window.location.href = "tool.html"
 }, 1);
