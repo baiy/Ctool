@@ -6,6 +6,10 @@
 
 ![](https://cdn.jsdelivr.net/gh/baiy/Ctool@master/images/v2_1.png)
 
+## 在线使用
+
+<https://baiy.github.io/Ctool/>
+
 ## chrome 安装
 
 - 方法1: 在 [Chrome 应用商店](https://chrome.google.com/webstore/detail/ipfcebkfhpkjeikaammlkcnalknjahmh) 安装

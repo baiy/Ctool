@@ -25,4 +25,4 @@ yarn-error.log*
 *.sln
 *.sw*
 test.js
-/public/background.html
+/public/background.js
