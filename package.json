@@ -1,6 +1,6 @@
 {
     "name": "c-tool",
-    "version": "1.6.9",
+    "version": "1.7.1",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve --port 8081",
@@ -26,7 +26,6 @@
         "jsonlint": "^1.6.3",
         "jwt-decode": "^3.1.2",
         "lodash": "^4.17.21",
-        "lscache": "^1.3.0",
         "mime-types": "^2.1.32",
         "moment": "^2.29.1",
         "php-array-reader": "^1.3.0",
@@ -56,6 +55,7 @@
         "eslint-plugin-vue": "^5.2.3",
         "less": "^2.7.3",
         "less-loader": "^5.0.0",
+        "utools-api-types": "^2.0.6",
         "vue-cli-plugin-iview": "^1.0.6",
         "vue-template-compiler": "^2.6.14"
     },

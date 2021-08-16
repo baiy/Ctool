@@ -1,4 +1,4 @@
-import cache from './tool/cache'
+let windowId = null;
 // 打开独立窗口
 const panel = {
     cacheName: "background:panel:window_id",
@@ -11,11 +11,10 @@ const panel = {
             top: 200,
             height: 610,
         }, (w) => {
-            cache.set(this.cacheName, w.id)
+            windowId = w.id
         })
     },
     open() {
-        let windowId = cache.get(this.cacheName)
         if (windowId === null) {
             this.create()
         } else {
@@ -30,8 +29,8 @@ const panel = {
 
     },
     onRemoved(id) {
-        if (id === cache.get(this.cacheName)) {
-            cache.remove(this.cacheName)
+        if (id === windowId) {
+            windowId = null;
         }
     }
 }
@@ -52,4 +51,3 @@ chrome.commands.onCommand.addListener((command) => {
 chrome.windows.onRemoved.addListener((id) => {
     panel.onRemoved(id);
 })
-

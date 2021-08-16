@@ -82,9 +82,10 @@ export default {
     getToolTitle,
     getUserCommon,
     getToolByCategory(cat) {
+        let common = getUserCommon();
         return tool.filter((t) => {
             if (cat === 'common') {
-                return getUserCommon().includes(t.name)
+                return common.includes(t.name)
             }
             return t.cat.includes(cat);
         })

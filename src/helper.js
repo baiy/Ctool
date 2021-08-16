@@ -25,3 +25,5 @@ export const openUrl = (url) => {
     }
     return window.open(url);
 };
+
+export const version = env('version').trim()

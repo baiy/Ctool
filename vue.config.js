@@ -5,12 +5,6 @@ pages.tool = {
     entry: 'src/tool.js',
     template: 'public/tool.html',
 };
-if (adapter.isChromium) {
-    pages.background = {
-        entry: 'src/background.js',
-        template: 'public/background.html',
-    };
-}
 const config = {
     productionSourceMap: false,
     publicPath: "./",

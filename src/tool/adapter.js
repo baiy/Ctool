@@ -51,16 +51,16 @@ const edgeConfigWrite = () => {
 const chromiumConfigWrite = () => {
     // 移除环境配置文件
     removeFile(path.join(__dirname, '../../public/manifest.json'));
-    let backgroundPath = path.join(__dirname, '../../public/background.html');
+    let backgroundPath = path.join(__dirname, '../../public/background.js');
     removeFile(backgroundPath);
     if (IS_CHROMIUM) {
-        fs.copyFileSync(path.join(__dirname, "../adapter/chromium/background.html"), backgroundPath);
+        fs.copyFileSync(path.join(__dirname, "../adapter/chromium/background.js"), backgroundPath);
     }
 }
 
 const utoolsConfigWrite = () => {
     // 移除环境配置文件
-    let fileArr = ['plugin.json', 'README.md']
+    let fileArr = ['plugin.json']
     fileArr.forEach((file) => {
         let filePath = path.join(__dirname, '../../public/' + file);
         removeFile(filePath);
@@ -118,7 +118,6 @@ const utoolsConfigWrite = () => {
                         utoolsToolFeature[toolFeatureCode].cmds.push(cmd)
                     }
                 }
-
             }
 
             let features = [
@@ -134,10 +133,6 @@ const utoolsConfigWrite = () => {
                 .replace(/##version##/g, process.env.npm_package_version)
                 .replace(/"##features##"/g, JSON.stringify(features));
             fs.writeFileSync(pluginPath, result);
-        });
-        let readmePath = path.join(__dirname, '../../public/README.md');
-        fs.copyFile(path.join(__dirname, "../../README.md"), readmePath, function (err) {
-            if (err) return console.log(err);
         });
     }
 }
