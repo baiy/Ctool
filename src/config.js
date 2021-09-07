@@ -3,9 +3,9 @@ const TOOL_DATA_EXPIRY = 3600 * 24
 // 徽章过期时间(天)
 const BADGE_EXPIRY = 5
 // 分类徽章
-const BADGE_CATEGORY = ['other']
+const BADGE_CATEGORY = []
 // 工具徽章
-const BADGE_TOOL = ['text','hexString']
+const BADGE_TOOL = []
 // 默认常用工具
 const DEFAULT_COMMON_TOOL = [
     'hash', 'encrypt', 'json', 'base64', 'url', 'timestamp',
