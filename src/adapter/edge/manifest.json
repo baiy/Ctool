@@ -24,7 +24,7 @@
         "clipboardRead"
     ],
     "host_permissions": [
-        "*://ifconfig.co/*",
+        "*://get.geojs.io/*",
         "*://*.baiy.org/*"
     ],
     "commands": {
