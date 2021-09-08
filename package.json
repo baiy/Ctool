@@ -1,6 +1,6 @@
 {
     "name": "c-tool",
-    "version": "1.7.4",
+    "version": "1.7.5",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve --port 8081",
@@ -8,11 +8,11 @@
         "lint": "vue-cli-service lint"
     },
     "dependencies": {
-        "axios": "^0.21.1",
+        "axios": "^0.21.4",
         "babel-runtime": "^6.26.0",
         "code-formatter": "0.0.1",
         "cron-parser": "^2.16.3",
-        "cronstrue": "^1.114.0",
+        "cronstrue": "^1.117.0",
         "crypto-js": "^3.3.0",
         "diff": "^4.0.2",
         "file": "^0.2.2",
@@ -34,7 +34,6 @@
         "qrcode": "^1.4.4",
         "qrcode-parser": "^1.2.0",
         "query-string": "^6.13.7",
-        "radix.js": "0.0.1",
         "serialize-php": "^1.1.2",
         "sm-crypto": "^0.1.4",
         "system": "^2.0.1",
