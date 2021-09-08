@@ -11,7 +11,8 @@
                 </ButtonGroup>
             </FormItem>
             <FormItem>
-                <Alert>ip信息来源 <a href="https://ifconfig.co/json" target="_blank">https://ifconfig.co/json</a></Alert>
+                <Alert v-if="!isWeb">ip信息来源 <a href="https://ifconfig.co/json" target="_blank">https://ifconfig.co/json</a></Alert>
+                <Alert v-else>ip信息来源 <a href="https://whois.pconline.com.cn/" target="_blank">https://whois.pconline.com.cn/</a></Alert>
             </FormItem>
         </option-block>
         <div style="border: 1px solid #dcdee2;border-radius: 4px;">
@@ -21,6 +22,7 @@
 </template>
 <script>
 import axios from "axios"
+import axiosJsonp from 'axios-jsonp';
 import {codemirror} from 'vue-codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/mode/javascript/javascript.js'
@@ -29,6 +31,7 @@ import 'codemirror/addon/fold/foldgutter.js'
 import 'codemirror/addon/fold/brace-fold.js'
 import 'codemirror/addon/fold/comment-fold.js'
 import 'codemirror/addon/fold/foldgutter.css'
+import {isWeb} from "../../helper"
 
 export default {
     components: {
@@ -48,16 +51,30 @@ export default {
     methods: {
         handle() {
             if (this.current.input) {
-                axios({
-                    url: 'https://ifconfig.co/json',
-                    responseType: 'json',
-                    params: this.current.input !== "localhost" ? {ip: this.current.input} : {}
-                }).then(({data}) => {
-                    this.current.output = JSON.stringify(data, null, 4);
-                    this.$saveToolData(this.current);
-                }).catch((error) => {
-                    return this.$Message.error("ip地址信息查询错误:" + error);
-                });
+                if (!this.isWeb){
+                    axios({
+                        url: 'https://ifconfig.co/json',
+                        responseType: 'json',
+                        params: this.current.input !== "localhost" ? {ip: this.current.input} : {}
+                    }).then(({data}) => {
+                        this.current.output = JSON.stringify(data, null, 4);
+                        this.$saveToolData(this.current);
+                    }).catch((error) => {
+                        return this.$Message.error("ip地址信息查询错误:" + error);
+                    });
+                }
+                else{
+                    axios({
+                        url: 'https://whois.pconline.com.cn/ipJson.jsp',
+                        adapter: axiosJsonp,
+                        params: this.current.input !== "localhost" ? {ip: this.current.input} : {},
+                    }).then(({data}) => {
+                        this.current.output = JSON.stringify(data, null, 4);
+                        this.$saveToolData(this.current);
+                    }).catch((error) => {
+                        return this.$Message.error("ip地址信息查询错误:" + error);
+                    });
+                }
             }
         },
         local() {
@@ -79,6 +96,7 @@ export default {
                 indentUnit: 4,
                 gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
             },
+            isWeb: isWeb
         }
     },
 }
