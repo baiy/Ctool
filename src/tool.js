@@ -5,10 +5,14 @@ import router from './tool.router'
 import optionBlock from './components/optionBlock'
 import {plugin as modelPlugin} from './tool/model'
 import cache from './tool/cache'
+import setting from './tool/setting'
 import App from './tool.vue'
-import {isUtools} from './helper'
+import {isUtools,setDisplayMode} from './helper'
 
 const run = () => {
+    // 设置显示模式
+    setDisplayMode(setting.displayMode())
+
     Vue.config.productionTip = false
 
     Vue.use(ViewUI)
