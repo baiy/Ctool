@@ -1,7 +1,6 @@
 let windowId = null;
 // 打开独立窗口
 const panel = {
-    cacheName: "background:panel:window_id",
     create() {
         chrome.windows.create({
             url: chrome.runtime.getURL("tool.html"),

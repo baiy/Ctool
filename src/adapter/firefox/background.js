@@ -1,6 +1,5 @@
 let windowId = null;
 // 打开独立窗口
-
 const panel = {
     create() {
         browser.windows.create({
@@ -47,6 +46,6 @@ browser.commands.onCommand.addListener((command) => {
 })
 
 // 窗口关闭事件
-chrome.windows.onRemoved.addListener((id) => {
+browser.windows.onRemoved.addListener((id) => {
     panel.onRemoved(id);
 })
