@@ -1,6 +1,6 @@
 {
     "name": "c-tool",
-    "version": "1.7.9",
+    "version": "1.7.10",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve --port 8081",
@@ -43,7 +43,7 @@
         "vue-codemirror": "^4.0.6",
         "vue-router": "^3.5.2",
         "x2js": "github:abdolence/x2js",
-        "xml-formatter": "^2.4.0"
+        "xml-formatter": "^2.4.1"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^3.12.1",

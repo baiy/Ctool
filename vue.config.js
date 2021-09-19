@@ -16,6 +16,7 @@ const config = {
                 updateTime: Date.parse((new Date()).toString()) / 1000,
                 platform: adapter.platform,
                 isChrome: adapter.isChrome,
+                isFirefox: adapter.isFirefox,
                 isEdge: adapter.isEdge,
                 isChromium: adapter.isChromium,
                 isWeb: adapter.isWeb,
