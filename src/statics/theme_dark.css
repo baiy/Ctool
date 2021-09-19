@@ -1,4 +1,7 @@
 /* 黑暗模式简单实现 */
+html {
+    background-color: #fff;
+}
 
 /* 强制黑暗模 */
 html[theme-mode='dark'] {

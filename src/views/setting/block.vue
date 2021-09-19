@@ -3,7 +3,7 @@
         <div>
             <CellGroup @on-click="open">
                 <Cell title="常用工具设置" name="setting"/>
-                <Cell v-if="is_chromium" title="快捷键设置" name="shortcuts"/>
+                <Cell v-if="is_chromium || is_firefox" title="快捷键设置" name="shortcuts"/>
                 <Cell title="外观显示">
                     <Select v-model="display_mode" slot="extra" transfer>
                         <Option v-for="item in display_mode_list" :value="item.v" :key="item.v">{{ item.n }}</Option>
@@ -29,9 +29,8 @@
 </template>
 
 <script>
-import {isChromium, isUtools, openUrl} from '../../helper'
+import {isChromium, isFirefox, isUtools, openUrl, setDisplayMode} from '../../helper'
 import setting from '../../tool/setting'
-import {setDisplayMode} from '../../helper'
 import settingBlock from './setting'
 
 export default {
@@ -47,6 +46,7 @@ export default {
             auto_read_copy_filter: false,
             is_chromium: isChromium,
             is_utools: isUtools,
+            is_firefox: isFirefox,
             display_mode_list: [
                 {n: "浅色", v: "light"},
                 {n: "深色", v: "dark"},
@@ -54,8 +54,8 @@ export default {
             ]
         }
     },
-    watch:{
-        display_mode(value){
+    watch: {
+        display_mode(value) {
             setDisplayMode(value)
         }
     },
@@ -75,6 +75,22 @@ export default {
         open(name) {
             switch (name) {
                 case 'shortcuts':
+                    if (this.is_firefox) {
+                        return this.$Notice.success({
+                            title: '请手动设置快捷键',
+                            render: h => {
+                                return h('span', [
+                                    '请打开附加组件管理器（about:addons），点击“管理扩展程序”右侧的设置按钮，选择“管理扩展快捷键”来修改这些快捷键。',
+                                    h('a', {
+                                        attrs: {
+                                            href: 'https://jingyan.baidu.com/article/3ea51489f1d0a713e61bbaff.html',
+                                            target: '_blank'
+                                        }
+                                    }, '操作方法'),
+                                ])
+                            }
+                        });
+                    }
                     openUrl('chrome://extensions/shortcuts')
                     break
                 case 'setting':

@@ -3,10 +3,11 @@ const _ = require('lodash');
 const fs = require('fs');
 // 运行平台适配
 let platform = process.env.hasOwnProperty('npm_config_adapter') ? process.env.npm_config_adapter : "";
-platform = ["chrome", 'utools', 'edge'].includes(platform) ? platform : "web"
+platform = ["chrome", 'utools', 'edge', 'firefox'].includes(platform) ? platform : "web"
 
 const IS_CHROME = "chrome" === platform
 const IS_EDGE = "edge" === platform
+const IS_FIREFOX = "firefox" === platform
 const IS_UTOOLS = "utools" === platform
 const IS_CHROMIUM = ['chrome', 'edge'].includes(platform)
 const IS_WEB = "web" === platform
@@ -51,10 +52,28 @@ const edgeConfigWrite = () => {
 const chromiumConfigWrite = () => {
     // 移除环境配置文件
     removeFile(path.join(__dirname, '../../public/manifest.json'));
-    let backgroundPath = path.join(__dirname, '../../public/background.js');
-    removeFile(backgroundPath);
+    removeFile(path.join(__dirname, '../../public/background.js'));
     if (IS_CHROMIUM) {
-        fs.copyFileSync(path.join(__dirname, "../adapter/chromium/background.js"), backgroundPath);
+        fs.copyFileSync(
+            path.join(__dirname, "../adapter/chromium/background.js"),
+            path.join(__dirname, '../../public/background.js')
+        );
+    }
+}
+
+const firefoxConfigWrite = () => {
+    // 移除环境配置文件
+    removeFile(path.join(__dirname, '../../public/manifest.json'));
+    removeFile(path.join(__dirname, '../../public/background.js'));
+    if (IS_FIREFOX) {
+        fs.copyFileSync(
+            path.join(__dirname, "../adapter/firefox/background.js"),
+            path.join(__dirname, '../../public/background.js')
+        );
+        fs.writeFileSync(
+            path.join(__dirname, '../../public/manifest.json'),
+            fs.readFileSync(path.join(__dirname, "../adapter/firefox/manifest.json")).toString().replace(/##version##/g, process.env.npm_package_version)
+        );
     }
 }
 
@@ -141,6 +160,7 @@ module.exports = {
     platform: platform,
     isChrome: IS_CHROME,
     isChromium: IS_CHROMIUM,
+    isFirefox: IS_FIREFOX,
     isEdge: IS_EDGE,
     isWeb: IS_WEB,
     isUtools: IS_UTOOLS,
@@ -148,6 +168,7 @@ module.exports = {
         chromiumConfigWrite();
         chromeConfigWrite();
         edgeConfigWrite();
+        firefoxConfigWrite();
         utoolsConfigWrite();
     }
 }
