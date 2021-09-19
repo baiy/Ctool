@@ -128,7 +128,7 @@
         data() {
             return {
                 current: {
-                    url: "ws://echo.websocket.org",
+                    url: "wss://echo.websocket.org",
                 },
                 status: false,
                 wx: null,
