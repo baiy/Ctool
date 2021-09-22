@@ -23,6 +23,10 @@
 ## 微软 Edge 安装
 
 - 在 [微软 Edge 应用商店](https://microsoftedge.microsoft.com/addons/detail/cihekagpnnadjjplgljkmkpcfiopfplc) 安装
+- 
+- ## 火狐 Firefox 安装
+
+- 在 [火狐 Firefox 应用商店](https://addons.mozilla.org/zh-CN/firefox/addon/ctool/) 安装
 
 ## utools 安装
 
@@ -36,9 +40,9 @@
 # 安装依赖
 npm install
 # 调试
-npm run serve -adapter=[chrome|edge|utools|web]
+npm run serve -adapter=[chrome|edge|utools|firefox|web]
 # 编译 
-npm run build -adapter=[chrome|edge|utools|web]
+npm run build -adapter=[chrome|edge|utools|firefox|web]
 // 编译输出目录: `/dist/`
 ```
 
