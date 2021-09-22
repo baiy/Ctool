@@ -23,8 +23,8 @@
 ## 微软 Edge 安装
 
 - 在 [微软 Edge 应用商店](https://microsoftedge.microsoft.com/addons/detail/cihekagpnnadjjplgljkmkpcfiopfplc) 安装
-- 
-- ## 火狐 Firefox 安装
+
+## 火狐 Firefox 安装
 
 - 在 [火狐 Firefox 应用商店](https://addons.mozilla.org/zh-CN/firefox/addon/ctool/) 安装
 
