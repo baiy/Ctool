@@ -1,35 +1,28 @@
 // 算法来源 https://github.com/zx1262111739/JsonToDart/blob/main/index.js
 let keywrods = "abstract,dynamic,implements,show,as,else,import,static,assert,enum,in,super,async,export,interface,switch,await,extends,is,sync,break,external,library,this,case,factory,mixin,throw,catch,false,new,true,class,final,null,try,const,finally,on,typedef,continue,for,operator,var,covariant,Function,part,void,default,get,rethrow,while,deferred,hide,return,with,do,if,set,yield,List";
 let keywrodList = keywrods.split(",");
-
+const caption = (s) => s[0].toUpperCase() + s.substring(1);
 // 生成属性名
-const generatePropertyName = function (name) {
+const generatePropertyName = (name) => {
     let nameParts = name.split("_");
 
     let output = nameParts[0];
     for (let index = 1; index < nameParts.length; index++) {
-        output += nameParts[index].substring(0, 1).toUpperCase() + nameParts[index].substring(1)
+        output += caption(nameParts[index])
     }
 
-    if (keywrodList.indexOf(output) != -1) {
-        output = "m" + output.substring(0, 1).toUpperCase() + output.substring(1);
+    if (keywrodList.includes(output)) {
+        output = "m" + caption(output);
     }
     return output;
 }
 
 // 生成类名
-const generateClassName = function (name) {
-    let nameParts = name.split("_");
-    let output = "";
-    for (let index = 0; index < nameParts.length; index++) {
-        output += nameParts[index].substring(0, 1).toUpperCase() + nameParts[index].substring(1)
-    }
-
-    return output;
+const generateClassName = (name) => {
+    return name.split("_").map(caption).join("");
 }
 
-const convertObjectToClass = function (className, obj) {
-
+const convertObjectToClass = (className, obj) => {
     let propers = [];
     let subClass = [];
     for (let key in obj) {
@@ -91,11 +84,11 @@ const convertObjectToClass = function (className, obj) {
 
         if (propertyType !== "") {
             propers.push({
-                "key": key,
+                key,
                 "propertyName": generatePropertyName(key),
-                "propertyType": propertyType,
-                "isSubclass": isSubclass,
-                "isArray": isArray,
+                propertyType,
+                isSubclass,
+                isArray,
             });
         }
 
@@ -200,6 +193,4 @@ const convertObjectToClass = function (className, obj) {
     return output;
 }
 
-export default (json, typename) => {
-    return convertObjectToClass(typename, json)
-}
+export default (json, typename) => convertObjectToClass(typename, json)
