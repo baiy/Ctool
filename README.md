@@ -58,7 +58,7 @@ npm run build -adapter=[chrome|edge|utools|firefox|web]
 |二维码|`生成`,`解析`|√|
 |汉字转拼音|`声调`,`首字母`,`分隔符`|√|
 |IP地址查询|`运营商`,`城市`|×|
-|代码格式化|`js`, `html`, `css`, `xml`, `sql`, `压缩`|√|
+|代码格式化|`js`, `ts`, `html`, `css`, `less`, `scss`, `graphql`, `vue`, `angular`, `markdown`, `json5`, `xml`, `yaml`, `sql`, `压缩`|√|
 |Unicode|`双向转换`,`emoji`,`html 实体`,`css 实体`|√|
 |进制转换|2-64进制互转|√|
 |正则表达式|字符匹配|√|
@@ -83,6 +83,7 @@ npm run build -adapter=[chrome|edge|utools|firefox|web]
 项目诞生离不开这些优秀的开源程序
 
 - [code-formatter](https://www.npmjs.com/package/code-formatter)
+- [prettier](https://github.com/prettier/prettier)
 - [crypto-js](https://www.npmjs.com/package/crypto-js)
 - [ipinyinjs](https://www.npmjs.com/package/ipinyinjs)
 - [is-url](https://www.npmjs.com/package/is-url)
