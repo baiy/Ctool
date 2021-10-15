@@ -1,23 +1,17 @@
 export default {
     _allClass: [],
-    format: function (string, ...replace) {
+    format(string, ...replace) {
         return string.replace(/\{(\d+)\}/g,
-            function (m, i) {
-                return replace[i];
-            });
+            (m, i) => replace[i]
+        );
     },
-    _genClassCode: function (obj, name, pag) {
-        let clas = this.format("// ========= "+name+".cs file ========= \nnamespace {0}\n{\n", pag);
-        clas += this.format("    public class {0}\n    {\n", name);
+    _genClassCode(obj, name, pag) {
+        let clas = "// ========= " + name + `.cs file ========= \nnamespace ${pag}\n{\n`;
+        clas += `    public class ${name}\n    {\n`;
         for (let n in obj) {
             let v = obj[n];
             n = n.trim();
-            clas += this.format(
-                "        {0}        public {1} {2} { get; set; }\n",
-                this._genComment(v),
-                this._genTypeByProp(n, v,pag),
-                n
-            );
+            clas += `        ${this._genComment(v)}        public ${this._genTypeByProp(n, v, pag)} ${n} { get; set; }\n`;
         }
         clas += "    }\n";
         clas += "}\n";
@@ -25,32 +19,32 @@ export default {
         this._allClass.push(clas);
         return this._allClass.join("\n");
     },
-    _genTypeByProp: function (name, val,pag) {
+    _genTypeByProp(name, val, pag) {
         switch (Object.prototype.toString.apply(val)) {
             case "[object Number]": {
-                return val.toString().indexOf(".") > -1 ? "double" : "int";
+                return val.toString().includes(".") ? "double" : "int";
             }
             case "[object Date]": {
                 return "DateTime";
             }
             case "[object Object]": {
                 name = name.substring(0, 1).toUpperCase() + name.substring(1);
-                this._genClassCode(val, name,pag);
+                this._genClassCode(val, name, pag);
                 return name;
             }
             case "[object Array]": {
-                return this.format("List <{0}>", this._genTypeByProp(name + "Item", val[0],pag));
+                return `List <${this._genTypeByProp(name + "Item", val[0], pag)}>`;
             }
             default: {
                 return "string";
             }
         }
     },
-    _genComment: function (val) {
+    _genComment(val) {
         let commm = typeof (val) == "string" && /.*[\u4e00-\u9fa5]+.*$/.test(val) ? val : "";
         return "/// <summary>\n        /// " + commm + "\n        /// </summary>\n";
     },
-    convert: function (jsonObj, cls, pag) {
+    convert(jsonObj, cls, pag) {
         this._allClass = [];
         return this._genClassCode(jsonObj, cls, pag);
     }
