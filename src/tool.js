@@ -4,6 +4,7 @@ import './statics/theme.less'
 import router from './tool.router'
 import optionBlock from './components/optionBlock'
 import {plugin as modelPlugin} from './tool/model'
+import codeEditor from "./views/tool/components/codeEditor";
 import cache from './tool/cache'
 import setting from './tool/setting'
 import App from './tool.vue'
@@ -18,6 +19,7 @@ const run = () => {
     Vue.use(ViewUI)
     Vue.use(modelPlugin)
     Vue.component('option-block', optionBlock);
+    Vue.component('code-editor', codeEditor);
 
     new Vue({
         router,
