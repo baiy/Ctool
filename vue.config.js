@@ -1,10 +1,11 @@
-let adapter = require('./src/tool/adapter');
-
-let pages = {}
-pages.tool = {
-    entry: 'src/tool.js',
-    template: 'public/tool.html',
-};
+const adapter = require('./src/tool/adapter');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
+const pages = {
+    tool: {
+        entry: 'src/tool.js',
+        template: 'public/tool.html',
+    }
+}
 const config = {
     productionSourceMap: false,
     publicPath: "./",
@@ -24,6 +25,7 @@ const config = {
             });
             return args
         })
+        config.plugin('monaco-editor').use(MonacoWebpackPlugin)
     },
 };
 

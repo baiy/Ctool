@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="border: 1px solid #dcdee2;border-radius: 4px;">
-      <codemirror ref="code" v-model="current.content" :options="options"></codemirror>
+        <code-editor v-model="current.content" :auto-height="220" language="json"></code-editor>
     </div>
     <option-block :style="{textAlign:'center'}">
       <FormItem>
@@ -13,32 +13,17 @@
   </div>
 </template>
 <script>
-    import { codemirror } from 'vue-codemirror'
-    import 'codemirror/lib/codemirror.css'
-    import 'codemirror/mode/javascript/javascript.js'
-    import 'codemirror/addon/fold/foldcode.js'
-    import 'codemirror/addon/fold/foldgutter.js'
-    import 'codemirror/addon/fold/brace-fold.js'
-    import 'codemirror/addon/fold/comment-fold.js'
-    import 'codemirror/addon/fold/foldgutter.css'
     import Unicode from "./library/unicode"
 
     export default {
-        components: {
-            codemirror,
-        },
         created () {
             this.current = Object.assign(this.current, this.$getToolData('content'))
         },
         mounted(){
             setTimeout(()=>{
-                this.codemirror.setSize(null, window.innerHeight - 220)
+                this.editorHeight =  (window.innerHeight - 220) + "px"
+                console.log(this.editorHeight)
             },100)
-        },
-        computed: {
-            codemirror() {
-                return this.$refs.code.codemirror
-            }
         },
         methods: {
             handle (v) {
@@ -135,14 +120,6 @@
             return {
                 current: {
                     content: '',
-                },
-                options: {
-                    mode: 'application/json',
-                    lineNumbers: true,
-                    lineWrapping: false,
-                    foldGutter: true,
-                    indentUnit: 4,
-                    gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
                 },
                 type: {
                     'format': '格式化/校验',

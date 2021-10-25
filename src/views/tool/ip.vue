@@ -15,36 +15,17 @@
             </FormItem>
         </option-block>
         <div style="border: 1px solid #dcdee2;border-radius: 4px;">
-            <codemirror ref="code" v-model="current.output" :options="options"></codemirror>
+            <code-editor v-model="current.output"  language="json"></code-editor>
         </div>
     </div>
 </template>
 <script>
 import axios from "axios"
 import _ from "lodash"
-import {codemirror} from 'vue-codemirror'
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/mode/javascript/javascript.js'
-import 'codemirror/addon/fold/foldcode.js'
-import 'codemirror/addon/fold/foldgutter.js'
-import 'codemirror/addon/fold/brace-fold.js'
-import 'codemirror/addon/fold/comment-fold.js'
-import 'codemirror/addon/fold/foldgutter.css'
 
 export default {
-    components: {
-        codemirror,
-    },
     created() {
         this.current = Object.assign(this.current, this.$getToolData("input"))
-    },
-    mounted() {
-        this.codemirror.setSize(null, 350)
-    },
-    computed: {
-        codemirror() {
-            return this.$refs.code.codemirror
-        }
     },
     methods: {
         handle() {
@@ -70,14 +51,6 @@ export default {
             current: {
                 input: "",
                 output: "",
-            },
-            options: {
-                mode: 'application/json',
-                lineNumbers: true,
-                lineWrapping: false,
-                foldGutter: true,
-                indentUnit: 4,
-                gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
             }
         }
     },

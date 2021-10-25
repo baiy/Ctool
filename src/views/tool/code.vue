@@ -1,108 +1,80 @@
 <template>
-  <div>
-    <div style="border: 1px solid #dcdee2; border-radius: 4px">
-      <codemirror
-        ref="code"
-        v-model="current.content"
-        :options="options"
-      ></codemirror>
+    <div>
+        <div style="border: 1px solid #dcdee2; border-radius: 4px">
+            <code-editor ref="editor" v-model="current.content" auto-height="220" :language="this.current.lang"></code-editor>
+        </div>
+        <option-block>
+            <FormItem>
+                <ButtonGroup>
+                    <Button
+                        :type="current.lang !== item ? 'primary' : 'error'"
+                        @click="handle(item)"
+                        v-for="item in buttonLang"
+                        :key="item"
+                    >{{ item }}
+                    </Button>
+                </ButtonGroup>
+            </FormItem>
+            <FormItem>
+                <Select placeholder="更多语言/格式" @on-change="(value)=>{handle(value)}">
+                    <Option v-for="item in lang" :value="item" :key="item">{{ item }}</Option>
+                </Select>
+            </FormItem>
+        </option-block>
     </div>
-    <option-block>
-      <FormItem>
-        <ButtonGroup>
-          <Button
-            type="primary"
-            @click="handle(k, v)"
-            v-for="(v, k) in lang"
-            :key="k"
-            >{{ k }}</Button
-          >
-        </ButtonGroup>
-      </FormItem>
-      <FormItem>
-        <Checkbox v-model="current.isCompress">压缩</Checkbox>
-      </FormItem>
-    </option-block>
-  </div>
 </template>
 <script>
-import { codemirror } from "vue-codemirror";
-import formatter from "./library/formatter";
-import "codemirror/lib/codemirror.css";
-import "codemirror/mode/javascript/javascript.js";
-import "codemirror/mode/htmlmixed/htmlmixed.js";
-import "codemirror/mode/css/css.js";
-import "codemirror/mode/xml/xml.js";
-import "codemirror/mode/sql/sql.js";
-import "codemirror/addon/fold/foldcode.js";
-import "codemirror/addon/fold/foldgutter.js";
-import "codemirror/addon/fold/brace-fold.js";
-import "codemirror/addon/fold/comment-fold.js";
-import "codemirror/addon/fold/foldgutter.css";
-
+import _ from "lodash";
 export default {
-  components: {
-    codemirror,
-  },
-  created() {
-    this.current = Object.assign(this.current, this.$getToolData("content"));
-  },
-  mounted() {
-    this.codemirror.setSize(null, 350);
-    if (this.current.lang) {
-      this.codemirror.setOption("mode", this.options[this.current.lang]);
-    }
-  },
-  computed: {
-    codemirror() {
-      return this.$refs.code.codemirror;
+    computed:{
+        buttonLang(){
+            let data = _.slice(this.lang,0,8)
+            if (this.current.lang && !data.includes(this.current.lang)){
+                data.push(this.current.lang)
+            }
+            return data
+        }
     },
-  },
-  methods: {
-    handle(lang, mode) {
-      if (this.current.content) {
-        this.current.content = formatter(
-          this.current.content,
-          lang,
-          this.current.isCompress
-        );
-        this.codemirror.setOption("mode", mode);
-        this.current.lang = lang;
-        this.$saveToolData(this.current);
-      }
+    methods: {
+        handle(language) {
+            this.current.lang = language;
+            setTimeout(()=>{
+                if (this.current.content) {
+                    let oldContent = this.current.content;
+                    this.$refs.editor.getEditor().getAction('editor.action.formatDocument').run();
+                    setTimeout(()=>{
+                        if (oldContent !== this.current.content){
+                            this.$saveToolData(this.current);
+                            return this.$Message.success('格式化完成');
+                        }
+                    },300)
+                }
+            },200)
+        },
     },
-  },
-  data() {
-    return {
-      current: {
-        content: "",
-        lang: "",
-        isCompress: false,
-      },
-      options: {
-        mode: null,
-        lineNumbers: true,
-        lineWrapping: false,
-        foldGutter: true,
-        indentUnit: 4,
-        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-      },
-      lang: {
-        js: "text/javascript",
-        ts: "text/typescript",
-        css: "text/css",
-        scss: "text/scss",
-        less: "text/less",
-        json5: "text/json5",
-        graphql: "text/graphql",
-        markdown: "text/markdown",
-        html: "text/html",
-        xml: "application/xml",
-        sql: "text/x-mysql",
-        vue: "text/vue",
-        angular: "text/angular",
-      },
-    };
-  },
+    data() {
+        return {
+            current: {
+                content: "",
+                lang: "",
+            },
+            lang: [
+                "html",
+                "json",
+                "yaml",
+                "php",
+                "xml",
+                "sql",
+                "javascript",
+                "css",
+                "typescript",
+                "java",
+                "scss",
+                "less",
+                "graphql",
+                "markdown",
+            ],
+        };
+    },
 };
 </script>

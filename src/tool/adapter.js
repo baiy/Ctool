@@ -3,7 +3,7 @@ const _ = require('lodash');
 const fs = require('fs');
 // 运行平台适配
 let platform = process.env.hasOwnProperty('npm_config_adapter') ? process.env.npm_config_adapter : "";
-platform = ["chrome", 'utools', 'edge', 'firefox'].includes(platform) ? platform : "web"
+platform = ['chrome', 'utools', 'edge', 'firefox','web'].includes(platform) ? platform : "web"
 
 const IS_CHROME = "chrome" === platform
 const IS_EDGE = "edge" === platform
