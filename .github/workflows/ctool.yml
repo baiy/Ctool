@@ -1,4 +1,4 @@
-name: Build to gh-pages
+name: Build Ctool
 on: [ push ]
 jobs:
   deploy:
@@ -62,16 +62,17 @@ jobs:
           zip -r -q ../temp_release/firefox.zip ./*
           cd ../
 
-      - name: upload build to github
+      - name: Upload build to github
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
+          prerelease: true
           files: |
-            web.zip
-            chrome.zip
-            utools.zip
-            edge.zip
-            firefox.zip
+            ./temp_release/web.zip
+            ./temp_release/chrome.zip
+            ./temp_release/utools.zip
+            ./temp_release/edge.zip
+            ./temp_release/firefox.zip
 
       - name: Deploy web to gh-pages
         if: startsWith(github.ref, 'refs/tags/')
