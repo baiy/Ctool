@@ -3,7 +3,7 @@
         <Col span="10">
             <Card :padding="0">
                 <p slot="title">JSON内容</p>
-                <code-editor v-model="current.json" auto-height="330" language="json"></code-editor>
+                <code-editor v-model="current.json" :auto-height="330" language="json"></code-editor>
             </Card>
             <option-block>
                 <FormItem>
@@ -28,18 +28,22 @@
                             @click="handle(item)">{{ item }}
                     </Button>
                 </template>
-                <code-editor v-model="current.output" auto-height="220" :language="languages[current.type]"></code-editor>
+                <code-editor v-model="current.output" :auto-height="220" :language="languages[current.type]"></code-editor>
             </Card>
         </Col>
     </Row>
 </template>
 <script>
+import codeEditor from "./components/codeEditor";
 import json2Go from './library/json2Go'
 import json2CSharp from './library/json2CSharp'
 import json2Java from './library/json2Java'
 import json2Dart from './library/json2Dart'
 
 export default {
+    components: {
+        codeEditor,
+    },
     created() {
         this.current = Object.assign(this.current, this.$getToolData())
     },

@@ -14,8 +14,12 @@
 </template>
 <script>
     import Unicode from "./library/unicode"
+    import codeEditor from "./components/codeEditor";
 
     export default {
+        components: {
+            codeEditor,
+        },
         created () {
             this.current = Object.assign(this.current, this.$getToolData('content'))
         },

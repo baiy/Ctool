@@ -25,15 +25,17 @@ const options = {
     yaml: {parser: "yaml", plugins: [parserYaml]},
     html: {parser: "html", plugins: [parserHtml]},
     angular: {parser: "angular", plugins: [parserHtml]},
-    json: {parser: "json5", plugins: [parserJson5]},
+    json: {parser: "json5", plugins: [parserJson5], quoteProps: "preserve", trailingComma: "none"},
     xml: {parser: "xml", plugins: [parserXml]},
     sql: {parser: "sql", plugins: [parserSql]},
     php: {parser: "php", plugins: [parserPhp]},
     java: {parser: "java", plugins: [parserJava]},
 };
-export default (code, lang) => {
+export default (code, lang, {tab = 4}) => {
     if (!(lang in options)) {
         throw new Error(`${lang} can't format`);
     }
-    return prettier.format(code, options[lang]);
+    let langOption = options[lang];
+    langOption.tabWidth = tab
+    return prettier.format(code, langOption);
 };

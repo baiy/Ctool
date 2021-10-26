@@ -1,36 +1,26 @@
 <template>
-    <div ref="container" class="monaco-editor"
-         :style="`height:${containerHeight};width:${width}`">
-    </div>
+     <div ref="container" class="code-editor" :style="`height:${containerHeight};width:${width}`"></div>
 </template>
 <script>
 import formatter from "../library/formatter";
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 
-// 注册文本格式化服务
-// html/typescript/javascript/json 使用内置服务
-const allowFormatterLanguage = [
-    {id: "css", format: "css"},
-    {id: "graphql", format: "graphql"},
-    {id: "java", format: "java"},
-    {id: "markdown", format: "markdown"},
-    {id: "php", format: "php"},
-    {id: "scss", format: "scss"},
-    {id: "sql", format: "sql"},
-    {id: "xml", format: "xml"},
-    {id: "yaml", format: "yaml"},
-]
-for (let lang of allowFormatterLanguage) {
-    monaco.languages.registerDocumentFormattingEditProvider(lang.id, {
-        provideDocumentFormattingEdits(model) {
-            return [
-                {
-                    range: model.getFullModelRange(),
-                    text: formatter(model.getValue(), lang.format),
-                },
-            ];
-        }
-    });
+const allowFormatterLanguage = {
+    html: "html",
+    typescript: "ts",
+    javascript: "js",
+    json: "json",
+    graphql: "graphql",
+    java: "java",
+    markdown: "markdown",
+    php: "php",
+    css: "css",
+    scss: "scss",
+    less: "less",
+    sql: "sql",
+    xml: "xml",
+    yaml: "yaml",
+    vue: "vue",
 }
 
 export default {
@@ -43,6 +33,10 @@ export default {
             type: String,
             default: ""
         },
+        autoHeight: {
+            type: Number,
+            default: 0
+        },
         theme: {
             type: String,
             default: 'vs'
@@ -50,10 +44,6 @@ export default {
         roundedSelection: {
             type: Boolean,
             default: true
-        },
-        autoHeight: {
-            type: Number,
-            default: 0
         },
         height: {
             type: String,
@@ -108,12 +98,20 @@ export default {
                 automaticLayout: true
             })
             this.editor.onDidChangeModelContent(() => {
-                this.$emit('input', this.editor.getValue())
+                if (this.value !== this.editor.getValue()){
+                    this.$emit('input', this.editor.getValue())
+                }
             })
         },
         /** @return monaco.editor.IStandaloneCodeEditor*/
         getEditor() {
             return this.editor
+        },
+        format(lang,option = {}) {
+            if (!(lang in allowFormatterLanguage)){
+                throw new Error("当前代码无法格式化");
+            }
+            this.$emit('input', formatter(this.editor.getValue(), allowFormatterLanguage[lang],option))
         }
     }
 };

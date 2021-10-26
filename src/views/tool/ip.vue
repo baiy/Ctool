@@ -15,15 +15,19 @@
             </FormItem>
         </option-block>
         <div style="border: 1px solid #dcdee2;border-radius: 4px;">
-            <code-editor v-model="current.output"  language="json"></code-editor>
+            <code-editor v-model="current.output" language="json"></code-editor>
         </div>
     </div>
 </template>
 <script>
 import axios from "axios"
 import _ from "lodash"
+import codeEditor from "./components/codeEditor";
 
 export default {
+    components: {
+        codeEditor,
+    },
     created() {
         this.current = Object.assign(this.current, this.$getToolData("input"))
     },
@@ -36,6 +40,7 @@ export default {
                 }).then(({data}) => {
                     this.current.output = JSON.stringify(_.isArray(data) && data.length < 2 ? data[0] : data,null, 4);
                     this.$saveToolData(this.current);
+                    this.$Message.success("查询成功")
                 }).catch((error) => {
                     return this.$Message.error("ip地址信息查询错误:" + error);
                 });
