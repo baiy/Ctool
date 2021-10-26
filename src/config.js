@@ -59,6 +59,7 @@ const tool = [
     {'name': 'jwt', 'title': 'JWT解码', 'cat': ['conversion']},
     {'name': 'hexString', 'title': 'Hex/String转换', 'cat': ['conversion']},
     {'name': 'text', 'title': '文本处理', 'cat': ['other']},
+    {'name': 'html', 'title': 'html编码', 'cat': ['conversion']},
 ]
 
 // 工具类功能配置
