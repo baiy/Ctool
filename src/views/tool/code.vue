@@ -16,8 +16,16 @@
                 </ButtonGroup>
             </FormItem>
             <FormItem>
-                <Select placeholder="更多语言/格式" @on-change="(value)=>{handle(value)}">
+                <Select placeholder="更多语言" @on-change="(value)=>{handle(value)}">
                     <Option v-for="item in lang" :value="item" :key="item">{{ item }}</Option>
+                </Select>
+            </FormItem>
+            <FormItem>
+                <Select placeholder="代码缩进" v-model="current.tab">
+                    <Option :value="2">缩进 Tab 2</Option>
+                    <Option :value="4">缩进 Tab 4</Option>
+                    <Option :value="6">缩进 Tab 6</Option>
+                    <Option :value="8">缩进 Tab 8</Option>
                 </Select>
             </FormItem>
         </option-block>
@@ -47,7 +55,7 @@ export default {
             if (this.current.content) {
                 try {
                     this.current.lang = language;
-                    this.$refs.editor.format(language);
+                    this.$refs.editor.format(language,{tab:this.current.tab});
                     this.$saveToolData(this.current);
                     return this.$Message.success('格式化完成');
                 }
@@ -65,6 +73,7 @@ export default {
             current: {
                 content: "",
                 lang: "",
+                tab:4,
             },
             lang: [
                 "html",
@@ -82,6 +91,7 @@ export default {
                 "graphql",
                 "markdown",
                 "vue",
+                "angular",
             ],
         };
     },
