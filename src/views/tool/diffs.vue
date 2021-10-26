@@ -1,128 +1,100 @@
 <template>
     <div>
-        <Tabs v-model="current.operation">
-            <TabPane label="对比内容" name="input">
-                <Row :gutter="16">
-                    <Col span="12">
-                        <Input v-model="current.source" :rows="14" type="textarea" placeholder="内容"></Input>
-                    </Col>
-                    <Col span="12">
-                        <Input v-model="current.target" :rows="14" type="textarea" placeholder="内容"></Input>
-                    </Col>
-                </Row>
-            </TabPane>
-            <TabPane label="对比结果" name="result">
-                <RadioGroup v-model="current.type" type="button">
-                    <Radio :label="k"  v-for="(v,k) in type" :key="k">
-                        <span>{{v}}</span>
-                    </Radio>
-                </RadioGroup>
-                <div class="diff-block">
-                    <diff-block :diff="diff"></diff-block>
-                </div>
-            </TabPane>
-        </Tabs>
+        <div style="border: 1px solid #dcdee2; border-radius: 4px">
+            <diffEditor ref="editor" v-model="current.diff" :language="current.language" :auto-height="220" />
+        </div>
+        <option-block>
+            <FormItem>
+                <ButtonGroup>
+                    <Button
+                        :type="current.language !== item.id ? 'primary' : 'warning'"
+                        @click="setLanguage(item.id)"
+                        v-for="item in buttonLang"
+                        :key="item.id"
+                    >{{ item.name }}
+                    </Button>
+                </ButtonGroup>
+            </FormItem>
+            <FormItem>
+                <Select placeholder="更多语言" @on-change="(value)=>{setLanguage(value)}">
+                    <Option v-for="item in allLang" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                </Select>
+            </FormItem>
+            <FormItem>
+                <Checkbox @on-change="(value)=>inline(value)">行内对比</Checkbox>
+            </FormItem>
+        </option-block>
     </div>
 </template>
 <script>
-    const jsDiff = require('diff');
-    export default {
-        components: {
-            "diff-block": {
-                render: function (createElement) {
-                    let e = [];
-                    let diff = this.diff;
+import diffEditor from "./components/diffEditor";
+import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 
-                    for (let i = 0; i < diff.length; i++) {
-                        if (diff[i].added && diff[i + 1] && diff[i + 1].removed) {
-                            let swap = diff[i];
-                            diff[i] = diff[i + 1];
-                            diff[i + 1] = swap;
-                        }
-                        if (diff[i].removed){
-                            e.push(createElement(
-                                'del',
-                                diff[i].value
-                            ))
-                        }
-                        else if(diff[i].added){
-                            e.push(createElement(
-                                'ins',
-                                diff[i].value
-                            ))
-                        }
-                        else{
-                            e.push(diff[i].value)
-                        }
-                    }
-                    return createElement(
-                        'pre',
-                        e
-                    )
-                },
-                props: {
-                    diff: {
-                        type: Array,
-                        default: []
-                    }
+let allLang = {}
+for (let lang of monaco.languages.getLanguages()) {
+    allLang[lang.id] = {
+        id: lang.id,
+        name: lang.id === "plaintext" ? "纯文本" : lang.aliases[0]
+    }
+}
+
+const COMMON_LANG = [
+    "plaintext",
+    "javascript",
+    "html",
+    "css",
+    "json",
+    "python",
+    "java",
+    "php"
+]
+
+export default {
+    components: {
+        diffEditor,
+    },
+    computed: {
+        allLang() {
+            return Object.values(allLang)
+        },
+        buttonLang() {
+            let data = COMMON_LANG.map((item) => {
+                return allLang[item]
+            });
+            if (this.current.language && !COMMON_LANG.includes(this.current.language)) {
+                data.push(allLang[this.current.language])
+            }
+            return data;
+        }
+    },
+    created() {
+        this.current = Object.assign(this.current, this.$getToolData())
+    },
+    methods: {
+        setLanguage(lang) {
+            this.current.language = lang;
+        },
+        inline(value){
+            this.$refs.editor.inline(!value)
+        }
+    },
+    watch: {
+        current:{
+            handler(newVal){
+                if (newVal.diff.original && newVal.diff.modified){
+                    this.$saveToolData(this.current);
                 }
             },
-        },
-        computed: {
-            diff() {
-                let beginTime = new Date();
-                console.log("开始对比"+this.current.type);
-                let diff = jsDiff[this.current.type](this.current.source, this.current.target);
-                this.$saveToolData(this.current);
-                console.log("结束对比 用时:"+((new Date())-beginTime)+"ms "+this.current.type);
-                return diff;
-            }
-        },
-        created() {
-            this.current = Object.assign(this.current, this.$getToolData())
-        },
-        methods: {
-            // handle(type) {
-            //     this.current.diff = JsDiff[type](this.current.source, this.current.target)
-            //     this.current.operation = "result";
-            //     this.$saveToolData(this.current);
-            // },
-        },
-        data() {
-            return {
-                current: {
-                    source: "",
-                    target: "",
-                    type: "diffLines",
-                    operation: "input",
-                },
-                type: {
-                    "diffLines": "行",
-                    "diffWords": "单词",
-                    "diffCss": "css",
-                    "diffJson": "json",
-                    "diffArrays": "js数组(性能不好)",
-                    "diffChars": "字符(性能不好)",
-                }
+            deep:true
+        }
+    },
+    data() {
+        return {
+            current: {
+                diff: {original: "", modified: ""},
+                language: ""
             }
         }
     }
+}
 </script>
-<style>
-    .diff-block del {
-        text-decoration: none;
-        color: #b30000;
-        background: #fadad7;
-    }
-    .diff-block ins {
-        background: #eaf2c2;
-        color: #406619;
-        text-decoration: none;
-    }
-    .diff-block pre{
-        background: #f5f2f0;
-        padding: 1em;
-        margin: .5em 0;
-        overflow: auto;
-    }
-</style>

@@ -19,7 +19,6 @@
         "cron-parser": "^2.16.3",
         "cronstrue": "^1.122.0",
         "crypto-js": "^3.3.0",
-        "diff": "^4.0.2",
         "file": "^0.2.2",
         "http-build-query": "^0.7.0",
         "ipinyinjs": "^1.0.0",
