@@ -10,17 +10,76 @@ jobs:
       matrix:
         node-version: [14.x]
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install Packages
-        run: npm install
-      - name: Build page
-        run: npm run build -adapter=web
-      - name: Deploy to gh-pages
+
+      - name: Initialize / Install Dependencies
+        run: |
+          mkdir temp_release
+          npm install
+
+      - name: Build web
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: peaceiris/actions-gh-pages@v3
+        run: |
+          npm run build -adapter=web
+          cp -r ./dist ./dist_gh_pages
+          cd ./dist
+          zip -r -q ../temp_release/web.zip ./*
+          cd ../
+          unzip -l ./temp_release/web.zip
+
+      - name: Build chrome
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          npm run build -adapter=chrome
+          cd ./dist
+          zip -r -q ../temp_release/chrome.zip ./*
+          cd ../
+
+      - name: Build utools
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          npm run build -adapter=utools
+          cd ./dist
+          zip -r -q ../temp_release/utools.zip ./*
+          cd ../
+
+      - name: Build edge
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          npm run build -adapter=edge
+          cd ./dist
+          zip -r -q ../temp_release/edge.zip ./*
+          cd ../
+
+      - name: Build firefox
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          npm run build -adapter=firefox
+          cd ./dist
+          zip -r -q ../temp_release/firefox.zip ./*
+          cd ../
+
+      - name: upload build to github
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            web.zip
+            chrome.zip
+            utools.zip
+            edge.zip
+            firefox.zip
+
+      - name: Deploy web to gh-pages
+        if: startsWith(github.ref, 'refs/tags/')
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./dist
+          publish_dir: ./dist_gh_pages

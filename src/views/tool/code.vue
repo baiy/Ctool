@@ -7,7 +7,7 @@
             <FormItem>
                 <ButtonGroup>
                     <Button
-                        :type="current.lang !== item ? 'primary' : 'error'"
+                        :type="current.lang !== item ? 'primary' : 'warning'"
                         @click="handle(item)"
                         v-for="item in buttonLang"
                         :key="item"
