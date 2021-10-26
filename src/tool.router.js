@@ -133,6 +133,10 @@ const routes = [
     {
         path: '/tool/text',
         component: r => require(['./views/tool/text.vue'], r)
+    },
+    {
+        path: '/tool/html',
+        component: r => require(['./views/tool/html.vue'], r)
     }
 ]
 
