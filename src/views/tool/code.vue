@@ -1,7 +1,7 @@
 <template>
     <div>
         <div style="border: 1px solid #dcdee2; border-radius: 4px">
-            <code-editor ref="editor" v-model="current.content" auto-height="220" :language="this.current.lang"></code-editor>
+            <code-editor ref="editor" v-model="current.content" :auto-height="220" :language="this.current.lang"></code-editor>
         </div>
         <option-block>
             <FormItem>
@@ -25,7 +25,11 @@
 </template>
 <script>
 import _ from "lodash";
+import codeEditor from "./components/codeEditor";
 export default {
+    components: {
+        codeEditor,
+    },
     computed:{
         buttonLang(){
             let data = _.slice(this.lang,0,8)
@@ -35,21 +39,25 @@ export default {
             return data
         }
     },
+    created() {
+        this.current = Object.assign(this.current, this.$getToolData("content"))
+    },
     methods: {
         handle(language) {
-            this.current.lang = language;
-            setTimeout(()=>{
-                if (this.current.content) {
-                    let oldContent = this.current.content;
-                    this.$refs.editor.getEditor().getAction('editor.action.formatDocument').run();
-                    setTimeout(()=>{
-                        if (oldContent !== this.current.content){
-                            this.$saveToolData(this.current);
-                            return this.$Message.success('格式化完成');
-                        }
-                    },300)
+            if (this.current.content) {
+                try {
+                    this.current.lang = language;
+                    this.$refs.editor.format(language);
+                    this.$saveToolData(this.current);
+                    return this.$Message.success('格式化完成');
                 }
-            },200)
+                catch (e) {
+                    return this.$Modal.error({
+                        title:"格式化错误",
+                        content:`${e.message}`
+                    });
+                }
+            }
         },
     },
     data() {
@@ -73,6 +81,7 @@ export default {
                 "less",
                 "graphql",
                 "markdown",
+                "vue",
             ],
         };
     },
