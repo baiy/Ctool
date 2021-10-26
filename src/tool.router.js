@@ -47,6 +47,10 @@ const routes = [
         component: r => require(['./views/tool/encrypt.vue'], r)
     },
     {
+        path: '/tool/sign',
+        component: r => require(['./views/tool/sign.vue'], r)
+    },
+    {
         path: '/tool/hash',
         component: r => require(['./views/tool/hash.vue'], r)
     },
