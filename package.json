@@ -15,6 +15,7 @@
         "angular-html-parser": "^1.8.0",
         "axios": "^0.21.4",
         "babel-runtime": "^6.26.0",
+        "bignumber.js": "^9.0.1",
         "code-formatter": "0.0.1",
         "cron-parser": "^2.16.3",
         "cronstrue": "^1.122.0",
