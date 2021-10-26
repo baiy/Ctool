@@ -21,6 +21,7 @@ const allowFormatterLanguage = {
     xml: "xml",
     yaml: "yaml",
     vue: "vue",
+    angular: "angular",
 }
 
 export default {

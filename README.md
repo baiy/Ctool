@@ -115,5 +115,6 @@ npm run build -adapter=[chrome|edge|utools|firefox|web]
 - [jwt-decode](https://www.npmjs.com/package/jwt-decode)
 - [jian_fan](https://www.npmjs.com/package/jian_fan)
 - [axios](https://www.npmjs.com/package/axios)
+- [monaco-editor](https://www.npmjs.com/package/monaco-editor)
 
 > 当然项目中还使用很多不知道姓名的大神的代码, 在这里就不一一感谢
