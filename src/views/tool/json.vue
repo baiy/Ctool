@@ -23,12 +23,6 @@
         created () {
             this.current = Object.assign(this.current, this.$getToolData('content'))
         },
-        mounted(){
-            setTimeout(()=>{
-                this.editorHeight =  (window.innerHeight - 220) + "px"
-                console.log(this.editorHeight)
-            },100)
-        },
         methods: {
             handle (v) {
                 if (this.current.content) {
