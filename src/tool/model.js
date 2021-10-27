@@ -1,4 +1,5 @@
 import config from './config'
+import clipboard from './clipboard'
 import setting from './setting'
 import cache from './cache'
 import history from './history.js'
@@ -43,17 +44,6 @@ const model = {
     }
 }
 
-const clipboardPaste = function () {
-    document.querySelector(
-        '#clipboard').innerHTML = '<textarea id="clipboard-text"></textarea>'
-    document.querySelector('#clipboard-text').select()
-    document.execCommand('paste')
-    let r = document.querySelector('#clipboard-text').value ||
-        document.querySelector('#clipboard-text').innerHTML
-    document.querySelector('#clipboard').innerHTML = ''
-    return r ? r : ''
-}
-
 export const plugin = {
     install: function (Vue) {
         Vue.prototype.$getToolData = function (clipboardField = '') {
@@ -63,7 +53,7 @@ export const plugin = {
                     data[clipboardField] = fixeInputData
                     fixeInputData = ""
                 } else if (setting.autoReadCopy()) {
-                    let paste = clipboardPaste()
+                    let paste = clipboard.paste()
                     if (!data[clipboardField] && paste) {
                         if (setting.autoReadCopyFilter()){
                             paste = paste.trim()
@@ -79,14 +69,15 @@ export const plugin = {
         }
         Vue.prototype.$clipboardCopy = function (data) {
             if (!setting.autoSaveCopy() || !data) return
-            document.querySelector(
-                '#clipboard').innerHTML = '<textarea id="clipboard-text"></textarea>'
-            document.querySelector('#clipboard-text').value = data
-            document.querySelector('#clipboard-text').select()
-            if (document.execCommand('copy')) {
+            clipboard.copy(data,()=>{
                 this.$Message.success('结果已复制 ^o^')
-            }
-            document.querySelector('#clipboard').innerHTML = ''
+            })
+        }
+        Vue.prototype.$clipboardCopyImages = function (data) {
+            if (!setting.autoSaveCopy() || !data) return
+            clipboard.copyImage(data,()=>{
+                this.$Message.success('图片已复制 ^o^')
+            })
         }
     },
 }
