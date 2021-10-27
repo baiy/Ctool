@@ -11,7 +11,7 @@
         "@babel/parser": "^7.15.8",
         "@prettier/plugin-php": "^0.17.5",
         "@prettier/plugin-xml": "^1.1.0",
-        "@typescript-eslint/typescript-estree": "^5.1.0",
+        "@typescript-eslint/typescript-estree": "^5.2.0",
         "angular-html-parser": "^1.8.0",
         "axios": "^0.21.4",
         "babel-runtime": "^6.26.0",
@@ -55,7 +55,7 @@
         "uuid": "^8.3.2",
         "view-design": "^4.6.1",
         "vue": "^2.6.14",
-        "vue-router": "^3.5.2",
+        "vue-router": "^3.5.3",
         "x2js": "github:abdolence/x2js"
     },
     "devDependencies": {

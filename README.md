@@ -78,6 +78,7 @@ npm run build -adapter=[chrome|edge|utools|firefox|web]
 |Hex/String转换|`hex to string`, `string to hex`, `十六进制转字符串`, `字符串转十六进制`|√|
 |文本处理|`大小写转换`, `中英文标点转换`, `简繁转换`, `替换`, `字符统计`, `行去重`, `添加行号`, `行排序`, `过滤行首尾不可见字符`,`过滤空行`|√|
 |html编码|`html编码`|√|
+|签名/验签|`签名`,`验签`,`RSA`|√|
 
 ## 第三方开源库
 
@@ -118,5 +119,6 @@ npm run build -adapter=[chrome|edge|utools|firefox|web]
 - [axios](https://www.npmjs.com/package/axios)
 - [monaco-editor](https://www.npmjs.com/package/monaco-editor)
 - [js-htmlencode](https://www.npmjs.com/package/js-htmlencode)
+- [jsrsasign](https://www.npmjs.com/package/jsrsasign)
 
 > 当然项目中还使用很多不知道姓名的大神的代码, 在这里就不一一感谢
