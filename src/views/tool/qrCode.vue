@@ -87,7 +87,7 @@
             generateHandle (str) {
                 generator.toDataURL(str, (error, url) => {
                     if (error) return this.$Message.error('二维码生成错误:' + error)
-                    this.$Message.success('生成成功')
+                    this.$clipboardCopyImages(url)
                     this.current.generateOutput = `<img style="width:300px" src="${url}" />`
                 })
             },
