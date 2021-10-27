@@ -133,6 +133,8 @@ export default {
             let hexData = rs.b64tohex(this.current.verifyCode)
             let verifyResult = sign.verify(hexData)
             if (verifyResult) {
+                // 保存历史记录
+                this.$saveToolData(this.current);
                 return this.$Message.info("验签成功")
             }
             return this.$Message.error("验签失败")
