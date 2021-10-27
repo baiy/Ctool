@@ -30,6 +30,8 @@
         "js-yaml": "^3.14.1",
         "json-to-properties": "^1.1.3",
         "jsonlint": "^1.6.3",
+        "jsrsasign": "^10.4.1",
+        "jsrsasign-util": "^1.0.5",
         "jwt-decode": "^3.1.2",
         "lodash": "^4.17.21",
         "mime-types": "^2.1.33",
