@@ -34,6 +34,7 @@ const tool = [
         'title': '加密/解密',
         'cat': ['encryption']
     },
+    {'name': 'sign', 'title': '签名/验签', 'cat': ['encryption']},
     {'name': 'base64', 'title': 'BASE64编码', 'cat': ['encryption']},
     {'name': 'json', 'title': 'JSON工具', 'cat': ['conversion', 'serialize']},
     {'name': 'url', 'title': 'URL编码', 'cat': ['conversion']},
