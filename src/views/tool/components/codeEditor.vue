@@ -58,7 +58,17 @@ export default {
     watch: {
         value(newValue) {
             if (this.editor !== null && this.editor.getValue() !== newValue) {
-                this.editor.setValue(newValue)
+                this.editor.pushUndoStop();
+                this.editor.getModel().pushEditOperations(
+                    [],
+                    [
+                        {
+                            range: this.editor.getModel().getFullModelRange(),
+                            text: newValue,
+                        },
+                    ]
+                );
+                this.editor.pushUndoStop();
             }
         },
         language(newValue) {
