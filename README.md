@@ -56,6 +56,7 @@ npm run build -adapter=[chrome|edge|utools|firefox|web]
 |URL编码|`编码`,`解码`|√|
 |时间戳|双向转换|√|
 |二维码|`生成`,`解析`|√|
+|条形码|`生成`|√|
 |汉字转拼音|`声调`,`首字母`,`分隔符`|√|
 |IP地址查询|`运营商`,`城市`|×|
 |代码格式化|`js`, `ts`, `html`, `css`, `less`, `scss`, `graphql`, `vue`, `angular`, `markdown`, `json5`, `xml`, `yaml`, `sql`, `压缩`|√|
@@ -120,5 +121,7 @@ npm run build -adapter=[chrome|edge|utools|firefox|web]
 - [monaco-editor](https://www.npmjs.com/package/monaco-editor)
 - [js-htmlencode](https://www.npmjs.com/package/js-htmlencode)
 - [jsrsasign](https://www.npmjs.com/package/jsrsasign)
+- [vue-color](https://github.com/xiaokaike/vue-color.git)
+- [jsbarcode](https://github.com/lindell/JsBarcode.git)
 
 > 当然项目中还使用很多不知道姓名的大神的代码, 在这里就不一一感谢
