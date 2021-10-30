@@ -40,6 +40,7 @@ const tool = [
     {'name': 'url', 'title': 'URL编码', 'cat': ['conversion']},
     {'name': 'timestamp', 'title': '时间戳', 'cat': ['conversion']},
     {'name': 'qrCode', 'title': '二维码', 'cat': ['generate']},
+    {'name': 'barcode', 'title': '条形码', 'cat': ['generate']},
     {'name': 'pinyin', 'title': '汉字转拼音', 'cat': ['conversion']},
     {'name': 'ip', 'title': 'IP地址查询', 'cat': ['other']},
     {'name': 'code', 'title': '代码格式化', 'cat': ['other']},
