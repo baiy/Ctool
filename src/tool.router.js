@@ -71,6 +71,10 @@ const routes = [
         component: r => require(['./views/tool/qrCode.vue'], r)
     },
     {
+        path: '/tool/barcode',
+        component: r => require(['./views/tool/barcode.vue'], r)
+    },
+    {
         path: '/tool/randomString',
         component: r => require(['./views/tool/randomString.vue'], r)
     },
