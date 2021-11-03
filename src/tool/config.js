@@ -36,7 +36,7 @@ const setUserCommon = function (tools) {
 const getToolTitle = function (name) {
     for (let i = 0; i < tool.length; i++) {
         if (tool[i].name === name) {
-            return tool[i].title
+            return __()
         }
     }
     return ''
@@ -74,12 +74,11 @@ const saveSetting = function (name, value) {
 }
 
 export default {
-    tool,
+    tool:tool,
     saveSetting,
     getSetting,
     category,
     setUserCommon,
-    getToolTitle,
     getUserCommon,
     getToolByCategory(cat) {
         let common = getUserCommon();

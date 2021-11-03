@@ -2,27 +2,32 @@
     <div>
         <div>
             <CellGroup @on-click="open">
-                <Cell title="常用工具设置" name="setting"/>
-                <Cell v-if="is_chromium || is_firefox" title="快捷键设置" name="shortcuts"/>
-                <Cell title="外观显示">
+                <Cell :title="$t('mian_common_tool')" name="setting"/>
+                <Cell v-if="is_chromium || is_firefox" :title="$t('mian_keyboard_setting')" name="shortcuts"/>
+                <Cell :title="$t('mian_display_mode')">
                     <Select v-model="display_mode" slot="extra" transfer>
-                        <Option v-for="item in display_mode_list" :value="item.v" :key="item.v">{{ item.n }}</Option>
+                        <Option v-for="item in display_mode_list" :value="item" :key="item">{{ $t('mian_display_mode_'+item)}}</Option>
+                    </Select>
+                </Cell>
+                <Cell :title="$t('mian_setting_language')">
+                    <Select v-model="locale" slot="extra" transfer>
+                        <Option v-for="item in locales" :value="item.code" :key="item.code">{{ item.name }}</Option>
                     </Select>
                 </Cell>
             </CellGroup>
             <CellGroup>
-                <Cell title="自动复制结果到剪贴板">
+                <Cell :title="$t('mian_copy_results_to_clipboard')">
                     <i-switch v-model="auto_save_copy" slot="extra"/>
                 </Cell>
-                <Cell title="自动读取剪贴板内容">
+                <Cell :title="$t('mian_read_content_from_clipboard')">
                     <i-switch v-model="auto_read_copy" slot="extra"/>
                 </Cell>
-                <Cell title="读取剪贴板内容过滤首尾不可见字符">
+                <Cell :title="$t('mian_read_clipboard_content_trim')">
                     <i-switch v-model="auto_read_copy_filter" slot="extra"/>
                 </Cell>
             </CellGroup>
         </div>
-        <Drawer title="设置" placement="left" v-model="settingShow" :width="90">
+        <Drawer :title="$t('mian_ui_setting')" placement="left" v-model="settingShow" :width="90">
             <setting-block v-if="settingShow"></setting-block>
         </Drawer>
     </div>
@@ -30,6 +35,7 @@
 
 <script>
 import {isChromium, isFirefox, isUtools, openUrl, setDisplayMode} from '../../helper'
+import {LOCALE_LISTS, setCurrentLocale} from '../../i18n'
 import setting from '../../tool/setting'
 import settingBlock from './setting'
 
@@ -47,16 +53,17 @@ export default {
             is_chromium: isChromium,
             is_utools: isUtools,
             is_firefox: isFirefox,
-            display_mode_list: [
-                {n: "浅色", v: "light"},
-                {n: "深色", v: "dark"},
-                {n: "自动", v: "auto"},
-            ]
+            display_mode_list: ["light","dark","auto"],
+            locales: LOCALE_LISTS,
+            locale: "",
         }
     },
     watch: {
         display_mode(value) {
             setDisplayMode(value)
+        },
+        locale(value) {
+            setCurrentLocale(value)
         }
     },
     created() {
@@ -64,12 +71,14 @@ export default {
         this.auto_read_copy = setting.autoReadCopy()
         this.auto_read_copy_filter = setting.autoReadCopyFilter()
         this.display_mode = setting.displayMode()
+        this.locale = setting.locale()
     },
     beforeDestroy() {
         setting.autoSaveCopy(this.auto_save_copy)
         setting.autoReadCopy(this.auto_read_copy)
         setting.autoReadCopyFilter(this.auto_read_copy_filter)
         setting.displayMode(this.display_mode)
+        setting.locale(this.locale)
     },
     methods: {
         open(name) {
@@ -77,16 +86,16 @@ export default {
                 case 'shortcuts':
                     if (this.is_firefox) {
                         return this.$Notice.success({
-                            title: '请手动设置快捷键',
+                            title: this.$t('mian_keyboard_firefox_1'),
                             render: h => {
                                 return h('span', [
-                                    '请打开附加组件管理器（about:addons），点击“管理扩展程序”右侧的设置按钮，选择“管理扩展快捷键”来修改这些快捷键。',
+                                    this.$t('mian_keyboard_firefox_2'),
                                     h('a', {
                                         attrs: {
                                             href: 'https://jingyan.baidu.com/article/3ea51489f1d0a713e61bbaff.html',
                                             target: '_blank'
                                         }
-                                    }, '操作方法'),
+                                    }, this.$t('mian_keyboard_firefox_3')),
                                 ])
                             }
                         });

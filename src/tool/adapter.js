@@ -1,9 +1,10 @@
 const path = require('path');
 const _ = require('lodash');
 const fs = require('fs');
+const i18nBuild = require('../i18n/build')
 // 运行平台适配
 let platform = process.env.hasOwnProperty('npm_config_adapter') ? process.env.npm_config_adapter : "";
-platform = ['chrome', 'utools', 'edge', 'firefox','web'].includes(platform) ? platform : "web"
+platform = ['chrome', 'utools', 'edge', 'firefox', 'web'].includes(platform) ? platform : "web"
 
 const IS_CHROME = "chrome" === platform
 const IS_EDGE = "edge" === platform
@@ -31,10 +32,26 @@ const removeFile = (filePath) => {
     fs.existsSync(filePath) && fs.unlinkSync(filePath)
 }
 
+// 删除目录
+const removeDir = function (directoryPath) {
+    if (fs.existsSync(directoryPath)) {
+        fs.readdirSync(directoryPath).forEach((file) => {
+            const curPath = path.join(directoryPath, file);
+            if (fs.lstatSync(curPath).isDirectory()) {
+                removeDir(curPath);
+            } else {
+                fs.unlinkSync(curPath);
+            }
+        });
+        fs.rmdirSync(directoryPath);
+    }
+};
+
 const chromeConfigWrite = {
-    remove(){},
-    write(){
-        if (!IS_CHROME){
+    remove() {
+    },
+    write() {
+        if (!IS_CHROME) {
             return;
         }
         fs.writeFileSync(
@@ -45,9 +62,10 @@ const chromeConfigWrite = {
 }
 
 const edgeConfigWrite = {
-    remove(){},
-    write(){
-        if (!IS_EDGE){
+    remove() {
+    },
+    write() {
+        if (!IS_EDGE) {
             return;
         }
         fs.writeFileSync(
@@ -58,28 +76,54 @@ const edgeConfigWrite = {
 }
 
 const chromiumConfigWrite = {
-    remove(){
+    remove() {
         removeFile(path.join(__dirname, '../../public/manifest.json'));
         removeFile(path.join(__dirname, '../../public/background.js'));
+        // 移除语言包目录
+        removeDir(path.join(__dirname, '../../public/_locales/'))
     },
-    write(){
-        if (!IS_CHROMIUM){
+    write() {
+        if (!IS_CHROMIUM) {
             return;
         }
         fs.copyFileSync(
             path.join(__dirname, "../adapter/chromium/background.js"),
             path.join(__dirname, '../../public/background.js')
         );
+        // 生成语言包
+        const locales = i18nBuild.getLocales()
+        const localeDir = path.join(__dirname, '../../public/_locales/')
+        fs.mkdirSync(localeDir);
+        Object.keys(locales).forEach((_locale) => {
+            fs.mkdirSync(path.join(localeDir, _locale));
+            let messages = {}
+            Object.keys(locales[_locale]).forEach((key) => {
+                let message = {
+                    message: locales[_locale][key]['message'].replace(new RegExp("{.+?}", 'g'), (item) => {
+                        return `$${item.replace("{", "").replace("}", "").toUpperCase()}$`;
+                    })
+                }
+                if ("placeholders" in locales[_locale][key]) {
+                    message.placeholders = {}
+                    let index = 1;
+                    locales[_locale][key]['placeholders'].forEach((placeholder) => {
+                        message.placeholders[placeholder] = {content: "$" + (index++)}
+                    })
+                }
+                messages[key] = message
+            })
+            fs.writeFileSync(path.join(localeDir, `${_locale}/messages.json`), JSON.stringify(messages, null, 4));
+        })
     }
 }
 
-const firefoxConfigWrite ={
-    remove(){
+const firefoxConfigWrite = {
+    remove() {
         removeFile(path.join(__dirname, '../../public/manifest.json'));
         removeFile(path.join(__dirname, '../../public/background.js'));
     },
-    write(){
-        if (!IS_FIREFOX){
+    write() {
+        if (!IS_FIREFOX) {
             return;
         }
         fs.copyFileSync(
@@ -94,13 +138,12 @@ const firefoxConfigWrite ={
 }
 
 
-
 const utoolsConfigWrite = {
-    remove(){
+    remove() {
         removeFile(path.join(__dirname, '../../public/plugin.json'));
     },
-    write(){
-        if (!IS_UTOOLS){
+    write() {
+        if (!IS_UTOOLS) {
             return;
         }
         let pluginPath = path.join(__dirname, '../../public/plugin.json');
@@ -110,11 +153,12 @@ const utoolsConfigWrite = {
             for (let tool of tools) {
                 // 初始化数据
                 let code = "ctool-" + tool.name;
+                let toolTitle = i18nBuild.translate(`mian_tool_${tool.name}`)
                 let toolFeatures = featureConfig.hasOwnProperty(tool.name) ? featureConfig[tool.name] : []
                 if (!utoolsToolFeature.hasOwnProperty(code)) {
                     utoolsToolFeature[code] = {
                         "code": code,
-                        "explain": tool.title,
+                        "explain": toolTitle,
                         "cmds": []
                     }
                     if (toolFeatures.length > 0) {
@@ -122,7 +166,7 @@ const utoolsConfigWrite = {
                             let toolFeatureCode = code + '-' + toolFeature['name']
                             utoolsToolFeature[toolFeatureCode] = {
                                 "code": toolFeatureCode,
-                                "explain": tool.title + ' - ' + toolFeature['title'],
+                                "explain": toolTitle + ' - ' + toolFeature['title'],
                                 "cmds": []
                             }
                         }
@@ -132,7 +176,7 @@ const utoolsConfigWrite = {
                 // 关键字
                 let keyword = utoolsConfig['keyword'].hasOwnProperty(tool.name) ? utoolsConfig['keyword'][tool.name] : []
                 utoolsToolFeature[code].cmds.push(
-                    ...Array.from(new Set([tool.name, tool.title, "ctool-" + tool.name, ...keyword]))
+                    ...Array.from(new Set([tool.name, toolTitle, "ctool-" + tool.name, ...keyword]))
                 )
 
                 // cmds手动配置
@@ -144,13 +188,13 @@ const utoolsConfigWrite = {
                 for (let _cmd of cmds) {
                     let cmd = _.cloneDeep(_cmd);
                     if (!cmd.hasOwnProperty('feature')) {
-                        cmd['label'] = tool.title
+                        cmd['label'] = toolTitle
                         utoolsToolFeature[code].cmds.push(cmd)
                         continue;
                     }
                     let toolFeatureCode = code + '-' + cmd.feature
                     if (utoolsToolFeature.hasOwnProperty(toolFeatureCode)) {
-                        cmd['label'] = tool.title + ' - ' + getToolFeatureTitle(cmd.feature, toolFeatures)
+                        cmd['label'] = toolTitle + ' - ' + getToolFeatureTitle(cmd.feature, toolFeatures)
                         delete cmd.feature
                         utoolsToolFeature[toolFeatureCode].cmds.push(cmd)
                     }
@@ -195,5 +239,7 @@ module.exports = {
         edgeConfigWrite.write();
         firefoxConfigWrite.write();
         utoolsConfigWrite.write();
+        // 生成运行时语言包
+        i18nBuild.generate()
     }
 }

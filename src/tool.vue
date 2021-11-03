@@ -2,12 +2,12 @@
     <div>
         <Menu mode="horizontal" theme="light" :active-name="currentCategory" @on-select="categorySelect"
               style="height: 45px;line-height: 45px;">
-            <MenuItem :name="cat.name" v-for="(cat) in category" :key="cat.name">
+            <MenuItem :style="$t('mian_css_main_category_item_style')" :name="cat.name" v-for="(cat) in category" :key="cat.name">
                 <Badge v-if="badgeCategoryIsShow(cat.name)" dot :offset="[15,-10]">
-                    {{ cat.title }}
+                    {{ $t('mian_category_'+cat.name) }}
                 </Badge>
                 <template v-else>
-                    {{ cat.title }}
+                    {{ $t('mian_category_'+cat.name) }}
                 </template>
             </MenuItem>
             <MenuItem style="padding: 0 5px;float: right" name="_new" v-if="!isUtools">
@@ -34,31 +34,31 @@
         <RadioGroup :value="currentTool" @on-change="toolSelect" style="margin: 10px 0 10px 20px;line-height: 30px;">
             <Radio :label="tool.name" v-for="(tool) in tools" :key="tool.name">
                 <Badge v-if="badgeToolIsShow(tool.name)" dot :offset="[5,-5]">
-                    {{ tool.title }}
+                    {{ $t('mian_tool_'+tool.name) }}
                 </Badge>
                 <template v-else>
-                    {{ tool.title }}
+                    {{ $t('mian_tool_'+tool.name) }}
                 </template>
             </Radio>
         </RadioGroup>
         <div>
             <router-view v-if="isRouterAlive" :key="$route.path + $route.query.t"/>
         </div>
-        <Drawer :title="currentToolTitle+' - 历史记录'" v-model="historyShow" :width="100">
+        <Drawer :title="$t('mian_tool_'+currentTool)+' - '+$t('mian_history')" v-model="historyShow" :width="100">
             <Table ref="historyTable" border :columns="historyColumns" :data="historyData" :height="historyTableHeight">
                 <template slot-scope="{ row }" slot="_value">
                     <div>{{ historyValue(row.value) }}}</div>
                 </template>
                 <template slot-scope="{ index }" slot="_op">
-                    <Button type="primary" size="small" @click="historyView(index)">查看</Button>
-                    <Button type="primary" style="margin-left: 5px" @click="historyLoad(index)" size="small">加载</Button>
+                    <Button type="primary" size="small" @click="historyView(index)">{{ $t('mian_ui_views') }}</Button>
+                    <Button type="primary" style="margin-left: 5px" @click="historyLoad(index)" size="small">{{ $t('mian_ui_load') }}</Button>
                 </template>
             </Table>
             <div class="drawer-footer">
-                <Button type="primary" @click="historyClear">清空历史记录</Button>
+                <Button type="primary" @click="historyClear">{{ $t('mian_history_clear') }}</Button>
             </div>
         </Drawer>
-        <Drawer title="设置" v-model="settingShow" :width="400">
+        <Drawer :title="$t('mian_ui_setting')" v-model="settingShow" :width="400">
             <setting-block v-if="settingShow"></setting-block>
         </Drawer>
         <bottom-block/>
@@ -91,17 +91,17 @@ export default {
             historyShow: false,
             historyColumns: [
                 {
-                    title: '操作时间',
+                    title: this.$t('mian_history_time'),
                     key: 'time',
                     width: 180
                 },
                 {
-                    title: '数据',
+                    title: this.$t('mian_history_data'),
                     slot: '_value',
                     ellipsis: true,
                 },
                 {
-                    title: '操作',
+                    title: this.$t('mian_history_op'),
                     slot: '_op',
                     width: 150
                 }
@@ -118,9 +118,6 @@ export default {
         historyTableHeight() {
             // 设置表格高度
             return window.innerHeight - 140
-        },
-        currentToolTitle() {
-            return config.getToolTitle(this.currentTool)
         }
     },
     watch: {
@@ -207,7 +204,7 @@ export default {
         history() {
             let history = historyFactory(this.currentTool)
             if (history.length() < 1) {
-                return this.$Message.error('暂无历史记录')
+                return this.$Message.error(this.$t('mian_history_null'))
             }
             this.historyData = history.all()
             this.historyShow = true
@@ -227,7 +224,7 @@ export default {
                     })
                 },
                 width: 700,
-                okText: "关闭"
+                okText: this.$t('mian_ui_close')
             })
         },
         historyClear() {

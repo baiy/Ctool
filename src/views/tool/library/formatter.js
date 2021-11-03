@@ -31,11 +31,25 @@ const options = {
     php: {parser: "php", plugins: [parserPhp]},
     java: {parser: "java", plugins: [parserJava]},
 };
-export default (code, lang, {tab = 4}) => {
+const format = (code, lang, formatOptions = {}) => {
     if (!(lang in options)) {
         throw new Error(`${lang} can't format`);
     }
+    let tab = "tab" in formatOptions ? formatOptions.tab : 4;
     let langOption = options[lang];
     langOption.tabWidth = tab
+    if ("printWidth" in formatOptions){
+        langOption.printWidth = formatOptions.printWidth
+    }
+    if ("proseWrap" in formatOptions){
+        langOption.proseWrap = formatOptions.proseWrap
+    }
     return prettier.format(code, langOption);
 };
+
+export default format
+
+export const jsonFormatter = (code) => {
+    return format(code, 'json', {printWidth: 2, proseWrap: "never"})
+}
+

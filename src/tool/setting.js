@@ -42,4 +42,14 @@ export default {
         }
         return config.saveSetting('display_mode', value)
     },
+    /**
+     * @param value
+     * @return {boolean}
+     */
+    locale(value = null) {
+        if (value === null) {
+            return config.getSetting('locale', '_default')
+        }
+        return config.saveSetting('locale', value)
+    },
 }
