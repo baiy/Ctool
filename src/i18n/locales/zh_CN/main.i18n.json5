@@ -45,6 +45,7 @@
     "tool_url": "URL编码",
     "tool_timestamp": "时间戳",
     "tool_qrCode": "二维码",
+    "tool_barcode": "条形码",
     "tool_pinyin": "汉字转拼音",
     "tool_ip": "IP地址查询",
     "tool_code": "代码格式化",

@@ -45,6 +45,7 @@
     "tool_url": "Url En/Decode",
     "tool_timestamp": "Timestamp",
     "tool_qrCode": "QR Code",
+    "tool_barcode": "Barcode",
     "tool_pinyin": "Chinese Pinyin",
     "tool_ip": "Ip Query",
     "tool_code": "Code Formatter ",

@@ -38,6 +38,7 @@ const tool = [
     {'name': 'url', 'cat': ['conversion']},
     {'name': 'timestamp', 'cat': ['conversion']},
     {'name': 'qrCode', 'cat': ['generate']},
+    {'name': 'barcode', 'cat': ['generate']},
     {'name': 'pinyin', 'cat': ['conversion']},
     {'name': 'ip', 'cat': ['other']},
     {'name': 'code', 'cat': ['other']},
