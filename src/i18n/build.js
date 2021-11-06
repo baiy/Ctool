@@ -10,7 +10,10 @@ const LOCAL_LISTS = [
     {code: 'zh_CN', name: "简体中文"}
 ]
 
+// 默认地区
 const DEFAULT_LOCALE = 'zh_CN'
+// 为空展示地区
+const DEFAULT_SHOW_LOCALE = 'en'
 
 const codeToLocale = (code) => {
     return code === "_default" ? DEFAULT_LOCALE : code;
@@ -59,6 +62,7 @@ const getAllLocale = () => {
     let locales = {
         lists: LOCAL_LISTS,
         default_locale: DEFAULT_LOCALE,
+        default_show_locale: DEFAULT_SHOW_LOCALE,
         detail: {}
     }
     fs.readdirSync(path.resolve(path.join(__dirname, "locales"))).forEach((code) => {
@@ -107,9 +111,9 @@ module.exports = {
         let text = key;
         if ((locale in locales) && (key in locales[locale])) {
             text = locales[locale][key]['message']
-        } else if (locale !== DEFAULT_LOCALE) {
+        } else if (locale !== DEFAULT_SHOW_LOCALE) {
             // 获取默认语言
-            text = this.getMessage(DEFAULT_LOCALE, key)
+            text = this.getMessage(DEFAULT_SHOW_LOCALE, key)
         }
         return text;
     },

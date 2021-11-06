@@ -2,32 +2,32 @@
     <div>
         <div>
             <CellGroup @on-click="open">
-                <Cell :title="$t('mian_common_tool')" name="setting"/>
-                <Cell v-if="is_chromium || is_firefox" :title="$t('mian_keyboard_setting')" name="shortcuts"/>
-                <Cell :title="$t('mian_display_mode')">
+                <Cell :title="$t('main_common_tool')" name="setting"/>
+                <Cell v-if="is_chromium || is_firefox" :title="$t('main_keyboard_setting')" name="shortcuts"/>
+                <Cell :title="$t('main_display_mode')">
                     <Select v-model="display_mode" slot="extra" transfer>
-                        <Option v-for="item in display_mode_list" :value="item" :key="item">{{ $t('mian_display_mode_'+item)}}</Option>
+                        <Option v-for="item in display_mode_list" :value="item" :key="item">{{ $t('main_display_mode_'+item)}}</Option>
                     </Select>
                 </Cell>
-                <Cell :title="$t('mian_setting_language')">
+                <Cell :title="$t('main_setting_language')">
                     <Select v-model="locale" slot="extra" transfer>
                         <Option v-for="item in locales" :value="item.code" :key="item.code">{{ item.name }}</Option>
                     </Select>
                 </Cell>
             </CellGroup>
             <CellGroup>
-                <Cell :title="$t('mian_copy_results_to_clipboard')">
+                <Cell :title="$t('main_copy_results_to_clipboard')">
                     <i-switch v-model="auto_save_copy" slot="extra"/>
                 </Cell>
-                <Cell :title="$t('mian_read_content_from_clipboard')">
+                <Cell :title="$t('main_read_content_from_clipboard')">
                     <i-switch v-model="auto_read_copy" slot="extra"/>
                 </Cell>
-                <Cell :title="$t('mian_read_clipboard_content_trim')">
+                <Cell :title="$t('main_read_clipboard_content_trim')">
                     <i-switch v-model="auto_read_copy_filter" slot="extra"/>
                 </Cell>
             </CellGroup>
         </div>
-        <Drawer :title="$t('mian_ui_setting')" placement="left" v-model="settingShow" :width="90">
+        <Drawer :title="$t('main_ui_setting')" placement="left" v-model="settingShow" :width="90">
             <setting-block v-if="settingShow"></setting-block>
         </Drawer>
     </div>
@@ -86,16 +86,16 @@ export default {
                 case 'shortcuts':
                     if (this.is_firefox) {
                         return this.$Notice.success({
-                            title: this.$t('mian_keyboard_firefox_1'),
+                            title: this.$t('main_keyboard_firefox_1'),
                             render: h => {
                                 return h('span', [
-                                    this.$t('mian_keyboard_firefox_2'),
+                                    this.$t('main_keyboard_firefox_2'),
                                     h('a', {
                                         attrs: {
                                             href: 'https://jingyan.baidu.com/article/3ea51489f1d0a713e61bbaff.html',
                                             target: '_blank'
                                         }
-                                    }, this.$t('mian_keyboard_firefox_3')),
+                                    }, this.$t('main_keyboard_firefox_3')),
                                 ])
                             }
                         });

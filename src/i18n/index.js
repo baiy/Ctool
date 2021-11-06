@@ -11,6 +11,7 @@ const locales = require('./locales/build.json')
 export const LOCALE_LISTS = locales.lists
 export const LOCALE_DETAIL = locales.detail
 export const DEFAULT_LOCALE = locales.default_locale
+export const DEFAULT_SHOW_LOCALE = locales.default_show_locale
 
 let currentLocale = "";
 
@@ -24,10 +25,9 @@ const getMessage = (code, key) => {
     let text = key;
     if ((locale in LOCALE_DETAIL) && (key in LOCALE_DETAIL[locale])) {
         text = LOCALE_DETAIL[locale][key]['message']
-    }
-    else if(locale !== DEFAULT_LOCALE){
+    } else if (locale !== DEFAULT_SHOW_LOCALE) {
         // 获取默认语言
-        text = getMessage(DEFAULT_LOCALE,key)
+        text = getMessage(DEFAULT_SHOW_LOCALE, key)
     }
     return text;
 }
@@ -48,7 +48,7 @@ const translate = (code, key, values = {}) => {
         return chromiumGetMessage(key, values, placeholders)
     }
 
-    let text = getMessage(code,key);
+    let text = getMessage(code, key);
 
     const matchRge = new RegExp('{.+?}', 'g')
     const matchString = text.match(matchRge);

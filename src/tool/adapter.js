@@ -153,7 +153,7 @@ const utoolsConfigWrite = {
             for (let tool of tools) {
                 // 初始化数据
                 let code = "ctool-" + tool.name;
-                let toolTitle = i18nBuild.translate(`mian_tool_${tool.name}`)
+                let toolTitle = i18nBuild.translate(`main_tool_${tool.name}`)
                 let toolFeatures = featureConfig.hasOwnProperty(tool.name) ? featureConfig[tool.name] : []
                 if (!utoolsToolFeature.hasOwnProperty(code)) {
                     utoolsToolFeature[code] = {

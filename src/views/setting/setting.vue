@@ -1,7 +1,7 @@
 <template>
     <Card>
         <Tabs value="common">
-            <TabPane :label="$t('mian_common_tool_setting')" name="common">
+            <TabPane :label="$t('main_common_tool_setting')" name="common">
                 <setting-common></setting-common>
             </TabPane>
         </Tabs>
