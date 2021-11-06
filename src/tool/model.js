@@ -55,7 +55,7 @@ export const plugin = {
                 } else if (setting.autoReadCopy()) {
                     let paste = clipboard.paste()
                     if (!data[clipboardField] && paste) {
-                        if (setting.autoReadCopyFilter()){
+                        if (setting.autoReadCopyFilter()) {
                             paste = paste.trim()
                         }
                         data[clipboardField] = paste
@@ -67,17 +67,19 @@ export const plugin = {
         Vue.prototype.$saveToolData = function (data) {
             return history(model.getCurrentTool()).push(data)
         }
-        Vue.prototype.$clipboardCopy = function (data) {
-            if (!setting.autoSaveCopy() || !data) return
-            clipboard.copy(data,()=>{
-                this.$Message.success('结果已复制 ^o^')
-            })
+        Vue.prototype.$clipboardCopy = function (data, force = false) {
+            if ((setting.autoSaveCopy() || force) && data){
+                clipboard.copy(data, () => {
+                    this.$Message.success('结果已复制 ^o^')
+                })
+            }
         }
-        Vue.prototype.$clipboardCopyImages = function (data) {
-            if (!setting.autoSaveCopy() || !data) return
-            clipboard.copyImage(data,()=>{
-                this.$Message.success('图片已复制 ^o^')
-            })
+        Vue.prototype.$clipboardCopyImages = function (data, force = false) {
+            if ((setting.autoSaveCopy() || force) && data){
+                clipboard.copyImage(data, () => {
+                    this.$Message.success('图片已复制 ^o^')
+                })
+            }
         }
     },
 }
