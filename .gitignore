@@ -7,6 +7,7 @@
 /public/plugin.json
 /public/README.md
 /id_rsa.pem
+/public/_locales
 
 # local env files
 .env.local

@@ -91,7 +91,7 @@ const chromiumConfigWrite = {
             path.join(__dirname, '../../public/background.js')
         );
         // 生成语言包
-        const locales = i18nBuild.getLocales()
+        const locales = i18nBuild.getLocales().detail
         const localeDir = path.join(__dirname, '../../public/_locales/')
         fs.mkdirSync(localeDir);
         Object.keys(locales).forEach((_locale) => {

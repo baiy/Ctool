@@ -12,6 +12,7 @@
         "default_title": "常用开发工具",
         "default_popup": "index.html"
     },
+    "default_locale": "zh_CN",
     "background": {
         "scripts": ["background.js"]
     },
