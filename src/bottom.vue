@@ -29,7 +29,7 @@ export default {
 .ctool-bottom {
     width: 100%;
     position: fixed;
-    z-index: 9999;
+    z-index: 999;
     bottom: 0;
     left: 0;
     height: 30px;
