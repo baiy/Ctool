@@ -143,7 +143,6 @@
  * 不支持中文
  */
 import JsBarcode from 'jsbarcode'
-import _ from "lodash";
 
 export default {
     created() {
@@ -193,7 +192,7 @@ export default {
                 valid: (valid) => {
                     this.validStr = !valid ? `"${barcodeContent}" 无效的条码内容` : "";
                     if (!this.validStr && this.current.text) {
-                        this.saveToolData()
+                        this.$saveToolData(this.current)
                     }
                 }
             })
@@ -202,10 +201,7 @@ export default {
             if (!this.validStr && this.current.text) {
                 this.$clipboardCopyImages(this.$refs.barcode.toDataURL("image/png"), true)
             }
-        },
-        saveToolData:_.debounce(function(){
-            this.$saveToolData(this.current)
-        }, 3000)
+        }
     },
     data() {
         return {

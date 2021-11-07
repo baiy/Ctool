@@ -3,6 +3,7 @@ import clipboard from './clipboard'
 import setting from './setting'
 import cache from './cache'
 import history from './history.js'
+import _ from "lodash";
 
 let fixeInputData;
 let toolCurrentFeature = "";
@@ -44,6 +45,12 @@ const model = {
     }
 }
 
+// 保存历史记录防抖
+let debounceSaveToolData = {};
+const debounceSaveToolDataMethod = _.debounce(function () {
+    return history(model.getCurrentTool()).push(debounceSaveToolData)
+}, 3000)
+
 export const plugin = {
     install: function (Vue) {
         Vue.prototype.$getToolData = function (clipboardField = '') {
@@ -65,17 +72,18 @@ export const plugin = {
             return data
         }
         Vue.prototype.$saveToolData = function (data) {
-            return history(model.getCurrentTool()).push(data)
+            debounceSaveToolData = _.cloneDeep(data)
+            debounceSaveToolDataMethod()
         }
         Vue.prototype.$clipboardCopy = function (data, force = false) {
-            if ((setting.autoSaveCopy() || force) && data){
+            if ((setting.autoSaveCopy() || force) && data) {
                 clipboard.copy(data, () => {
                     this.$Message.success('结果已复制 ^o^')
                 })
             }
         }
         Vue.prototype.$clipboardCopyImages = function (data, force = false) {
-            if ((setting.autoSaveCopy() || force) && data){
+            if ((setting.autoSaveCopy() || force) && data) {
                 clipboard.copyImage(data, () => {
                     this.$Message.success('图片已复制 ^o^')
                 })
