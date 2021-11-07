@@ -48,8 +48,8 @@ const model = {
 // 保存历史记录防抖
 let debounceSaveToolData = {};
 const debounceSaveToolDataMethod = _.debounce(function () {
-    return history(model.getCurrentTool()).push(debounceSaveToolData)
-}, 3000)
+    return history(debounceSaveToolData['tool']).push(debounceSaveToolData['data'])
+}, 1000)
 
 export const plugin = {
     install: function (Vue) {
@@ -72,7 +72,7 @@ export const plugin = {
             return data
         }
         Vue.prototype.$saveToolData = function (data) {
-            debounceSaveToolData = _.cloneDeep(data)
+            debounceSaveToolData = {tool:model.getCurrentTool(),data:_.cloneDeep(data)}
             debounceSaveToolDataMethod()
         }
         Vue.prototype.$clipboardCopy = function (data, force = false) {
