@@ -33,15 +33,6 @@ const setUserCommon = function (tools) {
     cache.setNoVersion('user_common', tools)
 }
 
-const getToolTitle = function (name) {
-    for (let i = 0; i < tool.length; i++) {
-        if (tool[i].name === name) {
-            return __()
-        }
-    }
-    return ''
-}
-
 const getToolDefaultCategory = function (name) {
     for (let i = 0; i < tool.length; i++) {
         if (tool[i].name === name) {

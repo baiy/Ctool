@@ -2,7 +2,7 @@
     <div ref="container" class="code-editor" :style="`height:${containerHeight};width:${width}`"></div>
 </template>
 <script>
-import {compress, format} from "../library/formatter";
+import {format} from "../library/formatter";
 import {create} from "../library/editor";
 
 export default {
@@ -71,10 +71,10 @@ export default {
             return this.editor
         },
         format(lang, option = {}) {
-            this.$emit('input', format(this.editor.getValue(), lang, option))
+            this.$emit('input', format(this.editor.getValue(), lang, false, option))
         },
         compress(lang) {
-            this.$emit('input', compress(this.editor.getValue(), lang))
+            this.$emit('input', format(this.editor.getValue(), lang, true))
         }
     }
 };

@@ -68,6 +68,7 @@ export default {
                     this.$saveToolData(this.current);
                     return this.$Message.success(`${this.current.isCompress ? "压缩" : "格式化"}完成`);
                 } catch (e) {
+                    console.log(e)
                     return this.$Modal.error({
                         title: "格式化错误",
                         content: `${e.message}`
