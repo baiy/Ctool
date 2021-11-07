@@ -1,47 +1,41 @@
 <template>
     <div>
         <div style="border: 1px solid #dcdee2; border-radius: 4px">
-            <diffEditor ref="editor" v-model="current.diff" :language="current.language" :auto-height="220" />
+            <diffEditor ref="editor" :collapse="current.collapse" v-model="current.diff" :language="current.language"
+                        :auto-height="220"/>
         </div>
         <option-block>
             <FormItem>
                 <ButtonGroup>
                     <Button
-                        :type="current.language !== item.id ? 'primary' : 'warning'"
-                        @click="setLanguage(item.id)"
+                        :type="current.language !== item ? 'primary' : 'warning'"
+                        @click="setLanguage(item)"
                         v-for="item in buttonLang"
-                        :key="item.id"
-                    >{{ item.name }}
+                        :key="item"
+                    >{{ item }}
                     </Button>
                 </ButtonGroup>
             </FormItem>
             <FormItem>
                 <Select placeholder="更多语言" @on-change="(value)=>{setLanguage(value)}">
-                    <Option v-for="item in allLang" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                    <Option v-for="item in allLang" :value="item" :key="item">{{ item }}</Option>
                 </Select>
             </FormItem>
             <FormItem>
-                <Checkbox @on-change="(value)=>inline(value)">行内对比</Checkbox>
+                <Checkbox v-model="current.collapse">折叠相同</Checkbox>
             </FormItem>
         </option-block>
     </div>
 </template>
 <script>
 import diffEditor from "./components/diffEditor";
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-
-let allLang = {}
-for (let lang of monaco.languages.getLanguages()) {
-    allLang[lang.id] = {
-        id: lang.id,
-        name: lang.id === "plaintext" ? "纯文本" : lang.aliases[0]
-    }
-}
+import {allLang} from "./library/editor";
+import _ from "lodash";
 
 const COMMON_LANG = [
-    "plaintext",
-    "javascript",
+    "text",
     "html",
+    "js",
     "css",
     "json",
     "python",
@@ -55,14 +49,12 @@ export default {
     },
     computed: {
         allLang() {
-            return Object.values(allLang)
+            return allLang
         },
         buttonLang() {
-            let data = COMMON_LANG.map((item) => {
-                return allLang[item]
-            });
-            if (this.current.language && !COMMON_LANG.includes(this.current.language)) {
-                data.push(allLang[this.current.language])
+            let data = _.cloneDeep(COMMON_LANG);
+            if (this.current.language && !data.includes(this.current.language)) {
+                data.push(this.current.language)
             }
             return data;
         }
@@ -73,26 +65,24 @@ export default {
     methods: {
         setLanguage(lang) {
             this.current.language = lang;
-        },
-        inline(value){
-            this.$refs.editor.inline(!value)
         }
     },
     watch: {
-        current:{
-            handler(newVal){
-                if (newVal.diff.original && newVal.diff.modified){
+        current: {
+            handler(newVal) {
+                if (newVal.diff.original && newVal.diff.modified) {
                     this.$saveToolData(this.current);
                 }
             },
-            deep:true
+            deep: true
         }
     },
     data() {
         return {
             current: {
                 diff: {original: "", modified: ""},
-                language: ""
+                language: "text",
+                collapse: false
             }
         }
     }

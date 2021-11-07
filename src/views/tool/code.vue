@@ -28,20 +28,24 @@
                     <Option :value="8">缩进 Tab 8</Option>
                 </Select>
             </FormItem>
+            <FormItem>
+                <Checkbox v-model="current.isCompress">压缩</Checkbox>
+            </FormItem>
         </option-block>
     </div>
 </template>
 <script>
 import _ from "lodash";
 import codeEditor from "./components/codeEditor";
+
 export default {
     components: {
         codeEditor,
     },
-    computed:{
-        buttonLang(){
-            let data = _.slice(this.lang,0,8)
-            if (this.current.lang && !data.includes(this.current.lang)){
+    computed: {
+        buttonLang() {
+            let data = _.slice(this.lang, 0, 7)
+            if (this.current.lang && !data.includes(this.current.lang)) {
                 data.push(this.current.lang)
             }
             return data
@@ -55,14 +59,18 @@ export default {
             if (this.current.content) {
                 try {
                     this.current.lang = language;
-                    this.$refs.editor.format(language,{tab:this.current.tab});
+                    if (!this.current.isCompress) {
+                        let option = {tab: this.current.tab}
+                        this.$refs.editor.format(language, option);
+                    } else {
+                        this.$refs.editor.compress(language);
+                    }
                     this.$saveToolData(this.current);
-                    return this.$Message.success('格式化完成');
-                }
-                catch (e) {
+                    return this.$Message.success(`${this.current.isCompress ? "压缩" : "格式化"}完成`);
+                } catch (e) {
                     return this.$Modal.error({
-                        title:"格式化错误",
-                        content:`${e.message}`
+                        title: "格式化错误",
+                        content: `${e.message}`
                     });
                 }
             }
@@ -72,19 +80,20 @@ export default {
         return {
             current: {
                 content: "",
+                isCompress: false,
                 lang: "",
-                tab:4,
+                tab: 4,
             },
             lang: [
                 "html",
+                "js",
+                "css",
+                "xml",
                 "json",
+                "sql",
                 "yaml",
                 "php",
-                "xml",
-                "sql",
-                "javascript",
-                "css",
-                "typescript",
+                "ts",
                 "java",
                 "scss",
                 "less",

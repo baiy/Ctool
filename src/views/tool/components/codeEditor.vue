@@ -1,28 +1,9 @@
 <template>
-     <div ref="container" class="code-editor" :style="`height:${containerHeight};width:${width}`"></div>
+    <div ref="container" class="code-editor" :style="`height:${containerHeight};width:${width}`"></div>
 </template>
 <script>
-import formatter from "../library/formatter";
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-
-const allowFormatterLanguage = {
-    html: "html",
-    typescript: "ts",
-    javascript: "js",
-    json: "json",
-    graphql: "graphql",
-    java: "java",
-    markdown: "markdown",
-    php: "php",
-    css: "css",
-    scss: "scss",
-    less: "less",
-    sql: "sql",
-    xml: "xml",
-    yaml: "yaml",
-    vue: "vue",
-    angular: "angular",
-}
+import {compress, format} from "../library/formatter";
+import {create} from "../library/editor";
 
 export default {
     name: 'codeEditor',
@@ -38,14 +19,6 @@ export default {
             type: Number,
             default: 0
         },
-        theme: {
-            type: String,
-            default: 'vs'
-        },
-        roundedSelection: {
-            type: Boolean,
-            default: true
-        },
         height: {
             type: String,
             default: "350px"
@@ -58,27 +31,12 @@ export default {
     watch: {
         value(newValue) {
             if (this.editor !== null && this.editor.getValue() !== newValue) {
-                this.editor.pushUndoStop();
-                this.editor.getModel().pushEditOperations(
-                    [],
-                    [
-                        {
-                            range: this.editor.getModel().getFullModelRange(),
-                            text: newValue,
-                        },
-                    ]
-                );
-                this.editor.pushUndoStop();
+                this.editor.setValue(newValue)
             }
         },
         language(newValue) {
             if (this.editor !== null) {
-                monaco.editor.setModelLanguage(this.editor.getModel(), newValue)
-            }
-        },
-        theme(newValue) {
-            if (this.editor !== null) {
-                monaco.editor.setTheme(newValue)
+                this.editor.customSetEditorLanguage(newValue);
             }
         }
     },
@@ -100,29 +58,23 @@ export default {
     },
     methods: {
         initEditor() {
-            this.$refs.container.innerHTML = ''
-            this.editor = monaco.editor.create(this.$refs.container, {
-                value: this.value,
-                language: this.language,
-                theme: this.theme,
-                roundedSelection: this.roundedSelection,
-                automaticLayout: true
-            })
-            this.editor.onDidChangeModelContent(() => {
-                if (this.value !== this.editor.getValue()){
-                    this.$emit('input', this.editor.getValue())
+            this.editor = create(this.$refs.container, this.language);
+            this.editor.setValue(this.value)
+            this.editor.setSize(null, this.containerHeight)
+            this.editor.on('change', editor => {
+                if (this.value !== editor.getValue()) {
+                    this.$emit('input', editor.getValue())
                 }
             })
         },
-        /** @return monaco.editor.IStandaloneCodeEditor*/
         getEditor() {
             return this.editor
         },
-        format(lang,option = {}) {
-            if (!(lang in allowFormatterLanguage)){
-                throw new Error("当前代码无法格式化");
-            }
-            this.$emit('input', formatter(this.editor.getValue(), allowFormatterLanguage[lang],option))
+        format(lang, option = {}) {
+            this.$emit('input', format(this.editor.getValue(), lang, option))
+        },
+        compress(lang) {
+            this.$emit('input', compress(this.editor.getValue(), lang))
         }
     }
 };

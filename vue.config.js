@@ -1,5 +1,4 @@
 const adapter = require('./src/tool/adapter');
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 const pages = {
     tool: {
         entry: 'src/tool.js',
@@ -25,7 +24,6 @@ const config = {
             });
             return args
         })
-        config.plugin('monaco-editor').use(MonacoWebpackPlugin)
     },
 };
 
