@@ -1,23 +1,23 @@
 <template>
     <div>
-        <Input v-model="current.input" :rows="7" type="textarea" placeholder="内容"></Input>
+        <Input v-model="current.input" :rows="7" type="textarea" :placeholder="$t('base64_input')"></Input>
         <option-block>
             <FormItem>
                 <ButtonGroup>
-                    <Button type="primary" @click="handle('encode')">编码</Button>
-                    <Button type="primary" @click="handle('decode')">解码</Button>
+                    <Button type="primary" @click="handle('encode')">{{ $t('base64_encode') }}</Button>
+                    <Button type="primary" @click="handle('decode')">{{ $t('base64_decode') }}</Button>
                 </ButtonGroup>
             </FormItem>
             <FormItem>
-                <Checkbox v-model="current.isUriSafe">Url Safe</Checkbox>
+                <Checkbox v-model="current.isUriSafe">{{ $t('base64_url_safe') }}</Checkbox>
             </FormItem>
             <FormItem style="float: right;">
                 <Upload action="#" :before-upload="handleUpload">
-                    <Button type="primary" icon="md-arrow-round-up">上传文件</Button>
+                    <Button type="primary" icon="md-arrow-round-up">{{ $t('base64_upload_file') }}</Button>
                 </Upload>
             </FormItem>
         </option-block>
-        <Input v-model="current.output" :rows="7" type="textarea" placeholder="结果"></Input>
+        <Input v-model="current.output" :rows="7" type="textarea" :placeholder="$t('base64_output') "></Input>
     </div>
 </template>
 <script>
@@ -35,7 +35,7 @@ export default {
                 if (v === "encode") {
                     this.current.output = Base64.encode(this.current.input, this.current.isUriSafe)
                 } else {
-                    if (this.current.input.indexOf(',') !== -1) {
+                    if (this.current.input.trim().indexOf('data:') === 0) {
                         // 文件 base64 内容
                         this.exportFile();
                     }
@@ -46,7 +46,6 @@ export default {
                 this.current.operation = v
                 this.$clipboardCopy(this.current.output)
                 this.$saveToolData(this.current)
-                console.log(this.current)
             }
         },
         handleUpload(file) {
@@ -72,7 +71,6 @@ export default {
         return {
             current: {
                 input: '',
-                isFile: false,
                 output: '',
                 operation: '',
                 isUriSafe: false,

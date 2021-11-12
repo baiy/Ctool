@@ -1,0 +1,8 @@
+{
+    "input": "Input",
+    "encode":"Encode",
+    "decode": "Decode",
+    "url_safe":"Url Safe",
+    "upload_file": "Upload File",
+    "output":"Output"
+}
