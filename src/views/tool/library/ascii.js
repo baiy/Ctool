@@ -10,39 +10,39 @@ const ASCII_MAP = ['NUL', 'SOH', 'STX', 'ETX', 'EOT', 'ENQ', 'ACK', 'BEL', 'BS',
     'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', 'DEL']
 // ASCII 不可显示字符
 const ASCII_HIDDEN = {
-    'NUL': "空字符（Null）",
-    'SOH': "标题开始",
-    'STX': "本文开始",
-    'ETX': "本文结束",
-    'EOT': "传输结束",
-    'ENQ': "请求",
-    'ACK': "确认回应",
-    'BEL': "响铃",
-    'BS': "退格",
-    'TAB': "水平定位符号",
-    'LF': "换行键",
-    'VT': "垂直定位符号",
-    'FF': "换页键",
-    'CR': "归位键",
-    'SO': "取消变换（Shift out）",
-    'SI': "启用变换（Shift in）",
-    'DLE': "跳出数据通讯",
-    'DC1': "设备控制一（XON 启用软件速度控制）",
-    'DC2': "设备控制二",
-    'DC3': "设备控制三（XOFF 停用软件速度控制）",
-    'DC4': "设备控制四",
-    'NAK': "确认失败回应",
-    'SYN': "同步用暂停",
-    'ETB': "区块传输结束",
-    'CAN': "取消",
-    'EM': "连接介质中断",
-    'SUB': "替换",
-    'ESC': "跳出",
-    'FS': "文件分割符",
-    'GS': "组群分隔符",
-    'RS': "记录分隔符",
-    'US': "单元分隔符",
-    'DEL': "删除",
+    'NUL': __('ascii_code_nul'),
+    'SOH': __('ascii_code_soh'),
+    'STX': __('ascii_code_stx'),
+    'ETX': __('ascii_code_etx'),
+    'EOT': __('ascii_code_eot'),
+    'ENQ': __('ascii_code_enq'),
+    'ACK': __('ascii_code_ack'),
+    'BEL': __('ascii_code_bel'),
+    'BS': __('ascii_code_bs'),
+    'TAB': __('ascii_code_tab'),
+    'LF': __('ascii_code_lf'),
+    'VT': __('ascii_code_vt'),
+    'FF': __('ascii_code_ff'),
+    'CR': __('ascii_code_cr'),
+    'SO': __('ascii_code_so'),
+    'SI': __('ascii_code_si'),
+    'DLE': __('ascii_code_dle'),
+    'DC1': __('ascii_code_dc1'),
+    'DC2': __('ascii_code_dc2'),
+    'DC3': __('ascii_code_dc3'),
+    'DC4': __('ascii_code_dc4'),
+    'NAK': __('ascii_code_nak'),
+    'SYN': __('ascii_code_syn'),
+    'ETB': __('ascii_code_etb'),
+    'CAN': __('ascii_code_can'),
+    'EM': __('ascii_code_em'),
+    'SUB': __('ascii_code_sub'),
+    'ESC': __('ascii_code_esc'),
+    'FS': __('ascii_code_fs'),
+    'GS': __('ascii_code_gs'),
+    'RS': __('ascii_code_rs'),
+    'US': __('ascii_code_us'),
+    'DEL': __('ascii_code_del'),
 }
 const radix = new Radix();
 
@@ -50,7 +50,7 @@ class Ascii {
     constructor(c, type = "str") {
         let dec = -1;
         c = c + "";
-        if (type !== "str"){
+        if (type !== "str") {
             c = c.toLowerCase();
         }
         switch (type) {
@@ -95,7 +95,7 @@ class Ascii {
     }
 
     str() {
-        return ASCII_MAP[this.decData]
+        return ASCII_MAP[this.decData] === " " ? __('ascii_code_space') : ASCII_MAP[this.decData]
     }
 }
 

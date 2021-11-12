@@ -1,42 +1,42 @@
 <template>
     <div>
         <Tabs v-model="operation">
-            <TabPane label="转换" name="convent">
+            <TabPane :label="$t('ascii_convent')" name="convent">
                 <option-block>
-                    <Input v-model="current.data.dec" placeholder="多个字符用空格分隔">
-                        <div slot="prepend" style="width: 100px"><strong>十进制</strong></div>
+                    <Input v-model="current.data.dec" :placeholder="$t('ascii_input_prompt')">
+                        <div slot="prepend" style="width: 100px"><strong>{{ $t('ascii_input_10') }}</strong></div>
                     </Input>
                 </option-block>
                 <option-block>
-                    <Input v-model="current.data.hex" placeholder="多个字符用空格分隔">
-                        <div slot="prepend" style="width: 100px"><strong>十六进制</strong></div>
+                    <Input v-model="current.data.hex" :placeholder="$t('ascii_input_prompt')">
+                        <div slot="prepend" style="width: 100px"><strong>{{ $t('ascii_input_16') }}</strong></div>
                     </Input>
                 </option-block>
                 <option-block>
-                    <Input v-model="current.data.oct" placeholder="多个字符用空格分隔">
-                        <div slot="prepend" style="width: 100px"><strong>八进制</strong></div>
+                    <Input v-model="current.data.oct" :placeholder="$t('ascii_input_prompt')">
+                        <div slot="prepend" style="width: 100px"><strong>{{ $t('ascii_input_8') }}</strong></div>
                     </Input>
                 </option-block>
                 <option-block>
-                    <Input v-model="current.data.bin" placeholder="多个字符用空格分隔">
-                        <div slot="prepend" style="width: 100px"><strong>二进制</strong></div>
+                    <Input v-model="current.data.bin" :placeholder="$t('ascii_input_prompt')">
+                        <div slot="prepend" style="width: 100px"><strong>{{ $t('ascii_input_2') }}</strong></div>
                     </Input>
                 </option-block>
                 <option-block>
                     <Input v-model="current.data.str">
-                        <div slot="prepend" style="width: 100px"><strong>字符串</strong></div>
+                        <div slot="prepend" style="width: 100px"><strong>{{ $t('ascii_input_string') }}</strong></div>
                     </Input>
                 </option-block>
                 <option-block :style="{textAlign:'center'}">
                     <FormItem>
                         <ButtonGroup>
-                            <Button type="primary" @click="handle()" style="margin-right: 5px">转换</Button>
-                            <Button type="primary" @click="clear()">清空</Button>
+                            <Button type="primary" @click="handle()" style="margin-right: 5px">{{ $t('ascii_convent') }}</Button>
+                            <Button type="primary" @click="clear()">{{ $t('ascii_clear') }}</Button>
                         </ButtonGroup>
                     </FormItem>
                 </option-block>
             </TabPane>
-            <TabPane label="编码表" name="reader">
+            <TabPane :label="$t('ascii_code_table')" name="reader">
                 <Table :columns="referenceColumns" :data="reference">
                 </Table>
             </TabPane>
@@ -59,7 +59,7 @@ export default {
                     oct:ob.oct(),
                     bin:ob.bin(),
                     str:ob.str(),
-                    show:isShow ? "是" : "否",
+                    show:isShow ? this.$t('ascii_yes'): this.$t('ascii_no'),
                     explain:isShow ? ob.str() : ascii.ascii_hidden[ascii.ascii_map[index]]
                 })
             }
@@ -82,10 +82,12 @@ export default {
                     }
                 }
                 if (!s){
-                    throw "请输入对应的待转换编码"
+                    throw new Error(this.$t('ascii_input_null_prompt').toString())
                 }
             } catch (err) {
-                return this.$Message.error("转换异常:" + err);
+                return this.$Message.error(
+                    this.$t('ascii_convent_error',[err.message]).toString()
+                );
             }
             for (const type of this.types) {
                 this.current.data[type] = ascii.convent(s,currentType,type)
@@ -113,36 +115,36 @@ export default {
             operation: "convent",
             referenceColumns: [
                 {
-                    title: '十进制',
+                    title: this.$t('ascii_input_10'),
                     key: 'dec',
                     width:100
                 },
                 {
-                    title: '十六进制',
+                    title: this.$t('ascii_input_16'),
                     key: 'hex',
                     width:100
                 },
                 {
-                    title: '八进制',
+                    title: this.$t('ascii_input_8'),
                     key: 'oct',
                     width:100
                 },
                 {
-                    title: '二进制',
+                    title: this.$t('ascii_input_2'),
                     key: 'bin',
                 },
                 {
-                    title: '字符',
+                    title: this.$t('ascii_input_string'),
                     key: 'str',
                     width:100
                 },
                 {
-                    title: '是否可见',
+                    title: this.$t('ascii_is_show'),
                     key: 'show',
                     width:100
                 },
                 {
-                    title: '字符说明',
+                    title: this.$t('ascii_description'),
                     key: 'explain',
                 }
             ],

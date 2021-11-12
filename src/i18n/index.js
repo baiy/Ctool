@@ -58,8 +58,9 @@ const translate = (code, key, values = {}) => {
 
     if (matchString) {
         matchString.forEach((wildcard) => {
-            if ((wildcard in values) && !(wildcard in replaceHash)) {
-                replaceHash[wildcard] = values[wildcard]
+            let key = wildcard.replace("{","").replace("}",'')
+            if ((key in values) && !(wildcard in replaceHash)) {
+                replaceHash[wildcard] = values[key]
             }
         });
     }
