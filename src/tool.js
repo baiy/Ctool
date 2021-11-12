@@ -3,6 +3,7 @@ import ViewUI from 'view-design'
 import './statics/theme.less'
 import router from './tool.router'
 import optionBlock from './components/optionBlock'
+import inputBlock from './components/inputBlock'
 import {plugin as modelPlugin} from './tool/model'
 import cache from './tool/cache'
 import setting from './tool/setting'
@@ -21,6 +22,7 @@ const run = () => {
     Vue.use(ViewUI)
     Vue.use(modelPlugin)
     Vue.component('option-block', optionBlock);
+    Vue.component('input-block', inputBlock);
 
     new Vue({
         i18n,

@@ -12,12 +12,10 @@ export const copy = (data,successCallback)=>{
 }
 
 export const paste = ()=>{
-    document.querySelector(
-        '#clipboard').innerHTML = '<textarea id="clipboard-text"></textarea>'
+    document.querySelector('#clipboard').innerHTML = '<textarea id="clipboard-text"></textarea>'
     document.querySelector('#clipboard-text').select()
     document.execCommand('paste')
-    let r = document.querySelector('#clipboard-text').value ||
-        document.querySelector('#clipboard-text').innerHTML
+    let r = document.querySelector('#clipboard-text').value || document.querySelector('#clipboard-text').innerHTML
     document.querySelector('#clipboard').innerHTML = ''
     return r ? r : ''
 }
