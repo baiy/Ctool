@@ -58,7 +58,7 @@ const translate = (code, key, values = {}) => {
 
     if (matchString) {
         matchString.forEach((wildcard) => {
-            let key = wildcard.replace("{","").replace("}",'')
+            let key = wildcard.replace("{", "").replace("}", '')
             if ((key in values) && !(wildcard in replaceHash)) {
                 replaceHash[wildcard] = values[key]
             }
@@ -80,6 +80,11 @@ window["__"] = (key, values = {}, locale = null) => {
         key,
         values
     )
+}
+
+// 获取当前真实区域
+export const getCurrentLocale = () => {
+    return __('main_locale').toString();
 }
 
 export const i18n = new VueI18n({

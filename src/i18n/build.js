@@ -43,6 +43,10 @@ const getLocale = (code) => {
         if (file.indexOf('.i18n.json5') !== -1) {
             let type = file.replace('.i18n.json5', '');
             let config = JSON5.parse(fs.readFileSync(path.join(__dirname, `locales/${code}/${file}`), 'utf-8'));
+            // 写入区域
+            if (type === "main") {
+                locale[`${type}_locale`] = {message: code}
+            }
             Object.keys(config).forEach(function (key) {
                 let placeholders = placeholder(config[key])
                 locale[`${type}_${key}`] = {
@@ -129,7 +133,7 @@ module.exports = {
 
         if (matchString) {
             matchString.forEach((wildcard) => {
-                let key = wildcard.replace("{","").replace("}",'')
+                let key = wildcard.replace("{", "").replace("}", '')
                 if ((key in values) && !(wildcard in replaceHash)) {
                     replaceHash[wildcard] = values[key]
                 }
