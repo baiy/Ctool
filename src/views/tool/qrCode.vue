@@ -1,121 +1,162 @@
 <template>
-  <div>
-    <Tabs v-model="current.operation">
-      <TabPane label="二维码生成" name="generate">
-        <Row :gutter="16">
-          <Col span="14">
-            <Input v-model="current.generateInput" :rows="14" type="textarea" placeholder="内容"></Input>
-            <option-block>
-              <FormItem>
-                <Button type="primary" @click="generate()">生成</Button>
-              </FormItem>
-            </option-block>
-          </Col>
-          <Col span="10">
-            <div style="text-align: center" v-html="current.generateOutput"></div>
-          </Col>
-        </Row>
-      </TabPane>
-      <TabPane label="二维码解析" name="reader">
-        <Row :gutter="16">
-          <Col span="14">
-            <Input v-model="current.readerInput" :rows="5" type="textarea" placeholder="请输入二维码图片地址或点击下方按钮上传图片"></Input>
-            <option-block>
-              <FormItem>
-                <Button type="primary" @click="reader()">解析</Button>
-              </FormItem>
-              <FormItem>
-                <Upload action="#" :before-upload="handleUpload">
-                  <Button icon="ios-cloud-upload-outline">上传图片</Button>
-                </Upload>
-              </FormItem>
-            </option-block>
-            <Input v-model="current.readerOutput" :rows="5" type="textarea" placeholder="解析结果"></Input>
-          </Col>
-          <Col span="10" style="text-align: center" v-html="readerInputImg"></Col>
-        </Row>
-      </TabPane>
-    </Tabs>
-  </div>
+    <div>
+        <Tabs v-model="current.operation">
+            <TabPane :label="$t('qrCode_generate_title')" name="generate">
+                <Row :gutter="16">
+                    <Col span="14">
+                        <Input v-model="current.generateInput" :rows="14" type="textarea" :placeholder="$t('qrCode_generate_input')"></Input>
+                    </Col>
+                    <Col span="10">
+                        <div style="text-align: center" v-html="generateOutput"></div>
+                    </Col>
+                </Row>
+            </TabPane>
+            <TabPane :label="$t('qrCode_reader_title')" name="reader">
+                <Row :gutter="16">
+                    <Col span="14">
+                        <input-block style="margin-bottom: 10px" bottom="0px" right="10px">
+                            <pasteClipboardFlie @on-paste-image="handleUpload">
+                                <Input v-model="current.readerInput" :rows="3" type="textarea" :placeholder="$t('qrCode_reader_input')"></Input>
+                            </pasteClipboardFlie>
+                            <Upload slot="extra" action="#" :before-upload="handleUpload">
+                                <Button size="small" type="primary" icon="ios-cloud-upload-outline">{{ $t('qrCode_reader_upload') }}</Button>
+                            </Upload>
+                        </input-block>
+                        <Input v-model="readerOutput" :rows="8" type="textarea" :placeholder="$t('qrCode_reader_output')"></Input>
+                    </Col>
+                    <Col span="10" style="text-align: center" v-html="readerInputImg"></Col>
+                </Row>
+            </TabPane>
+        </Tabs>
+
+    </div>
 </template>
 <script>
-    import generator from 'qrcode'
-    import qrcodeParser from 'qrcode-parser'
-    import model from '../../tool/model'
+import generator from 'qrcode'
+import qrcodeParser from 'qrcode-parser'
+import model from '../../tool/model'
+import Jimp from 'jimp';
+import pasteClipboardFlie from './components/pasteClipboardFlie';
 
-    export default {
-        computed: {
-            readerInputImg () {
-                if (this.current.readerInput) {
-                    return `<img style="width:300px" src="${this.current.readerInput}" />`
+export default {
+    components: {
+        pasteClipboardFlie,
+    },
+    computed: {
+        readerInputImg() {
+            if (this.current.readerInput) {
+                return `<img style="width:300px" src="${this.current.readerInput}" />`
+            }
+            return ''
+        }
+    },
+    watch: {
+        "current.generateInput"() {
+            this.generate()
+        },
+        "current.readerInput"() {
+            this.reader()
+        }
+    },
+    created() {
+        let feature = model.getToolCurrentFeature('generate')
+        if (feature === 'generate') {
+            this.current = Object.assign(this.current, this.$getToolData('generateInput'))
+            this.current.operation = feature;
+        } else if (feature === 'reader') {
+            this.current = Object.assign(this.current, this.$getToolData('readerInput'))
+            this.current.operation = feature;
+        } else {
+            this.current = Object.assign(this.current, this.$getToolData())
+        }
+    },
+    methods: {
+        generate() {
+            if (!this.current.generateInput) {
+                this.generateOutput = "";
+                return;
+            }
+            generator.toDataURL(this.current.generateInput, (error, url) => {
+                if (error) {
+                    this.generateOutput = this.$t("qrCode_generate_error", [error]);
+                    return;
                 }
-                return ''
-            },
-        },
-        created () {
-            let feature = model.getToolCurrentFeature('generate')
-            if(feature === 'generate'){
-                this.current = Object.assign(this.current, this.$getToolData('generateInput'))
-                this.current.operation = feature;
-            }
-            else if(feature === 'reader'){
-                this.current = Object.assign(this.current, this.$getToolData('readerInput'))
-                this.current.operation = feature;
-            }
-            else{
-                this.current = Object.assign(this.current, this.$getToolData())
-            }
-        },
-        methods: {
-            generate () {
-                if (!this.current.generateInput) return
-                this.generateHandle(this.current.generateInput)
+                this.$clipboardCopyImages(url)
+                this.generateOutput = `<img style="width:300px" src="${url}" />`
                 this.$saveToolData(this.current)
-            },
-            reader () {
-                if (!this.current.readerInput) {
-                    return
-                }
-                qrcodeParser(this.current.readerInput).then((c) => {
-                    this.current.readerOutput = c.data
-                    this.$saveToolData(this.current)
-                    this.$Message.success('解析成功')
-                }).catch(() => {
-                    return this.$Message.error('图片解析错误')
-                })
-            },
-            generateHandle (str) {
-                generator.toDataURL(str, (error, url) => {
-                    if (error) return this.$Message.error('二维码生成错误:' + error)
-                    this.$clipboardCopyImages(url)
-                    this.current.generateOutput = `<img style="width:300px" src="${url}" />`
-                })
-            },
-            handleUpload (file) {
-                let r = new FileReader()
-                r.readAsDataURL(file)
-                r.onloadend = () => {
-                    this.current.readerInput = r.result
-                    this.reader()
-                }
-                return false
-            },
-            substr (str) {
-                str = str.replace(/[\r\n]/g, '').trim()
-                const strLength = 100
-                return str.length > strLength ? str.substr(0, strLength) + '...' : str
-            },
+            })
         },
-        data () {
-            return {
-                current: {
-                    generateInput: '',
-                    generateOutput: '',
-                    readerInput: '',
-                    readerOutput: '',
-                    operation: 'generate',
-                },
+        reader() {
+            if (!this.current.readerInput) {
+                this.readerOutput = "";
+                return
             }
+            this.getReaderImagePngBase64(this.current.readerInput).then((result) => {
+                this.readerOutput = result
+                this.$saveToolData(this.current)
+            }).catch(e => {
+                this.readerOutput = this.$t('qrCode_reader_error', [e.message])
+            })
         },
-    }
+        getReaderImagePngBase64(input) {
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', input);
+                xhr.responseType = 'blob';
+                xhr.onload = () => {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        let blob = xhr.response;
+                        const myReader = new FileReader();
+                        myReader.readAsArrayBuffer(blob);
+                        myReader.addEventListener('loadend', e => {
+                            const buffer = e.target.result;
+                            try {
+                                Jimp.read(buffer, (err, image) => {
+                                    if (err) {
+                                        return reject(err);
+                                    }
+                                    image.getBase64Async("image/png").then((img) => {
+                                        return qrcodeParser(img)
+                                    }).then((c) => {
+                                        resolve(c.data)
+                                    }).catch((e) => {
+                                        reject(e);
+                                    })
+                                });
+                            } catch (e) {
+                                reject(e);
+                            }
+                        });
+                    } else {
+                        reject(new Error(this.$t('qrCode_reader_parsing_failure').toString()));
+                    }
+                };
+                xhr.onerror = () => reject(new Error(this.$t('qrCode_reader_parsing_failure').toString()));
+                xhr.send();
+            })
+        },
+        handleUpload(file) {
+            if (this.current.operation !== "reader"){
+                return;
+            }
+            let r = new FileReader()
+            r.readAsDataURL(file)
+            r.onloadend = () => {
+                this.current.readerInput = r.result
+            }
+            return false
+        }
+    },
+    data() {
+        return {
+            readerOutput: "",
+            generateOutput: "",
+            current: {
+                generateInput: '',
+                readerInput: '',
+                operation: 'generate',
+            },
+        }
+    },
+}
 </script>

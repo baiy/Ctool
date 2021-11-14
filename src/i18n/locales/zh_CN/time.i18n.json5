@@ -1,0 +1,23 @@
+{
+    "diff_tool": "差值计算器",
+    "and": "与",
+    "diff": "相差",
+    "operation": "时间操作",
+    "add": "添加",
+    "reduce": "减少",
+    "after": "后",
+    "is": "为",
+    "error": "错误:{0}",
+    "error_duration_length": "年/月间隔只能是整数",
+    "current_time": "当前时间",
+    "current_date": "当前日期",
+    "current_month_date": "当月日期",
+    "current_year_date": "当年日期",
+    "year": "年",
+    "month": "月",
+    "week": "周",
+    "day": "日",
+    "hour": "小时",
+    "minute": "分钟",
+    "second": "秒"
+}

@@ -1,0 +1,22 @@
+{
+    "content": "内容",
+    "background": "背景",
+    "line_color": "线条颜色",
+    "bar_width": "条码宽",
+    "height": "条码高",
+    "margin": "外边距",
+    "show_text": "文本显示",
+    "hide": "隐藏",
+    "top": "上方",
+    "bottom": "下方",
+    "text_align": "水平位置",
+    "left": "居左",
+    "center": "居中",
+    "right": "居右",
+    "font": "字体",
+    "bold": "粗体",
+    "italic": "斜体",
+    "font_size": "大小",
+    "text_margin": "外边距",
+    "invalid_content": "无效条码内容"
+}

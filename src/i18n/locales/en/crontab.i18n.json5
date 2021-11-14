@@ -1,0 +1,14 @@
+{
+    "expression": "Expression",
+    "execute_time": "Execute Time",
+    "example": "Example",
+    "format": "Format",
+    "execute_time_list": "Execute Time List",
+    "no": "{0}: {1}",
+    "symbol": "Symbol",
+    "description": "Description",
+    "symbol_description_1": "any value",
+    "symbol_description_2": "value list separator",
+    "symbol_description_3": "range of values",
+    "symbol_description_4": "step values",
+}

@@ -1,0 +1,14 @@
+{
+    "input": "输入",
+    "get":"获取当前",
+    "normal_second": "标准时间(秒)",
+    "normal_millisecond":"标准时间(毫秒)",
+    "unix_second": "Unix时间戳(秒)",
+    "unix_millisecond":"Unix时间戳(秒)",
+    "output": "输出",
+    "copy":"复制",
+    "error_format": "输入时间格式异常",
+    "error":"错误:{0}",
+    "format": "格式",
+    "value":"值"
+}

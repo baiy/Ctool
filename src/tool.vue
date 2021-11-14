@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Menu mode="horizontal" theme="light" :active-name="currentCategory" @on-select="categorySelect"
+        <Menu class="tool-category-menu-block" mode="horizontal" theme="light" :active-name="currentCategory" @on-select="categorySelect"
               style="height: 45px;line-height: 45px;">
             <MenuItem :style="$t('main_css_main_category_item_style')" :name="cat.name" v-for="(cat) in category" :key="cat.name">
                 <Badge v-if="badgeCategoryIsShow(cat.name)" dot :offset="[15,-10]">
@@ -31,7 +31,7 @@
                 </template>
             </MenuItem>
         </Menu>
-        <RadioGroup :value="currentTool" @on-change="toolSelect" style="margin: 10px 0 10px 20px;line-height: 30px;">
+        <RadioGroup class="tool-select-block" :value="currentTool" @on-change="toolSelect" style="margin: 10px 0 10px 20px;line-height: 30px;">
             <Radio :label="tool.name" v-for="(tool) in tools" :key="tool.name">
                 <Badge v-if="badgeToolIsShow(tool.name)" dot :offset="[5,-5]">
                     {{ $t('main_tool_'+tool.name) }}

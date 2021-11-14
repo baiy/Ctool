@@ -1,20 +1,26 @@
 <template>
-    <div>
-        <Input v-model="current.input" :rows="7" type="textarea" placeholder="内容"></Input>
-        <option-block>
+    <heightResize ignore :append="['.page-option-block']" @resize="resize">
+        <autoHeightTextarea v-model="current.input" :height="inputHeight" :placeholder="$t('html_input')"/>
+        <option-block class="page-option-block">
             <FormItem>
                 <ButtonGroup>
-                    <Button type="primary" @click="handle('encode')">编码</Button>
-                    <Button type="primary" @click="handle('decode')">解密</Button>
+                    <Button type="primary" @click="handle('encode')">{{ $t('html_encode') }}</Button>
+                    <Button type="primary" @click="handle('decode')">{{ $t('html_decode') }}</Button>
                 </ButtonGroup>
             </FormItem>
         </option-block>
-        <Input v-model="current.output" :rows="7" type="textarea" placeholder="结果"></Input>
-    </div>
+        <autoHeightTextarea :value="current.output" :height="outputHeight" :placeholder="$t('html_output')"/>
+    </heightResize>
 </template>
 <script>
+import heightResize from "./components/heightResize";
+import autoHeightTextarea from "./components/autoHeightTextarea";
 
 export default {
+    components: {
+        heightResize,
+        autoHeightTextarea
+    },
     created() {
         this.current = Object.assign(this.current, this.$getToolData("input"))
     },
@@ -30,6 +36,10 @@ export default {
                 this.$clipboardCopy(this.current.output);
                 this.$saveToolData(this.current);
             }
+        },
+        resize(height) {
+            this.inputHeight = Math.min(160, Math.ceil(height / 2))
+            this.outputHeight = height - this.inputHeight
         }
     },
     data() {
@@ -38,7 +48,9 @@ export default {
                 input: "",
                 output: "",
                 operation: ""
-            }
+            },
+            inputHeight: 100,
+            outputHeight: 100
         }
     },
 }

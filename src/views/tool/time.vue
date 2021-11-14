@@ -1,25 +1,25 @@
 <template>
     <div>
         <Tabs name="default">
-            <TabPane label="差值计算器" name="default">
+            <TabPane :label="$t('time_diff_tool')" name="default">
                 <option-block>
                     <FormItem>
                         <DatePicker transfer v-model="current.poor.input1" :options="options" type="datetime"
                                     format="yyyy-MM-dd HH:mm:ss"></DatePicker>
                     </FormItem>
                     <FormItem>
-                        与
+                        {{ $t('time_and') }}
                     </FormItem>
                     <FormItem>
                         <DatePicker transfer v-model="current.poor.input2" :options="options" type="datetime"
                                     format="yyyy-MM-dd HH:mm:ss"></DatePicker>
                     </FormItem>
                     <FormItem>
-                        相差
+                        {{ $t('time_diff') }}
                     </FormItem>
                     <FormItem>
                         <Input v-model="poor">
-                            <Select transfer v-model="current.poor.unit" slot="append" style="width: 60px">
+                            <Select transfer v-model="current.poor.unit" slot="append" style="width: 80px">
                                 <Option v-for="v in poorUnit" :value="v.v" :key="v.v">{{ v.n }}</Option>
                             </Select>
                         </Input>
@@ -29,7 +29,7 @@
         </Tabs>
 
         <Tabs name="default">
-            <TabPane label="时间操作" name="default">
+            <TabPane :label="$t('time_operation')" name="default">
                 <option-block>
                     <FormItem>
                         <DatePicker transfer v-model="current.duration.input" :options="options" type="datetime"
@@ -37,19 +37,19 @@
                     </FormItem>
                     <FormItem>
                         <Select transfer v-model="current.duration.type" style="width: 100px">
-                            <Option value="+">添加</Option>
-                            <Option value="-">减少</Option>
+                            <Option value="+">{{ $t('time_add') }}</Option>
+                            <Option value="-">{{ $t('time_reduce') }}</Option>
                         </Select>
                     </FormItem>
                     <FormItem>
                         <Input v-model="current.duration.length" type="number" number>
-                            <Select transfer v-model="current.duration.unit" slot="append" style="width: 60px">
+                            <Select transfer v-model="current.duration.unit" slot="append" style="width: 80px">
                                 <Option v-for="v in poorUnit" :value="v.v" :key="v.v">{{ v.n }}</Option>
                             </Select>
                         </Input>
                     </FormItem>
                     <FormItem>
-                        后, 为 <strong>{{ duration }}</strong>
+                        {{ $t('time_after')}}, {{ $t('time_is') }} <strong>{{ duration }}</strong>
                     </FormItem>
                 </option-block>
             </TabPane>
@@ -78,7 +78,7 @@ export default {
             let result;
             if (rate === 0) {
                 if (!Number.isInteger(this.current.duration.length)){
-                    return "年/月间隔只能是整数";
+                    return this.$t('time_error',[this.$t('time_error_duration_length')])
                 }
                 const type = this.current.duration.type === '+' ? 'add' : 'subtract'
                 result = moment(this.current.duration.input)[type](this.current.duration.length, this.current.duration.unit)
@@ -107,25 +107,25 @@ export default {
             options: {
                 shortcuts: [
                     {
-                        text: '当前时间',
+                        text: this.$t('time_current_time'),
                         value() {
                             return moment().toDate()
                         },
                     },
                     {
-                        text: '当前日期',
+                        text: this.$t('time_current_date'),
                         value() {
                             return moment(moment().format('YYYY-MM-DD')).toDate()
                         },
                     },
                     {
-                        text: '当月日期',
+                        text: this.$t('time_current_month_date'),
                         value() {
                             return moment(moment().format('YYYY-MM-01')).toDate()
                         },
                     },
                     {
-                        text: '当年日期',
+                        text: this.$t('time_current_year_date'),
                         value() {
                             return moment(moment().format('YYYY-01-01')).toDate()
                         },
@@ -133,13 +133,13 @@ export default {
                 ],
             },
             poorUnit: [
-                {v: 'years', n: '年', rate: 0},
-                {v: 'months', n: '月', rate: 0},
-                {v: 'weeks', n: '周', rate: 1000 * 60 * 60 * 24 * 7},
-                {v: 'days', n: '天', rate: 1000 * 60 * 60 * 24},
-                {v: 'hours', n: '小时', rate: 1000 * 60 * 60},
-                {v: 'minutes', n: '分钟', rate: 1000 * 60},
-                {v: 'seconds', n: '秒', rate: 1000},
+                {v: 'years', n: this.$t('time_year'), rate: 0},
+                {v: 'months', n: this.$t('time_month'), rate: 0},
+                {v: 'weeks', n: this.$t('time_week'), rate: 1000 * 60 * 60 * 24 * 7},
+                {v: 'days', n: this.$t('time_day'), rate: 1000 * 60 * 60 * 24},
+                {v: 'hours', n: this.$t('time_hour'), rate: 1000 * 60 * 60},
+                {v: 'minutes', n: this.$t('time_minute'), rate: 1000 * 60},
+                {v: 'seconds', n: this.$t('time_second'), rate: 1000},
             ],
             current: {
                 poor: {

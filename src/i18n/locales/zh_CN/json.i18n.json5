@@ -1,0 +1,14 @@
+{
+    "input": "输入",
+    "content_empty": "请输入内容",
+    "error":"异常:{0}",
+    "format": "格式化",
+    "compress":"压缩",
+    "escape": "转移",
+    "clear_escape":"去除转移",
+    "unicode_to_zh": "Unicode转中文",
+    "zh_to_unicode":"中文转Unicode",
+    "to_get": "转Get参数",
+    "get_to_json":"Get参数转Json",
+    "clear": "清空"
+}

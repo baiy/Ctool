@@ -1,29 +1,29 @@
 <template>
-    <div>
+    <heightResize ignore @resize="resize">
         <Row :gutter="10">
-            <Col span="6" style="margin-top: 10px">
-                <Card :padding="0">
-                    <p slot="title">输入变量名</p>
-                    <template slot="extra">
-                        <Button size="small" type="primary" @click="handle()">转换
-                        </Button>
-                    </template>
-                    <Input v-model="current.input" :rows="4" type="textarea" placeholder="变量名 一行一个"></Input>
-                </Card>
+            <Col span="6">
+                <input-block top="4px" :text="$t('variableConversion_input')">
+                    <autoHeightTextarea :height="height1" v-model="current.input" :placeholder="$t('variableConversion_input_placeholder')" />
+                </input-block>
             </Col>
-            <Col span="6" v-for="(item,key) in resultColumns" :key="key" style="margin-top: 10px">
-                <Card :padding="0">
-                    <p slot="title">{{ item.title }}</p>
-                    <Input v-model="current.output[item.key]" :rows="4" type="textarea"></Input>
-                </Card>
+            <Col span="6" v-for="(item,key) in resultColumns" :key="key" :style="`margin-top: ${key > 2 ? '10px' : '0'}`">
+                <input-block top="4px" type="default" :text="item.title" @on-default-right-bottom-click="()=>copy(item.key)">
+                    <autoHeightTextarea :height="key > 2 ? height2 : height1" :value="output[item.key]" :placeholder="item.title" />
+                </input-block>
             </Col>
         </Row>
-    </div>
+    </heightResize>
 </template>
 <script>
 import varCamelCase from "./library/varCamelCase"
+import heightResize from "./components/heightResize";
+import autoHeightTextarea from "./components/autoHeightTextarea";
 
 export default {
+    components: {
+        heightResize,
+        autoHeightTextarea
+    },
     computed: {
         resultColumns() {
             return varCamelCase.resultKey.map((item) => {
@@ -33,25 +33,31 @@ export default {
                 }
             });
         },
+        output() {
+            let result = varCamelCase.convent(this.current.input)
+            this.$saveToolData(this.current);
+            return result;
+        }
     },
     created() {
         this.current = Object.assign(this.current, this.$getToolData("input"))
     },
     methods: {
-        handle() {
-            if (!this.current.input) {
-                return;
-            }
-            this.current.output = varCamelCase.convent(this.current.input)
-            this.$saveToolData(this.current);
+        copy(type) {
+            this.$clipboardCopy(this.output[type], true);
+        },
+        resize(height) {
+            this.height1 = Math.ceil(height/2);
+            this.height2 = height - this.height1 - 10;
         }
     },
     data() {
         return {
             current: {
-                input: "",
-                output: [],
-            }
+                input: ""
+            },
+            height1: 100,
+            height2: 100
         }
     },
 }

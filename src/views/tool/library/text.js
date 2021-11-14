@@ -40,6 +40,9 @@ class TextHandle {
     // 行首大写
     upperLineStart() {
         return this.text.split(/\r?\n/).map((str) => {
+            if (str.length < 1){
+                return "";
+            }
             return str[0].toUpperCase() + str.substr(1)
         }).join("\n");
     }
@@ -47,6 +50,9 @@ class TextHandle {
     // 行首小写
     lowerLineStart() {
         return this.text.split(/\r?\n/).map((str) => {
+            if (str.length < 1){
+                return "";
+            }
             return str[0].toLowerCase() + str.substr(1)
         }).join("\n");
     }
@@ -77,7 +83,7 @@ class TextHandle {
     replace(search = [], replace = []) {
         let text = this.text;
         for (let i in search) {
-            if (search[i]){
+            if (search[i]) {
                 text = text.replace(new RegExp(regExpQuote(search[i]), 'g'), (i in replace ? replace[i] : ""));
             }
         }

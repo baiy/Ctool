@@ -40,7 +40,7 @@ class serializeConversion {
                     break;
             }
         } catch (e) {
-            throw new Error("源数据转换异常:" + e.message);
+            throw new Error("source error:" + e.message);
         }
     }
 
@@ -64,7 +64,7 @@ class serializeConversion {
                     return this.getProperties();
             }
         } catch (e) {
-            throw new Error("目标数据转换错误:" + e.message);
+            throw new Error("target error:" + e.message);
         }
     }
 

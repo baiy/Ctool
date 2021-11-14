@@ -4,6 +4,8 @@
     "ui_views": "View",
     "ui_load":"Loading",
     "ui_close": "Close",
+    "ui_copy_text_ok":"Result Copied ^o^",
+    "ui_copy_image_ok":"Image Copied ^o^",
 
     // views
     "setting_language": "Language",

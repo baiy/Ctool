@@ -1,0 +1,15 @@
+{
+    "input": "输入",
+    "encode": "编码",
+    "decode": "解码",
+    "mode_default": "Unicode 默认模式",
+    "mode_wide": "Unicode 宽字符模式",
+    "mode_wide_bracket": "Unicode 宽字符模式(带大括号)",
+    "mode_number": "Unicode 编码模式",
+    "mode_html_10": "Html 实体(10进制)",
+    "mode_html_16": "Html 实体(16进制)",
+    "mode_css_16": "Css 实体(16进制)",
+    "ignore_ascii": "忽略 Ascii 字符",
+    "output": "输出",
+    "error": "错误:{0}"
+}

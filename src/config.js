@@ -32,7 +32,7 @@ const tool = [
         'name': 'encrypt',
         'cat': ['encryption']
     },
-    {'name': 'sign', 'cat': ['encryption']},
+    {'name': 'sign', 'cat': ['encryption','check']},
     {'name': 'base64', 'cat': ['encryption']},
     {'name': 'json', 'cat': ['conversion', 'serialize']},
     {'name': 'url', 'cat': ['conversion']},

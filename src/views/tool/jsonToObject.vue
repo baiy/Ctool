@@ -1,95 +1,106 @@
 <template>
     <Row :gutter="10">
         <Col span="10">
-            <Card :padding="0">
-                <p slot="title">JSON内容</p>
-                <code-editor v-model="current.json" :auto-height="330" language="json"></code-editor>
-            </Card>
-            <option-block>
-                <FormItem>
+            <div class="page-option-block">
+                <option-block style="padding: 0 0">
                     <Input v-model="current.package">
                         <div slot="prepend">namespace/package</div>
                     </Input>
-                </FormItem>
-            </option-block>
-            <option-block>
-                <FormItem>
+                </option-block>
+                <option-block>
                     <Input v-model="current.class">
                         <div slot="prepend">class/struct</div>
                     </Input>
-                </FormItem>
-            </option-block>
+                </option-block>
+            </div>
+            <input-block top="10px" right="10px" :text="$t('jsonToObject_format')" @on-default-right-bottom-click="format">
+                <heightResize :append="['.page-option-block']">
+                    <code-editor v-model="current.input" :placeholder="$t('jsonToObject_input')" language="json"/>
+                </heightResize>
+            </input-block>
         </Col>
         <Col span="14">
-            <Card :padding="0">
-                <p slot="title">转换结果</p>
+            <input-block top="10px" right="10px">
+                <heightResize>
+                    <code-editor :placeholder="$t('jsonToObject_output')" :value="output" :language="languages[current.type]"/>
+                </heightResize>
                 <template slot="extra">
-                    <Button style="margin-right: 5px" size="small" v-for="(item,key) in type" :key="key" type="primary"
-                            @click="handle(item)">{{ item }}
-                    </Button>
+                    <RadioGroup v-model="current.type" type="button" button-style="solid">
+                        <Radio :label="type" v-for="(type) in types" :key="type">
+                            <span>{{ type }}</span>
+                        </Radio>
+                    </RadioGroup>
                 </template>
-                <code-editor v-model="current.output" :auto-height="220" :language="languages[current.type]"></code-editor>
-            </Card>
+            </input-block>
         </Col>
     </Row>
 </template>
 <script>
 import codeEditor from "./components/codeEditor";
 import json2Go from './library/json2Go'
+import jsonFormatter from './library/formatter/json'
 import json2CSharp from './library/json2CSharp'
 import json2Java from './library/json2Java'
 import json2Dart from './library/json2Dart'
+import heightResize from "./components/heightResize";
 
 export default {
     components: {
         codeEditor,
+        heightResize
     },
     created() {
         this.current = Object.assign(this.current, this.$getToolData())
     },
-    methods: {
-        handle(type) {
-            try {
-                require('jsonlint').parse(this.current.json)
-                if (!this.type.includes(type)) {
-                    throw new Error("转换类型错误")
-                }
-                this.current.type = type;
-
-                switch (type) {
-                    case "Go":
-                        this.current.output = json2Go(this.current.json, this.current.class, this.current.package).go
-                        break;
-                    case "Java":
-                        this.current.output = json2Java(JSON.parse(this.current.json), this.current.class, this.current.package)
-                        break;
-                    case "Dart":
-                        this.current.output = json2Dart(JSON.parse(this.current.json), this.current.class)
-                        break;
-                    case "C#":
-                        this.current.output = json2CSharp.convert(JSON.parse(this.current.json), this.current.class, this.current.package)
-                        break;
-                }
-            } catch (error) {
-                this.$Notice.error({
-                    title: '错误提示',
-                    desc: error.message,
-                })
-                return
+    computed: {
+        output() {
+            if (!this.current.input.trim()) {
+                return "";
             }
-            this.$saveToolData(this.current)
+            try {
+                let result = "";
+                require('jsonlint').parse(this.current.input)
+                switch (this.current.type) {
+                    case "Go":
+                        result = json2Go(this.current.input, this.current.class, this.current.package).go
+                        break
+                    case "Java":
+                        result = json2Java(JSON.parse(this.current.input), this.current.class, this.current.package)
+                        break
+                    case "Dart":
+                        result = json2Dart(JSON.parse(this.current.input), this.current.class)
+                        break
+                    case "C#":
+                        result = json2CSharp.convert(JSON.parse(this.current.input), this.current.class, this.current.package)
+                        break
+                    default:
+                        throw new Error(this.$t('jsonToObject_type_error').toString())
+                }
+                this.$saveToolData(this.current)
+                return result;
+            } catch (error) {
+                return this.$t('jsonToObject_error', [error.message]).toString()
+            }
+        },
+        types(){
+            return Object.keys(this.languages)
+        }
+    },
+    methods:{
+        format(){
+            if (this.current.input.trim()){
+                this.current.input = jsonFormatter.beautify(this.current.input)
+            }
         }
     },
     data() {
         return {
             current: {
-                json: "",
+                input: "",
                 type: "Java",
                 package: "pag",
                 class: "RootName",
-                output: "",
             },
-            type: ["Java", "C#", "Go",'Dart'],
             languages: {
                 "Java": "java",
                 "Dart": "dart",

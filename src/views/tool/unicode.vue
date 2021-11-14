@@ -1,35 +1,40 @@
 <template>
-    <div>
-        <Input v-model="current.input" :rows="7" type="textarea" placeholder="内容"></Input>
-        <option-block>
+    <heightResize :append="['.page-option-block']" ignore @resize="resize">
+        <autoHeightTextarea :height="inputHeight" v-model="current.input" :placeholder="$t('unicode_input')" />
+        <option-block class="page-option-block">
             <FormItem>
                 <ButtonGroup>
-                    <Button type="primary" @click="handle('encode')">字符转Unicode(编码)</Button>
-                    <Button type="primary" @click="handle('decode')">Unicode转字符(解码)</Button>
+                    <Button type="primary" @click="handle('encode')">{{ $t('unicode_encode') }}</Button>
+                    <Button type="primary" @click="handle('decode')">{{ $t('unicode_decode') }}</Button>
                 </ButtonGroup>
             </FormItem>
             <FormItem>
                 <Select v-model="current.type" style="width:250px">
-                    <Option value="unicode_point_default">Unicode 默认模式 \u[0-9a-f]{4}</Option>
-                    <Option value="unicode_point_wide">Unicode 宽字符模式 \u[0-9a-f]{4,6}</Option>
-                    <Option value="unicode_point_wide_brace">Unicode 宽字符模式(带大括号) \u{[0-9a-f]{4,6}}</Option>
-                    <Option value="unicode_number">Unicode 编码模式 U+[0-9A-F]{4,6}</Option>
-                    <Option value="html_entity_10">html 实体(10进制) &amp;#[0-9]+;</Option>
-                    <Option value="html_entity_16">html 实体(16进制) &amp;#x[0-9a-f]{1,6};</Option>
-                    <Option value="css_entitie">css 实体(16进制) \[0-9a-f]{4,6}</Option>
+                    <Option value="unicode_point_default">{{ $t('unicode_mode_default') }} \u[0-9a-f]{4}</Option>
+                    <Option value="unicode_point_wide">{{ $t('unicode_mode_wide') }} \u[0-9a-f]{4,6}</Option>
+                    <Option value="unicode_point_wide_brace">{{ $t('unicode_mode_wide_bracket') }} \u{[0-9a-f]{4,6}}</Option>
+                    <Option value="unicode_number">{{ $t('unicode_mode_number') }} U+[0-9A-F]{4,6}</Option>
+                    <Option value="html_entity_10">{{ $t('unicode_mode_html_10') }} &amp;#[0-9]+;</Option>
+                    <Option value="html_entity_16">{{ $t('unicode_mode_html_16') }} &amp;#x[0-9a-f]{1,6};</Option>
+                    <Option value="css_entitie">{{ $t('unicode_mode_css_16') }} \[0-9a-f]{4,6}</Option>
                 </Select>
             </FormItem>
             <FormItem v-if="!disable_ignore_ascii_select.includes(current.type)">
-                <Checkbox v-model="current.ignore_ascii">禁止 ASCII 字符编码</Checkbox>
+                <Checkbox v-model="current.ignore_ascii">{{ $t('unicode_ignore_ascii') }}</Checkbox>
             </FormItem>
         </option-block>
-        <Input v-model="current.output" :rows="7" type="textarea" placeholder="结果"></Input>
-    </div>
+        <autoHeightTextarea :height="outputHeight" :value="current.output" :placeholder="$t('unicode_output')" />
+    </heightResize>
 </template>
 <script>
 import Unicode from "./library/unicode"
-
+import heightResize from "./components/heightResize";
+import autoHeightTextarea from "./components/autoHeightTextarea";
 export default {
+    components:{
+        heightResize,
+        autoHeightTextarea
+    },
     created() {
         this.current = Object.assign(this.current, this.$getToolData("input"))
     },
@@ -47,12 +52,16 @@ export default {
                         this.current.output = Unicode.decode(this.current.input, this.current.type);
                     }
                 } catch (e) {
-                    return this.$Message.error(e.message)
+                    return this.$Message.error(this.$t('unicode_error',[e.message]).toString())
                 }
                 this.current.operation = operation;
                 this.$clipboardCopy(this.current.output);
                 this.$saveToolData(this.current);
             }
+        },
+        resize(height){
+            this.inputHeight = Math.ceil(height/2);
+            this.outputHeight = height - this.inputHeight;
         }
     },
     data() {
@@ -64,6 +73,8 @@ export default {
                 type: "unicode_point_default",
                 ignore_ascii: true,
             },
+            inputHeight:100,
+            outputHeight:100,
             disable_ignore_ascii_select: ['unicode_point_wide', 'unicode_number', 'css_entitie']
         }
     },

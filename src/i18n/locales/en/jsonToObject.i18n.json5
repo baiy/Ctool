@@ -1,0 +1,7 @@
+{
+    "input": "Input",
+    "output":"Output",
+    "type_error": "Conversion type error",
+    "format": "Beautify",
+    "error":"Error:{0}"
+}

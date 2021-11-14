@@ -1,6 +1,6 @@
 {
     "name": "c-tool",
-    "version": "1.9.0",
+    "version": "1.9.1",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve --port 8081",
@@ -27,6 +27,7 @@
         "graphql": "15.5.0",
         "ipinyinjs": "^1.0.0",
         "jian_fan": "^1.0.3",
+        "jimp": "^0.16.1",
         "js-base64": "^2.6.4",
         "js-htmlencode": "^0.3.0",
         "js-yaml": "^3.14.1",

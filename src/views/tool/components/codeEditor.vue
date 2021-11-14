@@ -1,5 +1,7 @@
 <template>
-    <div ref="container" class="code-editor" :style="`height:${containerHeight};width:${width}`"></div>
+    <div :style="style">
+        <div ref="container" class="code-editor" :style="`height:100%;width:${width}`"></div>
+    </div>
 </template>
 <script>
 import {format} from "../library/formatter";
@@ -15,18 +17,36 @@ export default {
             type: String,
             default: ""
         },
-        autoHeight: {
-            type: Number,
-            default: 0
+        enableBorder: {
+            type: Boolean,
+            default: true
+        },
+        placeholder: {
+            type: String,
+            default: ""
         },
         height: {
             type: String,
-            default: "350px"
+            default: "100%"
+        },
+        hideLineNumbers: {
+            type: Boolean,
+            default: false
         },
         width: {
             type: String,
             default: "100%"
         },
+    },
+    computed: {
+        style() {
+            let css = [`height:${this.height}`];
+            if (this.enableBorder) {
+                css.push("border: 1px solid #dcdee2")
+                css.push("border-radius: 4px")
+            }
+            return css.join(";")
+        }
     },
     watch: {
         value(newValue) {
@@ -40,27 +60,25 @@ export default {
             }
         }
     },
-    created() {
-        if (this.autoHeight > 0) {
-            this.containerHeight = (window.innerHeight - this.autoHeight) + "px"
-        } else {
-            this.containerHeight = this.height
-        }
-    },
     mounted() {
         this.initEditor()
     },
     data() {
         return {
             editor: null,
-            containerHeight: ""
         }
     },
     methods: {
         initEditor() {
-            this.editor = create(this.$refs.container, this.language);
+            this.editor = create(
+                this.$refs.container,
+                this.language,
+                {
+                    lineNumbers: !this.hideLineNumbers,
+                    placeholder: this.placeholder
+                }
+            );
             this.editor.setValue(this.value)
-            this.editor.setSize(null, this.containerHeight)
             this.editor.on('change', editor => {
                 if (this.value !== editor.getValue()) {
                     this.$emit('input', editor.getValue())
@@ -79,4 +97,12 @@ export default {
     }
 };
 </script>
+<style>
+.CodeMirror {
+    height: 100%;
+}
+.CodeMirror pre.CodeMirror-placeholder {
+    color: #999;
+}
+</style>
 

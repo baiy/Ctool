@@ -2,10 +2,9 @@ import VueI18n from 'vue-i18n'
 import Vue from 'vue'
 import {getMessage as chromiumGetMessage} from "../adapter/chromium/helper"
 import {isChromium} from "../helper";
+import locales from "./locales/build.js";
 
 Vue.use(VueI18n)
-
-const locales = require('./locales/build.json')
 
 // 区域列表
 export const LOCALE_LISTS = locales.lists

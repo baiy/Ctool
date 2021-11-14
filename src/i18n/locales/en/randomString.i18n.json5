@@ -1,0 +1,13 @@
+{
+    "length": "Length",
+    "amount": "Number of strings",
+    "delimiter": "Delimiter",
+    "digital": "Digital",
+    "lowercase": "Lowercase",
+    "uppercase": "Uppercase",
+    "symbol": "Symbol",
+    "unique": "Unique",
+    "add_quote": "Add Quote",
+    "generate": "Generate",
+    "output": "Output"
+}

@@ -1,0 +1,14 @@
+{
+    "input": "Input",
+    "content_empty": "Please enter content",
+    "error": "Exception:{0}",
+    "format": "Format",
+    "compress": "Compress",
+    "escape": "Escape",
+    "clear_escape": "Unescape",
+    "unicode_to_zh": "Unicode->Zh",
+    "zh_to_unicode": "Zh->Unicode",
+    "to_get": "To Get",
+    "get_to_json": "Get=>Json",
+    "clear": "Clear"
+}

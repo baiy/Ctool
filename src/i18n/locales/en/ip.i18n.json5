@@ -1,0 +1,8 @@
+{
+    "input": "Please enter IP address",
+    "query":"Query",
+    "local": "Local IP",
+    "info_source":"IP information source",
+    "ok": "Query Success",
+    "error":"Query Fail:{0}"
+}

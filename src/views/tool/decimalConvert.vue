@@ -1,35 +1,36 @@
 <template>
     <div style="padding: 0 70px">
         <option-block>
-            <Input v-model="current.input" placeholder="请输入待转换数字">
-                <div slot="prepend" style="width: 70px"><strong>转换数字</strong></div>
+            <Input v-model="current.input" :placeholder="$t('decimalConvert_input_placeholder')">
+                <div slot="prepend" style="width: 70px"><strong>{{ $t('decimalConvert_input') }}</strong></div>
                 <Select v-model="current.decimal" slot="append" style="width:100px">
-                    <OptionGroup :label="type.common.name">
-                        <Option v-for="v in type.common.list" :value="v" :key="v">{{ v }} 进制</Option>
+                    <OptionGroup :label="$t('decimalConvert_input_type_common')">
+                        <Option v-for="v in type.common" :value="v" :key="v">{{ $t('decimalConvert_base',[v]) }}</Option>
                     </OptionGroup>
-                    <OptionGroup :label="type.other.name">
-                        <Option v-for="v in type.other.list" :value="v" :key="v">{{ v }} 进制</Option>
+                    <OptionGroup :label="$t('decimalConvert_input_type_other')">
+                        <Option v-for="v in type.other" :value="v" :key="v">{{ $t('decimalConvert_base',[v]) }}</Option>
                     </OptionGroup>
                 </Select>
             </Input>
         </option-block>
         <option-block v-for="n in [1,2,3,4,5,6]" :key="n">
             <Input v-model="current['resultOutput'+n]" readonly>
-                <div slot="prepend" style="width: 70px">转换结果{{ n }}</div>
+                <div slot="prepend" style="width: 70px">{{ $t('decimalConvert_result',[n]) }}</div>
                 <Select slot="append" v-model="current['resultDecimal'+n]" style="width:100px">
-                    <OptionGroup :label="type.common.name">
-                        <Option v-for="v in type.common.list" :value="v" :key="v">{{ v }} 进制</Option>
+                    <OptionGroup :label="$t('decimalConvert_input_type_common')">
+                        <Option v-for="v in type.common" :value="v" :key="v">{{ $t('decimalConvert_base',[v]) }}</Option>
                     </OptionGroup>
-                    <OptionGroup :label="type.other.name">
-                        <Option v-for="v in type.other.list" :value="v" :key="v">{{ v }} 进制</Option>
+                    <OptionGroup :label="$t('decimalConvert_input_type_other')">
+                        <Option v-for="v in type.other" :value="v" :key="v">{{ $t('decimalConvert_base',[v]) }}</Option>
                     </OptionGroup>
                 </Select>
             </Input>
         </option-block>
         <option-block>
             <Input v-model="current.alphabet">
-                <div slot="prepend" style="width: 70px">64位字母表</div>
-                <Button slot="append" @click="current.alphabet=alphabet" :disabled="current.alphabet===alphabet">恢复默认
+                <div slot="prepend">{{ $t('decimalConvert_alphabet') }}</div>
+                <Button slot="append" @click="current.alphabet=alphabet" :disabled="current.alphabet===alphabet">
+                    {{ $t('decimalConvert_reset') }}
                 </Button>
             </Input>
         </option-block>
@@ -46,7 +47,7 @@ export default {
     watch: {
         convert: function (val) {
             if (val.alphabet.length !== 64) {
-                return this.$Message.error("转换字母表必须是64位长度");
+                return this.$Message.error(this.$t('decimalConvert_alphabet_length_error').toString());
             }
             if (!val.input) {
                 return;
@@ -74,17 +75,11 @@ export default {
         },
         type() {
             let type = {
-                common: {
-                    name: "常用进制",
-                    list: [2, 8, 10, 16]
-                },
-                other: {
-                    name: "其他进制",
-                    list: []
-                }
+                common: [2, 8, 10, 16],
+                other: []
             }
             for (let i = 2; i <= 64; i++) {
-                type.common.list.includes(i) || type.other.list.push(i);
+                type.common.includes(i) || type.other.push(i);
             }
             return type
         }

@@ -1,10 +1,11 @@
 <template>
     <div>
-        <div style="border: 1px solid #dcdee2; border-radius: 4px">
-            <diffEditor ref="editor" :collapse="current.collapse" v-model="current.diff" :language="current.language"
-                        :auto-height="220"/>
+        <heightResize :append="['.page-option-block']">
+        <div style="border: 1px solid #dcdee2; border-radius: 4px;height: 100%;">
+            <diff-editor ref="editor" :collapse="current.collapse" v-model="current.diff" :language="current.language" />
         </div>
-        <option-block>
+        </heightResize>
+        <option-block class="page-option-block">
             <FormItem>
                 <ButtonGroup>
                     <Button
@@ -17,12 +18,12 @@
                 </ButtonGroup>
             </FormItem>
             <FormItem>
-                <Select placeholder="更多语言" @on-change="(value)=>{setLanguage(value)}">
+                <Select :placeholder="$t('diffs_more')" @on-change="(value)=>{setLanguage(value)}">
                     <Option v-for="item in allLang" :value="item" :key="item">{{ item }}</Option>
                 </Select>
             </FormItem>
             <FormItem>
-                <Checkbox v-model="current.collapse">折叠相同</Checkbox>
+                <Checkbox v-model="current.collapse">{{ $t('diffs_collapse') }}</Checkbox>
             </FormItem>
         </option-block>
     </div>
@@ -31,6 +32,7 @@
 import diffEditor from "./components/diffEditor";
 import {allLang} from "./library/editor";
 import _ from "lodash";
+import heightResize from "./components/heightResize";
 
 const COMMON_LANG = [
     "text",
@@ -46,6 +48,7 @@ const COMMON_LANG = [
 export default {
     components: {
         diffEditor,
+        heightResize
     },
     computed: {
         allLang() {

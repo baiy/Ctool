@@ -7,6 +7,7 @@ import "codemirror/addon/fold/comment-fold";
 import "codemirror/addon/fold/foldgutter.css";
 import 'codemirror/addon/merge/merge'
 import 'codemirror/addon/merge/merge.css'
+import "codemirror/addon/display/placeholder";
 import "codemirror/mode/javascript/javascript.js";
 import "codemirror/mode/htmlmixed/htmlmixed.js";
 import "codemirror/mode/css/css.js";
@@ -103,12 +104,6 @@ export const createMerge = (data, container, lang, option = {}) => {
             editor.right.orig.setValue(modified)
         }
     }
-
-    editor['customSetSize'] = (width, height) => {
-        editor.edit.setSize(width, height)
-        editor.right.orig.setSize(width, height)
-    }
-
     editor['customChange'] = (callback) => {
         editor.edit.on('change', () => {
             callback && callback(editor.edit.getValue(), editor.right.orig.getValue())

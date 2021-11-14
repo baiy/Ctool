@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <Input v-model="current.input" :rows="7" type="textarea" placeholder="内容"></Input>
-        <option-block>
+    <heightResize ignore :append="['.page-option-block']" @resize="resize">
+        <autoHeightTextarea v-model="current.input" :height="inputHeight" :placeholder="$t('hexString_input')"/>
+        <option-block class="page-option-block">
             <FormItem>
                 <ButtonGroup>
                     <Button type="primary" @click="handle('hex')">String -> Hex</Button>
@@ -9,15 +9,21 @@
                 </ButtonGroup>
             </FormItem>
             <FormItem>
-                <Checkbox v-model="current.isUppercase">大写字母</Checkbox>
+                <Checkbox v-model="current.isUppercase">{{ $t('hexString_uppercase') }}</Checkbox>
             </FormItem>
         </option-block>
-        <Input v-model="current.output" :rows="7" type="textarea" placeholder="结果"></Input>
-    </div>
+        <autoHeightTextarea :value="current.output" :height="outputHeight" :placeholder="$t('hexString_output')"/>
+    </heightResize>
 </template>
 <script>
+import heightResize from "./components/heightResize";
+import autoHeightTextarea from "./components/autoHeightTextarea";
 
 export default {
+    components: {
+        heightResize,
+        autoHeightTextarea
+    },
     created() {
         this.current = Object.assign(this.current, this.$getToolData("input"))
     },
@@ -42,6 +48,10 @@ export default {
                 this.$clipboardCopy(this.current.output);
                 this.$saveToolData(this.current);
             }
+        },
+        resize(height) {
+            this.inputHeight = Math.min(160, Math.ceil(height / 2))
+            this.outputHeight = height - this.inputHeight
         }
     },
     data() {
@@ -51,7 +61,9 @@ export default {
                 isUppercase: false,
                 output: "",
                 operation: ""
-            }
+            },
+            inputHeight: 100,
+            outputHeight: 100
         }
     },
 }

@@ -53,7 +53,7 @@ const getLocale = (code) => {
                     message: config[key],
                 }
                 if (placeholders.length > 0) {
-                    locale["placeholders"] = placeholders
+                    locale[`${type}_${key}`]["placeholders"] = placeholders
                 }
             });
         }
@@ -107,7 +107,7 @@ module.exports = {
     },
     // 生成运行时语言包
     generate() {
-        fs.writeFileSync(path.join(__dirname, 'locales/build.json'), JSON.stringify(ALL_LOCALE, null, 4));
+        fs.writeFileSync(path.join(__dirname, 'locales/build.js'), `export default ${JSON.stringify(ALL_LOCALE, null, 4)}`);
     },
     getMessage(code, key) {
         let locales = ALL_LOCALE['detail']

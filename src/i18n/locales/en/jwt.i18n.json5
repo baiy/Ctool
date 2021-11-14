@@ -1,0 +1,6 @@
+{
+    "input": "Input",
+    "decode":"Decode",
+    "output": "Output",
+    "decode_fail":"Decode Fail:{0}"
+}

@@ -1,5 +1,5 @@
 <template>
-    <div ref="container" class="diff-editor" :style="`height:${containerHeight};width:${width}`"></div>
+    <div ref="container" class="diff-editor" :style="`height:${height};width:${width}`"></div>
 </template>
 <script>
 import {createMerge} from "../library/editor";
@@ -18,13 +18,9 @@ export default {
             type: Boolean,
             default: false
         },
-        autoHeight: {
-            type: Number,
-            default: 0
-        },
         height: {
             type: String,
-            default: "350px"
+            default: "100%"
         },
         width: {
             type: String,
@@ -45,20 +41,12 @@ export default {
             this.reset()
         }
     },
-    created() {
-        if (this.autoHeight > 0) {
-            this.containerHeight = (window.innerHeight - this.autoHeight) + "px"
-        } else {
-            this.containerHeight = this.height
-        }
-    },
     mounted() {
         this.reset()
     },
     data() {
         return {
             editor: null,
-            containerHeight: ""
         }
     },
     methods: {
@@ -68,7 +56,6 @@ export default {
         },
         initEditor() {
             this.editor = createMerge(this.value, this.$refs.container, this.language, {collapseIdentical: this.collapse ? 2 : false})
-            this.editor.customSetSize(null, this.containerHeight)
             this.editor.customChange((original, modified) => {
                 if (original !== this.value.original || modified !== this.value.modified) {
                     this.value.original = original
@@ -82,7 +69,10 @@ export default {
 </script>
 
 <style>
-.diff-editor .CodeMirror-merge, .diff-editor .CodeMirror-merge .CodeMirror {
+.diff-editor .CodeMirror-merge{
+    border: none;
+}
+.diff-editor .CodeMirror-merge,.diff-editor .CodeMirror-merge-pane, .diff-editor .CodeMirror-merge .CodeMirror {
     height: 100%;
 }
 </style>

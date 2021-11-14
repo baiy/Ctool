@@ -2,7 +2,7 @@
     <div id="tool-hash">
         <Row :gutter="10">
             <Col span="8">
-                <input-block :text="$t('hash_content')">
+                <input-block>
                     <Input v-model="current.input" :rows="18" type="textarea" :placeholder="$t('hash_content')"></Input>
                     <Checkbox slot="extra" v-model="current.isUppercase">{{ $t('hash_uppercase') }}</Checkbox>
                 </input-block>

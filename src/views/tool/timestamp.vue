@@ -1,43 +1,91 @@
 <template>
-  <div>
-    <Input v-model="current.input" :rows="7" type="textarea" placeholder="内容(标准时间(YYYY-MM-DD HH:mm:ss[.SSS])/时间戳(秒/毫秒))"></Input>
-    <option-block>
-      <FormItem>
-          <Button type="primary" @click="handle()">转换</Button>
-          <Dropdown style="margin-left: 10px" @on-click="currentTime">
-            <Button type="primary">
-              当前时间
-              <Icon type="ios-arrow-down"></Icon>
-            </Button>
-            <DropdownMenu slot="list">
-              <DropdownItem name="normalSecond">标准时间(秒)</DropdownItem>
-              <DropdownItem name="normalMillisecond">标准时间(毫秒)</DropdownItem>
-              <DropdownItem name="unixSecond">UNIX时间戳(秒)</DropdownItem>
-              <DropdownItem name="unixMillisecond">UNIX时间戳(毫秒)</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-      </FormItem>
-    </option-block>
-    <Input v-model="current.output" :rows="7" type="textarea" placeholder="结果"></Input>
-  </div>
+    <heightResize class="tool-timestamp-page">
+        <div class="tool-timestamp-block">
+            <option-block>
+                <input-block bottom="8px" right="8px">
+                    <Input size="large" v-model="current.input">
+                        <span slot="prepend">{{ $t('timestamp_input') }}</span>
+                    </Input>
+                    <template slot="extra">
+                        <Dropdown @on-click="currentTime" transfer>
+                            <Button size="small" type="primary">
+                                {{ $t('timestamp_get') }}
+                                <Icon type="ios-arrow-down"></Icon>
+                            </Button>
+                            <DropdownMenu slot="list">
+                                <DropdownItem name="normalSecond">{{ $t('timestamp_normal_second') }}</DropdownItem>
+                                <DropdownItem name="normalMillisecond">{{ $t('timestamp_normal_millisecond') }}</DropdownItem>
+                                <DropdownItem name="unixSecond">{{ $t('timestamp_unix_second') }}</DropdownItem>
+                                <DropdownItem name="unixMillisecond">{{ $t('timestamp_unix_millisecond') }}</DropdownItem>
+                            </DropdownMenu>
+                        </Dropdown>
+                    </template>
+                </input-block>
+            </option-block>
+            <option-block>
+                <input-block bottom="8px" right="8px">
+                    <Input size="large" :value="output">
+                        <span slot="prepend">{{ $t('timestamp_output') }}</span>
+                    </Input>
+                    <template slot="extra">
+                        <Button size="small" type="primary" @click="()=>copy(output)">{{ $t('timestamp_copy') }}</Button>
+                    </template>
+                </input-block>
+            </option-block>
+            <Table :columns="exampleColumns" stripe border size="small" :data="example">
+                <template slot-scope="{ row }" slot="_value">
+                    <Button size="small" type="text" @click="()=>copy(row.value)">{{ row.value }}</Button>
+                </template>
+            </Table>
+        </div>
+    </heightResize>
 </template>
 <script>
-    import moment from 'moment'
+import moment from 'moment'
+import heightResize from "./components/heightResize";
 
-    let inputType = {
-        'normalSecond': 1,
-        'normalMillisecond': 2,
-        'unixSecond': 3,
-        'unixMillisecond': 4,
-        'error': 0,
-    }
+let inputType = {
+    'normalSecond': 1,
+    'normalMillisecond': 2,
+    'unixSecond': 3,
+    'unixMillisecond': 4,
+    'error': 0,
+}
 
-    export default {
-        created () {
-            this.current = Object.assign(this.current, this.$getToolData('input'))
+export default {
+    components: {
+        heightResize
+    },
+    created() {
+        this.current = Object.assign(this.current, this.$getToolData('input'))
+        if (!this.current.input) {
+            this.current.input = moment().format('YYYY-MM-DD HH:mm:ss')
+        }
+    },
+    mounted() {
+        this.timer = setInterval(() => {
+            this.timestamp = moment().format('x')
+        }, 100);
+    },
+    beforeDestroy() {
+        clearInterval(this.timer);
+    },
+    computed: {
+        example() {
+            let time = moment(parseInt(this.timestamp))
+            return [
+                {format: this.$t('timestamp_normal_second'), value: time.format('YYYY-MM-DD HH:mm:ss')},
+                {format: this.$t('timestamp_unix_second'), value: time.format('X')},
+                {format: this.$t('timestamp_normal_millisecond'), value: time.format('YYYY-MM-DD HH:mm:ss.SSS')},
+                {format: this.$t('timestamp_unix_millisecond'), value: time.format('x')},
+            ]
         },
-        methods: {
-            handle () {
+        output() {
+            let result = "";
+            if (!this.current.input) {
+                return result;
+            }
+            try {
                 let type = function (input) {
                     if ((new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+$/)).test(input)) {
                         return inputType.normalSecond
@@ -54,48 +102,79 @@
                     return inputType.error
                 }(this.current.input.trim())
                 if (type === inputType.error) {
-                    return this.$Message.error('输入时间格式错误')
+                    throw new Error(this.$t('timestamp_error_format').toString())
                 }
                 switch (type) {
                     case inputType.normalSecond:
-                        this.current.output = moment(this.current.input).format('X')
+                        result = moment(this.current.input).format('X')
                         break
                     case inputType.normalMillisecond:
-                        this.current.output = moment(this.current.input).format('x')
+                        result = moment(this.current.input).format('x')
                         break
                     case inputType.unixSecond:
-                        this.current.output = moment(parseInt(this.current.input)*1000).format('YYYY-MM-DD HH:mm:ss')
+                        result = moment(parseInt(this.current.input) * 1000).format('YYYY-MM-DD HH:mm:ss')
                         break
                     case inputType.unixMillisecond:
-                        this.current.output = moment(parseInt(this.current.input)).format('YYYY-MM-DD HH:mm:ss.SSS')
+                        result = moment(parseInt(this.current.input)).format('YYYY-MM-DD HH:mm:ss.SSS')
                         break
                 }
-                this.$clipboardCopy(this.current.output)
                 this.$saveToolData(this.current)
-            },
-            currentTime (type) {
-                if(type === "normalSecond"){
-                    this.current.input = moment().format('YYYY-MM-DD HH:mm:ss')
-                }
-                else if(type === "normalMillisecond"){
-                    this.current.input = moment().format('YYYY-MM-DD HH:mm:ss.SSS')
-                }
-                else if(type === "unixSecond"){
-                    this.current.input = moment().format('X')
-                }
-                else{
-                    this.current.input = moment().format('x')
-                }
-                this.handle();
-            },
-        },
-        data () {
-            return {
-                current: {
-                    input: '',
-                    output: '',
-                },
+            } catch (e) {
+                result = this.$t('timestamp_error', [e.message])
+            }
+            return result;
+        }
+    },
+    methods: {
+        copy(data) {
+            if (data){
+                this.$clipboardCopy(data, true)
             }
         },
-    }
+        currentTime(type) {
+            if (type === "normalSecond") {
+                this.current.input = moment().format('YYYY-MM-DD HH:mm:ss')
+            } else if (type === "normalMillisecond") {
+                this.current.input = moment().format('YYYY-MM-DD HH:mm:ss.SSS')
+            } else if (type === "unixSecond") {
+                this.current.input = moment().format('X')
+            } else {
+                this.current.input = moment().format('x')
+            }
+            this.handle();
+        },
+    },
+    data() {
+        return {
+            current: {
+                input: ''
+            },
+            timer: null,
+            timestamp: 0,
+            exampleColumns: [
+                {
+                    title: this.$t('timestamp_format'),
+                    key: 'format',
+                    width: 200
+                },
+                {
+                    title: this.$t('timestamp_value'),
+                    slot: '_value',
+                }
+            ]
+        }
+    },
+}
 </script>
+<style>
+.tool-timestamp-page {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tool-timestamp-block {
+    width: 600px;
+}
+</style>

@@ -1,0 +1,12 @@
+{
+    "input": "Input",
+    "normal":"No Tone",
+    "tone": "Have Tone",
+    "abbr":"First Letter",
+    "output": "Output",
+    "delimiter_null":"No Delimiter",
+    "delimiter_space": "Space Delimiter",
+    "delimiter_1":"'-' Delimiter",
+    "delimiter_2": "'_' Delimiter",
+    "delimiter_3":"'.' Delimiter"
+}

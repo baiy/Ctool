@@ -3,7 +3,9 @@
     "ui_setting": "设置",
     "ui_views": "查看",
     "ui_load":"加载",
-    "ui_close": "管理",
+    "ui_close": "关闭",
+    "ui_copy_text_ok":"结果已复制 ^o^",
+    "ui_copy_image_ok":"图片已复制 ^o^",
 
     // 界面
     "setting_language": "语言",

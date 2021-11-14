@@ -53,11 +53,12 @@ const debounceSaveToolDataMethod = _.debounce(function () {
 
 export const plugin = {
     install: function (Vue) {
-        Vue.prototype.$getToolData = function (clipboardField = '') {
+        Vue.prototype.$getToolData = function (clipboardField = '',clipboardFieldRegex = "") {
             let data = history(model.getCurrentTool()).current()
             if (clipboardField) {
+                let inputData = "";
                 if (fixeInputData) { // 使用固定输入数据
-                    data[clipboardField] = fixeInputData
+                    inputData = fixeInputData
                     fixeInputData = ""
                 } else if (setting.autoReadCopy()) {
                     let paste = clipboard.paste()
@@ -65,27 +66,42 @@ export const plugin = {
                         if (setting.autoReadCopyFilter()) {
                             paste = paste.trim()
                         }
-                        data[clipboardField] = paste
+                        inputData = paste
+                    }
+                }
+                if (inputData){
+                    if (
+                        !(clipboardFieldRegex instanceof RegExp)
+                        ||
+                        (
+                            clipboardFieldRegex instanceof RegExp
+                            && clipboardFieldRegex.test(inputData)
+                        )
+                    ){
+                        data[clipboardField] = inputData
                     }
                 }
             }
             return data
         }
-        Vue.prototype.$saveToolData = function (data) {
-            debounceSaveToolData = {tool:model.getCurrentTool(),data:_.cloneDeep(data)}
+        Vue.prototype.$saveToolData = function (data, ignoreDebounce = false) {
+            if (ignoreDebounce) {
+                return history(model.getCurrentTool()).push(_.cloneDeep(data))
+            }
+            debounceSaveToolData = {tool: model.getCurrentTool(), data: _.cloneDeep(data)}
             debounceSaveToolDataMethod()
         }
         Vue.prototype.$clipboardCopy = function (data, force = false) {
             if ((setting.autoSaveCopy() || force) && data) {
                 clipboard.copy(data, () => {
-                    this.$Message.success('结果已复制 ^o^')
+                    this.$Message.success(this.$t('main_ui_copy_text_ok').toString())
                 })
             }
         }
         Vue.prototype.$clipboardCopyImages = function (data, force = false) {
             if ((setting.autoSaveCopy() || force) && data) {
                 clipboard.copyImage(data, () => {
-                    this.$Message.success('图片已复制 ^o^')
+                    this.$Message.success(this.$t('main_ui_copy_image_ok').toString())
                 })
             }
         }

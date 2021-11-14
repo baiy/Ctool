@@ -1,5 +1,4 @@
 const adapter = require('./src/tool/adapter');
-const IS_PROD = process.env.NODE_ENV === 'production'
 const pages = {
     tool: {
         entry: 'src/tool.js',
@@ -25,10 +24,26 @@ const config = {
             });
             return args
         })
-        if (IS_PROD){
+        if (process.env.NODE_ENV === 'production'){
             // 独立打包js 防止js文件过大 影响相关平台审核
             config.optimization.splitChunks({
                 cacheGroups: {
+                    codemirror: {
+                        test: /[\\/]node_modules[\\/]codemirror[\\/]/,
+                        name: 'codemirror',
+                        chunks: 'all',
+                        priority: 100,
+                        reuseExistingChunk:true,
+                        enforce:true
+                    },
+                    prettier: {
+                        test: /[\\/]node_modules[\\/](prettier|@prettier|prettier-plugin-sql|sql-formatter)[\\/]/,
+                        name: 'prettier',
+                        chunks: 'all',
+                        priority: 99,
+                        reuseExistingChunk:true,
+                        enforce:true
+                    },
                     prettierParserTypescript: {
                         test: /[\\/]node_modules[\\/]prettier[\\/]parser-typescript\.js/,
                         name: 'prettier-parser-typescript',
@@ -37,11 +52,12 @@ const config = {
                         reuseExistingChunk:true,
                         enforce:true
                     },
-                    i18n: {
-                        test: /[\\/]src[\\/]i18n[\\/]index\.js/,
-                        name: 'i18n',
-                        chunks: 'initial',
+                    nodeSqlQarser: {
+                        test: /[\\/]node_modules[\\/](node-sql-parser)[\\/]/,
+                        name: 'node-sql-qarser',
+                        chunks: 'all',
                         priority: 100,
+                        reuseExistingChunk:true,
                         enforce:true
                     },
                     uglify: {
@@ -54,9 +70,6 @@ const config = {
                 }
             })
         }
-    },
-    configureWebpack:config =>{
-
     }
 };
 

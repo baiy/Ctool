@@ -1,0 +1,15 @@
+{
+    "input": "Input",
+    "encode": "Encode",
+    "decode": "Decode",
+    "mode_default": "Unicode Default",
+    "mode_wide": "Unicode Wide",
+    "mode_wide_bracket": "Unicode Wide(Has Bracket)",
+    "mode_number": "Unicode Number",
+    "mode_html_10": "HTML-code(Base-10)",
+    "mode_html_16": "HTML-code(Base-16)",
+    "mode_css_16": "Css-code(Base-16)",
+    "ignore_ascii": "Ignore Ascii",
+    "output": "Output",
+    "error": "error:{0}"
+}

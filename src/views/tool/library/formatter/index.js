@@ -45,9 +45,5 @@ export const format = (code, lang, isCompress = false, options = {}) => {
     return methods[lang][method](code,options)
 };
 
-export const jsonFormatter = (code) => {
-    return format(code, 'json')
-}
-
 export default format
 

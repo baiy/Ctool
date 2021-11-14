@@ -9,7 +9,7 @@
             <Row :gutter="10">
                 <Col span="12">
                     <Form :label-width="80">
-                        <FormItem label="内容">
+                        <FormItem :label="$t('barcode_content')">
                             <Input v-model="current.text">
                                 <Select v-model="current.format" slot="append" style="width: 100px">
                                     <Option v-for="type in barcodeFormat" :key="type" :value="type">{{ type }}</Option>
@@ -18,17 +18,17 @@
                         </FormItem>
                         <Row>
                             <Col span="12">
-                                <FormItem label="背景">
+                                <FormItem :label="$t('barcode_background')">
                                     <ColorPicker recommend v-model="current.background"/>
                                 </FormItem>
                             </Col>
                             <Col span="12">
-                                <FormItem label="线条颜色">
+                                <FormItem :label="$t('barcode_line_color')">
                                     <ColorPicker recommend v-model="current.lineColor"/>
                                 </FormItem>
                             </Col>
                         </Row>
-                        <FormItem label="条码宽">
+                        <FormItem :label="$t('barcode_bar_width')">
                             <Row>
                                 <Col span="21">
                                     <Slider v-model="current.width" :min="1" :max="4"></Slider>
@@ -38,7 +38,7 @@
                                 </Col>
                             </Row>
                         </FormItem>
-                        <FormItem label="条码高">
+                        <FormItem :label="$t('barcode_height')">
                             <Row>
                                 <Col span="21">
                                     <Slider v-model="current.height" :min="10" :max="150"></Slider>
@@ -48,7 +48,7 @@
                                 </Col>
                             </Row>
                         </FormItem>
-                        <FormItem label="外边距">
+                        <FormItem :label="$t('barcode_margin')">
                             <Row>
                                 <Col span="21">
                                     <Slider v-model="current.margin" :min="0" :max="25"></Slider>
@@ -62,33 +62,33 @@
                 </Col>
                 <Col span="12">
                     <Form :label-width="80">
-                        <FormItem label="文本显示">
+                        <FormItem :label="$t('barcode_show_text')">
                             <RadioGroup v-model="current.textPosition" type="button">
                                 <Radio label="close">
-                                    <span>隐藏</span>
+                                    <span>{{ $t('barcode_hide') }}</span>
                                 </Radio>
                                 <Radio label="top">
-                                    <span>上方</span>
+                                    <span>{{ $t('barcode_top') }}</span>
                                 </Radio>
                                 <Radio label="bottom">
-                                    <span>下方</span>
+                                    <span>{{ $t('barcode_bottom') }}</span>
                                 </Radio>
                             </RadioGroup>
                         </FormItem>
-                        <FormItem label="水平位置">
+                        <FormItem :label="$t('barcode_text_align')">
                             <RadioGroup v-model="current.textAlign" type="button">
                                 <Radio :disabled="!showText" label="left">
-                                    <span>居左</span>
+                                    <span>{{ $t('barcode_left') }}</span>
                                 </Radio>
                                 <Radio :disabled="!showText" label="center">
-                                    <span>居中</span>
+                                    <span>{{ $t('barcode_center') }}</span>
                                 </Radio>
                                 <Radio :disabled="!showText" label="right">
-                                    <span>居右</span>
+                                    <span>{{ $t('barcode_right') }}</span>
                                 </Radio>
                             </RadioGroup>
                         </FormItem>
-                        <FormItem label="字体">
+                        <FormItem :label="$t('barcode_font')">
                             <Row :gutter="10">
                                 <Col span="12">
                                     <Select :disabled="!showText" v-model="current.font">
@@ -98,16 +98,16 @@
                                 <Col span="12">
                                     <CheckboxGroup v-model="current.fontOptions">
                                         <Checkbox :disabled="!showText" label="bold">
-                                            <span>粗体</span>
+                                            <span>{{ $t('barcode_bold') }}</span>
                                         </Checkbox>
                                         <Checkbox :disabled="!showText" label="italic">
-                                            <span>斜体</span>
+                                            <span>{{ $t('barcode_italic') }}</span>
                                         </Checkbox>
                                     </CheckboxGroup>
                                 </Col>
                             </Row>
                         </FormItem>
-                        <FormItem label="大小">
+                        <FormItem :label="$t('barcode_font_size')">
                             <Row>
                                 <Col span="22">
                                     <Slider :disabled="!showText" v-model="current.fontSize" :min="8"
@@ -118,7 +118,7 @@
                                 </Col>
                             </Row>
                         </FormItem>
-                        <FormItem label="外边距">
+                        <FormItem :label="$t('barcode_text_margin')">
                             <Row>
                                 <Col span="22">
                                     <Slider :disabled="!showText" v-model="current.textMargin" :min="-15"
@@ -190,7 +190,7 @@ export default {
                 fontSize: this.current.fontSize,
                 textMargin: this.current.textMargin,
                 valid: (valid) => {
-                    this.validStr = !valid ? `"${barcodeContent}" 无效的条码内容` : "";
+                    this.validStr = !valid ? `"${barcodeContent}" ${this.$t('barcode_invalid_content').toString()}` : "";
                     if (!this.validStr && this.current.text) {
                         this.$saveToolData(this.current)
                     }

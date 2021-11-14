@@ -1,0 +1,23 @@
+{
+    "diff_tool": "Difference Calculator",
+    "and": "And",
+    "diff": "Diff",
+    "operation": "Time Operation",
+    "add": "Add",
+    "reduce": "Reduce",
+    "after": "After",
+    "is": "Is",
+    "error": "error:{0}",
+    "error_duration_length": "The year/month interval can only be an integer",
+    "current_time": "Current Time",
+    "current_date": "Current Date",
+    "current_month_date": "Current Month Date",
+    "current_year_date": "Current Year Date",
+    "year": "Year",
+    "month": "Month",
+    "week": "Week",
+    "day": "Day",
+    "hour": "Hour",
+    "minute": "Minute",
+    "second": "Second"
+}

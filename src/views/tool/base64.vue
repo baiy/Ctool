@@ -1,7 +1,12 @@
 <template>
-    <div>
-        <Input v-model="current.input" :rows="7" type="textarea" :placeholder="$t('base64_input')"></Input>
-        <option-block>
+    <heightResize ignore :append="['.page-option-block']" @resize="resize">
+        <input-block bottom="0px" right="10px">
+            <autoHeightTextarea :height="height1" v-model="current.input" :placeholder="$t('base64_input')" />
+            <Upload slot="extra" action="#" :before-upload="handleUpload">
+                <Button size="small" type="primary" icon="ios-cloud-upload-outline">{{ $t('base64_upload_file') }}</Button>
+            </Upload>
+        </input-block>
+        <option-block class="page-option-block">
             <FormItem>
                 <ButtonGroup>
                     <Button type="primary" @click="handle('encode')">{{ $t('base64_encode') }}</Button>
@@ -11,21 +16,27 @@
             <FormItem>
                 <Checkbox v-model="current.isUriSafe">{{ $t('base64_url_safe') }}</Checkbox>
             </FormItem>
-            <FormItem style="float: right;">
-                <Upload action="#" :before-upload="handleUpload">
-                    <Button type="primary" icon="md-arrow-round-up">{{ $t('base64_upload_file') }}</Button>
-                </Upload>
-            </FormItem>
         </option-block>
-        <Input v-model="current.output" :rows="7" type="textarea" :placeholder="$t('base64_output') "></Input>
-    </div>
+        <input-block right="10px">
+            <pasteClipboardFlie @on-paste-file="handleUpload">
+                <autoHeightTextarea :height="height2" :value="current.output" :placeholder="$t('base64_output')" />
+            </pasteClipboardFlie>
+        </input-block>
+    </heightResize>
 </template>
 <script>
 import {Base64} from 'js-base64'
 import mimeType from 'mime-types'
 import moment from "moment";
-
+import pasteClipboardFlie from "./components/pasteClipboardFlie";
+import heightResize from "./components/heightResize";
+import autoHeightTextarea from "./components/autoHeightTextarea";
 export default {
+    components: {
+        pasteClipboardFlie,
+        heightResize,
+        autoHeightTextarea
+    },
     created() {
         this.current = Object.assign(this.current, this.$getToolData('input'))
     },
@@ -65,6 +76,10 @@ export default {
             aEle.click();
             aEle.remove();
             window.URL.revokeObjectURL(objectUrl);
+        },
+        resize(height){
+            this.height1 = Math.min(160,Math.ceil(height/2))
+            this.height2 = height - this.height1
         }
     },
     data() {
@@ -75,6 +90,8 @@ export default {
                 operation: '',
                 isUriSafe: false,
             },
+            height1:100,
+            height2:100
         }
     },
 }

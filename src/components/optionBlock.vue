@@ -1,11 +1,28 @@
 <template>
-    <Form inline style="padding: 10px 0" class="option-block">
+    <Form inline :style="style" class="option-block">
         <slot></slot>
     </Form>
 </template>
 <script>
     export default {
-        name: 'optionBlock'
+        name: 'optionBlock',
+        props: {
+            center: {
+                type: Boolean,
+                default: false
+            },
+        },
+        computed:{
+            style(){
+                let css = {
+                    padding:"10px 0",
+                };
+                if (this.center){
+                    css.textAlign = "center"
+                }
+                return css;
+            }
+        }
     };
 </script>
 

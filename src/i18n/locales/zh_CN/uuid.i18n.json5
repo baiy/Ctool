@@ -1,0 +1,9 @@
+{
+    "amount": "数量",
+    "delimiter": "分隔符",
+    "hyphens": "连接符(-)",
+    "is_upper": "大写",
+    "is_add_quote": "添加引号",
+    "uint8_array": "Uint8 Array",
+    "output": "输出"
+}

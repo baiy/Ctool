@@ -1,40 +1,52 @@
 <template>
-    <div>
-        <Input v-model="current.input" :rows="7" type="textarea" placeholder="内容"></Input>
-        <option-block>
+    <heightResize :append="['.page-option-block']" ignore @resize="resize">
+        <autoHeightTextarea :height="inputHeight" v-model="current.input" :placeholder="$t('url_input')" />
+        <option-block class="page-option-block">
             <FormItem>
                 <ButtonGroup>
-                    <Button type="primary" @click="handle('encode')">编码</Button>
-                    <Button type="primary" @click="handle('decode')">解密</Button>
+                    <Button type="primary" @click="handle('encode')">{{ $t('url_encode') }}</Button>
+                    <Button type="primary" @click="handle('decode')">{{ $t('url_decode') }}</Button>
                 </ButtonGroup>
             </FormItem>
         </option-block>
-        <Input v-model="current.output" :rows="7" type="textarea" placeholder="结果"></Input>
-    </div>
+        <autoHeightTextarea :height="outputHeight" :value="current.output" :placeholder="$t('url_output')" />
+    </heightResize>
 </template>
 <script>
-    export default {
-        created() {
-            this.current = Object.assign(this.current,this.$getToolData("input"))
-        },
-        methods: {
-            handle(v) {
-                if (this.current.input) {
-                    this.current.output = v === "encode" ? encodeURIComponent(this.current.input) : decodeURIComponent(this.current.input);
-                    this.current.operation = v;
-                    this.$clipboardCopy(this.current.output);
-                    this.$saveToolData(this.current);
-                }
+import heightResize from "./components/heightResize";
+import autoHeightTextarea from "./components/autoHeightTextarea";
+export default {
+    components:{
+        heightResize,
+        autoHeightTextarea
+    },
+    created() {
+        this.current = Object.assign(this.current, this.$getToolData("input"))
+    },
+    methods: {
+        handle(v) {
+            if (this.current.input) {
+                this.current.output = v === "encode" ? encodeURIComponent(this.current.input) : decodeURIComponent(this.current.input);
+                this.current.operation = v;
+                this.$clipboardCopy(this.current.output);
+                this.$saveToolData(this.current);
             }
         },
-        data() {
-            return {
-                current:{
-                    input: "",
-                    output: "",
-                    operation:""
-                }
-            }
-        },
-    }
+        resize(height){
+            this.inputHeight = Math.min(160,Math.ceil(height/2));
+            this.outputHeight = height - this.inputHeight;
+        }
+    },
+    data() {
+        return {
+            current: {
+                input: "",
+                output: "",
+                operation: ""
+            },
+            inputHeight:100,
+            outputHeight:100,
+        }
+    },
+}
 </script>

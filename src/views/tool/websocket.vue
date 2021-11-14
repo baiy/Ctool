@@ -1,145 +1,174 @@
 <template>
-    <Row :gutter="10">
-        <Col span="10">
-            <Row :gutter="6">
-                <Col span="18">
-                    <Input v-model="current.url">
+    <div>
+        <Input v-model="current.url" class="page-option-block" style="margin-bottom: 10px">
                         <span slot="prepend">
                             <Badge style="margin-left:10px" :status="status ? 'success' : 'error'"/>
                         </span>
-                    </Input>
-                </Col>
-                <Col span="6">
-                    <Button long v-if="!status" type="success" @click="handle()">连接</Button>
-                    <Button long v-else type="error" @click="handle()">断开</Button>
-                </Col>
-            </Row>
-            <Input style="margin: 10px 0 5px" v-model="sendContent" :rows="14" type="textarea"
-                   placeholder="发送内容"></Input>
-            <Button type="primary" @click="send()" long>发送</Button>
-        </Col>
-        <Col span="14">
-            <Card>
-                <p slot="title">交互内容</p>
-                <template slot="extra">
-                    <Button style="margin-right: 5px" size="small" type="primary" @click="copyAll()">复制全部</Button>
-                    <Button size="small" type="primary" @click="clear()">清空</Button>
-                </template>
-
-                <div class="lists-block" id="log" style="height: 300px;overflow: hidden;overflow-y:auto;">
-                    <div v-for="(item,key) in lists" :key="key">
-                        <div class="item" v-if="item.type === 'send'" style="color:green">
-                            你 {{item.time}}
-                        </div>
-                        <div class="item" v-else-if="item.type === 'accept'" style="color:blue">
-                            服务端 {{item.time}}
-                        </div>
-                        <div class="item" v-else>
-                            {{item.time}}
-                        </div>
-                        <div class="item">
-                            <Icon style="cursor: pointer" type="md-copy" @click="copy(item.content)"/>
-                            {{item.content}}
-                        </div>
-                    </div>
-                </div>
-            </Card>
-        </Col>
-    </Row>
+            <Button slot="append" v-if="!status" @click="handle()">{{ $t('websocket_connect') }}</Button>
+            <Button slot="append" v-else @click="handle()">{{ $t('websocket_close') }}</Button>
+        </Input>
+        <Row :gutter="10">
+            <Col span="10">
+                <input-block top="7px" right="7px">
+                    <heightResize :append="['.page-option-block']">
+                        <autoHeightTextarea v-model="sendContent" :placeholder="$t('websocket_send_content')"/>
+                    </heightResize>
+                    <template slot="extra">
+                        <Button :disabled="!status" type="primary" size="small" @click="send">{{
+                                $t('websocket_send')
+                            }}
+                        </Button>
+                    </template>
+                </input-block>
+            </Col>
+            <Col span="14">
+                <input-block top="7px" right="7px" :text="$t('websocket_send')" @on-default-right-bottom-click="send">
+                    <heightResize :append="['.page-option-block']" @resize="logHeightSet">
+                        <Card>
+                            <div class="lists-block" id="log"
+                                 :style="`height: ${logHeight}px;overflow: hidden;overflow-y:auto;`">
+                                <div v-if="lists.length === 0" style="font-size: 14px;color: #999999">
+                                    {{ $t('websocket_log_content') }}
+                                </div>
+                                <div v-else v-for="(item,key) in lists" :key="key">
+                                    <div class="item" v-if="item.type === 'send'" style="color:green">
+                                        {{ $t('websocket_you') }} {{ item.time }}
+                                    </div>
+                                    <div class="item" v-else-if="item.type === 'accept'" style="color:blue">
+                                        {{ $t('websocket_server') }} {{ item.time }}
+                                    </div>
+                                    <div class="item" v-else>
+                                        {{ item.time }}
+                                    </div>
+                                    <div class="item">
+                                        <Icon style="cursor: pointer" type="md-copy" @click="copy(item.content)"/>
+                                        {{ item.content }}
+                                    </div>
+                                </div>
+                            </div>
+                        </Card>
+                    </heightResize>
+                    <template slot="extra">
+                        <Button style="margin-right: 5px" size="small" type="primary" @click="copyAll()">
+                            {{ $t('websocket_copy') }}
+                        </Button>
+                        <Button size="small" type="primary" @click="clear()">{{ $t('websocket_clear') }}</Button>
+                    </template>
+                </input-block>
+            </Col>
+        </Row>
+    </div>
 </template>
 <script>
-    import moment from 'moment'
+import moment from 'moment'
+import heightResize from "./components/heightResize";
+import autoHeightTextarea from "./components/autoHeightTextarea";
 
-    export default {
-        created() {
-            this.current = Object.assign(this.current, this.$getToolData())
+export default {
+    components: {
+        heightResize,
+        autoHeightTextarea
+    },
+    created() {
+        this.current = Object.assign(this.current, this.$getToolData())
+    },
+    methods: {
+        handle() {
+            if (this.status) {
+                return this.close();
+            }
+            return this.connect();
         },
-        methods: {
-            handle() {
-                if (this.status) {
-                    return this.close();
+        connect() {
+            if (!this.current.url.trim()) {
+                return
+            }
+            this.$saveToolData(this.current);
+            this.log(this.$t('websocket_connect_start', [this.current.url]).toString())
+            let websocket = new WebSocket(this.current.url);
+            websocket.onopen = (evt) => {
+                this.onOpen(evt)
+            };
+            websocket.onclose = (evt) => {
+                this.onClose(evt)
+            };
+            websocket.onmessage = (evt) => {
+                this.onMessage(evt)
+            };
+            websocket.onerror = (evt) => {
+                this.onError(evt)
+            };
+            this.ws = websocket;
+        },
+        close() {
+            this.log(this.$t('websocket_close_start', [this.current.url]).toString())
+            this.ws.close();
+        },
+        clear() {
+            this.lists = [];
+        },
+        log(content, type = "other") {
+            this.lists.push({content, type, time: moment().format("YYYY-MM-DD HH:mm:ss")});
+            this.$nextTick(() => {
+                let log = document.getElementById('log');
+                log.scrollTop = log.scrollHeight;
+            })
+        },
+        copy(s) {
+            this.$clipboardCopy(s);
+        },
+        copyAll() {
+            this.copy(JSON.stringify(this.lists));
+        },
+        send() {
+            try {
+                if (!this.status) {
+                    throw new Error(this.$t('websocket_error_connect').toString())
                 }
-                return this.connect();
-            },
-            connect() {
-                let websocket = new WebSocket(this.current.url);
-                websocket.onopen = (evt) => {
-                    this.onOpen(evt)
-                };
-                websocket.onclose = (evt) => {
-                    this.onClose(evt)
-                };
-                websocket.onmessage = (evt) => {
-                    this.onMessage(evt)
-                };
-                websocket.onerror = (evt) => {
-                    this.onError(evt)
-                };
-                this.ws = websocket;
-            },
-            close() {
-                this.ws.close();
-            },
-            clear() {
-                this.lists = [];
-            },
-            log(content, type = "other") {
-                this.lists.push({content, type,time:moment().format("YYYY-MM-DD HH:mm:ss")});
-                this.$nextTick(() => {
-                    let log = document.getElementById('log');
-                    log.scrollTop = log.scrollHeight;
-                })
-            },
-            copy(s) {
-                this.$clipboardCopy(s);
-            },
-            copyAll() {
-                this.copy(JSON.stringify(this.lists));
-            },
-            send() {
-                try {
-                    if (!this.status) {
-                        return this.$Message.error("ws还没有连接，或者连接失败，请检测");
-                    }
-                    if (!this.sendContent) {
-                        return this.$Message.error("发送内容不能为空");
-                    }
-                    this.ws.send(this.sendContent);
-                    this.log(this.sendContent, 'send')
-                } catch (e) {
-                    this.log('错误异常: ' + e)
+                if (!this.sendContent) {
+                    throw new Error(this.$t('websocket_error_content').toString())
                 }
-            },
-            onOpen() {
-                this.status = true;
-                this.log("连接成功")
-            },
-            onClose() {
-                this.status = false;
-                this.log("连接关闭")
-            },
-            onMessage(evt) {
-                this.log(evt.data, 'accept')
-            },
-            onError(evt) {
-                this.log('错误异常: ' + evt.data())
+                this.ws.send(this.sendContent);
+                this.log(this.sendContent, 'send')
+            } catch (e) {
+                this.log(this.$t('websocket_error', [e.message]).toString())
             }
         },
-        data() {
-            return {
-                current: {
-                    url: "wss://echo.websocket.org",
-                },
-                status: false,
-                wx: null,
-                sendContent: "",
-                lists: [],
-            }
+        onOpen() {
+            this.status = true;
+            this.log(this.$t('websocket_connect_ok').toString())
         },
-    }
+        onClose() {
+            this.status = false;
+            this.log(this.$t('websocket_close_ok').toString())
+        },
+        onMessage(evt) {
+            this.log(evt.data, 'accept')
+        },
+        onError(evt) {
+            this.log(this.$t('websocket_error', [evt.data()]).toString())
+        },
+        logHeightSet(height) {
+            this.logHeight = Math.max(height - 34, 100)
+        }
+    },
+    data() {
+        return {
+            current: {
+                url: "wss://echo.websocket.events",
+            },
+            status: false,
+            wx: null,
+            sendContent: "",
+            lists: [],
+            logHeight: 100,
+        }
+    },
+}
 </script>
 <style scoped>
-    .lists-block {
-        font-size: 12px;
-    }
+.lists-block {
+    font-size: 14px;
+    line-height: 28px;
+}
 </style>

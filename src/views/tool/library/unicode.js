@@ -21,7 +21,7 @@ export default {
             try {
                 return callback && callback()
             } catch (e) {
-                throw new Error(`${item} 解码异常:${e.message}`)
+                throw new Error(`${item} decode error:${e.message}`)
             }
         }
 
@@ -55,7 +55,7 @@ export default {
                     return errorListener(item, () => String.fromCodePoint(parseInt(`0x${item.replace("\\", "").toLowerCase()}`)))
                 });
         }
-        throw new Error("解码类型异常")
+        throw new Error("decode type error")
     },
     encode(string, type = unicode_point_default, ignore_ascii = false) {
         let code = []
@@ -97,7 +97,7 @@ export default {
                     code.push(`\\${hexRepairStr}`);
                     break;
                 default:
-                    throw new Error("编码类型异常")
+                    throw new Error("encode type error")
             }
         }
         return code.join("");

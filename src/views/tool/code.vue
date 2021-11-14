@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div style="border: 1px solid #dcdee2; border-radius: 4px">
-            <code-editor ref="editor" v-model="current.content" :auto-height="220" :language="this.current.lang"></code-editor>
-        </div>
-        <option-block>
+        <heightResize :append="['.page-option-block']">
+            <code-editor ref="editor" v-model="current.content" :language="this.current.lang"></code-editor>
+        </heightResize>
+        <option-block class="page-option-block">
             <FormItem>
                 <ButtonGroup>
                     <Button
@@ -16,20 +16,20 @@
                 </ButtonGroup>
             </FormItem>
             <FormItem>
-                <Select placeholder="更多语言" @on-change="(value)=>{handle(value)}">
+                <Select :placeholder="$t('code_more')" @on-change="(value)=>{handle(value)}">
                     <Option v-for="item in lang" :value="item" :key="item">{{ item }}</Option>
                 </Select>
             </FormItem>
             <FormItem>
-                <Select placeholder="代码缩进" v-model="current.tab">
-                    <Option :value="2">缩进 Tab 2</Option>
-                    <Option :value="4">缩进 Tab 4</Option>
-                    <Option :value="6">缩进 Tab 6</Option>
-                    <Option :value="8">缩进 Tab 8</Option>
+                <Select :placeholder="$t('code_indent')" v-model="current.tab">
+                    <Option :value="2">{{ $t('code_indent_width',[2]) }}</Option>
+                    <Option :value="4">{{ $t('code_indent_width',[4]) }}</Option>
+                    <Option :value="6">{{ $t('code_indent_width',[6]) }}</Option>
+                    <Option :value="8">{{ $t('code_indent_width',[8]) }}</Option>
                 </Select>
             </FormItem>
             <FormItem>
-                <Checkbox v-model="current.isCompress">压缩</Checkbox>
+                <Checkbox v-model="current.isCompress">{{ $t('code_compress') }}</Checkbox>
             </FormItem>
         </option-block>
     </div>
@@ -37,10 +37,11 @@
 <script>
 import _ from "lodash";
 import codeEditor from "./components/codeEditor";
-
+import heightResize from "./components/heightResize";
 export default {
     components: {
         codeEditor,
+        heightResize
     },
     computed: {
         buttonLang() {
@@ -66,11 +67,11 @@ export default {
                         this.$refs.editor.compress(language);
                     }
                     this.$saveToolData(this.current);
-                    return this.$Message.success(`${this.current.isCompress ? "压缩" : "格式化"}完成`);
+                    return this.$Message.success(this.$t('code_complete').toString());
                 } catch (e) {
                     console.log(e)
                     return this.$Modal.error({
-                        title: "格式化错误",
+                        title: this.$t('code_error_prompt').toString(),
                         content: `${e.message}`
                     });
                 }

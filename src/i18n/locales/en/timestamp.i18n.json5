@@ -1,0 +1,14 @@
+{
+    "input": "Input",
+    "get":"Get Current",
+    "normal_second": "Normal Second",
+    "normal_millisecond":"Normal Millisecond",
+    "unix_second": "Unix Timestamp Second",
+    "unix_millisecond":"Unix Timestamp Millisecond",
+    "output": "Output",
+    "copy":"Copy",
+    "error_format": "Input Format Error",
+    "error":"error:{0}",
+    "format": "Format",
+    "value":"Value"
+}

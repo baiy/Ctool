@@ -8,7 +8,7 @@ import {plugin as modelPlugin} from './tool/model'
 import cache from './tool/cache'
 import setting from './tool/setting'
 import App from './tool.vue'
-import {isUtools,setDisplayMode} from './helper'
+import {isUtools,setDisplayMode,isWeb} from './helper'
 import {setCurrentLocale,i18n} from "./i18n";
 
 const run = () => {
@@ -37,8 +37,7 @@ const run = () => {
 }
 
 (function () {
-    if (document.body.clientWidth > 900 || isUtools) {
-        console.log('调整窗口大小')
+    if (document.body.clientWidth > 900 || isUtools || isWeb) {
         const page = document.getElementById('page')
         page.style.width = 'auto'
         page.style.height = 'auto'
