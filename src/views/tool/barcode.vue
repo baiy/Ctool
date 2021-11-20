@@ -2,7 +2,7 @@
     <div>
         <div style="height: 250px;line-height: 250px;text-align: center;vertical-align: middle;">
             <canvas @click="saveImage" :style="`border: ${canvasBorder};vertical-align: middle;`" ref="barcode"
-                    class="barcode" v-show="!validStr"></canvas>
+                    class="barcode" v-show="!validStr" style="cursor:pointer"></canvas>
             <p style="color: red" v-show="validStr">{{ validStr }}</p>
         </div>
         <div id="barcode-setting">
@@ -146,7 +146,7 @@ import JsBarcode from 'jsbarcode'
 
 export default {
     created() {
-        this.current = Object.assign(this.current, this.$getToolData("text"))
+        this.$initToolData('text')
     },
     computed: {
         showText() {

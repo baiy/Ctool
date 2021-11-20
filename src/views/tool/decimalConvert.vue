@@ -42,7 +42,7 @@ import Radix from './library/radix.js'
 const alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_@";
 export default {
     created() {
-        this.current = Object.assign(this.current, this.$getToolData("input"))
+        this.$initToolData('input')
     },
     watch: {
         convert: function (val) {

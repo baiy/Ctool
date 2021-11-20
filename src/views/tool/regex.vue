@@ -54,7 +54,7 @@ export default {
         heightResize
     },
     created() {
-        this.current = Object.assign(this.current, this.$getToolData("input"))
+        this.$initToolData('input')
     },
     computed: {
         replaceContent(){

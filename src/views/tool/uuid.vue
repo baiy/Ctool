@@ -40,7 +40,7 @@ export default {
         autoHeightTextarea
     },
     created() {
-        this.current = Object.assign(this.current, this.$getToolData())
+        this.$initToolData()
     },
     mounted() {
         if (this.current.result.length < 1){

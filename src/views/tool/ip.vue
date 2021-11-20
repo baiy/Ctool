@@ -32,7 +32,12 @@ export default {
         heightResize
     },
     created() {
-        this.current = Object.assign(this.current, this.$getToolData("input"))
+        this.$initToolData('input',(input)=>{
+            return (
+                /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(input)
+                || input === "localhost"
+            )
+        })
     },
     methods: {
         handle() {

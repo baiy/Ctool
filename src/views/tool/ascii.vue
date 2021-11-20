@@ -67,7 +67,7 @@ export default {
         },
     },
     created() {
-        this.current = Object.assign(this.current, this.$getToolData())
+        this.$initToolData()
     },
     methods: {
         handle() {

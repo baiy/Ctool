@@ -49,7 +49,7 @@ export default {
         autoHeightTextarea
     },
     created() {
-        this.current = Object.assign({}, this.current, this.$getToolData("input"))
+        this.$initToolData('input')
     },
     computed: {
         output() {

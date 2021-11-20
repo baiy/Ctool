@@ -78,7 +78,7 @@ export default {
         heightResize
     },
     created() {
-        this.current = Object.assign(this.current, this.$getToolData())
+        this.$initToolData()
     },
     methods: {
         sign() {

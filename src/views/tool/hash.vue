@@ -21,7 +21,7 @@ import crypto from "crypto-js"
 const sm = require('sm-crypto');
 export default {
     created() {
-        this.current = Object.assign(this.current, this.$getToolData("input"))
+        this.$initToolData('input')
     },
     computed: {
         md5() {

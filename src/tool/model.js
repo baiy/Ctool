@@ -51,38 +51,74 @@ const debounceSaveToolDataMethod = _.debounce(function () {
     return history(debounceSaveToolData['tool']).push(debounceSaveToolData['data'])
 }, 1000)
 
-export const plugin = {
-    install: function (Vue) {
-        Vue.prototype.$getToolData = function (clipboardField = '',clipboardFieldRegex = "") {
-            let data = history(model.getCurrentTool()).current()
-            if (clipboardField) {
-                let inputData = "";
-                if (fixeInputData) { // 使用固定输入数据
-                    inputData = fixeInputData
-                    fixeInputData = ""
-                } else if (setting.autoReadCopy()) {
-                    let paste = clipboard.paste()
-                    if (!data[clipboardField] && paste) {
-                        if (setting.autoReadCopyFilter()) {
-                            paste = paste.trim()
-                        }
-                        inputData = paste
-                    }
-                }
-                if (inputData){
-                    if (
-                        !(clipboardFieldRegex instanceof RegExp)
-                        ||
-                        (
-                            clipboardFieldRegex instanceof RegExp
-                            && clipboardFieldRegex.test(inputData)
-                        )
-                    ){
-                        data[clipboardField] = inputData
-                    }
+
+const appendData = async function (field = "", check = "") {
+    const result = (data = "") => {
+        if (data){
+            if (
+                !check
+                || (_.isFunction(check) && check(data)) // 函数校验
+            ){
+                return field ? {[field]: data} : data
+            }
+        }
+        return field ? {} : ""
+    }
+    return new Promise(async (resolve) => {
+        try {
+            // 使用固定输入数据
+            if (fixeInputData) {
+                return resolve(result(fixeInputData))
+            }
+            if (setting.autoReadCopy()) {
+                let paste = (await clipboard.paste()).trim()
+                if (paste) {
+                    resolve(result(paste))
                 }
             }
-            return data
+            resolve(result())
+        } catch {
+            resolve(result())
+        }
+    });
+}
+
+export const plugin = {
+    install: function (Vue) {
+        Vue.prototype.$initToolData = function (input = "", inputCheck = "", field = "current", isLoadHistory = true) {
+            let current = _.cloneDeep(this[field])
+            if (isLoadHistory) {
+                Object.assign(current, this.$getToolData())
+            }
+            if (!input) {
+                this[field] = current
+                return;
+            }
+
+            // 初始化默认值
+            if (!(input in current)){
+                current[input] = "";
+            }
+
+            // 保存默认值
+            let inputDefault = current[input]
+            current[input] = "";
+
+            appendData(input, inputCheck).then((append) => {
+                for (let key of Object.keys(append)) {
+                    if ((key in current) && !current[key]) {
+                        current[key] = append[key]
+                    }
+                }
+                if (!current[input]){
+                    // 使用默认值
+                    current[input] = inputDefault
+                }
+                this[field] = current
+            })
+        }
+        Vue.prototype.$getToolData = function () {
+            return _.cloneDeep(history(model.getCurrentTool()).current())
         }
         Vue.prototype.$saveToolData = function (data, ignoreDebounce = false) {
             if (ignoreDebounce) {

@@ -147,7 +147,7 @@ export default {
         heightResize
     },
     created() {
-        this.current = Object.assign(this.current, this.$getToolData("content"))
+        this.$initToolData('content')
     },
     computed: {
         stat(){

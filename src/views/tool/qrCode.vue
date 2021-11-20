@@ -6,8 +6,8 @@
                     <Col span="14">
                         <Input v-model="current.generateInput" :rows="14" type="textarea" :placeholder="$t('qrCode_generate_input')"></Input>
                     </Col>
-                    <Col span="10">
-                        <div style="text-align: center" v-html="generateOutput"></div>
+                    <Col span="10" style="text-align: center;">
+                        <img v-if="generateOutput" @click="()=>$clipboardCopyImages(generateOutput)" style="width:300px;cursor:pointer" :src="generateOutput" />
                     </Col>
                 </Row>
             </TabPane>
@@ -24,7 +24,7 @@
                         </input-block>
                         <Input v-model="readerOutput" :rows="8" type="textarea" :placeholder="$t('qrCode_reader_output')"></Input>
                     </Col>
-                    <Col span="10" style="text-align: center" v-html="readerInputImg"></Col>
+                    <Col span="10" style="text-align: center" v-html="readerInputImg" />
                 </Row>
             </TabPane>
         </Tabs>
@@ -61,13 +61,13 @@ export default {
     created() {
         let feature = model.getToolCurrentFeature('generate')
         if (feature === 'generate') {
-            this.current = Object.assign(this.current, this.$getToolData('generateInput'))
             this.current.operation = feature;
+            this.$initToolData('generateInput')
         } else if (feature === 'reader') {
-            this.current = Object.assign(this.current, this.$getToolData('readerInput'))
             this.current.operation = feature;
+            this.$initToolData('readerInput')
         } else {
-            this.current = Object.assign(this.current, this.$getToolData())
+            this.$initToolData()
         }
     },
     methods: {
@@ -81,8 +81,8 @@ export default {
                     this.generateOutput = this.$t("qrCode_generate_error", [error]);
                     return;
                 }
-                this.$clipboardCopyImages(url)
-                this.generateOutput = `<img style="width:300px" src="${url}" />`
+                this.generateOutput = url
+
                 this.$saveToolData(this.current)
             })
         },

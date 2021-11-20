@@ -38,7 +38,7 @@ export default {
         autoHeightTextarea
     },
     created() {
-        this.current = Object.assign(this.current, this.$getToolData('input'))
+        this.$initToolData('input')
     },
     methods: {
         handle(v) {
@@ -52,10 +52,10 @@ export default {
                     }
                     else{
                         this.current.output = Base64.decode(this.current.input)
+                        this.$clipboardCopy(this.current.output)
                     }
                 }
                 this.current.operation = v
-                this.$clipboardCopy(this.current.output)
                 this.$saveToolData(this.current)
             }
         },
@@ -69,9 +69,9 @@ export default {
         },
         exportFile() {
             let arr = this.current.input.split(','), mime = arr[0].match(/:(.*?);/)[1];
-            let objectUrl = window.URL.createObjectURL(new Blob([new Blob([Base64.toUint8Array(arr[1])], {type: mime})], {type: mime}));
+            let objectUrl = window.URL.createObjectURL(new Blob([Base64.toUint8Array(arr[1])], {type: mime}));
             let aEle = document.createElement("a");
-            aEle.download = `ctools-base64-decode-${moment().unix()}` + (mimeType.extension(mime) ? `.${mimeType.extension(mime)}` : "");
+            aEle.download = `ctool-base64-decode-${moment().unix()}` + (mimeType.extension(mime) ? `.${mimeType.extension(mime)}` : "");
             aEle.href = objectUrl;
             aEle.click();
             aEle.remove();

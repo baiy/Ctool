@@ -6,14 +6,15 @@
                     <span slot="prepend">{{ $t('crontab_expression') }}</span>
                 </Input>
                 <heightResize :append="['.page-option-input']">
-                    <autoHeightTextarea :value="output" :placeholder="$t('crontab_execute_time')" />
+                    <autoHeightTextarea :value="output" :placeholder="$t('crontab_execute_time')"/>
                 </heightResize>
             </Col>
             <Col span="12" class="page-option-reference">
                 <Tabs value="example">
                     <TabPane :label="$t('crontab_example')" name="example">
                         <heightResize :reduce="52" @resize="resize">
-                            <Table stripe size="small" :height="referenceHeight" border :columns="example.columns" :data="example.data"></Table>
+                            <Table stripe size="small" :height="referenceHeight" border :columns="example.columns"
+                                   :data="example.data"></Table>
                         </heightResize>
                     </TabPane>
                     <TabPane :label="$t('crontab_format')" name="format" style="text-align: center">
@@ -35,6 +36,7 @@ import moment from "moment"
 import {getCurrentLocale} from "../../i18n";
 import heightResize from "./components/heightResize";
 import autoHeightTextarea from "./components/autoHeightTextarea";
+
 export default {
     components: {
         heightResize,
@@ -63,7 +65,14 @@ export default {
         },
     },
     created() {
-        this.current = Object.assign(this.current, this.$getToolData())
+        this.$initToolData('input', (data) => {
+            try {
+                cronstrue.toString(data)
+            } catch {
+                return false
+            }
+            return true
+        })
         this.example.data = this.example.data.map((item) => {
             return {
                 example: item,
@@ -75,16 +84,15 @@ export default {
         conversion(input) {
             return cronstrue.toString(input, {locale: this.locale})
         },
-        resize(height){
+        resize(height) {
             this.referenceHeight = height
         }
     },
     data() {
         return {
-            referenceHeight:101,
+            referenceHeight: 101,
             current: {
-                input: "2 */5 * * 2-5",
-                operation: "check"
+                input: "2 */5 * * 2-5"
             },
             special: {
                 columns: [

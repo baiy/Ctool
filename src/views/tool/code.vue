@@ -53,7 +53,7 @@ export default {
         }
     },
     created() {
-        this.current = Object.assign(this.current, this.$getToolData("content"))
+        this.$initToolData('content')
     },
     methods: {
         handle(language) {

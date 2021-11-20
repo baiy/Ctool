@@ -14,9 +14,15 @@
                             </Button>
                             <DropdownMenu slot="list">
                                 <DropdownItem name="normalSecond">{{ $t('timestamp_normal_second') }}</DropdownItem>
-                                <DropdownItem name="normalMillisecond">{{ $t('timestamp_normal_millisecond') }}</DropdownItem>
+                                <DropdownItem name="normalMillisecond">{{
+                                        $t('timestamp_normal_millisecond')
+                                    }}
+                                </DropdownItem>
                                 <DropdownItem name="unixSecond">{{ $t('timestamp_unix_second') }}</DropdownItem>
-                                <DropdownItem name="unixMillisecond">{{ $t('timestamp_unix_millisecond') }}</DropdownItem>
+                                <DropdownItem name="unixMillisecond">{{
+                                        $t('timestamp_unix_millisecond')
+                                    }}
+                                </DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
                     </template>
@@ -28,7 +34,10 @@
                         <span slot="prepend">{{ $t('timestamp_output') }}</span>
                     </Input>
                     <template slot="extra">
-                        <Button size="small" type="primary" @click="()=>copy(output)">{{ $t('timestamp_copy') }}</Button>
+                        <Button size="small" type="primary" @click="()=>copy(output)">{{
+                                $t('timestamp_copy')
+                            }}
+                        </Button>
                     </template>
                 </input-block>
             </option-block>
@@ -57,10 +66,14 @@ export default {
         heightResize
     },
     created() {
-        this.current = Object.assign(this.current, this.$getToolData('input'))
-        if (!this.current.input) {
-            this.current.input = moment().format('YYYY-MM-DD HH:mm:ss')
-        }
+        this.$initToolData('input', (data) => {
+            return (
+                (new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+$/)).test(data)
+                || (new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+\.\d+$/)).test(data)
+                || (new RegExp(/^\d{10}$/)).test(data)
+                || (new RegExp(/^\d{13}$/)).test(data)
+            )
+        })
     },
     mounted() {
         this.timer = setInterval(() => {
@@ -127,7 +140,7 @@ export default {
     },
     methods: {
         copy(data) {
-            if (data){
+            if (data) {
                 this.$clipboardCopy(data, true)
             }
         },
@@ -147,7 +160,7 @@ export default {
     data() {
         return {
             current: {
-                input: ''
+                input: moment().format('YYYY-MM-DD HH:mm:ss')
             },
             timer: null,
             timestamp: 0,

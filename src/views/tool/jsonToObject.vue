@@ -13,7 +13,8 @@
                     </Input>
                 </option-block>
             </div>
-            <input-block top="10px" right="10px" :text="$t('jsonToObject_format')" @on-default-right-bottom-click="format">
+            <input-block top="10px" right="10px" :text="$t('jsonToObject_format')"
+                         @on-default-right-bottom-click="format">
                 <heightResize :append="['.page-option-block']">
                     <code-editor v-model="current.input" :placeholder="$t('jsonToObject_input')" language="json"/>
                 </heightResize>
@@ -22,7 +23,8 @@
         <Col span="14">
             <input-block top="10px" right="10px">
                 <heightResize>
-                    <code-editor :placeholder="$t('jsonToObject_output')" :value="output" :language="languages[current.type]"/>
+                    <code-editor :placeholder="$t('jsonToObject_output')" :value="output"
+                                 :language="languages[current.type]"/>
                 </heightResize>
                 <template slot="extra">
                     <RadioGroup v-model="current.type" type="button" button-style="solid">
@@ -50,7 +52,14 @@ export default {
         heightResize
     },
     created() {
-        this.current = Object.assign(this.current, this.$getToolData())
+        this.$initToolData('input', (input) => {
+            try {
+                require('jsonlint').parse(input)
+            } catch (e) {
+                return false
+            }
+            return true
+        })
     },
     computed: {
         output() {
@@ -82,13 +91,13 @@ export default {
                 return this.$t('jsonToObject_error', [error.message]).toString()
             }
         },
-        types(){
+        types() {
             return Object.keys(this.languages)
         }
     },
-    methods:{
-        format(){
-            if (this.current.input.trim()){
+    methods: {
+        format() {
+            if (this.current.input.trim()) {
                 this.current.input = jsonFormatter.beautify(this.current.input)
             }
         }
