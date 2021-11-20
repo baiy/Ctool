@@ -154,7 +154,6 @@ export default {
             } else {
                 this.current.input = moment().format('x')
             }
-            this.handle();
         },
     },
     data() {
