@@ -27,8 +27,8 @@
                 </Cell>
             </CellGroup>
         </div>
-        <Drawer :title="$t('main_ui_setting')" placement="left" v-model="settingShow" :width="90">
-            <setting-block v-if="settingShow"></setting-block>
+        <Drawer :title="$t('main_common_tool_setting')" placement="left" v-model="commonShow" :width="100">
+            <setting-common v-if="commonShow"></setting-common>
         </Drawer>
     </div>
 </template>
@@ -37,15 +37,14 @@
 import {isChromium, isFirefox, isUtools, openUrl, setDisplayMode} from '../../helper'
 import {LOCALE_LISTS, setCurrentLocale} from '../../i18n'
 import setting from '../../tool/setting'
-import settingBlock from './setting'
-
+import common from "./common"
 export default {
     components: {
-        "setting-block": settingBlock
+        "setting-common": common
     },
     data() {
         return {
-            settingShow: false,
+            commonShow: false,
             auto_save_copy: true,
             auto_read_copy: true,
             display_mode: "light",
@@ -103,7 +102,7 @@ export default {
                     openUrl('chrome://extensions/shortcuts')
                     break
                 case 'setting':
-                    this.settingShow = true
+                    this.commonShow = true
                     break
             }
         }

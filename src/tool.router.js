@@ -145,6 +145,14 @@ const routes = [
     {
         path: '/tool/html',
         component: r => require(['./views/tool/html.vue'], r)
+    },
+    {
+        path: '/tool/binary',
+        component: r => require(['./views/tool/binary.vue'], r)
+    },
+    {
+        path: '/tool/armConverter',
+        component: r => require(['./views/tool/armConverter.vue'], r)
     }
 ]
 

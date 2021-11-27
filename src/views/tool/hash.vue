@@ -3,23 +3,33 @@
         <Row :gutter="10">
             <Col span="8">
                 <input-block>
-                    <Input v-model="current.input" :rows="18" type="textarea" :placeholder="$t('hash_content')"></Input>
+                    <heightResize>
+                        <autoHeightTextarea v-model="current.input" :placeholder="$t('hash_content')"/>
+                    </heightResize>
                     <Checkbox slot="extra" v-model="current.isUppercase">{{ $t('hash_uppercase') }}</Checkbox>
                 </input-block>
             </Col>
             <Col span="16">
-                <input-block style="margin-bottom: 6px" :text="type" v-for="type in types" :key="type" @on-default-right-bottom-click="()=>copy(type)">
-                    <Input :value="result(type)" :placeholder="type" :rows="3" type="textarea"></Input>
-                </input-block>
+                <heightResize @resize="resize">
+                    <input-block :style="`margin-top: ${no >0 ? 5 : 0}px;`" :text="type" v-for="(type,no) in types" :key="type" @on-default-right-bottom-click="()=>copy(type)">
+                        <autoHeightTextarea :value="result(type)" :height="outputHeight" :placeholder="type"/>
+                    </input-block>
+                </heightResize>
             </Col>
         </Row>
     </div>
 </template>
 <script>
 import crypto from "crypto-js"
+import heightResize from "./components/heightResize";
+import autoHeightTextarea from "./components/autoHeightTextarea";
 
 const sm = require('sm-crypto');
 export default {
+    components: {
+        heightResize,
+        autoHeightTextarea
+    },
     created() {
         this.$initToolData('input')
     },
@@ -66,6 +76,9 @@ export default {
             if (this[type]){
                 this.$clipboardCopy(this[type])
             }
+        },
+        resize(height){
+            this.outputHeight = (height - 20)/5
         }
     },
     data() {
@@ -74,7 +87,8 @@ export default {
                 input: "",
                 isUppercase: false,
             },
-            types: ['md5', 'sha1', 'sha256', 'sha512', "sm3"]
+            types: ['md5', 'sha1', 'sha256', 'sha512', "sm3"],
+            outputHeight:100
         }
     },
 }

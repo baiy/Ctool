@@ -1,10 +1,5 @@
 <template>
     <div>
-        <div style="height: 250px;line-height: 250px;text-align: center;vertical-align: middle;">
-            <canvas @click="saveImage" :style="`border: ${canvasBorder};vertical-align: middle;`" ref="barcode"
-                    class="barcode" v-show="!validStr" style="cursor:pointer"></canvas>
-            <p style="color: red" v-show="validStr">{{ validStr }}</p>
-        </div>
         <div id="barcode-setting">
             <Row :gutter="10">
                 <Col span="12">
@@ -133,6 +128,13 @@
                 </Col>
             </Row>
         </div>
+        <heightResize @resize="resize" ignore :append="['#barcode-setting']">
+            <div :style="`height: ${outputHeight}px;line-height:${outputHeight}px;text-align: center;vertical-align: middle;`">
+                <canvas @click="saveImage" :style="`border: ${canvasBorder};vertical-align: middle;`" ref="barcode"
+                        class="barcode" v-show="!validStr" style="cursor:pointer"></canvas>
+                <p style="color: red" v-show="validStr">{{ validStr }}</p>
+            </div>
+        </heightResize>
     </div>
 </template>
 <script>
@@ -143,8 +145,11 @@
  * 不支持中文
  */
 import JsBarcode from 'jsbarcode'
-
+import heightResize from "./components/heightResize";
 export default {
+    components: {
+        heightResize
+    },
     created() {
         this.$initToolData('text')
     },
@@ -201,10 +206,14 @@ export default {
             if (!this.validStr && this.current.text) {
                 this.$clipboardCopyImages(this.$refs.barcode.toDataURL("image/png"), true)
             }
+        },
+        resize(height){
+            this.outputHeight = Math.max(250,height)
         }
     },
     data() {
         return {
+            outputHeight:250,
             current: {
                 text: "",
                 format: "CODE128",

@@ -4,31 +4,43 @@
             <TabPane :label="$t('qrCode_generate_title')" name="generate">
                 <Row :gutter="16">
                     <Col span="14">
-                        <Input v-model="current.generateInput" :rows="14" type="textarea" :placeholder="$t('qrCode_generate_input')"></Input>
+                        <heightResize :reduce="52">
+                            <autoHeightTextarea v-model="current.generateInput" :placeholder="$t('qrCode_generate_input')" />
+                        </heightResize>
                     </Col>
-                    <Col span="10" style="text-align: center;">
-                        <img v-if="generateOutput" @click="()=>$clipboardCopyImages(generateOutput)" style="width:300px;cursor:pointer" :src="generateOutput" />
+                    <Col span="10">
+                        <heightResize :reduce="52">
+                            <div class="tool-qrcode-block" v-if="generateOutput">
+                                <img v-if="generateOutput.startsWith('data:')" @click="()=>$clipboardCopyImages(generateOutput)" style="width:70%;min-width:300px;cursor:pointer;" :src="generateOutput" />
+                                <p v-else>{{ generateOutput }}</p>
+                            </div>
+                        </heightResize>
                     </Col>
                 </Row>
             </TabPane>
             <TabPane :label="$t('qrCode_reader_title')" name="reader">
                 <Row :gutter="16">
                     <Col span="14">
-                        <input-block style="margin-bottom: 10px" bottom="0px" right="10px">
+                        <input-block style="margin-bottom: 10px" bottom="0px" right="10px" class="tool-reader-input">
                             <pasteClipboardFlie @on-paste-image="handleUpload">
-                                <Input v-model="current.readerInput" :rows="3" type="textarea" :placeholder="$t('qrCode_reader_input')"></Input>
+                                <Input v-model="current.readerInput" :rows="5" type="textarea" :placeholder="$t('qrCode_reader_input')"></Input>
                             </pasteClipboardFlie>
                             <Upload slot="extra" action="#" :before-upload="handleUpload">
                                 <Button size="small" type="primary" icon="ios-cloud-upload-outline">{{ $t('qrCode_reader_upload') }}</Button>
                             </Upload>
                         </input-block>
-                        <Input v-model="readerOutput" :rows="8" type="textarea" :placeholder="$t('qrCode_reader_output')"></Input>
+                        <heightResize :reduce="52" :append="['.tool-reader-input']">
+                            <autoHeightTextarea :value="readerOutput" :placeholder="$t('qrCode_reader_output')" />
+                        </heightResize>
                     </Col>
-                    <Col span="10" style="text-align: center" v-html="readerInputImg" />
+                    <Col span="10" >
+                        <heightResize :reduce="52">
+                            <div class="tool-qrcode-block" v-html="readerInputImg"></div>
+                        </heightResize>
+                    </Col>
                 </Row>
             </TabPane>
         </Tabs>
-
     </div>
 </template>
 <script>
@@ -37,15 +49,19 @@ import qrcodeParser from 'qrcode-parser'
 import model from '../../tool/model'
 import Jimp from 'jimp';
 import pasteClipboardFlie from './components/pasteClipboardFlie';
+import heightResize from "./components/heightResize";
+import autoHeightTextarea from "./components/autoHeightTextarea";
 
 export default {
     components: {
         pasteClipboardFlie,
+        heightResize,
+        autoHeightTextarea
     },
     computed: {
         readerInputImg() {
             if (this.current.readerInput) {
-                return `<img style="width:300px" src="${this.current.readerInput}" />`
+                return `<img style="width:70%;min-width:300px;" src="${this.current.readerInput}" />`
             }
             return ''
         }
@@ -160,3 +176,12 @@ export default {
     },
 }
 </script>
+<style>
+.tool-qrcode-block {
+    height: 100%;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: center;
+}
+</style>

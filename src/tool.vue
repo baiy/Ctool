@@ -67,6 +67,7 @@
 
 <script>
 import config from './tool/config'
+import {dispatchCategoryClickEvent} from './tool/event'
 import instance from './tool/instance'
 import BottomBlock from './bottom'
 import settingBlock from "./views/setting/block"
@@ -198,6 +199,9 @@ export default {
                     this.currentCategory = name
                     model.setCategoryHistory(name)
                     this.currentTool = model.getToolHistory(this.currentCategory)
+                    this.$nextTick(()=>{
+                        dispatchCategoryClickEvent(name)
+                    })
                     break
             }
         },

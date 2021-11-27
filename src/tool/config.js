@@ -42,6 +42,15 @@ const getToolDefaultCategory = function (name) {
     return ''
 }
 
+const getToolByName = (name) => {
+    for (let item of tool) {
+        if (name === item.name) {
+            return item
+        }
+    }
+    return null
+}
+
 /**
  * @param name
  * @param defaultValue
@@ -65,18 +74,21 @@ const saveSetting = function (name, value) {
 }
 
 export default {
-    tool:tool,
+    tool: tool,
     saveSetting,
     getSetting,
     category,
     setUserCommon,
     getUserCommon,
     getToolByCategory(cat) {
-        let common = getUserCommon();
+        if (cat === 'common') {
+            return getUserCommon().map((name) => {
+                return getToolByName(name)
+            }).filter((item) => {
+                return item !== null
+            });
+        }
         return tool.filter((t) => {
-            if (cat === 'common') {
-                return common.includes(t.name)
-            }
             return t.cat.includes(cat);
         })
     },

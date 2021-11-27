@@ -1,0 +1,8 @@
+{
+    "input": "Input",
+    "length": "{0} bit",
+    "true_form": "trueForm",
+    "inverse": "Inverse",
+    "complement": "Complement",
+    "error": "error: {0}"
+}

@@ -82,7 +82,7 @@ export default {
     },
     methods: {
         conversion(input) {
-            return cronstrue.toString(input, {locale: this.locale})
+            return cronstrue.toString(input, {locale: this.locale, use24HourTimeFormat: true})
         },
         resize(height) {
             this.referenceHeight = height

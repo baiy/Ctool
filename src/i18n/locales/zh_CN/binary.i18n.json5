@@ -1,0 +1,8 @@
+{
+    "input": "输入",
+    "length": "{0} 位",
+    "true_form": "原码",
+    "inverse": "反码",
+    "complement": "补码",
+    "error": "错误: {0}"
+}

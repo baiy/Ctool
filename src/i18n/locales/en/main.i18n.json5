@@ -1,40 +1,39 @@
 {
     // ui
     "ui_setting": "Settings",
+    "ui_reset": "Reset",
     "ui_views": "View",
-    "ui_load":"Loading",
+    "ui_load": "Loading",
     "ui_close": "Close",
-    "ui_copy_text_ok":"Result Copied ^o^",
-    "ui_copy_image_ok":"Image Copied ^o^",
-
+    "ui_copy_text_ok": "Result Copied ^o^",
+    "ui_copy_image_ok": "Image Copied ^o^",
     // views
     "setting_language": "Language",
     "common_tool": "Common Tool",
-    "keyboard_setting":"Setting Shortcuts",
+    "unselected_tool": "Unselected Tool",
+    "keyboard_setting": "Setting Shortcuts",
     "display_mode": "Theme",
-    "display_mode_light":"Light",
-    "display_mode_dark":"Dark",
-    "display_mode_auto":"Auto",
-    "copy_results_to_clipboard":"Copy results to clipboard",
+    "display_mode_light": "Light",
+    "display_mode_dark": "Dark",
+    "display_mode_auto": "Auto",
+    "copy_results_to_clipboard": "Copy results to clipboard",
     "read_content_from_clipboard": "Read content from clipboard",
-    "read_clipboard_content_trim":"Read clipboard content trim",
+    "read_clipboard_content_trim": "Read clipboard content trim",
     "common_tool_setting": "Common Tool Settings",
-    "keyboard_firefox_1":"Need to manually set shortcuts",
+    "keyboard_firefox_1": "Need to manually set shortcuts",
     "keyboard_firefox_2": "Open [Add-ons Manager(about:addons)]，Click the setting button on the right side of [Manage your extension]，Select [Manage Extension Shortcuts] to modify these shortcuts.",
-    "keyboard_firefox_3":"Operation Method",
-
+    "keyboard_firefox_3": "Operation Method",
     "history": "History",
     "history_clear": "Clear history",
     "history_time": "Operation time",
-    "history_data":"Data",
+    "history_data": "Data",
     "history_op": "Operation",
-    "history_null":"History not found",
-
+    "history_null": "History not found",
     // category
     "category_common": "Common",
     "category_encryption": "En/Decrypt",
     "category_conversion": "Convert",
-    "category_serialize": "Serialize",
+    "category_encoder_decoder": "En/Decoder",
     "category_check": "Validator",
     "category_generate": "Generate",
     "category_other": "Other",
@@ -69,7 +68,8 @@
     "tool_hexString": "Hex/String",
     "tool_text": "Text",
     "tool_html": "Html En/Decode",
-
+    "tool_binary": "trueForm/inverse/complement",
+    "tool_armConverter": "ARM/HEX",
     // other
     "css_main_category_item_style": "padding: 0 10px"
 }
