@@ -1,7 +1,7 @@
 <template>
     <div>
         <heightResize :append="['.page-option-block']">
-            <code-editor ref="editor" v-model="current.content" :language="this.current.lang"></code-editor>
+            <code-editor ref="editor" showLineWrappingSet="no" v-model="current.content" :language="this.current.lang"></code-editor>
         </heightResize>
         <option-block class="page-option-block">
             <FormItem>

@@ -71,5 +71,6 @@
     "tool_binary": "trueForm/inverse/complement",
     "tool_armConverter": "ARM/HEX",
     // other
-    "css_main_category_item_style": "padding: 0 10px"
+    "css_main_category_item_style": "padding: 0 10px",
+    "editor_line_wrapping": "Line Wrapping"
 }

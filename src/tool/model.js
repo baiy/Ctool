@@ -52,23 +52,25 @@ const debounceSaveToolDataMethod = _.debounce(function () {
 }, 1000)
 
 
-const appendData = async function (field = "", check = "") {
+const appendData = async function (check = "") {
     const result = (data = "") => {
-        if (data){
+        if (data) {
             if (
                 !check
                 || (_.isFunction(check) && check(data)) // 函数校验
-            ){
-                return field ? {[field]: data} : data
+            ) {
+                return data
             }
         }
-        return field ? {} : ""
+        return ""
     }
     return new Promise(async (resolve) => {
         try {
             // 使用固定输入数据
             if (fixeInputData) {
-                return resolve(result(fixeInputData))
+                let temp = fixeInputData
+                fixeInputData = ""
+                return resolve(result(temp))
             }
             if (setting.autoReadCopy()) {
                 let paste = (await clipboard.paste()).trim()
@@ -87,34 +89,38 @@ export const plugin = {
     install: function (Vue) {
         Vue.prototype.$initToolData = function (input = "", inputCheck = "", field = "current", isLoadHistory = true) {
             let current = _.cloneDeep(this[field])
+            let inputHistory = ""
+            let inputDefault = ""
+            let inputAppend = ""
+            // 默认数据
+            if (input && (input in current) && current[input]) {
+                inputDefault = current[input];
+            }
+            // 历史数据
             if (isLoadHistory) {
+                let history = this.$getToolData()
+                if (input && (input in history)) {
+                    inputHistory = history[input]
+                    delete history[input]
+                }
                 Object.assign(current, this.$getToolData())
             }
+
             if (!input) {
                 this[field] = current
                 return;
             }
 
-            // 初始化默认值
-            if (!(input in current)){
-                current[input] = "";
-            }
-
-            // 保存默认值
-            let inputDefault = current[input]
-            current[input] = "";
-
-            appendData(input, inputCheck).then((append) => {
-                for (let key of Object.keys(append)) {
-                    if ((key in current) && !current[key]) {
-                        current[key] = append[key]
+            // 追加剪贴板等数据
+            appendData(inputCheck).then((append) => {
+                inputAppend = append
+                this[field] = Object.assign(
+                    current,
+                    {
+                        // 历史数据 > 追加数据 > 默认数据
+                        [input]: inputHistory ? inputHistory : (inputAppend ? inputAppend : inputDefault)
                     }
-                }
-                if (!current[input]){
-                    // 使用默认值
-                    current[input] = inputDefault
-                }
-                this[field] = current
+                )
             })
         }
         Vue.prototype.$getToolData = function () {

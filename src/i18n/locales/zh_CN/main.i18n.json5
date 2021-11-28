@@ -55,15 +55,15 @@
     "tool_regex": "正则表达式",
     "tool_randomString": "随机字符生成",
     "tool_serializeConversion": "序列化转换",
-    "tool_diffs": "文本差异化对比",
-    "tool_crontab": "crontab校验",
-    "tool_websocket": "websocket调试",
+    "tool_diffs": "文本比对",
+    "tool_crontab": "crontab",
+    "tool_websocket": "websocket",
     "tool_unit": "单位换算",
     "tool_time": "时间计算器",
     "tool_uuid": "UUID生成",
     "tool_jsonToObject": "JSON转实体类",
-    "tool_ascii": "ASCII转换",
-    "tool_variableConversion": "变量名转换",
+    "tool_ascii": "ASCII",
+    "tool_variableConversion": "变量名",
     "tool_jwt": "JWT解码",
     "tool_hexString": "Hex/String",
     "tool_text": "文本处理",
@@ -71,5 +71,6 @@
     "tool_binary": "原码/反码/补码",
     "tool_armConverter": "ARM/HEX",
     // 其他
-    "css_main_category_item_style": "padding: 0 20px"
+    "css_main_category_item_style": "padding: 0 20px",
+    "editor_line_wrapping": "自动换行"
 }

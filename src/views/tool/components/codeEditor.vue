@@ -1,7 +1,10 @@
 <template>
-    <div :style="style">
+    <input-block right="5px" bottom="5px" :style="style">
         <div ref="container" class="code-editor" :style="`height:100%;width:${width}`"></div>
-    </div>
+        <template slot="extra">
+            <Checkbox v-if="showLineWrappingSet !== 'null'" v-model="lineWrapping">{{ $t('main_editor_line_wrapping') }}</Checkbox>
+        </template>
+    </input-block>
 </template>
 <script>
 import {format} from "../library/formatter";
@@ -24,6 +27,10 @@ export default {
         placeholder: {
             type: String,
             default: ""
+        },
+        showLineWrappingSet: {
+            type: String,
+            default: "null"
         },
         height: {
             type: String,
@@ -58,6 +65,11 @@ export default {
             if (this.editor !== null) {
                 this.editor.customSetEditorLanguage(newValue);
             }
+        },
+        lineWrapping(newValue) {
+            if (this.editor !== null) {
+                this.editor.setOption("lineWrapping", newValue);
+            }
         }
     },
     mounted() {
@@ -66,6 +78,12 @@ export default {
     data() {
         return {
             editor: null,
+            lineWrapping: true,
+        }
+    },
+    created() {
+        if (this.showLineWrappingSet !== 'null') {
+            this.lineWrapping = this.showLineWrappingSet === 'yes'
         }
     },
     methods: {
@@ -75,6 +93,7 @@ export default {
                 this.language,
                 {
                     lineNumbers: !this.hideLineNumbers,
+                    lineWrapping: this.lineWrapping,
                     placeholder: this.placeholder
                 }
             );
@@ -101,6 +120,7 @@ export default {
 .CodeMirror {
     height: 100%;
 }
+
 .CodeMirror pre.CodeMirror-placeholder {
     color: #999;
 }

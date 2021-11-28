@@ -12,13 +12,7 @@
 
 ## chrome 安装
 
-- 方法1: 在 [Chrome 应用商店](https://chrome.google.com/webstore/detail/ipfcebkfhpkjeikaammlkcnalknjahmh) 安装
-- 方法2: [下载 .crx 安装包](https://github.com/baiy/Ctool/releases/latest)
-- 方法3: [百度网盘下载](https://pan.baidu.com/s/1mhWbqWC) 安装方法和方法2一致
-
-> 方法2 / 方法3 不定期维护 仅供网络环境特别恶劣的同学使用
->
-> [猛戳这里查看手动安装`.crx`教程](http://www.cnplugins.com/tool/outline-install-crx-file.html)
+- 在 [Chrome 应用商店](https://chrome.google.com/webstore/detail/ipfcebkfhpkjeikaammlkcnalknjahmh) 安装
 
 ## 微软 Edge 安装
 
@@ -30,9 +24,7 @@
 
 ## utools 安装
 
-### 插件中心安装
-
-> 插件中心搜索 `ctool`
+- [utools](https://u.tools/) 插件中心 搜索 `ctool`
 
 ## 开发
 
@@ -54,15 +46,15 @@ npm run build -adapter=[chrome|edge|utools|firefox|web]
 |加密/解密|`AES`,`DES`,`RC4`,`Rabbit`,`TripleDes`,`sm2`|√|
 |BASE64编码|`加密`,`解密`,`支持文件`|√|
 |URL编码|`编码`,`解码`|√|
-|时间戳|双向转换|√|
+|时间戳|`双向转换`,`毫秒`|√|
 |二维码|`生成`,`解析`|√|
 |条形码|`生成`|√|
 |汉字转拼音|`声调`,`首字母`,`分隔符`|√|
 |IP地址查询|`运营商`,`城市`|×|
 |代码格式化|`js`, `ts`, `html`, `css`, `less`, `scss`, `graphql`, `vue`, `angular`, `markdown`, `json5`, `xml`, `yaml`, `sql`, `压缩`|√|
 |Unicode|`双向转换`,`emoji`,`html 实体`,`css 实体`|√|
-|进制转换|2-64进制互转|√|
-|正则表达式|字符匹配|√|
+|进制转换|`2-64进制`|√|
+|正则表达式|`匹配`,`查找`,`替换`|√|
 |随机字符生成器|`批量`,`特殊字符`|√|
 |序列化转换|`json`, `xml`, `yaml`, `phpArray`, `phpSerialize`, `properties`|√|
 |文本差异化对比|`行`,`单词`,`css`|√|
@@ -78,8 +70,9 @@ npm run build -adapter=[chrome|edge|utools|firefox|web]
 |jwt解码|`header`, `payload`|√|
 |Hex/String转换|`hex to string`, `string to hex`, `十六进制转字符串`, `字符串转十六进制`|√|
 |文本处理|`大小写转换`, `中英文标点转换`, `简繁转换`, `替换`, `字符统计`, `行去重`, `添加行号`, `行排序`, `过滤行首尾不可见字符`,`过滤空行`|√|
-|html编码|`html编码`|√|
-|签名/验签|`签名`,`验签`,`RSA`|√|
+|html编码|-|√|
+|原码/反码/补码|`生成`|√|
+|ARM/HEX|`互转`|×|
 
 ## 第三方开源库
 
