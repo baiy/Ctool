@@ -47,19 +47,20 @@ export default {
             const sm2 = require('sm-crypto').sm2
             if (this.current.input) {
                 try {
+                    let output = ""
                     switch (this.current.type) {
                         case "AES":
                         case "DES":
                         case "RC4":
                         case "Rabbit":
-                        case "TripleDes":
+                        case "TripleDES":
                             if (v === "encrypt") {
-                                this.current.output = crypto[this.current.type].encrypt(
+                                output = crypto[this.current.type].encrypt(
                                     this.current.input,
                                     this.current.password
                                 ).toString();
                             } else {
-                                this.current.output = crypto[this.current.type].decrypt(
+                                output = crypto[this.current.type].decrypt(
                                     this.current.input,
                                     this.current.password
                                 ).toString(crypto.enc.Utf8);
@@ -67,22 +68,24 @@ export default {
                             break;
                         case "SM2":
                             if (v === "encrypt") {
-                                this.current.output = sm2.doEncrypt(
+                                output = sm2.doEncrypt(
                                     this.current.input,
                                     this.current.password,
                                     this.current.sm2CipherMode
                                 );
                             } else {
-                                this.current.output = sm2.doDecrypt(
+                                output = sm2.doDecrypt(
                                     this.current.input,
                                     this.current.password,
                                     this.current.sm2CipherMode
                                 );
                             }
                             break;
-                        default:
-                            return;
                     }
+                    if (!output) {
+                        throw new Error("output null")
+                    }
+                    this.current.output = output
                 } catch (e) {
                     return this.$Message.error(
                         this.$t('encrypt_failed', [e.message]).toString()
@@ -132,7 +135,7 @@ export default {
                 type: "AES",
                 operation: ""
             },
-            type: ["AES", "DES", "RC4", "Rabbit", "TripleDes", "SM2"],
+            type: ["AES", "DES", "RC4", "Rabbit", "TripleDES", "SM2"],
             inputHeight: 100,
             outputHeight: 100
         }
