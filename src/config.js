@@ -53,7 +53,6 @@ const tool = [
     {'name': 'unit', 'cat': ['other']},
     {'name': 'time', 'cat': ['other']},
     {'name': 'uuid', 'cat': ['generate']},
-    {'name': 'jsonToObject', 'cat': ['conversion','generate']},
     {'name': 'ascii', 'cat': ['conversion']},
     {'name': 'variableConversion', 'cat': ['conversion']},
     {'name': 'jwt', 'cat': ['encoder_decoder']},
@@ -95,9 +94,8 @@ const utools = {
         ],
         qrCode: [
             {
-                "type": "regex",
-                "match": "/[a-zA-z]+://[^\\s]*/i",
-                "minLength": 8,
+                "type": "over",
+                "minLength": 1,
                 "feature": 'generate' // 适配工具内功能
 
             },
