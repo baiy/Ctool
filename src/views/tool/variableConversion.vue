@@ -7,7 +7,7 @@
                 </input-block>
             </Col>
             <Col span="6" v-for="(item,key) in resultColumns" :key="key" :style="`margin-top: ${key > 2 ? '10px' : '0'}`">
-                <input-block top="4px" type="default" :text="item.title" @on-default-right-bottom-click="()=>copy(item.key)">
+                <input-block top="4px" type="default" :text="item.title" @on-default-right-bottom-click="()=>$copy(output[item.key])">
                     <autoHeightTextarea :height="key > 2 ? height2 : height1" :value="output[item.key]" :placeholder="item.title" />
                 </input-block>
             </Col>
@@ -43,9 +43,6 @@ export default {
         this.$initToolData('input')
     },
     methods: {
-        copy(type) {
-            this.$clipboardCopy(this.output[type], true);
-        },
         resize(height) {
             this.height1 = Math.ceil(height/2);
             this.height2 = height - this.height1 - 10;

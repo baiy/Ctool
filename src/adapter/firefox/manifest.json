@@ -1,6 +1,6 @@
 {
-    "name": "Ctool 程序开发常用工具",
-    "description": "程序开发常用工具,哈希/加解密/编码转换/时间戳/二维码/拼音/IP查询/代码优化/Unicode/正则等...",
+    "name": "__MSG_main_manifest_name__",
+    "description": "__MSG_main_manifest_description__",
     "version": "##version##",
     "author": "wo@baiy.org",
     "homepage_url": "https://github.com/baiy/Ctool",
@@ -8,9 +8,10 @@
     "manifest_version": 2,
     "browser_action": {
         "default_icon": "img/icon_chrome.png",
-        "default_title": "常用开发工具",
+        "default_title":  "__MSG_main_manifest_default_title__",
         "default_popup": "index.html"
     },
+    "default_locale": "zh_CN",
     "background": {
         "scripts": ["background.js"]
     },
@@ -28,7 +29,7 @@
     "commands": {
         "_execute_browser_action": {},
         "panel": {
-            "description": "打开独立工具窗口"
+            "description": "__MSG_main_manifest_commands_panel_description__"
         }
     }
 }

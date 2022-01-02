@@ -5,7 +5,9 @@
     "ui_views": "View",
     "ui_load": "Loading",
     "ui_close": "Close",
-    "ui_copy_text_ok": "Result Copied ^o^",
+    "ui_issues": "Issues Feedback",
+    "ui_open_full": "Open Full Screen Tab",
+    "ui_copy_text_ok": "Copy Success ^o^",
     "ui_copy_image_ok": "Image Copied ^o^",
     // views
     "setting_language": "Language",
@@ -61,7 +63,6 @@
     "tool_unit": "Unit Convert",
     "tool_time": "Time Calculator",
     "tool_uuid": "UUID",
-    "tool_jsonToObject": "JSON to Object",
     "tool_ascii": "ASCII",
     "tool_variableConversion": "Variable Name",
     "tool_jwt": "JWT",
@@ -72,5 +73,10 @@
     "tool_armConverter": "ARM/HEX",
     // other
     "css_main_category_item_style": "padding: 0 10px",
-    "editor_line_wrapping": "Line Wrapping"
+    "editor_line_wrapping": "Line Wrapping",
+    // manifest
+    "manifest_name": "Ctool Commonly Used Developer Tools",
+    "manifest_description": "Commonly Used Developer Tools: Hash/Encrypt/Decrypt/Code Convert/Timestamp/Qrcode/IP Query/Code Formatter/Unicode/Regex/...",
+    "manifest_default_title": "Commonly Used Developer Tools",
+    "manifest_commands_panel_description": "Open Popup Tool Winodws"
 }

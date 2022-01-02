@@ -19,5 +19,12 @@
     "day": "日",
     "hour": "小时",
     "minute": "分钟",
-    "second": "秒"
+    "second": "秒",
+    analyze: "时间分析",
+    analyze_year: "年",
+    analyze_quarter: "季度",
+    analyze_month: "月",
+    analyze_year_output: "{year}年:{quarter}季度,{weekOfYear}周,{dayOfYear}天,{hourOfYear}小时,{minuteOfYear}分钟,{secondOfYear}秒",
+    analyze_quarter_output: "{quarter}季度:{weekOfQuarter}周,{dayOfQuarter}天,{hourOfQuarter}小时,{minuteOfQuarter}分钟,{secondOfQuarter}秒",
+    analyze_month_output: "{month}月:{weekOfMonth}周,{hourOfMonth}小时,{minuteOfMonth}分钟,{secondOfMonth}秒"
 }

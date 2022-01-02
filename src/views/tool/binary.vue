@@ -14,17 +14,17 @@
             </Col>
             <Col span="16">
                 <input-block top="5px" :text="$t('binary_true_form')"
-                             @on-default-right-bottom-click="()=>copy(result('trueForm'))">
+                             @on-default-right-bottom-click="()=>$copy(result('trueForm'))">
                     <autoHeightTextarea :value="result('trueForm')" :height="outputHeight"
                                         :placeholder="$t('binary_true_form')" style="margin-bottom: 10px"/>
                 </input-block>
                 <input-block top="5px" :text="$t('binary_inverse')"
-                             @on-default-right-bottom-click="()=>copy(result('inverse'))">
+                             @on-default-right-bottom-click="()=>$copy(result('inverse'))">
                     <autoHeightTextarea :value="result('inverse')" :height="outputHeight"
                                         :placeholder="$t('binary_inverse')" style="margin-bottom: 10px"/>
                 </input-block>
                 <input-block top="5px" :text="$t('binary_complement')"
-                             @on-default-right-bottom-click="()=>copy(result('complement'))">
+                             @on-default-right-bottom-click="()=>$copy(result('complement'))">
                     <autoHeightTextarea :value="result('complement')" :height="outputHeight"
                                         :placeholder="$t('binary_complement')"/>
                 </input-block>
@@ -48,11 +48,6 @@ export default {
         })
     },
     methods: {
-        copy(data) {
-            if (data) {
-                this.$clipboardCopy(data)
-            }
-        },
         resize(height) {
             this.inputHeight = height
             this.outputHeight = Math.ceil((height - 20) / 3)

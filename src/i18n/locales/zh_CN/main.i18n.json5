@@ -5,7 +5,9 @@
     "ui_views": "查看",
     "ui_load": "加载",
     "ui_close": "关闭",
-    "ui_copy_text_ok": "结果已复制 ^o^",
+    "ui_issues": "问题反馈",
+    "ui_open_full": "打开全屏窗口",
+    "ui_copy_text_ok": "复制成功 ^o^",
     "ui_copy_image_ok": "图片已复制 ^o^",
     // 界面
     "setting_language": "语言",
@@ -56,12 +58,11 @@
     "tool_randomString": "随机字符生成",
     "tool_serializeConversion": "序列化转换",
     "tool_diffs": "文本比对",
-    "tool_crontab": "crontab",
-    "tool_websocket": "websocket",
+    "tool_crontab": "Crontab",
+    "tool_websocket": "Websocket",
     "tool_unit": "单位换算",
     "tool_time": "时间计算器",
     "tool_uuid": "UUID生成",
-    "tool_jsonToObject": "JSON转实体类",
     "tool_ascii": "ASCII",
     "tool_variableConversion": "变量名",
     "tool_jwt": "JWT解码",
@@ -72,5 +73,10 @@
     "tool_armConverter": "ARM/HEX",
     // 其他
     "css_main_category_item_style": "padding: 0 20px",
-    "editor_line_wrapping": "自动换行"
+    "editor_line_wrapping": "自动换行",
+    // manifest
+    "manifest_name": "Ctool 程序开发常用工具",
+    "manifest_description": "程序开发常用工具,哈希/加解密/编码转换/时间戳/二维码/拼音/IP查询/代码优化/Unicode/正则等...",
+    "manifest_default_title": "常用开发工具",
+    "manifest_commands_panel_description": "打开独立工具窗口",
 }

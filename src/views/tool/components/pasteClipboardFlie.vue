@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="display: inline">
         <slot></slot>
     </div>
 </template>

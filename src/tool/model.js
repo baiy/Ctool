@@ -2,7 +2,7 @@ import config from './config'
 import clipboard from './clipboard'
 import setting from './setting'
 import cache from './cache'
-import history from './history.js'
+import history,{getForceLoadHistory} from './history.js'
 import _ from "lodash";
 
 let fixeInputData;
@@ -52,12 +52,12 @@ const debounceSaveToolDataMethod = _.debounce(function () {
 }, 1000)
 
 
-const appendData = async function (check = "") {
+const appendData = async function (check = "",all) {
     const result = (data = "") => {
         if (data) {
             if (
                 !check
-                || (_.isFunction(check) && check(data)) // 函数校验
+                || (_.isFunction(check) && check(data,all)) // 函数校验
             ) {
                 return data
             }
@@ -89,6 +89,14 @@ export const plugin = {
     install: function (Vue) {
         Vue.prototype.$initToolData = function (input = "", inputCheck = "", field = "current", isLoadHistory = true) {
             let current = _.cloneDeep(this[field])
+            //强制使用历史数据
+            let forceHistory = getForceLoadHistory(model.getCurrentTool())
+            if (forceHistory){
+                Object.assign(current, forceHistory)
+                this[field] = current
+                return;
+            }
+
             let inputHistory = ""
             let inputDefault = ""
             let inputAppend = ""
@@ -99,11 +107,11 @@ export const plugin = {
             // 历史数据
             if (isLoadHistory) {
                 let history = this.$getToolData()
+                Object.assign(current, history)
                 if (input && (input in history)) {
                     inputHistory = history[input]
                     delete history[input]
                 }
-                Object.assign(current, this.$getToolData())
             }
 
             if (!input) {
@@ -112,13 +120,13 @@ export const plugin = {
             }
 
             // 追加剪贴板等数据
-            appendData(inputCheck).then((append) => {
+            appendData(inputCheck,current).then((append) => {
                 inputAppend = append
                 this[field] = Object.assign(
                     current,
                     {
-                        // 历史数据 > 追加数据 > 默认数据
-                        [input]: inputHistory ? inputHistory : (inputAppend ? inputAppend : inputDefault)
+                        // 追加数据 > 历史数据 > 默认数据
+                        [input]: inputAppend ? inputAppend : (inputHistory ? inputHistory : inputDefault)
                     }
                 )
             })
@@ -134,7 +142,12 @@ export const plugin = {
             debounceSaveToolDataMethod()
         }
         Vue.prototype.$clipboardCopy = function (data, force = false) {
-            if ((setting.autoSaveCopy() || force) && data) {
+            if ((setting.autoSaveCopy() || force)) {
+                this.$copy(data)
+            }
+        }
+        Vue.prototype.$copy = function (data) {
+            if (data) {
                 clipboard.copy(data, () => {
                     this.$Message.success(this.$t('main_ui_copy_text_ok').toString())
                 })

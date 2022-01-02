@@ -16,6 +16,8 @@ import cache from "../tool/cache";
 import user from "../tool/user";
 import axios from "axios";
 import _ from "lodash";
+import {dispatchWindowResize} from '../tool/event'
+import {getCurrentLocale} from "../i18n/index";
 
 const CACHE_NAME = 'notice_item';
 const CACHE_EXPIRY = 3600 * 24;
@@ -86,6 +88,7 @@ export default {
                         url: 'https://www.baiy.org/chrome_tool/notice/',
                         responseType: 'json',
                         params: {
+                            i: getCurrentLocale(),
                             v: env('version'),
                             p: env('platform'),
                             u: user.uid(),
@@ -114,9 +117,9 @@ export default {
             if (this.listData.length > 1) {
                 this.timer = setInterval(this.scrollAnimate, 6000);
             }
-            if (this.listData.length > 0) {
-                this.$parent['setShow']()
-            }
+            this.$nextTick(()=>{
+                dispatchWindowResize()
+            })
         },
         scrollAnimate() {
             this.animateUp = true

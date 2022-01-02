@@ -1,7 +1,0 @@
-{
-    "input": "输入",
-    "output":"输出",
-    "type_error": "转换类型错误",
-    "format": "格式化",
-    "error":"错误:{0}"
-}

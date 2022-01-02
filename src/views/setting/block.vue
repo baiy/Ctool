@@ -34,9 +34,11 @@
 </template>
 
 <script>
-import {isChromium, isFirefox, isUtools, openUrl, setDisplayMode} from '../../helper'
+import {isChromium, isFirefox, isUtools, openUrl} from '../../helper'
+import theme from '../../tool/theme'
 import {LOCALE_LISTS, setCurrentLocale} from '../../i18n'
 import setting from '../../tool/setting'
+import {dispatchI18nChange} from '../../tool/event'
 import common from "./common"
 export default {
     components: {
@@ -59,10 +61,11 @@ export default {
     },
     watch: {
         display_mode(value) {
-            setDisplayMode(value)
+            theme(value)
         },
         locale(value) {
             setCurrentLocale(value)
+            dispatchI18nChange()
         }
     },
     created() {

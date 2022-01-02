@@ -47,6 +47,34 @@ const removeDir = function (directoryPath) {
     }
 };
 
+
+const chromiumAndFirefoxI18nBuild = ()=>{
+    // 生成语言包
+    const locales = i18nBuild.getLocales().detail
+    const localeDir = path.join(__dirname, '../../public/_locales/')
+    fs.mkdirSync(localeDir);
+    Object.keys(locales).forEach((_locale) => {
+        fs.mkdirSync(path.join(localeDir, _locale));
+        let messages = {}
+        Object.keys(locales[_locale]).forEach((key) => {
+            let message = {
+                message: locales[_locale][key]['message'].replace(new RegExp("{.+?}", 'g'), (item) => {
+                    return `$${item.replace("{", "").replace("}", "").toUpperCase()}$`;
+                })
+            }
+            if ("placeholders" in locales[_locale][key]) {
+                message.placeholders = {}
+                let index = 1;
+                locales[_locale][key]['placeholders'].forEach((placeholder) => {
+                    message.placeholders[placeholder] = {content: "$" + (index++)}
+                })
+            }
+            messages[key] = message
+        })
+        fs.writeFileSync(path.join(localeDir, `${_locale}/messages.json`), JSON.stringify(messages, null, 4));
+    })
+}
+
 const chromeConfigWrite = {
     remove() {
     },
@@ -91,29 +119,7 @@ const chromiumConfigWrite = {
             path.join(__dirname, '../../public/background.js')
         );
         // 生成语言包
-        const locales = i18nBuild.getLocales().detail
-        const localeDir = path.join(__dirname, '../../public/_locales/')
-        fs.mkdirSync(localeDir);
-        Object.keys(locales).forEach((_locale) => {
-            fs.mkdirSync(path.join(localeDir, _locale));
-            let messages = {}
-            Object.keys(locales[_locale]).forEach((key) => {
-                let message = {
-                    message: locales[_locale][key]['message'].replace(new RegExp("{.+?}", 'g'), (item) => {
-                        return `$${item.replace("{", "").replace("}", "").toUpperCase()}$`;
-                    })
-                }
-                if ("placeholders" in locales[_locale][key]) {
-                    message.placeholders = {}
-                    let index = 1;
-                    locales[_locale][key]['placeholders'].forEach((placeholder) => {
-                        message.placeholders[placeholder] = {content: "$" + (index++)}
-                    })
-                }
-                messages[key] = message
-            })
-            fs.writeFileSync(path.join(localeDir, `${_locale}/messages.json`), JSON.stringify(messages, null, 4));
-        })
+        chromiumAndFirefoxI18nBuild()
     }
 }
 
@@ -121,6 +127,8 @@ const firefoxConfigWrite = {
     remove() {
         removeFile(path.join(__dirname, '../../public/manifest.json'));
         removeFile(path.join(__dirname, '../../public/background.js'));
+        // 移除语言包目录
+        removeDir(path.join(__dirname, '../../public/_locales/'))
     },
     write() {
         if (!IS_FIREFOX) {
@@ -134,6 +142,8 @@ const firefoxConfigWrite = {
             path.join(__dirname, '../../public/manifest.json'),
             fs.readFileSync(path.join(__dirname, "../adapter/firefox/manifest.json")).toString().replace(/##version##/g, process.env.npm_package_version)
         );
+        // 生成语言包
+        chromiumAndFirefoxI18nBuild()
     }
 }
 

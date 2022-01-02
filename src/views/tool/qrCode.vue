@@ -21,13 +21,9 @@
             <TabPane :label="$t('qrCode_reader_title')" name="reader">
                 <Row :gutter="16">
                     <Col span="14">
-                        <input-block style="margin-bottom: 10px" bottom="0px" right="10px" class="tool-reader-input">
-                            <pasteClipboardFlie @on-paste-image="handleUpload">
-                                <Input v-model="current.readerInput" :rows="5" type="textarea" :placeholder="$t('qrCode_reader_input')"></Input>
-                            </pasteClipboardFlie>
-                            <Upload slot="extra" action="#" :before-upload="handleUpload">
-                                <Button size="small" type="primary" icon="ios-cloud-upload-outline">{{ $t('qrCode_reader_upload') }}</Button>
-                            </Upload>
+                        <input-block style="margin-bottom: 10px" class="tool-reader-input">
+                            <Input v-model="current.readerInput" :rows="5" type="textarea" :placeholder="$t('qrCode_reader_input')" />
+                            <updateFile slot="extra" type="image" @success="handleUpload" />
                         </input-block>
                         <heightResize :reduce="52" :append="['.tool-reader-input']">
                             <autoHeightTextarea :value="readerOutput" :placeholder="$t('qrCode_reader_output')" />
@@ -48,13 +44,13 @@ import generator from 'qrcode'
 import qrcodeParser from 'qrcode-parser'
 import model from '../../tool/model'
 import Jimp from 'jimp';
-import pasteClipboardFlie from './components/pasteClipboardFlie';
+import updateFile from './components/updateFile';
 import heightResize from "./components/heightResize";
 import autoHeightTextarea from "./components/autoHeightTextarea";
 
 export default {
     components: {
-        pasteClipboardFlie,
+        updateFile,
         heightResize,
         autoHeightTextarea
     },

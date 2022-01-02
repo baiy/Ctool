@@ -5,23 +5,35 @@
                 <div slot="prepend" style="width: 70px"><strong>{{ $t('decimalConvert_input') }}</strong></div>
                 <Select v-model="current.decimal" slot="append" style="width:100px">
                     <OptionGroup :label="$t('decimalConvert_input_type_common')">
-                        <Option v-for="v in type.common" :value="v" :key="v">{{ $t('decimalConvert_base',[v]) }}</Option>
+                        <Option v-for="v in type.common" :value="v" :key="v">{{
+                                $t('decimalConvert_base', [v])
+                            }}
+                        </Option>
                     </OptionGroup>
                     <OptionGroup :label="$t('decimalConvert_input_type_other')">
-                        <Option v-for="v in type.other" :value="v" :key="v">{{ $t('decimalConvert_base',[v]) }}</Option>
+                        <Option v-for="v in type.other" :value="v" :key="v">{{
+                                $t('decimalConvert_base', [v])
+                            }}
+                        </Option>
                     </OptionGroup>
                 </Select>
             </Input>
         </option-block>
         <option-block v-for="n in [1,2,3,4,5,6]" :key="n">
             <Input v-model="current['resultOutput'+n]" readonly>
-                <div slot="prepend" style="width: 70px">{{ $t('decimalConvert_result',[n]) }}</div>
+                <div slot="prepend" style="width: 70px">{{ $t('decimalConvert_result', [n]) }}</div>
                 <Select slot="append" v-model="current['resultDecimal'+n]" style="width:100px">
                     <OptionGroup :label="$t('decimalConvert_input_type_common')">
-                        <Option v-for="v in type.common" :value="v" :key="v">{{ $t('decimalConvert_base',[v]) }}</Option>
+                        <Option v-for="v in type.common" :value="v" :key="v">{{
+                                $t('decimalConvert_base', [v])
+                            }}
+                        </Option>
                     </OptionGroup>
                     <OptionGroup :label="$t('decimalConvert_input_type_other')">
-                        <Option v-for="v in type.other" :value="v" :key="v">{{ $t('decimalConvert_base',[v]) }}</Option>
+                        <Option v-for="v in type.other" :value="v" :key="v">{{
+                                $t('decimalConvert_base', [v])
+                            }}
+                        </Option>
                     </OptionGroup>
                 </Select>
             </Input>
@@ -42,21 +54,40 @@ import Radix from './library/radix.js'
 const alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_@";
 export default {
     created() {
-        this.$initToolData('input')
+        this.$initToolData('input',(input,current)=>{
+            try {
+                const radix = new Radix(current.alphabet);
+                radix.convent(input, current.decimal, 2, true)
+            } catch (e) {
+                return false;
+            }
+            return true
+        })
     },
     watch: {
         convert: function (val) {
             if (val.alphabet.length !== 64) {
-                return this.$Message.error(this.$t('decimalConvert_alphabet_length_error').toString());
+                for (let n = 1; n <= 6; n++) {
+                    this.current['resultOutput' + n] = this.$t('decimalConvert_alphabet_length_error').toString()
+                }
+                return;
             }
             if (!val.input) {
                 return;
             }
             const radix = new Radix(val.alphabet);
+            let isError = false;
             for (let n = 1; n <= 6; n++) {
-                this.current['resultOutput' + n] = radix.convent(val.input, val.decimal, val['resultDecimal' + n])
+                try {
+                    this.current['resultOutput' + n] = radix.convent(val.input, val.decimal, val['resultDecimal' + n], true)
+                } catch (e) {
+                    isError = true
+                    this.current['resultOutput' + n] = e.toString()
+                }
             }
-            this.$saveToolData(this.current);
+            if (!isError){
+                this.$saveToolData(this.current);
+            }
         },
     },
     computed: {

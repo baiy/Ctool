@@ -34,7 +34,7 @@
                         <span slot="prepend">{{ $t('timestamp_output') }}</span>
                     </Input>
                     <template slot="extra">
-                        <Button size="small" type="primary" @click="()=>copy(output)">{{
+                        <Button size="small" type="primary" @click="()=>$copy(output)">{{
                                 $t('timestamp_copy')
                             }}
                         </Button>
@@ -43,7 +43,7 @@
             </option-block>
             <Table :columns="exampleColumns" stripe border size="small" :data="example">
                 <template slot-scope="{ row }" slot="_value">
-                    <Button size="small" type="text" @click="()=>copy(row.value)">{{ row.value }}</Button>
+                    <Button size="small" type="text" @click="()=>$copy(row.value)">{{ row.value }}</Button>
                 </template>
             </Table>
         </div>
@@ -139,11 +139,6 @@ export default {
         }
     },
     methods: {
-        copy(data) {
-            if (data) {
-                this.$clipboardCopy(data, true)
-            }
-        },
         currentTime(type) {
             if (type === "normalSecond") {
                 this.current.input = moment().format('YYYY-MM-DD HH:mm:ss')

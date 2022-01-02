@@ -41,7 +41,7 @@
                                         {{ item.time }}
                                     </div>
                                     <div class="item">
-                                        <Icon style="cursor: pointer" type="md-copy" @click="copy(item.content)"/>
+                                        <Icon style="cursor: pointer" type="md-copy" @click="$copy(item.content)"/>
                                         {{ item.content }}
                                     </div>
                                 </div>
@@ -114,11 +114,8 @@ export default {
                 log.scrollTop = log.scrollHeight;
             })
         },
-        copy(s) {
-            this.$clipboardCopy(s);
-        },
         copyAll() {
-            this.copy(JSON.stringify(this.lists));
+            this.$copy(JSON.stringify(this.lists));
         },
         send() {
             try {

@@ -8,14 +8,15 @@ import {plugin as modelPlugin} from './tool/model'
 import cache from './tool/cache'
 import setting from './tool/setting'
 import App from './tool.vue'
-import {isUtools,setDisplayMode,isWeb} from './helper'
+import {isUtools,isWeb} from './helper'
+import theme from './tool/theme'
 import {setCurrentLocale,i18n} from "./i18n";
 
 const run = () => {
     // 设置语言环境
     setCurrentLocale(setting.locale())
     // 设置显示模式
-    setDisplayMode(setting.displayMode())
+    theme(setting.displayMode())
 
     Vue.config.productionTip = false
 
@@ -41,12 +42,9 @@ const run = () => {
         const page = document.getElementById('page')
         page.style.width = 'auto'
         page.style.height = 'auto'
-        page.style.minHeight = '550px'
     }
     if (isUtools) {
         window.utools.onPluginReady(() => {
-            // 重设高度
-            window.utools.setExpendHeight(582)
             run()
         })
     } else {

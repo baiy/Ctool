@@ -1,7 +1,8 @@
 import VueI18n from 'vue-i18n'
 import Vue from 'vue'
 import {getMessage as chromiumGetMessage} from "../adapter/chromium/helper"
-import {isChromium} from "../helper";
+import {getMessage as firefoxGetMessage} from "../adapter/firefox/helper"
+import {isChromium,isFirefox} from "../helper";
 import locales from "./locales/build.js";
 
 Vue.use(VueI18n)
@@ -35,7 +36,7 @@ const translate = (code, key, values = {}) => {
     if (!key) return '';
 
     let locale = code === "_default" ? DEFAULT_LOCALE : code;
-    if (isChromium && code === "_default") {
+    if (code === "_default" && (isChromium || isFirefox) ) {
         let placeholders = []
         if (
             (locale in LOCALE_DETAIL)
@@ -44,7 +45,12 @@ const translate = (code, key, values = {}) => {
         ) {
             placeholders = LOCALE_DETAIL[locale][key]['placeholders']
         }
-        return chromiumGetMessage(key, values, placeholders)
+        if (isChromium){
+            return chromiumGetMessage(key, values, placeholders)
+        }
+        if (isFirefox){
+            return firefoxGetMessage(key, values, placeholders)
+        }
     }
 
     let text = getMessage(code, key);

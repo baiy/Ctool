@@ -33,19 +33,19 @@
                     </div>
                 </Card>
                 <heightResize :reduce="45" :append="['.page-option-output-block']" @resize="resize">
-                    <input-block :text="'ARM64'+endianPlaceholder" @on-default-right-bottom-click="()=>copy(outputArm64)">
+                    <input-block :text="'ARM64'+endianPlaceholder" @on-default-right-bottom-click="()=>$copy(outputArm64)">
                         <autoHeightTextarea :value="outputArm64" :height="outputHeight" :placeholder="'ARM64'+endianPlaceholder"/>
                     </input-block>
-                    <input-block :text="'ARM'+endianPlaceholder" @on-default-right-bottom-click="()=>copy(outputArm)">
+                    <input-block :text="'ARM'+endianPlaceholder" @on-default-right-bottom-click="()=>$copy(outputArm)">
                         <autoHeightTextarea style="margin-top: 5px" :value="outputArm" :height="outputHeight" :placeholder="'ARM'+endianPlaceholder"/>
                     </input-block>
-                    <input-block :text="'ARM Big Endian'" @on-default-right-bottom-click="()=>copy(outputArmBigEndian)" v-if="!isArmToHex">
+                    <input-block :text="'ARM Big Endian'" @on-default-right-bottom-click="()=>$copy(outputArmBigEndian)" v-if="!isArmToHex">
                         <autoHeightTextarea style="margin-top: 5px" :value="outputArmBigEndian" :height="outputHeight" :placeholder="'ARM Big Endian'"/>
                     </input-block>
-                    <input-block :text="'THUMB'+endianPlaceholder" @on-default-right-bottom-click="()=>copy(outputThumb)">
+                    <input-block :text="'THUMB'+endianPlaceholder" @on-default-right-bottom-click="()=>$copy(outputThumb)">
                         <autoHeightTextarea style="margin-top: 5px" :value="outputThumb" :height="outputHeight" :placeholder="'THUMB'+endianPlaceholder"/>
                     </input-block>
-                    <input-block :text="'THUMB Big Endian'" @on-default-right-bottom-click="()=>copy(outputThumbBigEndian)" v-if="!isArmToHex">
+                    <input-block :text="'THUMB Big Endian'" @on-default-right-bottom-click="()=>$copy(outputThumbBigEndian)" v-if="!isArmToHex">
                         <autoHeightTextarea style="margin-top: 5px" :value="outputThumbBigEndian" :height="outputHeight" :placeholder="'THUMB Big Endian'"/>
                     </input-block>
                 </heightResize>
@@ -102,11 +102,6 @@ export default {
         }
     },
     methods: {
-        copy(data) {
-            if (data) {
-                this.$clipboardCopy(data)
-            }
-        },
         resize(height) {
             this.pageOutputHeight = height;
         },

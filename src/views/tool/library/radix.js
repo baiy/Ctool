@@ -5,8 +5,14 @@ class Radix {
         BigNumber.config({ALPHABET: formatter})
     }
 
-    convent(base, source, target) {
+    convent(base, source, target, debug = false) {
+        if (debug){
+            BigNumber.DEBUG = true
+        }
         let sourceNum = new BigNumber(base, source);
+        if (debug){
+            BigNumber.DEBUG = false
+        }
         return sourceNum.toString(target);
     }
 }

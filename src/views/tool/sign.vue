@@ -148,7 +148,7 @@ export default {
         },
         copy(type){
             if ((type in this.current) && this.current[type]){
-                this.$clipboardCopy(this.current[type],true);
+                this.$copy(this.current[type],true);
             }
         }
     },

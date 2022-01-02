@@ -1,10 +1,18 @@
-// 定义分类点击事件
-export const CATEGORY_CLICK_EVENT_NAME = "ctoolCategoryClick"
-export const dispatchCategoryClickEvent = (name) => {
-    const event = new CustomEvent(CATEGORY_CLICK_EVENT_NAME, {detail: {name}})
-    window.dispatchEvent(event);
+// 窗口大小调整事件
+export const WINDOW_RESIZE = "ctoolWindowResize"
+// 语言地区变化事件
+export const I18N_CHANGE = "ctoolI18nChange"
+export const dispatchWindowResize = () => {
+    window.dispatchEvent(new CustomEvent(WINDOW_RESIZE));
+}
+export const dispatchI18nChange = () => {
+    window.dispatchEvent(new CustomEvent(I18N_CHANGE));
 }
 
+// 原生窗口调整事件
+window.addEventListener("resize", ()=>{
+    dispatchWindowResize()
+});
 
 
 

@@ -10,26 +10,6 @@
                     {{ $t('main_category_'+cat.name) }}
                 </template>
             </MenuItem>
-            <MenuItem style="padding: 0 5px;float: right" name="_new" v-if="!isUtools">
-                <Icon type="md-expand" :size="24"/>
-            </MenuItem>
-            <MenuItem style="padding: 0 5px;float: right" name="_feedback">
-                <Icon type="md-help-circle" :size="24"/>
-            </MenuItem>
-            <MenuItem style="padding: 0 5px;float: right" name="_setting">
-                <Icon type="md-settings" :size="24"/>
-            </MenuItem>
-            <MenuItem style="padding: 0 5px;float: right" name="_about">
-                <Icon type="logo-github" :size="24"/>
-            </MenuItem>
-            <MenuItem style="padding: 0 5px;float: right" name="_history">
-                <Badge v-if="historyLength>0" dot :offset="[10,-3]">
-                    <Icon type="md-time" :size="24"/>
-                </Badge>
-                <template v-else>
-                    <Icon type="md-time" :size="24"/>
-                </template>
-            </MenuItem>
         </Menu>
         <RadioGroup class="tool-select-block" :value="currentTool" @on-change="toolSelect" style="margin: 10px 0 10px 20px;line-height: 30px;">
             <Radio :label="tool.name" v-for="(tool) in tools" :key="tool.name">
@@ -42,42 +22,22 @@
             </Radio>
         </RadioGroup>
         <div>
-            <router-view v-if="isRouterAlive" :key="$route.path + $route.query.t"/>
+            <router-view ref="routerView" v-if="isRouterAlive" :key="$route.path + $route.query.t"/>
         </div>
-        <Drawer :title="$t('main_tool_'+currentTool)+' - '+$t('main_history')" v-model="historyShow" :width="100">
-            <Table ref="historyTable" border :columns="historyColumns" :data="historyData" :height="historyTableHeight">
-                <template slot-scope="{ row }" slot="_value">
-                    <div>{{ historyValue(row.value) }}}</div>
-                </template>
-                <template slot-scope="{ index }" slot="_op">
-                    <Button type="primary" size="small" @click="historyView(index)">{{ $t('main_ui_views') }}</Button>
-                    <Button type="primary" style="margin-left: 5px" @click="historyLoad(index)" size="small">{{ $t('main_ui_load') }}</Button>
-                </template>
-            </Table>
-            <div class="drawer-footer">
-                <Button type="primary" @click="historyClear">{{ $t('main_history_clear') }}</Button>
-            </div>
-        </Drawer>
-        <Drawer :title="$t('main_ui_setting')" v-model="settingShow" :width="400">
-            <setting-block v-if="settingShow"></setting-block>
-        </Drawer>
         <bottom-block/>
     </div>
 </template>
 
 <script>
 import config from './tool/config'
-import {dispatchCategoryClickEvent} from './tool/event'
+import {dispatchWindowResize, I18N_CHANGE} from './tool/event'
 import instance from './tool/instance'
-import BottomBlock from './bottom'
-import settingBlock from "./views/setting/block"
+import BottomBlock from './components/bottom'
 import model from './tool/model'
-import historyFactory, {setLoadHistoryIndex} from './tool/history'
-import {isUtools, openUrl} from './helper'
+import {isUtools} from './helper'
 
 export default {
     components: {
-        "setting-block": settingBlock,
         "bottom-block": BottomBlock
     },
     data() {
@@ -87,38 +47,11 @@ export default {
             category: config.category,
             currentCategory: '',
             currentTool: '',
-            historyData: [],
-            settingShow: false,
-            historyShow: false,
-            historyColumns: [
-                {
-                    title: this.$t('main_history_time'),
-                    key: 'time',
-                    width: 180
-                },
-                {
-                    title: this.$t('main_history_data'),
-                    slot: '_value',
-                    ellipsis: true,
-                },
-                {
-                    title: this.$t('main_history_op'),
-                    slot: '_op',
-                    width: 150
-                }
-            ],
         }
     },
     computed: {
         tools() {
             return config.getToolByCategory(this.currentCategory)
-        },
-        historyLength() {
-            return historyFactory(this.currentTool).length()
-        },
-        historyTableHeight() {
-            // 设置表格高度
-            return window.innerHeight - 140
         }
     },
     watch: {
@@ -130,6 +63,7 @@ export default {
     created() {
         if (this.isUtools) {
             window.utools.onPluginEnter(({code, payload, type}) => {
+                window.utools.showMainWindow()
                 let tool = "";
                 let feature = "";
                 if (code.indexOf('ctool-') !== -1) {
@@ -142,9 +76,8 @@ export default {
                 }
 
                 // 写入正则匹配数据到固定数据数据
-                if (type === "regex" && payload) {
+                if (["over","regex"].includes(type) && payload) {
                     model.setFixeInputData(payload)
-
                 }
                 if (feature) {
                     // 设置工具内功能
@@ -172,6 +105,10 @@ export default {
     },
     mounted() {
         instance.set(this)
+        window.addEventListener(I18N_CHANGE, ()=>{
+            this.$forceUpdate()
+            this.$refs.routerView.$forceUpdate()
+        });
     },
     methods: {
         reload() {
@@ -179,71 +116,12 @@ export default {
             this.$nextTick(() => (this.isRouterAlive = true))
         },
         categorySelect(name) {
-            switch (name) {
-                case '_feedback':
-                    openUrl('https://github.com/baiy/Ctool/issues')
-                    break
-                case '_about':
-                    openUrl('https://github.com/baiy/Ctool')
-                    break
-                case '_setting':
-                    this.settingShow = true;
-                    break
-                case '_new':
-                    openUrl(window.location.href)
-                    break
-                case '_history':
-                    this.history()
-                    break
-                default:
-                    this.currentCategory = name
-                    model.setCategoryHistory(name)
-                    this.currentTool = model.getToolHistory(this.currentCategory)
-                    this.$nextTick(()=>{
-                        dispatchCategoryClickEvent(name)
-                    })
-                    break
-            }
-        },
-        history() {
-            let history = historyFactory(this.currentTool)
-            if (history.length() < 1) {
-                return this.$Message.error(this.$t('main_history_null'))
-            }
-            this.historyData = history.all()
-            this.historyShow = true
-        },
-        historyValue(value) {
-            return JSON.stringify(value)
-        },
-        historyView(index) {
-            this.$Modal.info({
-                render: (h) => {
-                    return h('Input', {
-                        props: {
-                            type: "textarea",
-                            rows: 10,
-                            value: JSON.stringify(historyFactory(this.currentTool).get(index), null, "\t"),
-                        }
-                    })
-                },
-                width: 700,
-                okText: this.$t('main_ui_close')
+            this.currentCategory = name
+            model.setCategoryHistory(name)
+            this.currentTool = model.getToolHistory(this.currentCategory)
+            this.$nextTick(()=>{
+                dispatchWindowResize()
             })
-        },
-        historyClear() {
-            historyFactory(this.currentTool).clear()
-            this.historyShow = false;
-        },
-        historyLoad(index) {
-            setLoadHistoryIndex(index)
-            this.historyShow = false;
-            this.$router.push({
-                path: this.$router.currentRoute.fullPath,
-                query: {
-                    t: Date.now(),
-                },
-            });
         },
         toolSelect(name) {
             model.setToolHistory(this.currentCategory, name)
@@ -258,15 +136,3 @@ export default {
     },
 }
 </script>
-<style scoped>
-.drawer-footer {
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    border-top: 1px solid #e8e8e8;
-    padding: 10px 16px;
-    text-align: right;
-    background: #fff;
-}
-</style>

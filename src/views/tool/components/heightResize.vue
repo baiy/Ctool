@@ -4,7 +4,7 @@
     </div>
 </template>
 <script>
-import {CATEGORY_CLICK_EVENT_NAME} from '../../../tool/event'
+import {WINDOW_RESIZE} from '../../../tool/event'
 function getAbsoluteHeight(select) {
     let el = document.querySelector(select)
     if (el === null) {
@@ -72,12 +72,10 @@ export default {
         }
     },
     destroyed() {
-        window.removeEventListener("resize", this.reportWindowSize);
-        window.removeEventListener(CATEGORY_CLICK_EVENT_NAME, this.reportWindowSize);
+        window.removeEventListener(WINDOW_RESIZE, this.reportWindowSize);
     },
     mounted() {
-        window.addEventListener("resize", this.reportWindowSize);
-        window.addEventListener(CATEGORY_CLICK_EVENT_NAME, this.reportWindowSize);
+        window.addEventListener(WINDOW_RESIZE, this.reportWindowSize);
         this.resize();
     }
 };

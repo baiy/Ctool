@@ -1,14 +1,26 @@
 {
+
     "input": "Input",
-    "content_empty": "Please enter content",
+    "output": "Output",
+    "json_input_empty": "Please Enter Json Content",
     "error": "Exception:{0}",
     "format": "Format",
     "compress": "Compress",
     "escape": "Escape",
     "clear_escape": "Unescape",
+    "add_escape":"Add Escape",
+    "unicode":"Unicode",
     "unicode_to_zh": "Unicode->Zh",
     "zh_to_unicode": "Zh->Unicode",
-    "to_get": "To Get",
-    "get_to_json": "Get=>Json",
-    "clear": "Clear"
+    "complete": "Processing is complete",
+    "get": "Get Query",
+    "object":"To Object",
+    "csv": "CSV",
+    "table":"Html Table",
+    "add_quote":"Add Quote",
+    "column_name":"Column Name",
+    "json_type_json": "Json",
+    "json_type_keyed": "Keyed",
+    "json_type_array": "Array",
+    "json_type_column": "Column Array"
 }

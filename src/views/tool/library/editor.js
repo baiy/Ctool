@@ -14,6 +14,8 @@ import "codemirror/mode/css/css.js";
 import "codemirror/mode/xml/xml.js";
 import "codemirror/mode/sql/sql.js";
 import "codemirror/mode/php/php.js";
+import "codemirror/mode/ruby/ruby.js";
+import "codemirror/mode/python/python.js";
 import "codemirror/mode/clike/clike.js";
 import "codemirror/mode/go/go.js";
 import "codemirror/mode/vue/vue.js";
@@ -41,8 +43,10 @@ const modes = {
     scss: "text/x-scss",
     graphql: "graphql",
     java: "text/x-java",
+    ruby: "text/x-ruby",
     markdown: "text/x-markdown",
     php: "text/x-php",
+    python: "text/x-python",
     sql: "text/x-sql",
     yaml: "text/x-yaml",
     ts: "application/typescript",

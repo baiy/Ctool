@@ -36,7 +36,7 @@ export default {
                         this.current.output = convert('utf8', 'hex')(this.current.input);
                         break;
                     case "str":
-                        this.current.output = convert('hex', 'utf8')(this.current.input);
+                        this.current.output = convert('hex', 'utf8')(this.current.input.trim().replace(/\s+/g, ""));
                         break;
                     default:
                         return;
