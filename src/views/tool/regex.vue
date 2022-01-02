@@ -2,23 +2,26 @@
     <div>
         <Row :gutter="16" style="margin-bottom: 10px" class="page-option-block">
             <Col span="12">
-                <input-block :text="$t('regex_reference')" @on-default-right-bottom-click="reference">
-                    <Input v-model="current.input">
-                        <Select slot="prepend" @on-change="commonSelect" :placeholder="$t('regex_expression')"
-                                style="width:100px">
-                            <Option style="text-align: left" v-for="(v,k) in regex" :value="v.regex" :key="k">{{v.name}}
-                            </Option>
-                        </Select>
-                    </Input>
+                <input-block>
+                    <Input type="textarea" :rows="3" v-model="current.input" :placeholder="$t('regex_expression')" />
+                    <template slot="extra">
+                        <referenceZh @on-select="(regex)=>current.input=regex" v-if="locale === 'zh_CN'" />
+                        <referenceEn @on-select="(regex)=>current.input=regex" v-else />
+                    </template>
                 </input-block>
             </Col>
             <Col span="12">
                 <input-block>
-                    <Input v-model="current.replace" :disabled="current.isDelete">
-                        <span slot="prepend">{{ $t('regex_replace_content') }}</span>
-                    </Input>
+                    <Input v-model="current.replace" type="textarea" :rows="3" :placeholder="$t('regex_replace_content')" :disabled="current.isDelete === 1" />
                     <template slot="extra">
-                        <Checkbox v-model="current.isDelete">{{ $t('regex_delete') }}</Checkbox>
+                        <RadioGroup v-model="current.isDelete">
+                            <Radio :label="0">
+                                {{ $t('regex_replace') }}
+                            </Radio>
+                            <Radio :label="1">
+                                {{ $t('regex_delete') }}
+                            </Radio>
+                        </RadioGroup>
                     </template>
                 </input-block>
             </Col>
@@ -27,8 +30,7 @@
             <Row :gutter="16">
                 <Col span="12">
                     <input-block>
-                        <autoHeightTextarea :height="height" v-model="current.content"
-                                            :placeholder="$t('regex_input')"/>
+                        <autoHeightTextarea :height="height" v-model="current.content" :placeholder="$t('regex_input')"/>
                         <template slot="extra">
                             <Checkbox v-model="current.isGlobal">{{ $t('regex_global') }}</Checkbox>
                             <Checkbox v-model="current.isIgnoreCase">{{ $t('regex_ignore_case') }}</Checkbox>
@@ -36,27 +38,33 @@
                     </input-block>
                 </Col>
                 <Col span="12">
-                    <autoHeightTextarea :height="height" :value="output"
-                                        :placeholder="$t('regex_output')"/>
+                    <autoHeightTextarea :height="height" :value="output" :placeholder="$t('regex_output')"/>
                 </Col>
             </Row>
         </heightResize>
     </div>
 </template>
 <script>
-import {openUrl} from "../../helper";
 import autoHeightTextarea from "./components/autoHeightTextarea";
 import heightResize from "./components/heightResize";
+import referenceEn from "./components/regex/referenceEn";
+import referenceZh from "./components/regex/referenceZh";
+import {getCurrentLocale} from "../../i18n";
 
 export default {
     components: {
         autoHeightTextarea,
-        heightResize
+        heightResize,
+        referenceEn,
+        referenceZh
     },
     created() {
-        this.$initToolData('input')
+        this.$initToolData()
     },
     computed: {
+        locale() {
+            return getCurrentLocale()
+        },
         replaceContent(){
             if (!this.current.isDelete && !this.current.replace){
                 return false
@@ -98,12 +106,6 @@ export default {
     methods: {
         resize(height) {
             this.height = height;
-        },
-        reference() {
-            openUrl(this.$t('regex_reference_url').toString())
-        },
-        commonSelect(v) {
-            this.current.input = v;
         }
     },
     data() {
@@ -115,35 +117,9 @@ export default {
                 replace: "",
                 isGlobal: true,
                 isIgnoreCase: true,
-                isDelete: false
+                isDelete: 0,
             },
-            height: 100,
-            regex: [
-                {regex: "[\\u4e00-\\u9fa5]", name: this.$t('regex_type_zh')},
-                {regex: "[^\\x00-\\xff]", name: this.$t('regex_type_complex')},
-                {regex: "\\n\\s*\\r", name: this.$t('regex_type_blank')},
-                {
-                    regex: "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?",
-                    name: this.$t('regex_type_email')
-                },
-                {regex: "[a-zA-z]+://[^\\s]*", name: this.$t('regex_type_url')},
-                {regex: "[1][3,4,5,7,8][0-9]{9}", name: this.$t('regex_type_cn_mobile')},
-                {regex: "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}", name: this.$t('regex_type_ip')},
-                {regex: "\\d{3}-\\d{8}|\\d{4}-\\d{7,8}", name: this.$t('regex_type_cn_tel')},
-                {regex: "[1-9][0-9]{4,}", name: this.$t('regex_type_tencent_qq')},
-                {regex: "[1-9]\\d{5}(?!\\d)", name: this.$t('regex_type_cn_postcode')},
-                {
-                    regex: "([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8])))",
-                    name: this.$t('regex_type_date')
-                },
-                {regex: "[1-9]\\d*", name: this.$t('regex_type_positive_integer')},
-                {regex: "-[1-9]\\d*", name: this.$t('regex_type_negative_integer')},
-                {regex: "-?[1-9]\\d*", name: this.$t('regex_type_integer')},
-                {regex: "[1-9]\\d*|0", name: this.$t('regex_type_non_negative_integer')},
-                {regex: "-[1-9]\\d*|0", name: this.$t('regex_type_non_positive_integer')},
-                {regex: "[1-9]\\d*\\.\\d*|0\\.\\d*[1-9]\\d*", name: this.$t('regex_type_positive_float')},
-                {regex: "-[1-9]\\d*\\.\\d*|-0\\.\\d*[1-9]\\d*", name: this.$t('regex_type_negative_float')}
-            ]
+            height: 100
         }
     },
 }
