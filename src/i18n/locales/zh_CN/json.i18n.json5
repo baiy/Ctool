@@ -6,7 +6,7 @@
     "format": "格式化",
     "compress":"压缩",
     "escape": "转义",
-    "clear_escape":"去除转义",
+    "clear_escape":"移除转义",
     "add_escape":"添加转义",
     "unicode":"Unicode",
     "unicode_to_zh": "Unicode转中文",
