@@ -1,9 +1,10 @@
 <template>
     <div>
         <heightResize :append="['.page-option-block']">
-        <div style="border: 1px solid #dcdee2; border-radius: 4px;height: 100%;">
-            <diff-editor ref="editor" :collapse="current.collapse" v-model="current.diff" :language="current.language" />
-        </div>
+            <div style="border: 1px solid #dcdee2; border-radius: 4px;height: 100%;">
+                <diff-editor ref="editor" :collapse="current.collapse" v-model="current.diff"
+                             :language="current.language"/>
+            </div>
         </heightResize>
         <option-block class="page-option-block">
             <FormItem>
@@ -23,6 +24,9 @@
                 </Select>
             </FormItem>
             <FormItem>
+                <Button type="primary" size="small" @click="format">{{ $t('diffs_beautify') }}</Button>
+            </FormItem>
+            <FormItem>
                 <Checkbox v-model="current.collapse">{{ $t('diffs_collapse') }}</Checkbox>
             </FormItem>
         </option-block>
@@ -33,6 +37,7 @@ import diffEditor from "./components/diffEditor";
 import {allLang} from "./library/editor";
 import _ from "lodash";
 import heightResize from "./components/heightResize";
+import {format} from "./library/formatter";
 
 const COMMON_LANG = [
     "text",
@@ -68,6 +73,14 @@ export default {
     methods: {
         setLanguage(lang) {
             this.current.language = lang;
+        },
+        format() {
+            try{
+                this.current.diff.original = format(this.current.diff.original,this.current.language)
+                this.current.diff.modified = format(this.current.diff.modified,this.current.language)
+            } catch (e) {
+                this.$Message.error(e.message)
+            }
         }
     },
     watch: {

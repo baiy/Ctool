@@ -34,14 +34,10 @@ const methods = {
 
 // 代码格式化
 export const format = (code, lang, isCompress = false, options = {}) => {
-    if (!(lang in methods)){
-        throw new Error(`${lang} not support`);
-    }
     let method = isCompress ? "compress" : "beautify";
-    if (!(method in methods[lang])){
-        throw new Error(`${lang} not support ${method}`);
+    if (!(lang in methods) || !(method in methods[lang])){
+        throw new Error(`lang:"${lang}" not support ${method}`);
     }
-
     return methods[lang][method](code,options)
 };
 

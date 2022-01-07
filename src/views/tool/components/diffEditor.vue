@@ -29,8 +29,11 @@ export default {
 
     },
     watch: {
-        value() {
-            this.reset()
+        value:{
+            handler(){
+                this.reset()
+            },
+            deep: true
         },
         language(newValue) {
             if (this.editor !== null) {

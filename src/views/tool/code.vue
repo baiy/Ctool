@@ -52,6 +52,13 @@ export default {
             return data
         }
     },
+    watch:{
+        "current.isCompress"(){
+            if (this.current.lang){
+                this.handle(this.current.lang)
+            }
+        }
+    },
     created() {
         this.$initToolData('content')
     },
@@ -77,6 +84,12 @@ export default {
                 }
             }
         },
+        isCompressChange(value){
+            if (this.current.lang){
+                console.log(value)
+                this.handle(this.current.lang)
+            }
+        }
     },
     data() {
         return {
