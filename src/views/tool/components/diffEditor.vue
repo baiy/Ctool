@@ -29,9 +29,11 @@ export default {
 
     },
     watch: {
-        value:{
-            handler(){
-                this.reset()
+        value: {
+            handler(val) {
+                if (this.editor !== null) {
+                    this.editor.customSetValue(val)
+                }
             },
             deep: true
         },
@@ -72,10 +74,11 @@ export default {
 </script>
 
 <style>
-.diff-editor .CodeMirror-merge{
+.diff-editor .CodeMirror-merge {
     border: none;
 }
-.diff-editor .CodeMirror-merge,.diff-editor .CodeMirror-merge-pane, .diff-editor .CodeMirror-merge .CodeMirror {
+
+.diff-editor .CodeMirror-merge, .diff-editor .CodeMirror-merge-pane, .diff-editor .CodeMirror-merge .CodeMirror {
     height: 100%;
 }
 </style>
