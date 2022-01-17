@@ -2,7 +2,7 @@
     <heightResize @resize="resize">
         <Row :gutter="10">
             <Col span="12">
-                <input-block top="4px">
+                <input-block bottom="4px">
                     <code-editor :height="editorheight" :placeholder="$t('jwt_input')"  hideLineNumbers v-model="current.input"></code-editor>
                     <template slot="extra">
                         <Checkbox v-model="current.header">header</Checkbox>
