@@ -1,4 +1,4 @@
-import language from 'jian_fan'
+import { simpleToTradition, traditionToSimple } from "chinese-simple2traditional";
 import _ from 'lodash'
 
 
@@ -74,9 +74,9 @@ class TextHandle {
     // 简繁转换
     zhTran(type = "simplified") {
         if (type === "simplified") {
-            return language.simplified(this.text)
+            return simpleToTradition(this.text)
         }
-        return language.traditional(this.text)
+        return traditionToSimple(this.text)
     }
 
     // 替换
@@ -86,6 +86,15 @@ class TextHandle {
             if (search[i]) {
                 text = text.replace(new RegExp(regExpQuote(search[i]), 'g'), (i in replace ? replace[i] : ""));
             }
+        }
+        return text;
+    }
+
+    // 替换
+    regularReplace(search, replace) {
+        let text = this.text;
+        if (search){
+            text = text.replace(new RegExp(search, 'g'), replace);
         }
         return text;
     }
@@ -120,6 +129,11 @@ class TextHandle {
         return this.text.split(/\r?\n/).filter((item) => {
             return item.trim() !== ""
         }).join("\n")
+    }
+
+    // 过滤所有换行符
+    filterAllBr() {
+        return this.text.replace(/\r?\n|\r/g, " ")
     }
 
     // 标点替换

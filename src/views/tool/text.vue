@@ -99,6 +99,7 @@
                     <DropdownMenu slot="list">
                         <DropdownItem name="lineTrim">{{ $t('text_filter_trim') }}</DropdownItem>
                         <DropdownItem name="filterBlankLine">{{ $t('text_filter_blank_line') }}</DropdownItem>
+                        <DropdownItem name="filterAllBr">{{ $t('text_filter_all_br') }}</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
             </FormItem>
@@ -118,7 +119,13 @@
                 <Row :gutter="16">
                     <Col span="12">
                         <FormItem :label="$t('text_replace_search')">
-                            <Input v-model="replace.search" :rows="6" type="textarea"></Input>
+                            <input-block>
+                                <Input v-model="replace.search" :rows="6" type="textarea"></Input>
+                                <template slot="extra">
+                                    <Checkbox v-model="replace.regular">{{ $t('text_replace_regular') }}
+                                    </Checkbox>
+                                </template>
+                            </input-block>
                         </FormItem>
                     </Col>
                     <Col span="12">
@@ -128,7 +135,7 @@
                     </Col>
                 </Row>
             </Form>
-            <Alert>{{ $t('text_replace_explain') }}</Alert>
+            <Alert v-if="!replace.regular">{{ $t('text_replace_explain') }}</Alert>
             <div slot="footer">
                 <Button type="text" @click="replace.show = false">{{ $t('text_cancel') }}</Button>
                 <Button type="primary" @click="replaceRun()">{{ $t('text_submit') }}</Button>
@@ -188,7 +195,12 @@ export default {
             }
         },
         replaceRun() {
-            this.handle('replace', this.replace.search.split(/\r?\n/), this.replace.replace.split(/\r?\n/))
+            if (this.replace.regular){
+                this.handle('regularReplace', this.replace.search, this.replace.replace)
+            }
+            else{
+                this.handle('replace', this.replace.search.split(/\r?\n/), this.replace.replace.split(/\r?\n/))
+            }
             this.replace.show = false
         }
     },
@@ -197,7 +209,8 @@ export default {
             replace: {
                 show: false,
                 search: "",
-                replace: ""
+                replace: "",
+                regular: false
             },
             current: {
                 content: "",
