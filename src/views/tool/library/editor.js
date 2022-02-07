@@ -8,6 +8,11 @@ import "codemirror/addon/fold/foldgutter.css";
 import 'codemirror/addon/merge/merge'
 import 'codemirror/addon/merge/merge.css'
 import "codemirror/addon/display/placeholder";
+import "codemirror/addon/search/search";
+import "codemirror/addon/search/searchcursor";
+import "codemirror/addon/search/jump-to-line";
+import "codemirror/addon/dialog/dialog";
+import "codemirror/addon/dialog/dialog.css";
 import "codemirror/mode/javascript/javascript.js";
 import "codemirror/mode/htmlmixed/htmlmixed.js";
 import "codemirror/mode/css/css.js";
