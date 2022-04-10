@@ -30,7 +30,7 @@
                                 <div v-if="lists.length === 0" style="font-size: 14px;color: #999999">
                                     {{ $t('websocket_log_content') }}
                                 </div>
-                                <div v-else v-for="(item,key) in lists" :key="key">
+                                <div v-else v-for="(item,key) in lists" :key="key" class="item-wrap">
                                     <div class="item" v-if="item.type === 'send'" style="color:green">
                                         {{ $t('websocket_you') }} {{ item.time }}
                                     </div>
@@ -41,8 +41,8 @@
                                         {{ item.time }}
                                     </div>
                                     <div class="item">
-                                        <Icon style="cursor: pointer" type="md-copy" @click="$copy(item.content)"/>
-                                        {{ item.content }}
+                                        <Icon type="md-copy" @click="$copy(item.content)"/>
+                                        <pre class="item-content">{{ item.content }}</pre>
                                     </div>
                                 </div>
                             </div>
@@ -163,9 +163,37 @@ export default {
     },
 }
 </script>
-<style scoped>
+<style lang="less" scoped>
 .lists-block {
     font-size: 14px;
     line-height: 28px;
 }
+
+.item {
+    position: relative;
+
+    &-wrap:not(:first-child) {
+        margin-top: 16px;
+    }
+
+    & /deep/ .ivu-icon {
+        position: absolute;
+        right: 8px;
+        top: 8px;
+        padding: 8px;
+        cursor: pointer;
+        background-color: #fff;
+        border-radius: 5px;
+    }
+
+    &-content {
+        margin: 0;
+        overflow: auto;
+        padding: 8px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        line-height: 1.3;
+    }
+}
+
 </style>
