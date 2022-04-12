@@ -22,5 +22,6 @@
     "json_type_json": "Json",
     "json_type_keyed": "Keyed",
     "json_type_array": "Array",
-    "json_type_column": "Column Array"
+    "json_type_column": "Column Array",
+    "inline": "Inline"
 }

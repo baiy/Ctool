@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>
+        <div v-if="options.type!=='Protobuf'">
             <option-block disable-padding>
                 <Input v-model="options.packageName">
                     <div slot="prepend">namespace/package</div>
@@ -12,15 +12,20 @@
                 </Input>
             </option-block>
         </div>
-        <input-block bottom="10px" right="10px">
-            <code-editor :height="`${height - 84}px`" :placeholder="`Object ${$t('json_output')}`" :value="output"
-                         :language="languages[options.type]"/>
+        <input-block top="10px" right="10px">
+            <input-block bottom="10px" right="10px">
+                <code-editor :height="`${height - this.topHeight}px`" :placeholder="`Object ${$t('json_output')}`" :value="output"
+                             :language="languages[options.type]"/>
+                <template slot="extra">
+                    <RadioGroup size="small" v-model="options.type" type="button" button-style="solid">
+                        <Radio :label="type" v-for="(type) in types" :key="type">
+                            <span>{{ type }}</span>
+                        </Radio>
+                    </RadioGroup>
+                </template>
+            </input-block>
             <template slot="extra">
-                <RadioGroup size="small" v-model="options.type" type="button" button-style="solid">
-                    <Radio :label="type" v-for="(type) in types" :key="type">
-                        <span>{{ type }}</span>
-                    </Radio>
-                </RadioGroup>
+                <Checkbox v-if="options.type==='Protobuf'" v-model="options.inline">{{ $t('json_inline') }}</Checkbox>
             </template>
         </input-block>
     </div>
@@ -29,6 +34,7 @@
 import codeEditor from "../../../components/codeEditor";
 import json2Go from '../json2Go'
 import json2CSharp from '../json2CSharp'
+import json2Protobuf from '../json2Protobuf'
 import json2Java from '../json2Java'
 import json2Dart from '../json2Dart'
 
@@ -56,6 +62,9 @@ export default {
         codeEditor,
     },
     computed: {
+        topHeight(){
+            return this.options.type === 'Protobuf'  ? 0 : 84
+        },
         output() {
             const json = this.json.trim();
             if (!json) {
@@ -73,6 +82,9 @@ export default {
                         break
                     case "Dart":
                         result = json2Dart(JSON.parse(json), this.options.className)
+                        break
+                    case "Protobuf":
+                        result = json2Protobuf(json, this.options.inline)
                         break
                     case "C#":
                         result = json2CSharp.convert(JSON.parse(json), this.options.className, this.options.packageName)
@@ -98,11 +110,13 @@ export default {
                 type: "Java",
                 packageName: "pag",
                 className: "RootName",
+                inline: true,
             },
             languages: {
                 "Java": "java",
                 "Dart": "dart",
                 "C#": "csharp",
+                "Protobuf": "protobuf",
                 "Go": "go"
             },
         }

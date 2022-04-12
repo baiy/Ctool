@@ -27,6 +27,7 @@ import "codemirror/mode/vue/vue.js";
 import "codemirror/mode/dart/dart.js";
 import "codemirror/mode/markdown/markdown.js";
 import "codemirror/mode/yaml/yaml.js";
+import "codemirror/mode/protobuf/protobuf.js";
 import 'codemirror-graphql/mode';
 import DiffMatchPatch from 'diff-match-patch'
 
@@ -59,6 +60,7 @@ const modes = {
     go: "text/x-go",
     dart: "application/dart",
     vue: "text/x-vue",
+    protobuf: "text/x-protobuf",
 };
 
 const modeConversion = (lang) => {

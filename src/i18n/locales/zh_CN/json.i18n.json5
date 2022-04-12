@@ -22,4 +22,5 @@
     "json_type_keyed": "关联对象",
     "json_type_array": "数组",
     "json_type_column": "列数组",
+    "inline": "内联(inline)",
 }

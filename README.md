@@ -62,8 +62,8 @@ npm run build -adapter=[chrome|edge|utools|firefox|web]
 |websocket调试|`websocket`,`在线调试`|×|
 |单位换算|`长度`,`面积`,`体积`,`质量`,`温度`,`压力`,`功率`,`功`,`密度`,`力`,`时间`,`速度`,`数据存储`,`角度`|√|
 |时间计算器| - |√|
-|JSON工具|`格式化`,`校验`,`压缩`,`转义`,`去除转义`,`Unicode转中文`,`中文转Unicode`,`转GET参数`,`Java`, `C#`, `Go`, `Dart`,`csv`,`table`|√|
-|UUID|在线生成uuid|√|
+|JSON工具|`格式化`,`校验`,`压缩`,`转义`,`去除转义`,`Unicode转中文`,`中文转Unicode`,`转GET参数`,`Java`, `C#`, `Go`, `Dart`,`csv`,`table`,`Protobuf`|√|
+|UUID|`在线生成uuid`|√|
 |ascii编码转换|`十进制`, `十六进制`, `八进制`, `二进制`, `字符串`|√|
 |变量名格式转换|`Var Name`, `var-name`, `VAR_NAME`, `VarName`, `varName`, `var_name`, `var name`|√|
 |jwt解码|`header`, `payload`|√|

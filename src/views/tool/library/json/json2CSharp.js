@@ -15,7 +15,6 @@ export default {
         }
         clas += "    }\n";
         clas += "}\n";
-        console.log(pag)
         this._allClass.push(clas);
         return this._allClass.join("\n");
     },
