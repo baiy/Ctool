@@ -36,6 +36,7 @@ import json2Go from '../json2Go'
 import json2CSharp from '../json2CSharp'
 import json2Protobuf from '../json2Protobuf'
 import json2Java from '../json2Java'
+import json2php from '../json2php'
 import json2Dart from '../json2Dart'
 
 export default {
@@ -89,6 +90,12 @@ export default {
                     case "C#":
                         result = json2CSharp.convert(JSON.parse(json), this.options.className, this.options.packageName)
                         break
+                    case "PHP":
+                        result = json2php(json, {
+                            className:this.options.className,
+                            namespace:this.options.packageName,
+                        })
+                        break
                     default:
                         throw new Error('language type error')
                 }
@@ -117,7 +124,8 @@ export default {
                 "Dart": "dart",
                 "C#": "csharp",
                 "Protobuf": "protobuf",
-                "Go": "go"
+                "Go": "go",
+                "PHP": "php"
             },
         }
     },
