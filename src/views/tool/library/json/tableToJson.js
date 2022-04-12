@@ -5,7 +5,7 @@ const nodeFilter = (item) => {
     if (item == null) {
         return "";
     }
-    const re = new RegExp("<\/?\\w+((\\s+\\w+(\\s*=\\s*(?:\".*?\"|'.*?'|[^'\">\\s]+))?)+\\s*|\\s*)\/?>", 'igm');
+    const re = new RegExp("</?\\w+((\\s+\\w+(\\s*=\\s*(?:\".*?\"|'.*?'|[^'\">\\s]+))?)+\\s*|\\s*)/?>", 'igm');
     item = item.replace(/\r\n|\r|\n/gmi, ' ');
     item = item.replace(/\n|<br>|<br\/>|<br \/>/gmi, '\n');
     item = item.replace(re, '');
