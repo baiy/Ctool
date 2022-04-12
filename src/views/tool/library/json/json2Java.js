@@ -1,14 +1,8 @@
 const IMPORT_MAP = {'Date': 'java.util.Date', 'List': 'java.util.List'}
 let attrClassAry = [];
-
+import {camelCase} from "camel-case"
 function firstToUpperCase(str) {
     return str.substr(0, 1).toUpperCase() + str.substr(1);
-}
-
-function camelCase(input) {
-    return input.toLowerCase().replace(/_(.)/g, function (match, group1) {
-        return group1.toUpperCase();
-    });
 }
 
 function camelCaseWithFirstCharUpper(input) {
