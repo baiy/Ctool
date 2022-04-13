@@ -1,0 +1,12 @@
+{
+    "generate": "Generate",
+    "password": "String",
+    "hash_password": "Hash",
+    "rounds": "Rounds",
+    "generate_submit": "Generate",
+    "check": "check",
+    "check_submit": "Check",
+    "check_result_success": "Right",
+    "check_result_error": "Wrong",
+    "rounds_range": "Rounds range [{0} - {1}]"
+}
