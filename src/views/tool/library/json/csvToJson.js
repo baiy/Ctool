@@ -1,4 +1,4 @@
-import {parse} from 'csv-parse/lib/sync';
+import {parse} from 'csv-parse/sync';
 import {jsonOutputFormat} from './helper';
 
 const convert = (csv = "", {type = "json",keyed_key=0} = {}) => {

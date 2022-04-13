@@ -3,7 +3,7 @@ import formatter from "../formatter/json";
 import csvToJson from './csvToJson';
 import tableToJson from './tableToJson';
 import jsonToTable from './jsonToTable';
-import {stringify} from 'csv-stringify/lib/sync';
+import {stringify} from 'csv-stringify/sync';
 // 校验语法
 export const check = (content) => {
     require('jsonlint').parse(content)
