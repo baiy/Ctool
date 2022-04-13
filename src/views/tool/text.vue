@@ -114,7 +114,7 @@
                 </TabPane>
             </Tabs>
         </Modal>
-        <Modal v-model="replace.show" width="400" :title="$t('text_replace')">
+        <Modal v-model="replace.show" width="600" :title="$t('text_replace')">
             <Form label-position="top">
                 <Row :gutter="16">
                     <Col span="12">
