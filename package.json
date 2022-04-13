@@ -15,6 +15,7 @@
         "angular-html-parser": "^1.8.0",
         "axios": "^0.21.4",
         "babel-runtime": "^6.26.0",
+        "bcryptjs": "^2.4.3",
         "bignumber.js": "^9.0.2",
         "camel-case": "^4.1.2",
         "chinese-simple2traditional": "^1.0.1",

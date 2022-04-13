@@ -149,6 +149,10 @@ const routes = [
     {
         path: '/tool/armConverter',
         component: r => require(['./views/tool/armConverter.vue'], r)
+    },
+    {
+        path: '/tool/bcrypt',
+        component: r => require(['./views/tool/bcrypt.vue'], r)
     }
 ]
 

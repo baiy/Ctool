@@ -61,6 +61,7 @@ const tool = [
     {'name': 'html', 'cat': ['encoder_decoder']},
     {'name': 'binary', 'cat': ['generate']},
     {'name': 'armConverter', 'cat': ['conversion']},
+    {'name': 'bcrypt', 'cat': ['encryption','check']},
 ]
 
 // 工具类功能配置
