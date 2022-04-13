@@ -76,7 +76,7 @@ export default {
             setTimeout(() => {
                 try {
                     const rounds = parseInt(this.current.generate.rounds)
-                    if (rounds < 1 || rounds > 30) {
+                    if (rounds < 4 || rounds > 30) {
                         throw new Error(this.$t('bcrypt_rounds_range', [4, 30]).toString())
                     }
                     bcrypt.hash(this.current.generate.password, rounds, (err, hash) => {
