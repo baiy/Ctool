@@ -62,7 +62,7 @@
         "properties-to-json": "^0.1.7",
         "qrcode": "^1.5.0",
         "qrcode-parser": "^1.2.0",
-        "query-string": "^6.14.1",
+        "qs": "^6.10.3",
         "serialize-php": "^1.1.2",
         "sm-crypto": "^0.3.7",
         "system": "^2.0.1",

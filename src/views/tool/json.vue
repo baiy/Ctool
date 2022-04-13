@@ -127,9 +127,11 @@ export default {
             if (!this.isMode('to_get')){
                 return "";
             }
-            return this.errorHandle(()=>{
+            try {
                 return jsonInstance.toGet(this.current.content)
-            })
+            } catch (e) {
+                return this.$t('json_error', [e.message]).toString();
+            }
         },
         fromGet(){
             if (this.isMode('from_get') && this.current.get.input.trim()){

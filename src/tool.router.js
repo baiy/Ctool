@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import {env} from './helper'
-import {stringify as queryStringify} from "query-string";
+import {stringify as qsStringify} from "qs";
 import user from "./tool/user";
 
 Vue.use(Router)
@@ -10,7 +10,7 @@ export const stat = (action, data = {}) => {
     setTimeout(() => {
         try {
             let img = new Image(1, 1);
-            img.src = 'https://www.baiy.org/chrome_tool/stat/?' + queryStringify({
+            img.src = 'https://www.baiy.org/chrome_tool/stat/?' + qsStringify({
                 v: env('version'),
                 a: action,
                 u: user.uid(),

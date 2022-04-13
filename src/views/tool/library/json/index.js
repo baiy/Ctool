@@ -4,6 +4,7 @@ import csvToJson from './csvToJson';
 import tableToJson from './tableToJson';
 import jsonToTable from './jsonToTable';
 import {stringify} from 'csv-stringify/sync';
+import {parse as qsParse, stringify as qsStringify} from "qs";
 // 校验语法
 export const check = (content) => {
     require('jsonlint').parse(content)
@@ -56,14 +57,12 @@ export const clearEscape = (content) => {
 // 转get参数
 export const toGet = (content) => {
     check(content)
-    return require('query-string').stringify(
-        JSON.parse(content), {arrayFormat: 'bracket'}
-    )
+    return qsStringify(JSON.parse(content), {encodeValuesOnly: true})
 }
 
 // get转json
 export const fromGet = (content) => {
-    return beautify(JSON.stringify(require('query-string').parse(content.trim(), {arrayFormat: 'bracket'})))
+    return beautify(JSON.stringify(qsParse(content.trim())))
 }
 
 export default {
