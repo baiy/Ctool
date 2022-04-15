@@ -45,6 +45,7 @@ export default {
     methods: {
         handle(v) {
             const sm2 = require('sm-crypto').sm2
+            const sm4 = require('sm-crypto').sm4
             if (this.current.input) {
                 try {
                     let output = ""
@@ -73,14 +74,27 @@ export default {
                                     this.current.password,
                                     this.current.sm2CipherMode
                                 );
+                                output = crypto.enc.Base64.stringify(crypto.enc.Hex.parse(output))
                             } else {
+                                let inputHex = crypto.enc.Hex.stringify(crypto.enc.Base64.parse(this.current.input));
                                 output = sm2.doDecrypt(
-                                    this.current.input,
+                                    inputHex,
                                     this.current.password,
                                     this.current.sm2CipherMode
                                 );
+                                
                             }
                             break;
+                        case "SM4":
+                            if(v === "encrypt") {
+                                // SM4 加密，将输出转换为 base64 格式，与 AES 对齐
+                                output = sm4.encrypt(this.current.input, this.current.password);
+                                output = crypto.enc.Base64.stringify(crypto.enc.Hex.parse(output))
+                            } else {
+                                // SM4 解密，sm-crypto 要求输入为 hex，将 base64 转换为 hex 作为输入
+                                let inputHex = crypto.enc.Hex.stringify(crypto.enc.Base64.parse(this.current.input));
+                                output = sm4.decrypt(inputHex, this.current.password);
+                            }
                     }
                     if (!output) {
                         throw new Error("output null")
@@ -135,7 +149,7 @@ export default {
                 type: "AES",
                 operation: ""
             },
-            type: ["AES", "DES", "RC4", "Rabbit", "TripleDES", "SM2"],
+            type: ["AES", "DES", "RC4", "Rabbit", "TripleDES", "SM2", "SM4"],
             inputHeight: 100,
             outputHeight: 100
         }
