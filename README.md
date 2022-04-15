@@ -72,4 +72,5 @@ npm run build -adapter=[chrome|edge|utools|firefox|web]
 | html编码       | -                                                                                                                             |√|
 | 原码/反码/补码     | `生成`                                                                                                                          |√|
 | ARM/HEX      | `互转`                                                                                                                          |×|
-| IP网络计算器    | `子网掩码各个进制表示换算,IP地址进制表示换算`                                                                                                     |√|
+| Bcrypt       | `加密`,`验证`                                                                                                                     |√|
+| IP网络计算器      | `子网掩码各个进制表示换算,IP地址进制表示换算`                                                                                                     |√|
