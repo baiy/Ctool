@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve --port 8081",
-        "build": "vue-cli-service build",
+        "build": "vue-cli-service build --no-module",
         "lint": "vue-cli-service lint",
         "report": "vue-cli-service build --report"
     },
