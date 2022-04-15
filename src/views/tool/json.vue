@@ -25,6 +25,9 @@
                 <Col :span="24-jsonInputCol" v-if="isMode('object')">
                     <jsonToObject :json="current.content" :height="height" v-model="current.to_object" @saveToolData="saveToolData" />
                 </Col>
+                <Col :span="24-jsonInputCol" v-if="isMode('path')">
+                    <jsonPath :json="current.content" :height="height" v-model="current.path" @saveToolData="saveToolData" />
+                </Col>
             </Row>
         </heightResize>
         <option-block style="padding-top: 10px" disable-padding class="tool-json-mode-get" v-if="isMode('to_get') || isMode('from_get')">
@@ -36,6 +39,7 @@
                 <ButtonGroup class="tool-json-item">
                     <Button type="primary" @click="simple('beautify')">{{ $t('json_format') }}</Button>
                     <Button type="primary" @click="simple('compress')">{{ $t('json_compress') }}</Button>
+                    <Button type="primary" @click="setMode('path')">{{ $t('json_path') }}</Button>
                 </ButtonGroup>
                 <Dropdown @on-click="(name)=>simple(name)" class="tool-json-item">
                     <Button type="primary">
@@ -57,34 +61,18 @@
                         <DropdownItem name="zh2unicode">{{ $t('json_zh_to_unicode') }}</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
+                <Button class="tool-json-item" type="primary" @click="setMode('object')">{{ $t('json_object') }}</Button>
                 <Dropdown @on-click="(name)=>setMode(name)" class="tool-json-item">
                     <Button type="primary">
-                        {{ $t('json_get') }}
+                        {{ $t('json_get') }} / {{ $t('json_csv') }} / {{ $t('json_table') }}
                         <Icon type="ios-arrow-up" />
                     </Button>
                     <DropdownMenu slot="list">
                         <DropdownItem name="to_get">JSON => Get</DropdownItem>
-                        <DropdownItem name="from_get">Get => JSON</DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
-                <Button class="tool-json-item" type="primary" @click="setMode('object')">{{ $t('json_object') }}</Button>
-                <Dropdown @on-click="(name)=>setMode(name)" class="tool-json-item">
-                    <Button type="primary">
-                        {{ $t('json_csv') }}
-                        <Icon type="ios-arrow-up" />
-                    </Button>
-                    <DropdownMenu slot="list">
                         <DropdownItem name="to_csv">JSON => CSV</DropdownItem>
-                        <DropdownItem name="from_csv">CSV => JSON</DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
-                <Dropdown @on-click="(name)=>setMode(name)" class="tool-json-item">
-                    <Button type="primary">
-                        {{ $t('json_table') }}
-                        <Icon type="ios-arrow-up" />
-                    </Button>
-                    <DropdownMenu slot="list">
                         <DropdownItem name="to_table">JSON => Table</DropdownItem>
+                        <DropdownItem name="from_get">Get => JSON</DropdownItem>
+                        <DropdownItem name="from_csv">CSV => JSON</DropdownItem>
                         <DropdownItem name="from_table">Table => JSON</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
@@ -102,6 +90,7 @@ import tableToJson from "./library/json/components/tableToJson";
 import {dispatchWindowResize} from "../../tool/event";
 import jsonToCsv from "./library/json/components/jsonToCsv";
 import jsonToTable from "./library/json/components/jsonToTable";
+import jsonPath from "./library/json/components/jsonPath";
 
 export default {
     components: {
@@ -111,14 +100,15 @@ export default {
         heightResize,
         csvToJson,
         jsonToObject,
-        tableToJson
+        tableToJson,
+        jsonPath
     },
     computed:{
         jsonInputCol(){
             if (this.isMode('object')){
                 return 10
             }
-            if (this.isMode('from_csv') || this.isMode('from_table') || this.isMode('to_csv') || this.isMode('to_table')){
+            if (this.isMode('from_csv') || this.isMode('from_table') || this.isMode('to_csv') || this.isMode('to_table') || this.isMode('path')){
                 return 12
             }
             return 24
@@ -210,6 +200,7 @@ export default {
                 from_table:{},
                 to_csv:{},
                 to_table:{},
+                path:{},
                 mode: "default"
             },
             height:100
