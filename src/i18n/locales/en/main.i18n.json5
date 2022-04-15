@@ -72,6 +72,7 @@
     "tool_binary": "trueForm/inverse/complement",
     "tool_armConverter": "ARM/HEX",
     "tool_bcrypt": "Bcrypt",
+    "tool_ipcalc": "Ipcalc",
     // other
     "css_main_category_item_style": "padding: 0 10px",
     "editor_line_wrapping": "Line Wrapping",

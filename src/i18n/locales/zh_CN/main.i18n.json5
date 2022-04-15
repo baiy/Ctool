@@ -72,6 +72,7 @@
     "tool_binary": "原码/反码/补码",
     "tool_armConverter": "ARM/HEX",
     "tool_bcrypt": "Bcrypt",
+    "tool_ipcalc": "IP网络计算器",
     // 其他
     "css_main_category_item_style": "padding: 0 20px",
     "editor_line_wrapping": "自动换行",

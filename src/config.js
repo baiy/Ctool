@@ -62,6 +62,7 @@ const tool = [
     {'name': 'binary', 'cat': ['generate']},
     {'name': 'armConverter', 'cat': ['conversion']},
     {'name': 'bcrypt', 'cat': ['encryption','check']},
+    {'name': 'ipcalc', 'cat': ['generate']},
 ]
 
 // 工具类功能配置

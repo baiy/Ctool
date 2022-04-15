@@ -153,6 +153,10 @@ const routes = [
     {
         path: '/tool/bcrypt',
         component: r => require(['./views/tool/bcrypt.vue'], r)
+    },
+    {
+        path: '/tool/ipcalc',
+        component: r => require(['./views/tool/ipcalc.vue'], r)
     }
 ]
 
