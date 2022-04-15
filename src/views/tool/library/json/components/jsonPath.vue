@@ -43,7 +43,7 @@ export default {
         output() {
             try{
                 const json = this.json.trim();
-                if (!json) {
+                if (!json || !this.options.path) {
                     return "";
                 }
                 const result = JSONPath({path: this.options.path, json:JSON.parse(json)});
