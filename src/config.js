@@ -83,6 +83,7 @@ const utools = {
         sign: ['签名', '验签', 'rsa'],
         binary: ['原码', '补码', '反码'],
         armConverter: ['ARM', 'HEX'],
+        serializeConversion:["json","xml","yaml","php array","php serialize","properties"]
     },
     cmds: {
         timestamp: [
