@@ -19,6 +19,7 @@
 import CryptoJS from "crypto-js"
 import heightResize from "./components/heightResize";
 import autoHeightTextarea from "./components/autoHeightTextarea";
+import {Base64} from 'js-base64'
 
 export default {
     components: {
@@ -31,22 +32,29 @@ export default {
     methods: {
         handle(type) {
             if (this.current.input) {
-                switch (type) {
-                    case "hex":
-                        this.current.output = CryptoJS.enc.Hex.stringify(CryptoJS.enc.Base64.parse(this.current.input));
-                        break;
-                    case "base64":
-                        this.current.output = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Hex.parse(this.current.input));
-                        break;
-                    default:
-                        return;
+                try {
+                    switch (type) {
+                        case "hex":
+                            if (!Base64.isValid(this.current.input)){
+                                throw new Error("input base64 string invalid")
+                            }
+                            this.current.output = CryptoJS.enc.Hex.stringify(CryptoJS.enc.Base64.parse(this.current.input));
+                            break;
+                        case "base64":
+                            this.current.output = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Hex.parse(this.current.input));
+                            break;
+                        default:
+                            return;
+                    }
+                    if (this.current.isUppercase && type === "hex") {
+                        this.current.output = this.current.output.toUpperCase()
+                    }
+                    this.current.operation = type;
+                    this.$clipboardCopy(this.current.output);
+                    this.$saveToolData(this.current);
+                }catch (e) {
+                    this.$Message.error(e.message)
                 }
-                if (this.current.isUppercase && type === "hex") {
-                    this.current.output = this.current.output.toUpperCase()
-                }
-                this.current.operation = type;
-                this.$clipboardCopy(this.current.output);
-                this.$saveToolData(this.current);
             }
         },
         resize(height) {

@@ -43,7 +43,7 @@ npm run build -adapter=[chrome|edge|utools|firefox|web]
 | 功能           | 说明                                                                                                                            |离线使用|
 |--------------|-------------------------------------------------------------------------------------------------------------------------------|---|
 | 哈希           | `md5`, `sha1`, `sha256`, `sha512`,`sm3`                                                                                       |√|
-| 加密/解密        | `AES`,`DES`,`RC4`,`Rabbit`,`TripleDes`,`sm2`                                                                                  |√|
+| 加密/解密        | `AES`,`DES`,`RC4`,`Rabbit`,`TripleDes`,`sm2`,`sm4`                                                                            |√|
 | BASE64编码     | `加密`,`解密`,`支持文件`                                                                                                              |√|
 | URL编码        | `编码`,`解码`                                                                                                                     |√|
 | 时间戳          | `双向转换`,`毫秒`                                                                                                                   |√|
@@ -68,6 +68,7 @@ npm run build -adapter=[chrome|edge|utools|firefox|web]
 | 变量名格式转换      | `Var Name`, `var-name`, `VAR_NAME`, `VarName`, `varName`, `var_name`, `var name`                                              |√|
 | jwt解码        | `header`, `payload`                                                                                                           |√|
 | Hex/String转换 | `hex to string`, `string to hex`, `十六进制转字符串`, `字符串转十六进制`                                                                      |√|
+| Hex/Base64转换 | `hex to Base64`, `Base64 to hex`                                                                      |√|
 | 文本处理         | `大小写转换`, `中英文标点转换`, `简繁转换`, `替换`, `字符统计`, `行去重`, `添加行号`, `行排序`, `过滤行首尾不可见字符`,`过滤空行`                                           |√|
 | html编码       | -                                                                                                                             |√|
 | 原码/反码/补码     | `生成`                                                                                                                          |√|
