@@ -67,6 +67,7 @@
     "tool_variableConversion": "变量名",
     "tool_jwt": "JWT解码",
     "tool_hexString": "Hex/String",
+    "tool_hex2base64": "Hex/Base64",
     "tool_text": "文本处理",
     "tool_html": "Html编码",
     "tool_binary": "原码/反码/补码",

@@ -67,6 +67,7 @@
     "tool_variableConversion": "Variable Name",
     "tool_jwt": "JWT",
     "tool_hexString": "Hex/String",
+    "tool_hex2base64": "Hex/Base64",
     "tool_text": "Text",
     "tool_html": "Html En/Decode",
     "tool_binary": "trueForm/inverse/complement",
