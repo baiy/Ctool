@@ -93,33 +93,45 @@ export default {
                         case "RC4":
                         case "Rabbit":
                         case "TripleDES":
-                            let key = this.current.password;
-                            if(this.current.keyFormat !== "Password") {
-                                key = crypto.enc[this.current.keyFormat].parse(this.current.password);
-                            }
                             if (v === "encrypt") {
-                                output = crypto[this.current.type].encrypt(
-                                    this.current.input,
-                                    key,
-                                    {
-                                        iv: crypto.enc.Hex.parse(this.current.iv),
-                                        mode: crypto.mode[this.current.mode],
-                                        padding: crypto.pad[this.current.padding]
-                                    }
-                                ).ciphertext;
+                                if (this.current.keyFormat !== "Password") {
+                                    output = crypto[this.current.type].encrypt(
+                                        // todo 后续可以考虑支持原文输入的编码格式，以便应对一些二进制格式
+                                        this.current.input,
+                                        // 转换为 WordArray 形式作为密钥传入
+                                        crypto.enc[this.current.keyFormat].parse(this.current.password),
+                                        {
+                                            // IV 要求为 Hex，按照 Hex 解析为 WordArray
+                                            iv: crypto.enc.Hex.parse(this.current.iv),
+                                            mode: crypto.mode[this.current.mode],
+                                            padding: crypto.pad[this.current.padding]
+                                        }
+                                    ).ciphertext;
+                                } else {
+                                    // 兼容 crypto-js 的密码模式
+                                    output = crypto[this.current.type].encrypt(this.current.input, this.current.password).toString();
+                                }
                             } else {
-                                let cipherParams = CryptoJS.lib.CipherParams.create({
-                                    ciphertext: crypto.enc.Hex.parse(this.current.input)
-                                });
-                                output = crypto[this.current.type].decrypt(
-                                    cipherParams, 
-                                    key,
-                                    {
-                                        iv: crypto.enc.Hex.parse(this.current.iv),
-                                        mode: crypto.mode[this.current.mode],
-                                        padding: crypto.pad[this.current.padding]
-                                    }
-                                ).toString(crypto.enc.Utf8);
+                                if (this.current.keyFormat !== "Password") {
+                                    // crypto-js 要求解密时传入为 CipherParams，使用 CipherText 构建 CipherParams
+                                    let cipherData = CryptoJS.lib.CipherParams.create({
+                                        ciphertext: crypto.enc.Hex.parse(this.current.input)
+                                    });
+                                    output = crypto[this.current.type].decrypt(
+                                        cipherData, 
+                                        // 转换为 WordArray 形式作为密钥传入
+                                        crypto.enc[this.current.keyFormat].parse(this.current.password),
+                                        {
+                                            // IV 要求为 Hex，按照 Hex 解析为 WordArray
+                                            iv: crypto.enc.Hex.parse(this.current.iv),
+                                            mode: crypto.mode[this.current.mode],
+                                            padding: crypto.pad[this.current.padding]
+                                        }
+                                    ).toString(crypto.enc.Utf8);
+                                } else {
+                                    // 兼容 crypto-js 的密码模式
+                                    output = crypto[this.current.type].decrypt(this.current.input, this.current.password).toString(crypto.enc.Utf8);
+                                }
                             }
                             break;
                         case "SM2":
@@ -129,24 +141,25 @@ export default {
                                     this.current.password,
                                     this.current.sm2CipherMode
                                 );
-                                output = crypto.enc.Base64.stringify(crypto.enc.Hex.parse(output))
                             } else {
-                                let inputHex = crypto.enc.Hex.stringify(crypto.enc.Base64.parse(this.current.input));
                                 output = sm2.doDecrypt(
-                                    inputHex,
+                                    this.current.input,
                                     this.current.password,
                                     this.current.sm2CipherMode
                                 );
-                                
                             }
                             break;
                         case "SM4":
+                            // sm-crypto 要求传入的 key 为 Hex 格式，因此对于非 Hex 格式的数据进行转换
                             let sm4Key = this.current.password;
-                            if(this.current.keyFormat === "Base64") {
+                            if (this.current.keyFormat === "Base64") {
                                 sm4Key = crypto.enc.Hex.stringify(crypto.enc[this.current.keyFormat].parse(this.current.password));
                             } else if(this.current.keyFormat === "Password") {
+                                // 如果是 Password，按照 Utf8 编码进行处理，转换为 Hex 格式
+                                // 注意因为库的区别，password 模式跟 crypto-js 的处理不一样
                                 sm4Key = crypto.enc.Hex.stringify(crypto.enc.Utf8.parse(this.current.password));
                             }
+
                             if(v === "encrypt") {
                                 // SM4 加密
                                 output = sm4.encrypt(
@@ -154,6 +167,7 @@ export default {
                                     sm4Key, 
                                     {
                                         mode: this.current.mode.toLowerCase(), 
+                                        // sm-crypto 传入的 iv 为 Hex 格式
                                         iv: this.current.iv,
                                         padding: this.current.padding
                                     }
@@ -165,6 +179,7 @@ export default {
                                     sm4Key,
                                     {
                                         mode: this.current.mode.toLowerCase(), 
+                                        // sm-crypto 传入的 iv 为 Hex 格式
                                         iv: this.current.iv,
                                         padding: this.current.padding
                                     }
