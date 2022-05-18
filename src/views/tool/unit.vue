@@ -41,7 +41,7 @@
                 </Select>
             </FormItem>
         </option-block>
-        <div v-if="isShowResult" style="padding: 0 30px">
+        <div style="padding: 0 30px; min-height: 200px">
             <template v-if="assignResult !== null">
                 <div style="text-align: center;margin-top: 30px;font-size: 18px;font-weight: bold">
                     <span style="color: red">{{ current.input }}</span> {{ unitName(current.from) }} = <span
