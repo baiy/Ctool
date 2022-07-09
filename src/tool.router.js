@@ -161,6 +161,10 @@ const routes = [
     {
         path: '/tool/ipcalc',
         component: r => require(['./views/tool/ipcalc.vue'], r)
+    },
+    {
+        path: '/tool/sqlFillParameter',
+        component: r => require(['./views/tool/sqlFillParameter'], r)
     }
 ]
 

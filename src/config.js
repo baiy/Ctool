@@ -24,14 +24,8 @@ const category = [
 ]
 
 const tool = [
-    {
-        'name': 'hash',
-        'cat': ['encryption']
-    },
-    {
-        'name': 'encrypt',
-        'cat': ['encryption']
-    },
+    {'name': 'hash', 'cat': ['encryption']},
+    {'name': 'encrypt', 'cat': ['encryption']},
     {'name': 'sign', 'cat': ['encryption', 'check']},
     {'name': 'base64', 'cat': ['encryption','encoder_decoder']},
     {'name': 'json', 'cat': ['conversion']},
@@ -64,6 +58,7 @@ const tool = [
     {'name': 'armConverter', 'cat': ['conversion']},
     {'name': 'bcrypt', 'cat': ['encryption','check']},
     {'name': 'ipcalc', 'cat': ['generate']},
+    {'name': 'sqlFillParameter', 'cat': ['other']}
 ]
 
 // 工具类功能配置
