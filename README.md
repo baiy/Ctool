@@ -75,3 +75,4 @@ npm run build -adapter=[chrome|edge|utools|firefox|web]
 | ARM/HEX      | `互转`                                                                                                                          |×|
 | Bcrypt       | `加密`,`验证`                                                                                                                     |√|
 | IP网络计算器      | `子网掩码各个进制表示换算,IP地址进制表示换算`                                                                                                     |√|
+| SQL参数填充      | `Mybatis打印SQL的参数填充`                                                                                                           |√|
