@@ -202,9 +202,7 @@ export default {
                 this.current.content = jsonInstance[type](this.current.content)
                 this.saveToolData()
                 this.$Message.success(this.$t('json_complete').toString())
-                if (["beautify", "compress", "escape", "clearEscape", "unicode2zh", "zh2unicode"].includes(type)) {
-                    this.$clipboardCopy(this.current.content)
-                }
+                this.$clipboardCopy(this.current.content)
             })
         },
         saveToolData(force = false) {

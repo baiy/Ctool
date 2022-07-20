@@ -149,6 +149,7 @@ export const plugin = {
         Vue.prototype.$copy = function (data) {
             if (data) {
                 clipboard.copy(data, () => {
+                    this.$Message.destroy()
                     this.$Message.success(this.$t('main_ui_copy_text_ok').toString())
                 })
             }
