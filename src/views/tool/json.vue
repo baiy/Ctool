@@ -3,36 +3,47 @@
         <heightResize :append="['.page-option-block','.tool-json-mode-get']" @resize="resize">
             <Row :gutter="10">
                 <Col :span="24-jsonInputCol" v-if="isMode('from_csv')">
-                    <csvToJson @change="(json)=>current.content = json" @saveToolData="saveToolData" :height="height" v-model="current.from_csv" />
+                    <csvToJson @change="(json)=>current.content = json" @saveToolData="saveToolData" :height="height"
+                               v-model="current.from_csv"/>
                 </Col>
                 <Col :span="24-jsonInputCol" v-if="isMode('from_table')">
-                    <tableToJson @change="(json)=>current.content = json" @saveToolData="saveToolData" :height="height" v-model="current.from_table" />
+                    <tableToJson @change="(json)=>current.content = json" @saveToolData="saveToolData" :height="height"
+                                 v-model="current.from_table"/>
                 </Col>
                 <Col :span="jsonInputCol">
                     <input-block top="4px">
-                        <code-editor :height="`${height}px`" :placeholder="`${$t('json_input')}JSON`" v-model="current.content" language="json"></code-editor>
+                        <code-editor :height="`${height}px`" :placeholder="`${$t('json_input')}JSON`"
+                                     v-model="current.content" language="json"></code-editor>
                         <template slot="extra">
-                            <Button shape="circle"  icon="md-code" v-if="!isMode('default')" @click="setMode('default')"></Button>
+                            <Button shape="circle" icon="md-code" v-if="!isMode('default')"
+                                    @click="setMode('default')"></Button>
                         </template>
                     </input-block>
                 </Col>
                 <Col :span="24-jsonInputCol" v-if="isMode('to_csv')">
-                    <jsonToCsv :json="current.content" :height="height" v-model="current.to_csv" @saveToolData="saveToolData"  />
+                    <jsonToCsv :json="current.content" :height="height" v-model="current.to_csv"
+                               @saveToolData="saveToolData"/>
                 </Col>
                 <Col :span="24-jsonInputCol" v-if="isMode('to_table')">
-                    <jsonToTable :json="current.content" :height="height" v-model="current.to_table" @saveToolData="saveToolData"  />
+                    <jsonToTable :json="current.content" :height="height" v-model="current.to_table"
+                                 @saveToolData="saveToolData"/>
                 </Col>
                 <Col :span="24-jsonInputCol" v-if="isMode('object')">
-                    <jsonToObject :json="current.content" :height="height" v-model="current.to_object" @saveToolData="saveToolData" />
+                    <jsonToObject :json="current.content" :height="height" v-model="current.to_object"
+                                  @saveToolData="saveToolData"/>
                 </Col>
                 <Col :span="24-jsonInputCol" v-if="isMode('path')">
-                    <jsonPath :json="current.content" :height="height" v-model="current.path" @saveToolData="saveToolData" />
+                    <jsonPath :json="current.content" :height="height" v-model="current.path"
+                              @saveToolData="saveToolData"/>
                 </Col>
             </Row>
         </heightResize>
-        <option-block style="padding-top: 10px" disable-padding class="tool-json-mode-get" v-if="isMode('to_get') || isMode('from_get')">
-            <Input v-if="isMode('to_get')" type="textarea" :rows="3" :value="getOutput" :placeholder="`Get ${$t('json_output')}`"></Input>
-            <Input v-else type="textarea" :rows="3" v-model="current.get.input" :placeholder="`Get ${$t('json_input')} var1=value1&var2=value2`"></Input>
+        <option-block style="padding-top: 10px" disable-padding class="tool-json-mode-get"
+                      v-if="isMode('to_get') || isMode('from_get')">
+            <Input v-if="isMode('to_get')" type="textarea" :rows="3" :value="getOutput"
+                   :placeholder="`Get ${$t('json_output')}`"></Input>
+            <Input v-else type="textarea" :rows="3" v-model="current.get.input"
+                   :placeholder="`Get ${$t('json_input')} var1=value1&var2=value2`"></Input>
         </option-block>
         <option-block center class="page-option-block">
             <FormItem class="tool-json-button">
@@ -44,7 +55,7 @@
                 <Dropdown @on-click="(name)=>simple(name)" class="tool-json-item">
                     <Button type="primary">
                         {{ $t('json_escape') }}
-                        <Icon type="ios-arrow-up" />
+                        <Icon type="ios-arrow-up"/>
                     </Button>
                     <DropdownMenu slot="list">
                         <DropdownItem name="escape">{{ $t('json_add_escape') }}</DropdownItem>
@@ -54,18 +65,21 @@
                 <Dropdown @on-click="(name)=>simple(name)" class="tool-json-item">
                     <Button type="primary">
                         {{ $t('json_unicode') }}
-                        <Icon type="ios-arrow-up" />
+                        <Icon type="ios-arrow-up"/>
                     </Button>
                     <DropdownMenu slot="list">
                         <DropdownItem name="unicode2zh">{{ $t('json_unicode_to_zh') }}</DropdownItem>
                         <DropdownItem name="zh2unicode">{{ $t('json_zh_to_unicode') }}</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
-                <Button class="tool-json-item" type="primary" @click="setMode('object')">{{ $t('json_object') }}</Button>
+                <Button class="tool-json-item" type="primary" @click="setMode('object')">{{
+                        $t('json_object')
+                    }}
+                </Button>
                 <Dropdown @on-click="(name)=>setMode(name)" class="tool-json-item">
                     <Button type="primary">
                         {{ $t('json_get') }} / {{ $t('json_csv') }} / {{ $t('json_table') }}
-                        <Icon type="ios-arrow-up" />
+                        <Icon type="ios-arrow-up"/>
                     </Button>
                     <DropdownMenu slot="list">
                         <DropdownItem name="to_get">JSON => Get</DropdownItem>
@@ -103,18 +117,18 @@ export default {
         tableToJson,
         jsonPath
     },
-    computed:{
-        jsonInputCol(){
-            if (this.isMode('object')){
+    computed: {
+        jsonInputCol() {
+            if (this.isMode('object')) {
                 return 10
             }
-            if (this.isMode('from_csv') || this.isMode('from_table') || this.isMode('to_csv') || this.isMode('to_table') || this.isMode('path')){
+            if (this.isMode('from_csv') || this.isMode('from_table') || this.isMode('to_csv') || this.isMode('to_table') || this.isMode('path')) {
                 return 12
             }
             return 24
         },
-        getOutput(){
-            if (!this.isMode('to_get')){
+        getOutput() {
+            if (!this.isMode('to_get')) {
                 return "";
             }
             try {
@@ -123,17 +137,17 @@ export default {
                 return this.$t('json_error', [e.message]).toString();
             }
         },
-        fromGet(){
-            if (this.isMode('from_get') && this.current.get.input.trim()){
+        fromGet() {
+            if (this.isMode('from_get') && this.current.get.input.trim()) {
                 return this.current.get.input;
             }
             return "";
         }
     },
-    watch:{
-        fromGet(val){
-            if (val){
-                this.errorHandle(()=>{
+    watch: {
+        fromGet(val) {
+            if (val) {
+                this.errorHandle(() => {
                     this.setContentAndSaveToolData(jsonInstance.fromGet(val))
                 })
             }
@@ -143,10 +157,10 @@ export default {
         this.$initToolData()
     },
     methods: {
-        resize(height){
+        resize(height) {
             this.height = height
         },
-        errorHandle(callback){
+        errorHandle(callback) {
             try {
                 return callback()
             } catch (e) {
@@ -154,10 +168,10 @@ export default {
             }
             return ""
         },
-        isMode(mode){
+        isMode(mode) {
             return mode === this.current.mode
         },
-        setMode(mode){
+        setMode(mode) {
             this.current.mode = mode
             this.$nextTick(() => {
                 dispatchWindowResize()
@@ -165,7 +179,7 @@ export default {
         },
         // 简单处理
         simple(type) {
-            this.errorHandle(()=>{
+            this.errorHandle(() => {
                 this.current.content = this.current.content.trim()
                 if (!this.current.content) {
                     throw new Error(this.$t('json_json_input_empty').toString())
@@ -178,15 +192,15 @@ export default {
                 this.current.content = jsonInstance[type](this.current.content)
                 this.saveToolData()
                 this.$Message.success(this.$t('json_complete').toString())
-                if (type === "beautify"){
+                if (["beautify", "compress", "escape", "clearEscape", "unicode2zh", "zh2unicode"].includes(type)) {
                     this.$clipboardCopy(this.current.content)
                 }
             })
         },
-        saveToolData(force = false){
+        saveToolData(force = false) {
             this.$saveToolData(this.current, force)
         },
-        setContentAndSaveToolData(content){
+        setContentAndSaveToolData(content) {
             this.current.content = content
             this.saveToolData()
         }
@@ -198,15 +212,15 @@ export default {
                 get: {
                     input: ""
                 },
-                to_object:{},
-                from_csv:{},
-                from_table:{},
-                to_csv:{},
-                to_table:{},
-                path:{},
+                to_object: {},
+                from_csv: {},
+                from_table: {},
+                to_csv: {},
+                to_table: {},
+                path: {},
                 mode: "default"
             },
-            height:100
+            height: 100
         }
     },
 }
@@ -215,7 +229,8 @@ export default {
 .tool-json-button .ivu-btn {
     padding: 0 10px;
 }
-.tool-json-button .tool-json-item{
+
+.tool-json-button .tool-json-item {
     margin-right: 5px;
 }
 </style>
