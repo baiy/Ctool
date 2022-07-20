@@ -1,69 +1,76 @@
 <template>
     <div>
-        <option-block style="text-align: center">
-            <FormItem>
-                <RadioGroup v-model="type" type="button" button-style="solid">
-                    <Radio :style="radioGroupStyle" :label="v.key" v-for="v in categories" :key="v.key">{{ v.name }}
-                    </Radio>
-                </RadioGroup>
-            </FormItem>
-        </option-block>
-        <option-block style="text-align: center">
-            <FormItem>
-                <Input v-model="current.input" type="number"></Input>
-            </FormItem>
-            <FormItem>
-                <Select v-model="current.from" style="width:200px">
-                    <template v-if="groups.length > 1">
-                        <OptionGroup :label="group.name" v-for="group in groups" :key="group.key">
-                            <Option v-for="unit in group.list" :value="unit" :key="unit">{{ unitName(unit) }}</Option>
-                        </OptionGroup>
-                    </template>
-                    <template v-else>
-                        <Option v-for="unit in groups[0].list" :value="unit" :key="unit">{{ unitName(unit) }}</Option>
-                    </template>
-                </Select>
-            </FormItem>
-            <FormItem>
-                <Button icon="md-code-working" @click="exchange()"></Button>
-            </FormItem>
-            <FormItem>
-                <Select v-model="current.to" style="width:200px">
-                    <Option value="all">{{ $t('unit_all') }}</Option>
-                    <template v-if="groups.length > 1">
-                        <OptionGroup :label="group.name" v-for="group in groups" :key="group.key">
-                            <Option v-for="unit in group.list" :value="unit" :key="unit">{{ unitName(unit) }}</Option>
-                        </OptionGroup>
-                    </template>
-                    <template v-else>
-                        <Option v-for="unit in groups[0].list" :value="unit" :key="unit">{{ unitName(unit) }}</Option>
-                    </template>
-                </Select>
-            </FormItem>
-        </option-block>
-        <div style="padding: 0 30px; min-height: 200px">
-            <template v-if="assignResult !== null">
-                <div style="text-align: center;margin-top: 30px;font-size: 18px;font-weight: bold">
-                    <span style="color: red">{{ current.input }}</span> {{ unitName(current.from) }} = <span
-                    style="color: red">{{ assignResult }}</span>
-                    {{ unitName(current.to) }}
-                </div>
-            </template>
-            <CellGroup v-if="current.to === 'all'">
-                <Row :gutter="16">
-                    <Col span="12" v-for="(result,unitKey) in output" :key="unitKey">
-                        <Cell :title="result" :extra="unitName(unitKey)"/>
-                    </Col>
-                </Row>
-            </CellGroup>
+        <div class="page-option-block">
+            <option-block style="text-align: center">
+                <FormItem>
+                    <RadioGroup v-model="type" type="button" button-style="solid">
+                        <Radio :style="radioGroupStyle" :label="v.key" v-for="v in categories" :key="v.key">{{ v.name }}
+                        </Radio>
+                    </RadioGroup>
+                </FormItem>
+            </option-block>
+            <option-block style="text-align: center">
+                <FormItem>
+                    <Input v-model="current.input" type="number"></Input>
+                </FormItem>
+                <FormItem>
+                    <Select v-model="current.from" style="width:200px">
+                        <template v-if="groups.length > 1">
+                            <OptionGroup :label="group.name" v-for="group in groups" :key="group.key">
+                                <Option v-for="unit in group.list" :value="unit" :key="unit">{{ unitName(unit) }}</Option>
+                            </OptionGroup>
+                        </template>
+                        <template v-else>
+                            <Option v-for="unit in groups[0].list" :value="unit" :key="unit">{{ unitName(unit) }}</Option>
+                        </template>
+                    </Select>
+                </FormItem>
+                <FormItem>
+                    <Button icon="md-code-working" @click="exchange()"></Button>
+                </FormItem>
+                <FormItem>
+                    <Select v-model="current.to" style="width:200px">
+                        <Option value="all">{{ $t('unit_all') }}</Option>
+                        <template v-if="groups.length > 1">
+                            <OptionGroup :label="group.name" v-for="group in groups" :key="group.key">
+                                <Option v-for="unit in group.list" :value="unit" :key="unit">{{ unitName(unit) }}</Option>
+                            </OptionGroup>
+                        </template>
+                        <template v-else>
+                            <Option v-for="unit in groups[0].list" :value="unit" :key="unit">{{ unitName(unit) }}</Option>
+                        </template>
+                    </Select>
+                </FormItem>
+            </option-block>
         </div>
+        <heightResize :append="['.page-option-block']">
+            <div v-if="isShowResult" style="padding: 0 30px">
+                <template v-if="assignResult !== null">
+                    <div style="text-align: center;margin-top: 30px;font-size: 18px;font-weight: bold">
+                        <span style="color: red">{{ current.input }}</span> {{ unitName(current.from) }} = <span
+                        style="color: red">{{ assignResult }}</span>
+                        {{ unitName(current.to) }}
+                    </div>
+                </template>
+                <CellGroup v-if="current.to === 'all'">
+                    <Row :gutter="16">
+                        <Col span="12" v-for="(result,unitKey) in output" :key="unitKey">
+                            <Cell :title="result" :extra="unitName(unitKey)"/>
+                        </Col>
+                    </Row>
+                </CellGroup>
+            </div>
+        </heightResize>
     </div>
 </template>
 <script>
 import U from './library/unit'
 import {getCurrentLocale} from "../../i18n";
-
+import heightResize from "./components/heightResize";
 export default {
+    components: {
+        heightResize
+    },
     created() {
         let history = this.$getToolData()
         this.type = this.current.type = history['type'] ? history['type'] : 'temperature'
@@ -160,7 +167,7 @@ export default {
                 to: '',
                 input: '',
             },
-            type:"",
+            type:""
         }
     },
 }
