@@ -178,6 +178,9 @@ export default {
                 this.current.content = jsonInstance[type](this.current.content)
                 this.saveToolData()
                 this.$Message.success(this.$t('json_complete').toString())
+                if (type === "beautify"){
+                    this.$clipboardCopy(this.current.content)
+                }
             })
         },
         saveToolData(force = false){
