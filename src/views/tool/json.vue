@@ -64,6 +64,16 @@
                 </Dropdown>
                 <Dropdown @on-click="(name)=>simple(name)" class="tool-json-item">
                     <Button type="primary">
+                        {{ $t('json_sort') }}
+                        <Icon type="ios-arrow-up"/>
+                    </Button>
+                    <DropdownMenu slot="list">
+                        <DropdownItem name="sortKeyAsc">{{ $t('json_sort_key_asc') }}</DropdownItem>
+                        <DropdownItem name="sortKeyDesc">{{ $t('json_sort_key_desc') }}</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+                <Dropdown @on-click="(name)=>simple(name)" class="tool-json-item">
+                    <Button type="primary">
                         {{ $t('json_unicode') }}
                         <Icon type="ios-arrow-up"/>
                     </Button>

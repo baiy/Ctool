@@ -4,6 +4,7 @@ import csvToJson from './csvToJson';
 import tableToJson from './tableToJson';
 import jsonToTable from './jsonToTable';
 import {stringify} from 'csv-stringify/sync';
+import {sort as jsonSort} from 'json-keys-sort';
 import {parse as qsParse, stringify as qsStringify} from "qs";
 // 校验语法
 export const check = (content) => {
@@ -65,6 +66,18 @@ export const fromGet = (content) => {
     return beautify(JSON.stringify(qsParse(content.trim())))
 }
 
+// 键升序
+export const sortKeyAsc = (content) => {
+    check(content)
+    return beautify(JSON.stringify(jsonSort(JSON.parse(content))))
+}
+
+// 键降序
+export const sortKeyDesc = (content) => {
+    check(content)
+    return beautify(JSON.stringify(jsonSort(JSON.parse(content), false)))
+}
+
 export default {
     check,
     beautify,
@@ -75,6 +88,8 @@ export default {
     clearEscape,
     toGet,
     fromGet,
+    sortKeyAsc,
+    sortKeyDesc,
     csvToJson: (csv = "", option = {}) => {
         return beautify(JSON.stringify(csvToJson(csv, option)))
     },

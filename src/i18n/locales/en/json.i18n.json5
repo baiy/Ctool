@@ -1,5 +1,4 @@
 {
-
     "input": "Input",
     "output": "Output",
     "json_input_empty": "Please Enter Json Content",
@@ -8,21 +7,24 @@
     "compress": "Compress",
     "escape": "Escape",
     "clear_escape": "Unescape",
-    "add_escape":"Add Escape",
-    "unicode":"Unicode",
+    "add_escape": "Add Escape",
+    "unicode": "Unicode",
     "unicode_to_zh": "Unicode->Zh",
     "zh_to_unicode": "Zh->Unicode",
     "complete": "Processing is complete",
     "get": "Get Query",
-    "object":"To Object",
+    "object": "To Object",
     "csv": "CSV",
-    "table":"Table",
-    "path":"Path",
-    "add_quote":"Add Quote",
-    "column_name":"Column Name",
+    "table": "Table",
+    "path": "Path",
+    "add_quote": "Add Quote",
+    "column_name": "Column Name",
     "json_type_json": "Json",
     "json_type_keyed": "Keyed",
     "json_type_array": "Array",
     "json_type_column": "Column Array",
-    "inline": "Inline"
+    "inline": "Inline",
+    "sort": "Sort",
+    "sort_key_asc": "Key Asc",
+    "sort_key_desc": "Key Desc"
 }
