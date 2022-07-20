@@ -85,14 +85,21 @@ export default {
                             }
                             break;
                         case "SM4":
-                            if(v === "encrypt") {
-                                // SM4 加密，将输出转换为 base64 格式，与 AES 对齐
-                                output = sm4.encrypt(this.current.input, this.current.password);
-                                output = crypto.enc.Base64.stringify(crypto.enc.Hex.parse(output))
-                            } else {
-                                // SM4 解密，sm-crypto 要求输入为 hex，将 base64 转换为 hex 作为输入
-                                let inputHex = crypto.enc.Hex.stringify(crypto.enc.Base64.parse(this.current.input));
-                                output = sm4.decrypt(inputHex, this.current.password);
+                            try{
+                                if(v === "encrypt") {
+                                    // SM4 加密，将输出转换为 base64 格式，与 AES 对齐
+                                    output = sm4.encrypt(this.current.input, this.current.password);
+                                    output = crypto.enc.Base64.stringify(crypto.enc.Hex.parse(output))
+                                } else {
+                                    // SM4 解密，sm-crypto 要求输入为 hex，将 base64 转换为 hex 作为输入
+                                    let inputHex = crypto.enc.Hex.stringify(crypto.enc.Base64.parse(this.current.input));
+                                    output = sm4.decrypt(inputHex, this.current.password);
+                                }
+                            }catch (e) {
+                                if (e.message === "key is invalid"){
+                                    throw new Error("key is invalid key length 128 bit(32 char)")
+                                }
+                                throw e
                             }
                     }
                     if (!output) {
