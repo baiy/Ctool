@@ -3,18 +3,30 @@
         <Row :gutter="10">
             <Col span="10">
                 <div style="position: relative;">
-                    <input-block>
-                        <heightResize>
-                            <autoHeightTextarea v-model="current.input" :placeholder="$t('hash_content')"/>
-                        </heightResize>
-                        <template slot="extra">
-                            <updateFile @success="handleUpload"/>
-                            <Checkbox style="margin-left: 10px" v-model="current.isUppercase">{{
-                                    $t('hash_uppercase')
-                                }}
-                            </Checkbox>
-                        </template>
-                    </input-block>
+                    <heightResize ignore :append="['.page-hash-salt']" @resize="inputResize">
+                        <input-block>
+                            <autoHeightTextarea :height="inputHeight" v-model="current.input" :placeholder="$t('hash_content')"/>
+                            <template slot="extra">
+                                <updateFile @success="handleUpload"/>
+                                <Checkbox style="margin-left: 10px" v-model="current.isUppercase">{{
+                                        $t('hash_uppercase')
+                                    }}
+                                </Checkbox>
+                                <Checkbox style="margin-left: 10px" v-model="current.isSalt">{{ $t('hash_salt') }}</Checkbox>
+                            </template>
+                        </input-block>
+                    </heightResize>
+                    <div class="page-hash-salt" v-show="current.isSalt">
+                        <Input v-model="current.salt" style="padding: 5px 0">
+                            <span slot="prepend">{{ $t('hash_salt_value') }}</span>
+                        </Input>
+                        <Input v-model="current.saltExp">
+                            <span slot="prepend">{{ $t('hash_salt_mode') }}</span>
+                            <Select :placeholder="$t('hash_salt_select')" slot="append" style="width: 120px;text-align: left" @on-change="saltExpSelect">
+                                <Option v-for="(item,i) of saltExpLists" :key="i" :value="item">{{item}}</Option>
+                            </Select>
+                        </Input>
+                    </div>
                     <disableMask v-if="isUploadFile" @close="uploadFile = {}">
                         {{ this.uploadFile.file.name }}
                     </disableMask>
@@ -37,6 +49,8 @@ import heightResize from "./components/heightResize";
 import autoHeightTextarea from "./components/autoHeightTextarea";
 import updateFile from './components/updateFile';
 import disableMask from "./components/disableMask.vue";
+import hashHandle from "./library/hash";
+import {dispatchWindowResize} from '../../tool/event'
 const sm = require('sm-crypto');
 export default {
     components: {
@@ -52,26 +66,6 @@ export default {
         realInput() {
             return this.isUploadFile ? this.uploadFile.data : this.current.input
         },
-        md5() {
-            let result = crypto.MD5(this.realInput).toString();
-            return this.current.isUppercase ? result.toUpperCase() : result;
-        },
-        sha1() {
-            let result = crypto.SHA1(this.realInput).toString();
-            return this.current.isUppercase ? result.toUpperCase() : result;
-        },
-        sha256() {
-            let result = crypto.SHA256(this.realInput).toString();
-            return this.current.isUppercase ? result.toUpperCase() : result;
-        },
-        sha512() {
-            let result = crypto.SHA512(this.realInput).toString();
-            return this.current.isUppercase ? result.toUpperCase() : result;
-        },
-        sm3() {
-            let result = sm.sm3(this.realInput);
-            return this.current.isUppercase ? result.toUpperCase() : result;
-        },
         isUploadFile() {
             return "file" in this.uploadFile
         },
@@ -84,6 +78,9 @@ export default {
                 }
             },
             deep: true
+        },
+        "current.isSalt":()=>{
+            dispatchWindowResize()
         }
     },
     methods: {
@@ -91,10 +88,18 @@ export default {
             if (!this.realInput) {
                 return "";
             }
-            return this[type]
+            try {
+                let result = hashHandle(type, this.realInput, this.current.salt, this.current.isSalt ? this.current.saltExp : "");
+                return this.current.isUppercase ? result.toUpperCase() : result;
+            }catch (e) {
+                return e.message
+            }
         },
         resize(height) {
             this.outputHeight = (height - 20) / 5
+        },
+        inputResize(height) {
+            this.inputHeight = height
         },
         handleUpload(file) {
             let r = new FileReader()
@@ -102,20 +107,39 @@ export default {
             r.onloadend = () => {
                 let data = crypto.enc.Latin1.parse(r.result);
                 if (data) {
+                    this.current.isSalt = false
                     this.uploadFile = {file, data}
                 }
             }
         },
+        saltExpSelect(value){
+            this.current.saltExp = value
+        }
     },
     data() {
         return {
             current: {
                 input: "",
+                salt: "",
+                saltExp: "hash(hash($input.$salt).$salt)",
+                isSalt: false,
                 isUppercase: false,
             },
             uploadFile: {},
             types: ['md5', 'sha1', 'sha256', 'sha512', "sm3"],
-            outputHeight: 100
+            outputHeight: 100,
+            inputHeight: 100,
+            saltExpLists:[
+                'hash(hash($input))',
+                'hash($input.$salt)',
+                'hash(hash($input).$salt)',
+                'hash($input).hash($salt)',
+                'hash(hash(hash($input)))',
+                'hash($salt.$input.$salt)',
+                'hash(hash($input.$salt).$salt)',
+                'hash($salt.hash($input.$salt).$salt)',
+                'hash($salt.hash($salt.$input.$salt).$salt)',
+            ]
         }
     },
 }

@@ -48,7 +48,7 @@ export default {
     },
     methods: {
         reportWindowSize() {
-            this.resize()
+           setTimeout(()=>this.resize(),2)
         },
         resize() {
             let height = window.innerHeight;
