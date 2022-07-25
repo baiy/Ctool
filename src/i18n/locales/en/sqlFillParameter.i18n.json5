@@ -1,8 +1,7 @@
 {
-  "invalid_param": "invalid parameter",
-  'parameter': 'parameter',
-  'parameter_too_little': 'no enough parameters ',
-  'fill': 'fill',
-  'clear': 'clear',
-  'out': 'out'
+    "invalid_param": "Invalid Parameter",
+    'parameter': 'Parameter',
+    'parameter_too_little': 'No Enough Parameters',
+    'out': 'Out',
+    'copy': 'Copy'
 }

@@ -58,7 +58,7 @@ const tool = [
     {'name': 'armConverter', 'cat': ['conversion']},
     {'name': 'bcrypt', 'cat': ['encryption','check']},
     {'name': 'ipcalc', 'cat': ['generate']},
-    {'name': 'sqlFillParameter', 'cat': ['other']}
+    {'name': 'sqlFillParameter', 'cat': ['generate']}
 ]
 
 // 工具类功能配置

@@ -1,5 +1,5 @@
 <template>
-    <heightResize @resize="resize">
+    <heightResize :reduce="5" @resize="resize">
         <Row :gutter="10">
             <Col span="8">
                 <input-block top="5px">
@@ -50,7 +50,7 @@ export default {
     methods: {
         resize(height) {
             this.inputHeight = height
-            this.outputHeight = Math.ceil((height - 20) / 3)
+            this.outputHeight = Math.floor((height - 20) / 3)
         },
         result(type) {
             if (this.current.input.trim() === "") {
