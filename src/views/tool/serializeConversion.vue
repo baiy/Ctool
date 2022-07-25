@@ -1,22 +1,31 @@
 <template>
     <Row :gutter="10">
         <Col span="12">
-            <input-block top="10px" right="15px">
-                <heightResize>
-                    <code-editor v-model="current.input" :placeholder="$t('serializeConversion_input')"
-                                 :language="language[current.source]"/>
-                </heightResize>
+            <input-block bottom="10px" right="15px">
+                <input-block top="10px" right="15px">
+                    <heightResize>
+                        <code-editor v-model="current.input" :placeholder="$t('serializeConversion_input')"
+                                     :language="language[current.source]"/>
+                    </heightResize>
+                    <template slot="extra">
+                        <Select v-model="current.source" style="width:100px">
+                            <Option v-for="v in type" :value="v" :key="v">{{ v }}</Option>
+                        </Select>
+                    </template>
+                </input-block>
                 <template slot="extra">
-                    <Select v-model="current.source" style="width:100px">
-                        <Option v-for="v in type" :value="v" :key="v">{{ v }}</Option>
-                    </Select>
+                    <Checkbox v-if="current.source === 'properties'" v-model="current.option.propertiesToJSONDotsParse">{{
+                            $t('serializeConversion_option_propertiesToJSONDotsParse')
+                        }}
+                    </Checkbox>
                 </template>
             </input-block>
         </Col>
         <Col span="12">
             <input-block top="10px" right="15px">
                 <heightResize>
-                    <code-editor :value="output" :placeholder="$t('serializeConversion_output')" :language="language[current.target]"/>
+                    <code-editor :value="output" :placeholder="$t('serializeConversion_output')"
+                                 :language="language[current.target]"/>
                 </heightResize>
                 <template slot="extra">
                     <Select v-model="current.target" style="width:100px">
@@ -45,7 +54,7 @@ export default {
             let result = "";
             if (this.current.input) {
                 try {
-                    result = conversion(this.current.input, this.current.source).getByTarget(this.current.target);
+                    result = conversion(this.current.input, this.current.source, this.current.option).getByTarget(this.current.target);
                     this.$saveToolData(this.current);
                 } catch (e) {
                     result = this.$t('serializeConversion_error', [e.message])
@@ -60,7 +69,10 @@ export default {
                 input: "",
                 output: "",
                 source: "json",
-                target: "xml"
+                target: "xml",
+                option: {
+                    propertiesToJSONDotsParse: false
+                }
             },
             type: conversionType,
             language: {

@@ -1,7 +1,7 @@
 import jsonToPhpArray from "phparr"
 import phpArrayToJson from "php-array-reader"
 import phpSerialize from "serialize-php"
-import propertiesToJSON from "properties-to-json"
+import propertiesToJSON from "./serializeConversion/propertiesToJSON"
 import jsonToPropertiesParser from "json-to-properties/src/scripts/parser"
 import yaml from "js-yaml"
 import formatter from "./formatter"
@@ -10,10 +10,13 @@ import X2JS from "x2js"
 export const TYPE = ["json", "xml", "yaml", "phpArray", "phpSerialize", "properties"];
 
 class serializeConversion {
-    constructor(input, source) {
+    option = {}
+
+    constructor(input, source, option = {}) {
         if (!TYPE.includes(source)) {
             throw new Error("source error");
         }
+        this.option = option;
         try {
             switch (source) {
                 case "json":
@@ -21,7 +24,7 @@ class serializeConversion {
                     break;
                 case "xml":
                     this.input = (new X2JS()).xml_str2json(input);
-                    if(Object.keys(this.input).length === 1 && Object.keys(this.input).includes('default_root')){
+                    if (Object.keys(this.input).length === 1 && Object.keys(this.input).includes('default_root')) {
                         this.input = this.input['default_root'];
                     }
                     break
@@ -35,13 +38,19 @@ class serializeConversion {
                     this.input = phpSerialize.unserialize(input);
                     break;
                 case "properties":
-                    console.log(propertiesToJSON(input))
-                    this.input = propertiesToJSON(input);
+                    this.input = propertiesToJSON(input, {convertToJsonTree: this.getOption('propertiesToJSONDotsParse', false)});
                     break;
             }
         } catch (e) {
             throw new Error("source error:" + e.message);
         }
+    }
+
+    getOption(name, def) {
+        if (name in this.option) {
+            return this.option[name]
+        }
+        return def
     }
 
     getByTarget(target) {
@@ -69,13 +78,13 @@ class serializeConversion {
     }
 
     getJson() {
-        return JSON.stringify(this.input,null,4)
+        return JSON.stringify(this.input, null, 4)
     }
 
     getXml() {
         let x2js = new X2JS();
-        this.input = Object.keys(this.input).length > 1 ? {default_root:this.input} : this.input;
-        return formatter(x2js.json2xml_str(this.input),'xml');
+        this.input = Object.keys(this.input).length > 1 ? {default_root: this.input} : this.input;
+        return formatter(x2js.json2xml_str(this.input), 'xml');
     }
 
     getYaml() {
@@ -95,6 +104,6 @@ class serializeConversion {
     }
 }
 
-export const conversion = (data, source) => {
-    return new serializeConversion(data, source)
+export const conversion = (data, source, option = {}) => {
+    return new serializeConversion(data, source, option)
 }
