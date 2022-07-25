@@ -1,9 +1,11 @@
 import prettier from "prettier/standalone";
 import parserSql from "prettier-plugin-sql";
+
 export const beautify = (code, option = {}) => {
     return prettier.format(code, {
         plugins: [parserSql],
         parser: "sql",
+        language: "mysql",
         tabWidth: "tab" in option ? option.tab : 4
     });
 }
@@ -13,5 +15,5 @@ export const compress = (code, options = {}) => {
 }
 
 export default {
-    beautify,compress
+    beautify, compress
 }
