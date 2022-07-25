@@ -1,12 +1,14 @@
 {
     "input": "输入",
-    "normal":"无声调",
+    "normal": "无声调",
     "tone": "有声调",
-    "abbr":"首字母",
+    "abbr": "首字母",
     "output": "输出",
-    "delimiter_null":"无分隔符",
+    "delimiter_null": "无分隔符",
     "delimiter_space": "空格分隔",
-    "delimiter_1":"'-'中划线分隔",
+    "delimiter_1": "'-'中划线分隔",
     "delimiter_2": "'_'下划线分隔",
-    "delimiter_3":"'.'点分隔"
+    "delimiter_3": "'.'点分隔",
+    "multiple_flag": "显示多音字",
+    "tone_is_number": "数字声调"
 }

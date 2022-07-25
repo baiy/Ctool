@@ -1,6 +1,6 @@
 <template>
     <heightResize :append="['.page-option-block']" ignore @resize="resize">
-        <autoHeightTextarea :height="inputHeight" v-model="current.input" :placeholder="$t('pinyin_input')" />
+        <autoHeightTextarea :height="inputHeight" v-model="current.input" :placeholder="$t('pinyin_input')"/>
         <option-block class="page-option-block">
             <FormItem>
                 <RadioGroup v-model="current.operation" type="button" button-style="solid">
@@ -10,41 +10,36 @@
                 </RadioGroup>
             </FormItem>
             <FormItem>
-                <Select v-model="current.delimiter" style="width:200px">
+                <Select v-model="current.delimiter" style="width:120px">
                     <Option v-for="(d,k) in delimiter" :value="d.v" :key="k">{{ d.n }}</Option>
                 </Select>
             </FormItem>
+            <FormItem>
+                <Checkbox v-model="current.multiple_flag">{{
+                        $t('pinyin_multiple_flag')
+                    }}
+                </Checkbox>
+            </FormItem>
+            <FormItem>
+                <Checkbox v-model="current.replace_v">ü=>v</Checkbox>
+            </FormItem>
+            <FormItem v-if="current.operation === 'tone'">
+                <Checkbox v-model="current.tone_is_number">{{
+                        $t('pinyin_tone_is_number')
+                    }}
+                </Checkbox>
+            </FormItem>
         </option-block>
-        <autoHeightTextarea :height="outputHeight" :value="output" :placeholder="$t('pinyin_output')" />
+        <autoHeightTextarea :height="outputHeight" :value="output" :placeholder="$t('pinyin_output')"/>
     </heightResize>
 </template>
 <script>
-import "./pinyin/dict"
-import "ipinyinjs"
 import heightResize from "./components/heightResize";
+import pinyin from "./library/pinyin";
 import autoHeightTextarea from "./components/autoHeightTextarea";
 
-function py(type, str, delimiter) {
-    let pinyin = {
-        abbr: function (str, delimiter) {
-            return window.pinyinUtil.getFirstLetter(str).split('').join(delimiter);
-        },
-        tone: function (str, delimiter) {
-            return window.pinyinUtil.getPinyin(str, delimiter);
-        },
-        normal: function (str, delimiter) {
-            return window.pinyinUtil.getPinyin(str, delimiter, false);
-        }
-    };
-    str = str.split("\n");
-    for (let i = 0; i < str.length; i++) {
-        str[i] = pinyin[type](str[i], delimiter);
-    }
-    return str.join("\n");
-}
-
 export default {
-    components:{
+    components: {
         heightResize,
         autoHeightTextarea
     },
@@ -55,19 +50,38 @@ export default {
         output() {
             let result = "";
             if (this.current.input.trim()) {
-                result = py(
-                    this.current.operation,
+                result = pinyin(
                     this.current.input,
-                    this.current.delimiter === "null" ? "" : (this.current.delimiter === "blank" ? " " : this.current.delimiter)
+                    this.current.delimiter === "null" ? "" : (this.current.delimiter === "blank" ? " " : this.current.delimiter),
+                    {...this.option, multiple_flag: this.current.multiple_flag, replace_v: this.current.replace_v}
                 );
                 this.$saveToolData(this.current);
             }
             return result
+        },
+        option() {
+            if (this.current.operation === "normal") {
+                return {
+                    pattern: "pinyin",
+                    tone: "",
+                }
+            }
+            if (this.current.operation === "tone") {
+                return {
+                    pattern: "pinyin",
+                    tone: this.current.tone_is_number ? "num" : "symbol",
+
+                }
+            }
+            return {
+                pattern: "first",
+                tone: "",
+            }
         }
     },
-    methods:{
-        resize(height){
-            this.inputHeight = Math.min(Math.ceil(height/2),160);
+    methods: {
+        resize(height) {
+            this.inputHeight = Math.min(Math.ceil(height / 2), 160);
             this.outputHeight = height - this.inputHeight;
         }
     },
@@ -77,7 +91,10 @@ export default {
                 input: "",
                 output: "",
                 delimiter: "null",
-                operation: "normal"
+                operation: "normal",
+                multiple_flag: false,
+                tone_is_number: false,
+                replace_v: false,
             },
             delimiter: [
                 {"n": this.$t('pinyin_delimiter_null'), "v": "null"},
@@ -86,8 +103,8 @@ export default {
                 {"n": this.$t('pinyin_delimiter_2'), "v": "_"},
                 {"n": this.$t('pinyin_delimiter_3'), "v": "."}
             ],
-            inputHeight:100,
-            outputHeight:100,
+            inputHeight: 100,
+            outputHeight: 100,
         }
     },
 }
