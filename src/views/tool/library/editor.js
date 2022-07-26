@@ -19,6 +19,7 @@ import "codemirror/mode/css/css.js";
 import "codemirror/mode/xml/xml.js";
 import "codemirror/mode/sql/sql.js";
 import "codemirror/mode/php/php.js";
+import "codemirror/mode/toml/toml.js";
 import "codemirror/mode/ruby/ruby.js";
 import "codemirror/mode/python/python.js";
 import "codemirror/mode/clike/clike.js";
@@ -61,6 +62,7 @@ const modes = {
     dart: "application/dart",
     vue: "text/x-vue",
     protobuf: "text/x-protobuf",
+    toml: "text/x-toml",
 };
 
 const modeConversion = (lang) => {

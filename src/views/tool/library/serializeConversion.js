@@ -5,9 +5,10 @@ import propertiesToJSON from "./serializeConversion/propertiesToJSON"
 import jsonToPropertiesParser from "json-to-properties/src/scripts/parser"
 import yaml from "js-yaml"
 import formatter from "./formatter"
+import toml from "@iarna/toml"
 import X2JS from "x2js"
 
-export const TYPE = ["json", "xml", "yaml", "phpArray", "phpSerialize", "properties"];
+export const TYPE = ["json", "xml", "yaml", "phpArray", "phpSerialize", "properties", "toml"];
 
 class serializeConversion {
     option = {}
@@ -40,6 +41,9 @@ class serializeConversion {
                 case "properties":
                     this.input = propertiesToJSON(input, {convertToJsonTree: this.getOption('propertiesToJSONDotsParse', false)});
                     break;
+                case "toml":
+                    this.input = toml.parse(input);
+                    break;
             }
         } catch (e) {
             throw new Error("source error:" + e.message);
@@ -71,6 +75,8 @@ class serializeConversion {
                     return this.getPhpSerialize();
                 case "properties":
                     return this.getProperties();
+                case "toml":
+                    return this.getToml();
             }
         } catch (e) {
             throw new Error("target error:" + e.message);
@@ -79,6 +85,10 @@ class serializeConversion {
 
     getJson() {
         return JSON.stringify(this.input, null, 4)
+    }
+
+    getToml() {
+        return toml.stringify(this.input)
     }
 
     getXml() {

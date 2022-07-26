@@ -82,6 +82,7 @@ export default {
                 phpArray: "php",
                 phpSerialize: "text",
                 properties: "text",
+                toml: "toml",
             }
         }
     },

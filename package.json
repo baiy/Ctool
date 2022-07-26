@@ -1,6 +1,6 @@
 {
     "name": "c-tool",
-    "version": "1.12.1",
+    "version": "1.12.2",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve --port 8081",
@@ -10,6 +10,7 @@
     },
     "dependencies": {
         "@babel/parser": "^7.17.0",
+        "@iarna/toml": "^2.2.5",
         "@prettier/plugin-php": "^0.17.6",
         "@typescript-eslint/typescript-estree": "^5.10.2",
         "angular-html-parser": "^1.8.0",
