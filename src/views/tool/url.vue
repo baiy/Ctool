@@ -13,6 +13,8 @@
     </heightResize>
 </template>
 <script>
+import decodeUriComponent from "decode-uri-component";
+import strictUriEncode from "strict-uri-encode";
 import heightResize from "./components/heightResize";
 import autoHeightTextarea from "./components/autoHeightTextarea";
 export default {
@@ -26,10 +28,14 @@ export default {
     methods: {
         handle(v) {
             if (this.current.input) {
-                this.current.output = v === "encode" ? encodeURIComponent(this.current.input) : decodeURIComponent(this.current.input);
-                this.current.operation = v;
-                this.$clipboardCopy(this.current.output);
-                this.$saveToolData(this.current);
+                try {
+                    this.current.operation = v;
+                    this.current.output = v === "encode" ? strictUriEncode(this.current.input) : decodeUriComponent(this.current.input);
+                    this.$clipboardCopy(this.current.output);
+                    this.$saveToolData(this.current);
+                }catch (e){
+                    this.current.output = `error: ${e.message}`
+                }
             }
         },
         resize(height){

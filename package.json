@@ -1,6 +1,6 @@
 {
     "name": "c-tool",
-    "version": "1.12.2",
+    "version": "1.12.3",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve --port 8081",
@@ -31,6 +31,7 @@
         "csv-parse": "^5.0.4",
         "csv-stringify": "^6.0.5",
         "darkreader": "^4.9.44",
+        "decode-uri-component": "^0.2.0",
         "diff-match-patch": "^1.0.5",
         "file": "^0.2.2",
         "file-type": "^16.5.3",
@@ -68,6 +69,7 @@
         "qs": "^6.10.3",
         "serialize-php": "^1.1.2",
         "sm-crypto": "^0.3.7",
+        "strict-uri-encode": "^2.0.0",
         "system": "^2.0.1",
         "typescript": "^4.5.5",
         "uglify-js": "3.14.3",
