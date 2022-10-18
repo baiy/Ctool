@@ -109,7 +109,7 @@ export default {
                     if ((new RegExp(/^\d{10}$/)).test(input)) {
                         return inputType.unixSecond
                     }
-                    if ((new RegExp(/^\d{13}$/)).test(input)) {
+                    if ((new RegExp(/^\d{13,}$/)).test(input)) {
                         return inputType.unixMillisecond
                     }
                     return inputType.error
