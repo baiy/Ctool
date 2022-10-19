@@ -1,5 +1,5 @@
 <template>
-    <div style="padding: 0 70px">
+    <div style="padding: 0 70px;" class="decimal-conver">
         <option-block>
             <Input v-model="current.input" :placeholder="$t('decimalConvert_input_placeholder')">
                 <div slot="prepend" style="width: 70px"><strong>{{ $t('decimalConvert_input') }}</strong></div>
@@ -140,3 +140,12 @@ export default {
     },
 }
 </script>
+
+<style>
+.decimal-conver form:last-child{
+  margin-bottom: 40px;
+}
+.decimal-conver .ivu-input{
+  z-index: 0;
+}
+</style>
