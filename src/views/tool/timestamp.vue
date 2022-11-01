@@ -110,12 +110,20 @@ export default {
             }
             try {
                 let timeUnit = this.current.timeUnit
-                let type = function (input) {
+                this.oldInput = this.current.input
+                let type = function (input, oldInput) {
                     if ((new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+$/)).test(input)) {
                         return inputType.normalSecond
                     }
                     if ((new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+\.\d+$/)).test(input)) {
                         return inputType.normalMillisecond
+                    }
+                    // 时间戳不变，单位改变时再做判断
+                    if (oldInput === input) {
+                      if (timeUnit === 'seconds') {
+                        return inputType.unixSecond
+                      }
+                      return inputType.unixMillisecond
                     }
                     if ((new RegExp(/^\d{10}$/)).test(input) || timeUnit === 'seconds') {
                         return inputType.unixSecond
@@ -124,7 +132,7 @@ export default {
                         return inputType.unixMillisecond
                     }
                     return inputType.error
-                }(this.current.input.trim())
+                }(this.current.input.trim(), this.oldInput)
                 if (type === inputType.error) {
                     throw new Error(this.$t('timestamp_error_format').toString())
                 }
