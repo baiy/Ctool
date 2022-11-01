@@ -10,5 +10,7 @@
     "error_format": "输入时间格式异常",
     "error":"错误:{0}",
     "format": "格式",
-    "value":"值"
+    "value":"值",
+    "unit_seconds":"秒(s)",
+    "unit_milliseconds":"毫秒(ms)",
 }

@@ -7,6 +7,16 @@
                         <span slot="prepend">{{ $t('timestamp_input') }}</span>
                     </Input>
                     <template slot="extra">
+                        <Dropdown @on-click="currentTimeUnit" transfer style="margin-right: 10px">
+                            <Button size="small" type="primary">
+                                {{ $t(`timestamp_unit_${current.timeUnit}`) }}
+                                <Icon type="ios-arrow-down"></Icon>
+                            </Button>
+                            <DropdownMenu slot="list">
+                                <DropdownItem name="seconds">{{ $t('timestamp_unit_seconds') }}</DropdownItem>
+                                <DropdownItem name="milliseconds">{{ $t('timestamp_unit_milliseconds') }}</DropdownItem>
+                            </DropdownMenu>
+                        </Dropdown>
                         <Dropdown @on-click="currentTime" transfer>
                             <Button size="small" type="primary">
                                 {{ $t('timestamp_get') }}
@@ -99,6 +109,7 @@ export default {
                 return result;
             }
             try {
+                let timeUnit = this.current.timeUnit
                 let type = function (input) {
                     if ((new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+$/)).test(input)) {
                         return inputType.normalSecond
@@ -106,10 +117,10 @@ export default {
                     if ((new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+\.\d+$/)).test(input)) {
                         return inputType.normalMillisecond
                     }
-                    if ((new RegExp(/^\d{10}$/)).test(input)) {
+                    if ((new RegExp(/^\d{10}$/)).test(input) || timeUnit === 'seconds') {
                         return inputType.unixSecond
                     }
-                    if ((new RegExp(/^\d{13,}$/)).test(input)) {
+                    if ((new RegExp(/^\d{13,}$/)).test(input) || timeUnit === 'milliseconds') {
                         return inputType.unixMillisecond
                     }
                     return inputType.error
@@ -146,15 +157,21 @@ export default {
                 this.current.input = moment().format('YYYY-MM-DD HH:mm:ss.SSS')
             } else if (type === "unixSecond") {
                 this.current.input = moment().format('X')
+                this.current.timeUnit = 'seconds'
             } else {
                 this.current.input = moment().format('x')
+                this.current.timeUnit = 'milliseconds'
             }
         },
+        currentTimeUnit(unit){
+          this.current.timeUnit = unit
+        }
     },
     data() {
         return {
             current: {
-                input: moment().format('YYYY-MM-DD HH:mm:ss')
+                input: moment().format('YYYY-MM-DD HH:mm:ss'),
+                timeUnit:'seconds'
             },
             timer: null,
             timestamp: 0,

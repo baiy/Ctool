@@ -10,5 +10,7 @@
     "error_format": "Input Format Error",
     "error":"error:{0}",
     "format": "Format",
-    "value":"Value"
+    "value":"Value",
+    "unit_seconds":"Seconds",
+    "unit_milliseconds":"Millisecond",
 }
