@@ -110,29 +110,23 @@ export default {
             }
             try {
                 let timeUnit = this.current.timeUnit
-                this.oldInput = this.current.input
-                let type = function (input, oldInput) {
-                    if ((new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+$/)).test(input)) {
-                        return inputType.normalSecond
-                    }
-                    if ((new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+\.\d+$/)).test(input)) {
-                        return inputType.normalMillisecond
-                    }
-                    // 时间戳不变，单位改变时再做判断
-                    if (oldInput === input) {
-                      if (timeUnit === 'seconds') {
-                        return inputType.unixSecond
+                let type = function (input) {
+                    if ((new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+/)).test(input)) {
+                      const normalInputType = {
+                        'seconds': inputType.normalSecond,
+                        'milliseconds': inputType.normalMillisecond
                       }
-                      return inputType.unixMillisecond
+                      return normalInputType[timeUnit]
                     }
-                    if ((new RegExp(/^\d{10}$/)).test(input) || timeUnit === 'seconds') {
-                        return inputType.unixSecond
-                    }
-                    if ((new RegExp(/^\d{13,}$/)).test(input) || timeUnit === 'milliseconds') {
-                        return inputType.unixMillisecond
+                    if ((new RegExp(/^\d+$/)).test(input)) {
+                      const unixInputType = {
+                        'seconds': inputType.unixSecond,
+                        'milliseconds': inputType.unixMillisecond
+                      }
+                      return unixInputType[timeUnit]
                     }
                     return inputType.error
-                }(this.current.input.trim(), this.oldInput)
+                }(this.current.input.trim())
                 if (type === inputType.error) {
                     throw new Error(this.$t('timestamp_error_format').toString())
                 }
@@ -165,9 +159,12 @@ export default {
                 this.current.input = moment().format('YYYY-MM-DD HH:mm:ss.SSS')
             } else if (type === "unixSecond") {
                 this.current.input = moment().format('X')
-                this.current.timeUnit = 'seconds'
             } else {
                 this.current.input = moment().format('x')
+            }
+            if (["normalSecond","unixSecond"].includes(type)) {
+                this.current.timeUnit = 'seconds'
+            } else {
                 this.current.timeUnit = 'milliseconds'
             }
         },
