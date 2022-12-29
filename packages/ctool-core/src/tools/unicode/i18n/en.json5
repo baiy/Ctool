@@ -1,0 +1,10 @@
+{
+    "mode_unicode_point_default": "Unicode Default \\u[0-9a-f]{4}",
+    "mode_unicode_point_wide": "Unicode Wide \\u[0-9a-f]{4,6}",
+    "mode_unicode_point_wide_brace": "Unicode Wide(Has Bracket) \\u{[0-9a-f]{4,6}}",
+    "mode_unicode_number": "Unicode Number U+[0-9A-F]{4,6}",
+    "mode_html_entity_10": "HTML-code(Base-10) &#[0-9]+;",
+    "mode_html_entity_16": "HTML-code(Base-16) &#x[0-9a-f]{1,6};",
+    "mode_css_entity": "Css-code(Base-16) \\[0-9a-f]{4,6}",
+    "ignore_ascii": "忽略 Ascii 字符"
+}

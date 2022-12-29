@@ -3,78 +3,55 @@ on: [ push ]
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 16.x ]
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16
 
-      - name: Initialize / Install Dependencies
-        run: |
-          mkdir temp_release
-          npm install
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
 
-      - name: Build web
-        run: |
-          npm run build -adapter=web
-          cp -r ./dist ./dist_gh_pages
-          cd ./dist
-          zip -r -q ../temp_release/web.zip ./*
-          cd ../
-          unzip -l ./temp_release/web.zip
+      - name: Install dependencies
+        run: pnpm install
 
-      - name: Build chrome
+      - name: Build Core
+        run: | 
+          pnpm run build
+          ls -lh ./packages/ctool-core/dist
+
+      - name: Release Adapter Platform
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          npm run build -adapter=chrome
-          cd ./dist
-          zip -r -q ../temp_release/chrome.zip ./*
-          cd ../
+          pnpm run only-release
+          ls -lh ./_release/
 
-      - name: Build utools
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          npm run build -adapter=utools
-          cd ./dist
-          zip -r -q ../temp_release/utools.zip ./*
-          cd ../
-
-      - name: Build edge
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          npm run build -adapter=edge
-          cd ./dist
-          zip -r -q ../temp_release/edge.zip ./*
-          cd ../
-
-      - name: Build firefox
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          npm run build -adapter=firefox
-          cd ./dist
-          zip -r -q ../temp_release/firefox.zip ./*
-          cd ../
-
-      - name: Upload build to github
+      - name: Upload Release To Github
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           prerelease: true
           files: |
-            ./temp_release/web.zip
-            ./temp_release/chrome.zip
-            ./temp_release/utools.zip
-            ./temp_release/edge.zip
-            ./temp_release/firefox.zip
+            ./_release/ctool_web.zip
+            ./_release/ctool_chrome.zip
+            ./_release/ctool_edge.zip
+            ./_release/ctool_utools.zip
+            ./_release/ctool_firefox.zip
+            ./_release/ctool_electron_linux_x64.tar.gz
+            ./_release/ctool_electron_mac_arm64.zip
+            ./_release/ctool_electron_mac_x64.zip
+            ./_release/ctool_electron_win_x64.zip
 
       - name: Deploy web to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./dist_gh_pages
+          publish_dir: ./packages/ctool-core/dist

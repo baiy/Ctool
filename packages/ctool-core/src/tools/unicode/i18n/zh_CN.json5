@@ -1,0 +1,10 @@
+{
+    "mode_unicode_point_default": "Unicode 默认模式 \\u[0-9a-f]{4}",
+    "mode_unicode_point_wide": "Unicode 宽字符模式 \\u[0-9a-f]{4,6}",
+    "mode_unicode_point_wide_brace": "Unicode 宽字符模式(带大括号) \\u{[0-9a-f]{4,6}}",
+    "mode_unicode_number": "Unicode 编码模式 U+[0-9A-F]{4,6}",
+    "mode_html_entity_10": "Html 实体(10进制) &#[0-9]+;",
+    "mode_html_entity_16": "Html 实体(16进制)  &#x[0-9a-f]{1,6};",
+    "mode_css_entity": "Css 实体(16进制) \\[0-9a-f]{4,6}",
+    "ignore_ascii": "忽略 Ascii 字符",
+}

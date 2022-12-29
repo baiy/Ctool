@@ -1,0 +1,8 @@
+{
+    "input_placeholder": "请输入待转换数字",
+    "base": "{0} 进制",
+    "result": "转换结果 {0}",
+    "alphabet": "64位字母表",
+    "reset": "重置",
+    "alphabet_length_error": "转换字母表必须是64位长度"
+}

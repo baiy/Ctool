@@ -1,0 +1,4 @@
+{
+    "input_encode": "Please enter a string to be encoded",
+    "input_decode": "Please enter a string to be decoded",
+}

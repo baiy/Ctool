@@ -1,0 +1,30 @@
+{
+    "name": "ctool-config",
+    "type": "module",
+    "files": [
+        "dist"
+    ],
+    "main": "./dist/index.umd.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "require": "./dist/index.umd.cjs",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "scripts": {
+        "build": "vite build"
+    },
+    "dependencies": {
+        "lodash": "^4.17.21"
+    },
+    "devDependencies": {
+        "@types/lodash": "^4.14.191",
+        "@types/node": "^18.11.15",
+        "typescript": "^4.9.4",
+        "vite": "^4.0.1",
+        "vite-plugin-dts": "^1.7.1"
+    }
+}

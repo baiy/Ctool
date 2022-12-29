@@ -1,0 +1,20 @@
+{
+    "background": "背景",
+    "line_color": "线条颜色",
+    "bar_width": "宽",
+    "height": "高",
+    "margin": "边距",
+    "text": "文本",
+    "close": "隐藏",
+    "top": "上方",
+    "bottom": "下方",
+    "text_align": "对齐",
+    "left": "居左",
+    "center": "居中",
+    "right": "居右",
+    "font": "字体",
+    "bold": "粗体",
+    "italic": "斜体",
+    "font_size": "大小",
+    "generate_fail": "生成失败"
+}

@@ -1,0 +1,20 @@
+{
+    "background": "Background",
+    "line_color": "Line Color",
+    "bar_width": "Width",
+    "height": "Height",
+    "margin": "Margin",
+    "text": "Text",
+    "close": "Hide",
+    "top": "Top",
+    "bottom": "Bottom",
+    "text_align": "Align",
+    "left": "Left",
+    "center": "Center",
+    "right": "Right",
+    "font": "Font",
+    "bold": "Bold",
+    "italic": "Italic",
+    "font_size": "Size",
+    "generate_fail": "Generate Failure"
+}

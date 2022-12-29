@@ -1,0 +1,28 @@
+{
+    "generate_option_common": "常用",
+    "generate_option_content":"内容",
+    "generate_option_corners_square": "定位边框",
+    "generate_option_corners_dot":"定位符",
+    "generate_option_background": "背景",
+    "generate_option_size": "大小",
+    "generate_option_margin": "外边距",
+    "generate_option_correction": "纠错",
+    "generate_option_gradient": "渐变",
+    "generate_option_linear": "线性",
+    "generate_option_radial": "径向",
+    "generate_option_rotation": "旋转",
+    "generate_option_style": "样式",
+    "generate_option_dots": "点",
+    "generate_option_square": "方形",
+    "generate_option_rounded": "圆形",
+    "generate_option_classy": "平滑",
+    "generate_option_extra-rounded": "圆角",
+    "generate_option_classy-rounded": "平滑圆角",
+    "generate_option_dot": "圆形",
+    "reader_parsing_failure": "图片解析失败",
+}
+
+
+
+
+

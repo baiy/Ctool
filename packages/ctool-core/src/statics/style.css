@@ -1,0 +1,132 @@
+@import "./pico.css";
+@import '@imengyu/vue3-context-menu/lib/vue3-context-menu.css';
+
+[data-theme="light"] {
+    --ctool-color-primary-theme: #515a6e;
+    --ctool-color-secondary-theme: #909399;
+    --ctool-border-color-theme: #dcdfe6;
+    --ctool-placeholder-text-color-theme: #a8abb2;
+    --ctool-mask-color: rgba(255, 255, 255, .9);
+
+    --ctool-background-color: #fff;
+
+    --ctool-block-title-bg-color: #f7f7f7;
+    --ctool-block-content-bg-color: var(--ctool-background-color);
+
+    --ctool-dropdown-background-color: #fff;
+    --ctool-dropdown-hover-background-color: #eee;
+
+    --ctool-form-element-background-color: #fff;
+    --ctool-form-element-active-background-color: #fff;
+}
+
+[data-theme="dark"] {
+    --ctool-color-primary-theme: #bbc6ce;
+    --ctool-color-secondary-theme: #a3a6ad;
+    --ctool-border-color-theme: #4c4d4f;
+    --ctool-placeholder-text-color-theme: #8d9095;
+    --ctool-mask-color: rgba(17, 25, 31, .9);
+
+    --ctool-background-color: #242424;
+
+    --ctool-block-title-bg-color: #333333;
+    --ctool-block-content-bg-color: var(--ctool-background-color);
+
+    --ctool-dropdown-background-color: #4a4a4a;
+    --ctool-dropdown-hover-background-color: #616161;
+
+    --ctool-form-element-background-color: #202124;
+    --ctool-form-element-active-background-color: #242424;
+}
+
+
+#root, :root, html {
+    /* 主色调 */
+    --ctool-primary: #1abc9c;
+    --ctool-primary-hover: #48c9b0;
+    --ctool-primary-focus: rgba(15, 173, 142, 0.12);
+
+    --ctool-contrast: #ed4014;
+    --ctool-contrast-hover: #f89898;
+    --ctool-contrast-focus: #ab5858;
+    /* 文字颜色 */
+    --ctool-color-primary: var(--ctool-color-primary-theme);
+    --ctool-color-secondary: var(--ctool-color-secondary-theme);
+    /* 默认表单高度和字体大小 */
+    --ctool-form-item-height: 2rem;
+    --ctool-form-font-size: .875rem;
+
+    --ctool-border-color: var(--ctool-border-color-theme);
+    --ctool-placeholder-text-color: var(--ctool-placeholder-text-color-theme);
+
+    --ctool-info-color: #909399;
+    --ctool-disabled-text-color: var(--ctool-placeholder-text-color);
+
+    --primary: var(--ctool-primary);
+    --primary-hover: var(--ctool-primary-hover);
+    --primary-focus: var(--ctool-primary-focus);
+    --color: var(--ctool-color-primary);
+    --background-color: var(--ctool-background-color);
+
+    --spacing: 0rem;
+    --form-element-spacing-vertical: 0rem;
+    --form-element-spacing-horizontal: 0rem;
+
+
+    --card-sectionning-background-color: var(--ctool-block-title-bg-color);
+    --card-background-color: var(--ctool-background-color);
+
+    --form-element-color: var(--ctool-color-primary);
+    --form-element-border-color: var(--ctool-border-color);
+    --form-element-background-color: var(--ctool-form-element-background-color);
+    --form-element-active-background-color: var(--ctool-form-element-active-background-color);
+
+    --dropdown-background-color: var(--ctool-dropdown-background-color);
+    --dropdown-hover-background-color: var(--ctool-dropdown-hover-background-color);
+
+    color: var(--color);
+}
+
+
+#root [data-size="small"] {
+    --ctool-form-item-height: 1.5rem;
+    --ctool-form-font-size: .75rem;
+}
+
+#root [data-size="large"] {
+    --ctool-form-item-height: 2.5rem;
+}
+
+#root [data-disabled="y"] {
+    opacity: var(--form-element-disabled-opacity);
+    pointer-events: none;
+}
+
+input, select, textarea {
+    font-size: .875rem;
+    --form-element-placeholder-color: var(--ctool-placeholder-text-color);
+}
+
+body {
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, \5fae\8f6f\96c5\9ed1, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+input:not([type=submit], [type=button], [type=reset])[disabled], select[disabled], textarea[disabled], :where(fieldset[disabled]) :is(input:not([type=submit], [type=button], [type=reset]), select, textarea) {
+    --background-color: var(--form-element-background-color);
+    --border-color: var(--form-element-border-color);
+    opacity: unset;
+    pointer-events: unset;
+}
+
+@media only screen and (prefers-color-scheme: dark) {
+    :root:not([data-theme=light]) {
+        --background-color: var(--ctool-background-color);
+    }
+}
+
+.ctool-input-label{
+    font-weight: 500;
+}
+

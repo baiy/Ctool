@@ -1,0 +1,10 @@
+{
+    "generate": "生成",
+    "password": "明文(String)",
+    "hash": "哈希(Hash)",
+    "rounds": "Rounds",
+    "check": "校验",
+    "check_result_success": "正确",
+    "check_result_error": "错误",
+    "rounds_range": "Rounds 范围 [{0} - {1}]"
+}

@@ -1,0 +1,14 @@
+{
+    "common": "Common",
+    "expression": "Expression",
+    "replace_content": "Replace Content",
+    "replace": "Replace",
+    "delete": "Delete",
+    "input": "Input",
+    "global": "Global",
+    "ignore_case": "Ignore Case",
+    "output_count": "{0} Total Matches",
+    "output_empty": "No match result, please check expression",
+    "reference_name": "Char",
+    "reference_text": "Description"
+}

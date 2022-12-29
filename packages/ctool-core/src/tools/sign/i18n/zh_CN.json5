@@ -1,0 +1,13 @@
+{
+    "sign_data": "待签名内容/验签数据",
+    "verify_code": "Base64编码后签名",
+    "sign": "签名",
+    "verify": "验签",
+    "generate_keypair": "生成公钥/私钥",
+    "public_key": "PEM格式公钥",
+    "private_key": "PEM格式私钥",
+    "keypair_type": "密钥格式",
+    "keypair_length": "密钥长度",
+    "verify_fail": "验签失败",
+    "verify_ok": "验签成功",
+}

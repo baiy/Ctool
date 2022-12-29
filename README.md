@@ -4,39 +4,57 @@
 
 ## 先睹为快
 
-![](https://cdn.jsdelivr.net/gh/baiy/Ctool@master/images/v2_1.png)
+![](https://cdn.jsdelivr.net/gh/baiy/Ctool@master/images/v2.0.0.png)
 
-## 在线使用
+## 安装使用
 
+### 在线使用
 <https://baiy.github.io/Ctool/>
 
-## chrome 安装
-
+### Chrome 安装
 - 在 [Chrome 应用商店](https://chrome.google.com/webstore/detail/ipfcebkfhpkjeikaammlkcnalknjahmh) 安装
 
-## 微软 Edge 安装
-
+### 微软 Edge 安装
 - 在 [微软 Edge 应用商店](https://microsoftedge.microsoft.com/addons/detail/cihekagpnnadjjplgljkmkpcfiopfplc) 安装
 
-## 火狐 Firefox 安装
-
+### 火狐 Firefox 安装
 - 在 [火狐 Firefox 应用商店](https://addons.mozilla.org/zh-CN/firefox/addon/ctool/) 安装
 
-## utools 安装
-
+### Utools 安装
 - [utools](https://u.tools/) 插件中心 搜索 `ctool`
+
+### 桌面客户端
+- [点击下载](https://github.com/baiy/Ctool/releases)
 
 ## 开发
 
 ```
 # 安装依赖
-npm install
-# 调试
-npm run serve -adapter=[chrome|edge|utools|firefox|web]
-# 编译 
-npm run build -adapter=[chrome|edge|utools|firefox|web]
-// 编译输出目录: `/dist/`
+pnpm install
+
+# 开发调试
+pnpm run dev
+
+# 编译核心文件
+pnpm run build
+
+## 打包适配发布平台
+// 所有平台
+pnpm run release
+// chrome
+pnpm --filter 'ctool-adapter-chrome' run platform-release
+// edge
+pnpm --filter 'ctool-adapter-edge' run platform-release
+// electron
+pnpm --filter 'ctool-adapter-electron' run platform-release
+// firefox
+pnpm --filter 'ctool-adapter-firefox' run platform-release
+// utools
+pnpm --filter 'ctool-adapter-utools' run platform-release
+// web
+pnpm --filter 'ctool-adapter-web' run platform-release
 ```
+> 打包适配平台文件存放位置: /_release
 
 ## 功能列表
 
@@ -46,7 +64,7 @@ npm run build -adapter=[chrome|edge|utools|firefox|web]
 | 加密/解密        | `AES`,`DES`,`RC4`,`Rabbit`,`TripleDes`,`sm2`,`sm4`                                                                            |√|
 | BASE64编码     | `加密`,`解密`,`支持文件`                                                                                                              |√|
 | URL编码        | `编码`,`解码`                                                                                                                     |√|
-| 时间戳          | `双向转换`,`毫秒`                                                                                                                   |√|
+| 时间戳          | `双向转换`,`毫秒` ,`时区`                                                                                                             |√|
 | 二维码          | `生成`,`解析`                                                                                                                     |√|
 | 条形码          | `生成`                                                                                                                          |√|
 | 汉字转拼音        | `声调`,`首字母`,`分隔符`                                                                                                              |√|
@@ -68,7 +86,7 @@ npm run build -adapter=[chrome|edge|utools|firefox|web]
 | 变量名格式转换      | `Var Name`, `var-name`, `VAR_NAME`, `VarName`, `varName`, `var_name`, `var name`                                              |√|
 | jwt解码        | `header`, `payload`                                                                                                           |√|
 | Hex/String转换 | `hex to string`, `string to hex`, `十六进制转字符串`, `字符串转十六进制`                                                                      |√|
-| Hex/Base64转换 | `hex to Base64`, `Base64 to hex`                                                                      |√|
+| Hex/Base64转换 | `hex to Base64`, `Base64 to hex`                                                                                              |√|
 | 文本处理         | `大小写转换`, `中英文标点转换`, `简繁转换`, `替换`, `字符统计`, `行去重`, `添加行号`, `行排序`, `过滤行首尾不可见字符`,`过滤空行`                                           |√|
 | html编码       | -                                                                                                                             |√|
 | 原码/反码/补码     | `生成`                                                                                                                          |√|

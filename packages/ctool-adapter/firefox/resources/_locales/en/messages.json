@@ -1,0 +1,14 @@
+{
+    "main_manifest_name": {
+        "message": "Ctool Commonly Used Developer Tools"
+    },
+    "main_manifest_description": {
+        "message": "Commonly Used Developer Tools: Hash/Encrypt/Decrypt/Code Convert/Timestamp/Qrcode/IP Query/Code Formatter/Unicode/Regex/..."
+    },
+    "main_manifest_default_title": {
+        "message": "Commonly Used Developer Tools"
+    },
+    "main_manifest_commands_panel_description": {
+        "message": "Open Popup Tool Winodws"
+    }
+}

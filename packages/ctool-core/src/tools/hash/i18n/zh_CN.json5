@@ -1,0 +1,9 @@
+{
+    "uppercase": "大写",
+    "salt": "加盐",
+    "salt_value": "盐值",
+    "salt_mode": "模式",
+    "salt_select": "选择常用",
+    "multiple": "批量",
+    "multiple_tooltip": "按行执行哈希操作"
+}

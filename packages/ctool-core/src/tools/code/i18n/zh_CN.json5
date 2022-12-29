@@ -1,0 +1,8 @@
+{
+    "beautify": "格式化",
+    "indent_width": "缩进空格 {0}",
+    "indent_width_null": "无缩进",
+    "xml_collapse_content": "内容同行",
+    "compress": "压缩",
+    "not_support": "暂不支持{0}的{1}"
+}

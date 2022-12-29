@@ -1,0 +1,12 @@
+{
+    "normal": "No Tone",
+    "tone": "Have Tone",
+    "abbr": "First Letter",
+    "delimiter_null": "No Delimiter",
+    "delimiter_space": "Space Delimiter",
+    "delimiter_1": "'-' Delimiter",
+    "delimiter_2": "'_' Delimiter",
+    "delimiter_3": "'.' Delimiter",
+    "multiple_flag": "Show Polyphony",
+    "tone_is_number": "Tone Number"
+}

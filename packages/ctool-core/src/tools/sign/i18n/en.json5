@@ -1,0 +1,13 @@
+{
+    "sign_data": "Sign Data/Verify data",
+    "verify_code": "Signature after Base64 encoding",
+    "sign": "Sign",
+    "verify": "Verify",
+    "generate_keypair": "Generate Keypair",
+    "public_key": "PEM Public Key",
+    "private_key": "PEM Private Key",
+    "keypair_type": "Type",
+    "keypair_length": "Length",
+    "verify_fail": "Verify Fail",
+    "verify_ok": "Verify Success",
+}

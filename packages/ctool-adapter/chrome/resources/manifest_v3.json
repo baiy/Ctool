@@ -1,0 +1,39 @@
+{
+    "name": "__MSG_main_manifest_name__",
+    "description": "__MSG_main_manifest_description__",
+    "version": "##version##",
+    "author": "wo@baiy.org",
+    "offline_enabled": true,
+    "homepage_url": "https://github.com/baiy/Ctool",
+    "manifest_version": 3,
+    "default_locale": "zh_CN",
+    "action": {
+        "default_icon": "icon/icon_chrome.png",
+        "default_title": "___MSG_main_manifest_default_title__",
+        "default_popup": "index.html"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "icons": {
+        "16": "icon/icon_chrome.png",
+        "48": "icon/icon_chrome.png",
+        "128": "icon/icon_chrome.png"
+    },
+    "permissions": [
+        "clipboardWrite",
+        "clipboardRead"
+    ],
+    "host_permissions": [
+        "*://get.geojs.io/*",
+        "*://*.baiy.org/*"
+    ],
+    "commands": {
+        "_execute_action": {},
+        "panel": {
+            "description": "__MSG_main_manifest_commands_panel_description__",
+            "global": true
+        }
+    },
+    "update_url": "http://clients2.google.com/service/update2/crx"
+}

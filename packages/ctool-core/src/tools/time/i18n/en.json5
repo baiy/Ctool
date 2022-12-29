@@ -1,0 +1,44 @@
+{
+    "timezone": "Timezone",
+    "error_format": "Input Format Error",
+    "current_time": "Current Time",
+    "second": "Second",
+    "millisecond": "Millisecond",
+
+    // Calculator
+    "diff_tool": "Difference Calculator",
+    "and": "And",
+    "diff": "Diff",
+    "operation": "Time Operation",
+    "add": "Add",
+    "reduce": "Reduce",
+    "after": "After",
+    "is": "Is",
+    "error_duration_length": "The year/month interval can only be an integer",
+    "year": "Year",
+    "month": "Month",
+    "week": "Week",
+    "day": "Day",
+    "hour": "Hour",
+    "minute": "Minute",
+    analyze: "Time Analyze",
+    analyze_year: "Year",
+    analyze_quarter: "Quarter",
+    analyze_month: "Month",
+    analyze_year_output: "{year}: Q{quarter},{weekOfYear} Week,{dayOfYear} Day,{hourOfYear} Hour,{minuteOfYear} Minute,{secondOfYear} Second",
+    analyze_quarter_output: "Q{quarter}:{weekOfQuarter} Week,{dayOfQuarter} Day,{hourOfQuarter} Hour,{minuteOfQuarter} Minute,{secondOfQuarter} Second",
+    analyze_month_output: "{month}:{weekOfMonth} Week,{hourOfMonth} Hour,{minuteOfMonth} Minute,{secondOfMonth} Second",
+
+    // Timestamp
+    "timestamp_input_placeholder": "Allow YYYY-MM-DD HH:mm:ss[.SSS] Or Timestamp Input",
+    "unix_auto": "Auto Type Inference",
+    "normal_second": "Normal Second",
+    "normal_millisecond":"Normal Millisecond",
+    "unix_second": "Unix Timestamp Second",
+    "unix_millisecond":"Unix Timestamp Millisecond",
+    "format": "Format",
+    "value":"Value",
+
+    // Timezone
+    "timezone_input_placeholder": "Allow YYYY-MM-DD HH:mm:ss[.SSS] Datetime Input"
+}

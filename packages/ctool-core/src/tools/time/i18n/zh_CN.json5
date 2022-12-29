@@ -1,0 +1,42 @@
+{
+    "timezone": "时区",
+    "error_format": "输入时间格式异常",
+    "current_time": "当前时间",
+    "second": "秒",
+    "millisecond": "毫秒",
+
+    // Calculator
+    "diff_tool": "差值计算器",
+    "and": "与",
+    "diff": "相差",
+    "operation": "时间操作",
+    "add": "添加",
+    "reduce": "减少",
+    "after": "后",
+    "is": "为",
+    "error_duration_length": "年/月间隔只能是整数",
+    "year": "年",
+    "month": "月",
+    "week": "周",
+    "day": "天",
+    "hour": "小时",
+    "minute": "分钟",
+    analyze: "时间分析",
+    analyze_year: "年",
+    analyze_quarter: "季度",
+    analyze_month: "月",
+    analyze_year_output: "{year}年:{quarter}季度,{weekOfYear}周,{dayOfYear}天,{hourOfYear}小时,{minuteOfYear}分钟,{secondOfYear}秒",
+    analyze_quarter_output: "{quarter}季度:{weekOfQuarter}周,{dayOfQuarter}天,{hourOfQuarter}小时,{minuteOfQuarter}分钟,{secondOfQuarter}秒",
+    analyze_month_output: "{month}月:{weekOfMonth}周,{hourOfMonth}小时,{minuteOfMonth}分钟,{secondOfMonth}秒",
+    // Timestamp
+    "timestamp_input_placeholder": "支持 YYYY-MM-DD HH:mm:ss[.SSS] 与 时间戳 输入",
+    "unix_auto": "自动识别类型",
+    "normal_second": "标准时间(秒)",
+    "normal_millisecond": "标准时间(毫秒)",
+    "unix_second": "Unix时间戳(秒)",
+    "unix_millisecond": "Unix时间戳(毫秒)",
+    "format": "格式",
+    "value": "值",
+    // Timezone
+    "timezone_input_placeholder": "支持 YYYY-MM-DD HH:mm:ss[.SSS] 时间格式 输入"
+}

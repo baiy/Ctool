@@ -1,8 +1,0 @@
-{
-    "input": "请输入IP地址",
-    "query":"查询",
-    "local": "本地IP",
-    "info_source":"IP 信息来源",
-    "ok": "查询成功",
-    "error":"查询异常:{0}"
-}

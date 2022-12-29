@@ -1,9 +1,0 @@
-{
-    "amount": "Amount",
-    "delimiter": "Delimiter",
-    "hyphens": "Hyphens(-)",
-    "is_upper": "Upper",
-    "is_add_quote": "Add Quote",
-    "uint8_array": "Uint8 Array",
-    "output": "Output"
-}

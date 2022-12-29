@@ -1,0 +1,16 @@
+{
+    "pluginName": "Ctool",
+    "description": "Ctool 程序开发常用工具",
+    "author": "baiy",
+    "homepage": "https://github.com/baiy/Ctool",
+    "main": "tool.html",
+    "version": "##version##",
+    "logo": "icon/icon_utools.png",
+    "pluginSetting": {
+        "single": false
+    },
+    "development": {
+        "main": "http://127.0.0.1:5173/tool.html"
+    },
+    "features": "##features##"
+}

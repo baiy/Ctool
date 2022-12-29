@@ -1,0 +1,22 @@
+{
+    "common": "Common",
+    "from": "From",
+    "to": "To",
+    "key_rename": "Key Rename",
+    "format": "Format",
+    "compress": "Compress",
+    "escape": "Escape",
+    "clear_escape": "Unescape",
+    "add_escape": "Add Escape",
+    "unicode_to_zh": "Unicode->Zh",
+    "zh_to_unicode": "Zh->Unicode",
+    "object": "To Object",
+    "path": "Path",
+    "inline": "Inline",
+    "asc": "Asc",
+    "desc": "Desc",
+    "key_sort": "Key Sort",
+    "repair": "JSON Repair",
+    "json_path": "JSONPath",
+    "jmes_path": "JMESPath"
+}

@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "es6",
+        "moduleResolution": "node",
+        "lib": [
+            "ESNext",
+            "dom"
+        ],
+        "allowJs": true,
+        "outDir": "dist",
+        "rootDir": "src",
+        "strict": true,
+        "esModuleInterop": true,
+        "declaration": true,
+        "types": [
+            "node",
+            "chrome"
+        ],
+        "skipLibCheck": true,
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ]
+}

@@ -1,0 +1,5 @@
+{
+    "invalid_param": "无效的参数: {0}",
+    'parameter': '参数',
+    'parameter_too_little': '参数个数不足',
+}

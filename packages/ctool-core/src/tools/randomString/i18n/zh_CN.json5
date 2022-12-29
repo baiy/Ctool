@@ -1,0 +1,12 @@
+{
+    "length": "长度",
+    "amount":"数量",
+    "delimiter": "分隔符",
+    "digital":"数字",
+    "lowercase": "小写字母",
+    "uppercase":"大写字母",
+    "chars":"字符",
+    "symbol": "特殊符号",
+    "add_quote": "添加引号",
+    "serialize": "序列化"
+}
