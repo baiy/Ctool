@@ -1,4 +1,4 @@
-import X2JS from "X2JS"
+import x2js from "x2js"
 import {isPlainObject, isArray} from "lodash"
 import Json from "@/helper/json";
 
@@ -23,7 +23,7 @@ const removeEmptyRoot = (obj: any) => {
 
 const parse = (xml: string, {attribute_prefix = ""}: Record<string, any> = {}) => {
     attribute_prefix = attribute_prefix === "" ? "@attribute_" : attribute_prefix
-    return removeEmptyRoot((new X2JS({attributePrefix: attribute_prefix})).xml_str2json(xml) || {});
+    return removeEmptyRoot((new x2js({attributePrefix: attribute_prefix})).xml_str2json(xml) || {});
 }
 
 function fixObjectArray(o) {
@@ -90,7 +90,7 @@ const stringify = (data: any, {attribute_prefix = ""}: Record<string, any> = {})
         data = {root: {row: data}}
     }
     attribute_prefix = attribute_prefix === "" ? "@attribute_" : attribute_prefix
-    return (new X2JS({attributePrefix: attribute_prefix})).json2xml_str(Json.parse(fixObjectArray(data))) as string;
+    return (new x2js({attributePrefix: attribute_prefix})).json2xml_str(Json.parse(fixObjectArray(data))) as string;
 }
 export default {
     parse,
