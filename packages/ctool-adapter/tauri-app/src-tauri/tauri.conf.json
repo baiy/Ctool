@@ -2,8 +2,8 @@
   "build": {
     "beforeDevCommand": "",
     "beforeBuildCommand": "",
-    "devPath": "../src",
-    "distDir": "../src",
+    "devPath": "../../../ctool-core/dist",
+    "distDir": "../../../ctool-core/dist",
     "withGlobalTauri": true
   },
   "package": {
