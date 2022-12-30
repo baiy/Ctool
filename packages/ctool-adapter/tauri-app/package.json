@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "platform-release": "pnpm tauri build"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.2.2"
