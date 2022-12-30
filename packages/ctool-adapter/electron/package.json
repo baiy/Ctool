@@ -1,12 +1,15 @@
 {
     "name": "ctool-adapter-electron",
-    "main": "dist/index.js",
+    "main": "./dist/index.js",
+    "module": "./dist/esm/index.js",
     "types": "./dist/index.d.ts",
     "scripts": {
-        "adapter-build": "tsc",
-        "sync": "tsc -m CommonJS && node dist/sync.js",
+        "build": "pnpm exec tsup-node",
+        "sync": "node dist/sync.js",
         "dev": "pnpm run sync && electron dist/main.js",
-        "platform-release": "pnpm run sync && node dist/release.js"
+        "release": "pnpm run sync && node dist/release.js",
+        "adapter-build": "pnpm run build",
+        "platform-release": "pnpm run release"
     },
     "dependencies": {
         "ctool-adapter-base": "workspace:*",
@@ -16,6 +19,7 @@
         "@types/node": "^18.11.15",
         "electron": "^21.3.3",
         "electron-builder": "^23.6.0",
-        "typescript": "^4.9.4"
+        "typescript": "^4.9.4",
+        "tsup": "^6.5.0"
     }
 }

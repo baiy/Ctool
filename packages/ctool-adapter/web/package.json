@@ -1,14 +1,17 @@
 {
     "name": "ctool-adapter-web",
     "scripts": {
-        "platform-release": "tsc -m CommonJS && node dist/release.js"
+        "build": "pnpm exec tsup-node",
+        "release": "node dist/release.js",
+        "adapter-build": "pnpm run build",
+        "platform-release": "pnpm run release"
     },
     "dependencies": {
-        "ctool-adapter-base": "workspace:*",
-        "ctool-config": "workspace:*"
+        "ctool-adapter-base": "workspace:*"
     },
     "devDependencies": {
         "@types/node": "^18.11.15",
-        "typescript": "^4.9.4"
+        "typescript": "^4.9.4",
+        "tsup": "^6.5.0"
     }
 }

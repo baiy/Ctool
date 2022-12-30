@@ -1,11 +1,6 @@
 <template>
     <Tooltip :content="text">
         <slot><Icon @click="click" hover name="question" /></slot>
-        <template #content>
-            <slot name="tooltip">
-                <span @click="click" style="cursor: pointer;">{{ text }}</span>
-            </slot>
-        </template>
     </Tooltip>
 </template>
 

@@ -293,7 +293,6 @@ declare module '@vue/runtime-core' {
             $emit: (e: "click") => void
             $slots: {
                 default: () => VNode[]
-                tooltip: () => VNode[]
             }
         }
         Table: new () => {

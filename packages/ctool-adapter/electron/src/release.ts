@@ -16,9 +16,6 @@ const options: Configuration = {
     },
     files: [
         "./dist/**/*",
-        "./dist/main.js",
-        "./dist/bridge.js",
-        "./dist/preload.js"
     ],
     mac: {
         target: [
@@ -57,6 +54,7 @@ const options: Configuration = {
         artifactName: "electron_linux_${arch}.${ext}",
         icon: "./dist/web/icon/icon_1024.png"
     },
+    publish: null,
     extraMetadata
 };
 

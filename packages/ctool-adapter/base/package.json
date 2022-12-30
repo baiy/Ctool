@@ -3,11 +3,12 @@
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "scripts": {
-        "build": "tsc"
+        "build": "pnpm exec tsup-node"
     },
     "devDependencies": {
         "@types/node": "^18.11.15",
-        "typescript": "^4.9.4"
+        "typescript": "^4.9.4",
+        "tsup": "^6.5.0"
     },
     "dependencies": {
         "zip-a-folder": "^1.1.5"

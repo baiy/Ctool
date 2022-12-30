@@ -1,5 +1,5 @@
 import {copyCoreDist, release, replaceFileContent, version, getAdditionData} from "ctool-adapter-base";
-import {tools, ToolInterface, FeatureInterface} from "ctool-config";
+import {tools, ToolInterface, FeatureInterface,AllLocaleStructure} from "ctool-config";
 import {CustomCmd, customCmds} from "./config";
 import {join} from "path";
 import {cpSync, mkdirSync, rmSync} from "fs";
@@ -13,16 +13,16 @@ copyCoreDist(tempPath)
 // 平台文件
 cpSync(join(__dirname, '../resources'), tempPath, {recursive: true})
 
-const i18nDetailZhCN: Record<string, { message: string, placeholders: string[] }> = getAdditionData()['i18n']['detail']['zh_CN']
+const i18n: AllLocaleStructure = getAdditionData()['i18n']
 
 const getToolTitle = (tool: ToolInterface) => {
-    return i18nDetailZhCN[`tool_${tool.name}`]?.message || ""
+    return i18n.detail.zh_CN[`tool_${tool.name}`]?.message || ""
 }
 const getToolFeatureTitle = (feature: FeatureInterface) => {
-    return i18nDetailZhCN[`tool_${feature.tool.name}_${feature.name}`]?.message || ""
+    return i18n.detail.zh_CN[`tool_${feature.tool.name}_${feature.name}`]?.message || ""
 }
 const getToolFeatureKeywords = (feature: FeatureInterface) => {
-    return i18nDetailZhCN[`tool_${feature.tool.name}_${feature.name}_keywords`]?.message || ""
+    return i18n.detail.zh_CN[`tool_${feature.tool.name}_${feature.name}_keywords`]?.message || ""
 }
 
 type UtoolsFeature = {

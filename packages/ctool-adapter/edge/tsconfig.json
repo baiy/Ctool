@@ -1,23 +1,25 @@
 {
     "compilerOptions": {
-        "target": "es6",
-        "module": "es6",
+        "target": "ESNext",
+        "useDefineForClassFields": true,
+        "module": "ESNext",
         "moduleResolution": "node",
+        "strict": true,
+        "jsx": "preserve",
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "noImplicitAny": false,
         "lib": [
             "ESNext",
-            "dom"
+            "DOM"
         ],
-        "allowJs": true,
-        "outDir": "dist",
-        "rootDir": "src",
-        "strict": true,
-        "esModuleInterop": true,
-        "declaration": true,
+        "skipLibCheck": true,
         "types": [
             "node",
             "chrome"
         ],
-        "skipLibCheck": true,
         "paths": {
             "@/*": [
                 "./src/*"
@@ -25,6 +27,8 @@
         }
     },
     "include": [
-        "src/**/*"
+        "src/**/*.ts"
     ]
 }
+
+
