@@ -1,9 +1,10 @@
-import {app, BrowserWindow, ipcMain} from "electron";
+import {app, BrowserWindow, ipcMain,Menu} from "electron";
 
 import path from "path";
 
 const createWindow = () => {
     const mainWindow = new BrowserWindow({
+        autoHideMenuBar: true,
         width: 850,
         height: 650,
         webPreferences: {
