@@ -1,12 +1,12 @@
-import {tools} from "../../config";
-import {buildData, fileSystemSrc} from "./fileSystem";
+import {tools} from "../index";
+import {buildData, fileCoreSrc} from "./fileSystem";
 
 export const buildRoute = () => {
     const indent = " ".repeat(4)
     const config = tools.map((tool) => {
         return tool.features.map((feature) => {
             const filePath = feature.getComponentPath()
-            if (!fileSystemSrc.isFile(filePath)) {
+            if (!fileCoreSrc.isFile(filePath)) {
                 throw new Error(`文件 ${filePath} 不存在`)
             }
             return [

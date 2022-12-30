@@ -24,4 +24,5 @@ dist-ssr
 *.sw?
 
 _release
+_temp
 .npmrc

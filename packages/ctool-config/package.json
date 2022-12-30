@@ -1,30 +1,33 @@
 {
     "name": "ctool-config",
-    "type": "module",
     "files": [
         "dist"
     ],
-    "main": "./dist/index.umd.cjs",
-    "module": "./dist/index.js",
+    "main": "./dist/index.js",
+    "module": "./dist/esm/index.js",
     "types": "./dist/index.d.ts",
     "exports": {
         ".": {
-            "import": "./dist/index.js",
-            "require": "./dist/index.umd.cjs",
+            "import": "./dist/esm/index.js",
+            "require": "./dist/index.js",
             "types": "./dist/index.d.ts"
         }
     },
     "scripts": {
-        "build": "vite build"
+        "build": "pnpm exec tsup-node;node dist/generate.js"
+    },
+    "peerDependencies": {
+        "lodash": "^4.17.21"
     },
     "dependencies": {
-        "lodash": "^4.17.21"
+        "json5": "^2.2.1",
+        "svg-path-bounds": "^1.0.2",
+        "pinyin-pro": "^3.13.0"
     },
     "devDependencies": {
         "@types/lodash": "^4.14.191",
         "@types/node": "^18.11.15",
-        "typescript": "^4.9.4",
-        "vite": "^4.0.1",
-        "vite-plugin-dts": "^1.7.1"
+        "tsup": "^5.12.7",
+        "typescript": "^4.9.4"
     }
-}
+},

@@ -1,9 +1,8 @@
 // 编译语言包
 import JSON5 from "json5";
-import {fileSystemSrc, buildData, buildType} from "./fileSystem";
-import {tools} from "../../config";
+import {fileCoreSrc, buildData, buildType} from "./fileSystem";
 import {difference, cloneDeep} from "lodash";
-import {LocaleStructure, LocalListsStructure, AllLocaleStructure, localesReal} from '../../types'
+import {tools,LocaleStructure, LocalListsStructure, AllLocaleStructure, localesReal} from '../index'
 
 const localLists: LocalListsStructure[] = [
     {code: '_default', name: "默认(default)"},
@@ -27,15 +26,15 @@ const placeholder = (message: string) => {
 
 const getLocale = (code: string) => {
     const globalLocaleDir = `i18n/locales/${code}`
-    if (!fileSystemSrc.isDir(globalLocaleDir)) {
+    if (!fileCoreSrc.isDir(globalLocaleDir)) {
         throw new Error(`无法获取全局语言包`)
     }
     let locale: { [_k: string]: LocaleStructure } = {}
 
     // 全局语言包
-    fileSystemSrc.readdir(globalLocaleDir, '.i18n.json5').forEach((file) => {
+    fileCoreSrc.readdir(globalLocaleDir, '.i18n.json5').forEach((file) => {
         let type = file.replace('.i18n.json5', '');
-        let config = JSON5.parse(fileSystemSrc.readFile(`${globalLocaleDir}/${file}`));
+        let config = JSON5.parse(fileCoreSrc.readFile(`${globalLocaleDir}/${file}`));
         // 写入区域
         if (type === "main") {
             locale[`${type}_locale`] = {message: code}
@@ -66,10 +65,10 @@ const getLocale = (code: string) => {
     // 工具语言包
     tools.forEach((tool) => {
         const toolLocaleFile = `${tool.root}/i18n/${code}.json5`
-        if (!fileSystemSrc.isFile(toolLocaleFile)) {
+        if (!fileCoreSrc.isFile(toolLocaleFile)) {
             return
         }
-        let config = JSON5.parse(fileSystemSrc.readFile(toolLocaleFile));
+        let config = JSON5.parse(fileCoreSrc.readFile(toolLocaleFile));
         Object.keys(config).forEach((key) => {
             let placeholders = placeholder(config[key])
             locale[`${tool.name}_${key}`] = {

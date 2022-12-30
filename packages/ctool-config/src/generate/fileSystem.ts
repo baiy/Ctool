@@ -12,7 +12,7 @@ const remove = (path: string) => {
     }
 }
 
-const Root = join(__dirname, '../../../')
+const Root = join(__dirname, '../../ctool-core')
 
 class fileSystem {
     base: string
@@ -87,8 +87,8 @@ const getFileSystem = (root: string = "") => {
     return new fileSystem(root.replace(Root, ''))
 }
 
-export const fileSystemSrc = getFileSystem('src')
-export const fileSystemRoot = getFileSystem()
+export const fileCoreSrc = getFileSystem('src')
+export const fileCoreRoot = getFileSystem()
 
 const _buildData: [string[], string[]] = [[], []]
 const _buildType: [string[], string[]] = [[], []]
@@ -103,7 +103,7 @@ export const buildData = {
         _buildData[0].push(...[...(description !== undefined ? [`// ${description}`] : []), str])
     },
     write() {
-        fileSystemSrc.writeFile('buildDataTemp.ts', ["// 程序自动生成文件无需手动修改\n", ..._buildData[0], `\n`, ..._buildData[1]].join("\n"))
+        fileCoreSrc.writeFile('buildDataTemp.ts', ["// 程序自动生成文件无需手动修改\n", ..._buildData[0], `\n`, ..._buildData[1]].join("\n"))
     }
 }
 
@@ -116,7 +116,7 @@ export const buildType = {
         _buildType[0].push(...[...(description !== undefined ? [`// ${description}`] : []), str])
     },
     write() {
-        fileSystemSrc.writeFile('buildTypeTemp.d.ts', ["// 程序自动生成文件无需手动修改\n", ..._buildType[0], `\n`, ..._buildType[1]].join("\n"))
+        fileCoreSrc.writeFile('buildTypeTemp.d.ts', ["// 程序自动生成文件无需手动修改\n", ..._buildType[0], `\n`, ..._buildType[1]].join("\n"))
     }
 }
 
@@ -126,7 +126,7 @@ export const buildAddition = {
         _buildConfig[name] = data
     },
     write() {
-        fileSystemRoot.writeFile('public/ctool.addition.json', JSON.stringify(_buildConfig, null, '\t'))
+        fileCoreRoot.writeFile('public/ctool.addition.json', JSON.stringify(_buildConfig, null, '\t'))
     }
 }
 

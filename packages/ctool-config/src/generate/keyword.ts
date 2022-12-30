@@ -1,5 +1,4 @@
-import {localesReal} from '../../types';
-import {tools, ToolType, FeatureType} from "../../config";
+import {localesReal,tools, ToolType, FeatureType} from '../index';
 import {pinyin} from "pinyin-pro";
 import {buildData} from "./fileSystem";
 import {allLocales} from "./i18n";

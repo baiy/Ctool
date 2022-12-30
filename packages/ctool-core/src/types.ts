@@ -1,51 +1,21 @@
-import {FeatureType, ToolType} from "./config";
+export type {
+    StorageDataStructureInterface,
+    StorageDataStructure,
+    StorageInterface,
+    PlatformRuntime,
+    LocaleLists,
+    Locale,
+    LocaleStructure,
+    LocalListsStructure,
+    AllLocaleStructure,
+    HistoryItemStructure,
+    RouteMeta,
+    ToolRouteConfig,
+    ThemeType,
+    ThemeRawType
+} from "ctool-config"
 
-// 路由
-export type ToolRouteConfig<T extends ToolType = ToolType> = {
-    tool: T, // 工具标示
-    feature: FeatureType<T>, // 功能标示
-    component: any
-}
-
-export type RouteMeta = {
-    type: "tool"
-    tool: ToolType
-    feature: FeatureType
-} | { type: "index" | "other" }
-
-export type {StorageDataStructureInterface, StorageDataStructure, StorageInterface, PlatformRuntime} from "ctool-config"
-
-// 多语言
-export const localesReal = ["zh_CN", "en"] as const
-export type LocaleLists = typeof localesReal[number];
-export const locales = ["_default", ...localesReal] as const
-export type Locale = typeof locales[number];
-
-export interface LocaleStructure {
-    message: string,
-    placeholders?: string[]
-}
-
-export interface LocalListsStructure {
-    code: Locale,
-    name: string
-}
-
-export interface AllLocaleStructure {
-    lists: LocalListsStructure[],
-    detail: { [_k in LocaleLists]: { [_k: string]: LocaleStructure } }
-}
-
-// 历史数据
-export interface HistoryItemStructure<T> {
-    t: string,
-    v: T
-}
-
-// 显示主题
-export const themes = ["light", "dark", "auto"] as const
-export type ThemeType = typeof themes[number];
-export type ThemeRawType = Exclude<ThemeType, "auto">;
+export {localesReal, locales,themes} from "ctool-config"
 
 /**
  * 代码编辑器语言映射

@@ -1,11 +1,3 @@
-export type {
-    StorageDataStructureInterface,
-    StorageDataStructure,
-    StorageInterface,
-    Storage,
-    PlatformRuntime,
-} from "./type"
-
 import {
     _tools,
     ToolInterface as _ToolInterface,
@@ -69,3 +61,93 @@ export const getTool = <T extends ToolType = ToolType>(name: T): ToolInterface<T
 export const getCategory = <T extends CategoryType = CategoryType>(name: T): CategoryInterface<T> => {
     return categoryContainer[name]
 }
+
+// 存储
+export interface StorageDataStructureInterface<T = any> {
+    v: T,
+    u: string,
+    e: number,
+    es: string
+}
+
+export type StorageDataStructure<T = any> = StorageDataStructureInterface<T> | null
+
+export interface StorageInterface {
+    get<T = any>(key: string): StorageDataStructure<T>
+
+    set<T = any>(key: string, value: StorageDataStructureInterface<T>): void
+
+    remove(key: string): void
+
+    clear(): void
+
+    getAllKey(): string[]
+}
+
+export type Storage = {
+    get<T = any>(key: string, def: T | null, isVersion: boolean | null): T | null
+    set<T = any>(key: string, value: T, expiry: number, isVersion: boolean): void
+    setNoVersion<T = any>(key: string, value: T, expiry: number): void
+}
+
+// 平台
+export interface PlatformRuntime {
+    is(): boolean
+
+    name: string
+
+    openUrl(url: string): any,
+
+    storage?: () => StorageInterface
+
+    getLocale?: () => string
+
+    entry?: (storage: Storage) => Promise<void>
+}
+
+// 多语言
+export const localesReal = ["zh_CN", "en"] as const
+export type LocaleLists = typeof localesReal[number];
+export const locales = ["_default", ...localesReal] as const
+export type Locale = typeof locales[number];
+
+export interface LocaleStructure {
+    message: string,
+    placeholders?: string[]
+}
+
+export interface LocalListsStructure {
+    code: Locale,
+    name: string
+}
+
+export interface AllLocaleStructure {
+    lists: LocalListsStructure[],
+    detail: { [_k in LocaleLists]: { [_k: string]: LocaleStructure } }
+}
+
+// 历史数据
+export interface HistoryItemStructure<T> {
+    t: string,
+    v: T
+}
+
+// 路由
+export type ToolRouteConfig<T extends ToolType = ToolType> = {
+    tool: T, // 工具标示
+    feature: FeatureType<T>, // 功能标示
+    component: any
+}
+
+export type RouteMeta = {
+    type: "tool"
+    tool: ToolType
+    feature: FeatureType
+} | { type: "index" | "other" }
+
+// 显示主题
+export const themes = ["light", "dark", "auto"] as const
+export type ThemeType = typeof themes[number];
+export type ThemeRawType = Exclude<ThemeType, "auto">;
+
+
