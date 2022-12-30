@@ -26,3 +26,6 @@ dist-ssr
 _release
 _temp
 .npmrc
+
+# for temp develop
+packages/ctool-adapter/tauri-app/
