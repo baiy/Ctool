@@ -91,6 +91,11 @@ importers:
   packages/ctool-adapter/tauri-app:
     specifiers:
       '@tauri-apps/cli': ^1.2.2
+      ctool-adapter-base: workspace:*
+      ctool-config: workspace:*
+    dependencies:
+      ctool-adapter-base: link:../base
+      ctool-config: link:../../ctool-config
     devDependencies:
       '@tauri-apps/cli': 1.2.2
 
