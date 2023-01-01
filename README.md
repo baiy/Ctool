@@ -47,6 +47,8 @@ pnpm --filter 'ctool-adapter-chrome' run platform-release
 pnpm --filter 'ctool-adapter-edge' run platform-release
 // electron
 pnpm --filter 'ctool-adapter-electron' run platform-release
+// tauri
+pnpm --filter 'ctool-adapter-tauri-app' run platform-release
 // firefox
 pnpm --filter 'ctool-adapter-firefox' run platform-release
 // utools
