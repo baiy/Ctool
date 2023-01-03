@@ -141,11 +141,4 @@ jobs:
       - name: Build Core
         run: |
           pnpm run build
-          pnpm -r --filter="ctool-adapter-tauri" run init 
-
-      - uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        with:
-          projectPath: packages/ctool-adapter/tauri
-          releaseId: ${{ needs.deploy.outputs.RELEASE_UPLOAD_ID }}
+          pnpm -r --filter="ctool-adapter-tauri" run platform-release
