@@ -141,7 +141,7 @@ jobs:
       - name: Build Core
         run: |
           pnpm run build
-          pnpm -r --filter="ctool-adapter-tauri run init 
+          pnpm -r --filter="ctool-adapter-tauri" run init 
 
       - uses: tauri-apps/tauri-action@v0
         env:
