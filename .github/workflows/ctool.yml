@@ -121,4 +121,4 @@ jobs:
         with:
           projectPath: packages/ctool-adapter/tauri
           releaseId: ${{ needs.deploy.outputs.RELEASE_UPLOAD_ID }}
-          tauriScript: pnpm --filter='ctool-adapter-tauri' run platform-release
+          tauriScript: pnpm -r --filter='ctool-adapter-tauri' run platform-release
