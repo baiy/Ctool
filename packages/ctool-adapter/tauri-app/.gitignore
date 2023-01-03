@@ -22,10 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-_release
-_temp
-.npmrc
-
-# clear tauri src
-packages/ctool-adapter/tauri-app/src/

@@ -1,0 +1,17 @@
+{
+  "name": "ctool-adapter-tauri-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "tauri": "tauri",
+    "platform-release": "pnpm tauri build"
+  },
+  "dependencies": {
+    "ctool-adapter-base": "workspace:*",
+    "ctool-config": "workspace:*"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^1.2.2"
+  }
+}

@@ -13,7 +13,13 @@ export const initPermission = async () => {
             return resolve("")
         }
 
-        // @ts-ignore
+        // https://github.com/nolanlawson/pinafore/pull/618/files
+        //@ts-ignore
+        if (!navigator.permissions || !navigator.permissions.query) {
+            return resolve("")
+          }
+
+        //@ts-ignore
         navigator.permissions.query({name: 'clipboard-read'}).then((result) => {
             permission = result.state
             resolve("")
