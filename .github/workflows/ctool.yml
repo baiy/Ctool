@@ -4,8 +4,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     outputs:
-      RELEASE_UPLOAD_ID: ${{ steps.create_release.outputs }}
-      CHECKOUT_ID: ${{ steps.checkout.outputs }}
+      RELEASE_UPLOAD_ID: ${{ steps.create_release.outputs.id }}
 
     steps:
       - name: Checkout
