@@ -33,11 +33,15 @@ class Platform {
     }
 
     isDesktop(): boolean {
-        return this.isElectron()
+        return this.isElectron() || this.isTauri()
     }
 
     isElectron(): boolean {
         return this.name === "electron"
+    }
+
+    isTauri(): boolean {
+        return this.name === "tauri"
     }
 
     getLocale(): LocaleLists {

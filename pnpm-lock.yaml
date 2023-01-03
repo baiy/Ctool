@@ -88,16 +88,24 @@ importers:
       tsup: 6.5.0_typescript@4.9.4
       typescript: 4.9.4
 
-  packages/ctool-adapter/tauri-app:
+  packages/ctool-adapter/tauri:
     specifiers:
+      '@tauri-apps/api': ^1.2.0
       '@tauri-apps/cli': ^1.2.2
+      '@types/node': ^18.11.15
       ctool-adapter-base: workspace:*
       ctool-config: workspace:*
+      tsup: ^6.5.0
+      typescript: ^4.9.4
     dependencies:
+      '@tauri-apps/api': 1.2.0
       ctool-adapter-base: link:../base
       ctool-config: link:../../ctool-config
     devDependencies:
       '@tauri-apps/cli': 1.2.2
+      '@types/node': 18.11.18
+      tsup: 6.5.0_typescript@4.9.4
+      typescript: 4.9.4
 
   packages/ctool-adapter/utools:
     specifiers:
@@ -202,6 +210,7 @@ importers:
       ctool-adapter-edge: workspace:*
       ctool-adapter-electron: workspace:*
       ctool-adapter-firefox: workspace:*
+      ctool-adapter-tauri: workspace:*
       ctool-adapter-utools: workspace:*
       ctool-config: workspace:*
       dayjs: ^1.11.7
@@ -257,7 +266,7 @@ importers:
       yargs: ^17.6.2
     dependencies:
       '@codemirror/commands': 6.1.3
-      '@codemirror/language-data': 6.1.0_mkfz4ln5imhou22ver6dhqxs5u
+      '@codemirror/language-data': 6.1.0
       '@codemirror/merge': 0.1.3
       '@codemirror/search': 6.2.3
       '@codemirror/state': 6.2.0
@@ -265,8 +274,8 @@ importers:
       '@imengyu/vue3-context-menu': 1.1.7
       '@ltd/j-toml': 1.37.0
       '@prettier/plugin-php': 0.19.2_prettier@2.8.1
-      '@uiw/codemirror-extensions-basic-setup': 4.19.5_gva5kimwvcvlpyen2hjoebcciu
-      '@uiw/codemirror-theme-github': 4.15.1_mkfz4ln5imhou22ver6dhqxs5u
+      '@uiw/codemirror-extensions-basic-setup': 4.19.5
+      '@uiw/codemirror-theme-github': 4.15.1
       ajv: 8.11.2
       ajv-i18n: 4.2.0_ajv@8.11.2
       axios: 0.27.2
@@ -285,6 +294,7 @@ importers:
       ctool-adapter-edge: link:../ctool-adapter/edge
       ctool-adapter-electron: link:../ctool-adapter/electron
       ctool-adapter-firefox: link:../ctool-adapter/firefox
+      ctool-adapter-tauri: link:../ctool-adapter/tauri
       ctool-adapter-utools: link:../ctool-adapter/utools
       ctool-config: link:../ctool-config
       dayjs: 1.11.7
@@ -390,11 +400,8 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
 
-  /@codemirror/autocomplete/6.4.0_mkfz4ln5imhou22ver6dhqxs5u:
+  /@codemirror/autocomplete/6.4.0:
     resolution: {integrity: sha512-HLF2PnZAm1s4kGs30EiqKMgD7XsYaQ0XJnMR0rofEWQ5t5D60SfqpDIkIh1ze5tiEbyUWm8+VJ6W1/erVvBMIA==}
-    peerDependencies:
-      '@codemirror/state': ^6.0.0
-      '@codemirror/view': ^6.0.0
     dependencies:
       '@codemirror/language': 6.3.2
       '@codemirror/state': 6.2.0
@@ -418,22 +425,20 @@ packages:
       '@lezer/cpp': 1.0.0
     dev: false
 
-  /@codemirror/lang-css/6.0.1_@codemirror+view@6.7.1:
+  /@codemirror/lang-css/6.0.1:
     resolution: {integrity: sha512-rlLq1Dt0WJl+2epLQeAsfqIsx3lGu4HStHCJu95nGGuz2P2fNugbU3dQYafr2VRjM4eMC9HviI6jvS98CNtG5w==}
     dependencies:
-      '@codemirror/autocomplete': 6.4.0_mkfz4ln5imhou22ver6dhqxs5u
+      '@codemirror/autocomplete': 6.4.0
       '@codemirror/language': 6.3.2
       '@codemirror/state': 6.2.0
       '@lezer/css': 1.1.1
-    transitivePeerDependencies:
-      - '@codemirror/view'
     dev: false
 
   /@codemirror/lang-html/6.4.0:
     resolution: {integrity: sha512-HHged0d9AQ/mpjYLTYDVdtI7235dO0COFNgc5uuiGokgjWx3L/sjMSw5aS/Nk7JG++LhsohG5HMNTCuqAq3Tcg==}
     dependencies:
-      '@codemirror/autocomplete': 6.4.0_mkfz4ln5imhou22ver6dhqxs5u
-      '@codemirror/lang-css': 6.0.1_@codemirror+view@6.7.1
+      '@codemirror/autocomplete': 6.4.0
+      '@codemirror/lang-css': 6.0.1
       '@codemirror/lang-javascript': 6.1.2
       '@codemirror/language': 6.3.2
       '@codemirror/state': 6.2.0
@@ -453,7 +458,7 @@ packages:
   /@codemirror/lang-javascript/6.1.2:
     resolution: {integrity: sha512-OcwLfZXdQ1OHrLiIcKCn7MqZ7nx205CMKlhe+vL88pe2ymhT9+2P+QhwkYGxMICj8TDHyp8HFKVwpiisUT7iEQ==}
     dependencies:
-      '@codemirror/autocomplete': 6.4.0_mkfz4ln5imhou22ver6dhqxs5u
+      '@codemirror/autocomplete': 6.4.0
       '@codemirror/language': 6.3.2
       '@codemirror/lint': 6.1.0
       '@codemirror/state': 6.2.0
@@ -490,15 +495,12 @@ packages:
       '@lezer/php': 1.0.0
     dev: false
 
-  /@codemirror/lang-python/6.1.1_mkfz4ln5imhou22ver6dhqxs5u:
+  /@codemirror/lang-python/6.1.1:
     resolution: {integrity: sha512-AddGMIKUssUAqaDKoxKWA5GAzy/CVE0eSY7/ANgNzdS1GYBkp6N49XKEyMElkuN04UsZ+bTIQdj+tVV75NMwJw==}
     dependencies:
-      '@codemirror/autocomplete': 6.4.0_mkfz4ln5imhou22ver6dhqxs5u
+      '@codemirror/autocomplete': 6.4.0
       '@codemirror/language': 6.3.2
       '@lezer/python': 1.1.1
-    transitivePeerDependencies:
-      - '@codemirror/state'
-      - '@codemirror/view'
     dev: false
 
   /@codemirror/lang-rust/6.0.1:
@@ -508,16 +510,14 @@ packages:
       '@lezer/rust': 1.0.0
     dev: false
 
-  /@codemirror/lang-sql/6.3.3_@codemirror+view@6.7.1:
+  /@codemirror/lang-sql/6.3.3:
     resolution: {integrity: sha512-VNsHju8500fkiDyDU8jZyGQ8M0iXU0SmfeCoCeAYkACcEFlX63BOT8311pICXyw43VYRbS23w54RgSEQmixGjQ==}
     dependencies:
-      '@codemirror/autocomplete': 6.4.0_mkfz4ln5imhou22ver6dhqxs5u
+      '@codemirror/autocomplete': 6.4.0
       '@codemirror/language': 6.3.2
       '@codemirror/state': 6.2.0
       '@lezer/highlight': 1.1.3
       '@lezer/lr': 1.2.5
-    transitivePeerDependencies:
-      - '@codemirror/view'
     dev: false
 
   /@codemirror/lang-wast/6.0.1:
@@ -528,39 +528,34 @@ packages:
       '@lezer/lr': 1.2.5
     dev: false
 
-  /@codemirror/lang-xml/6.0.1_@codemirror+view@6.7.1:
+  /@codemirror/lang-xml/6.0.1:
     resolution: {integrity: sha512-0tvycUTElajCcRKgsszhKjWX+uuOogdu5+enpfqYA+j0gnP8ek7LRxujh2/XMPRdXt/hwOML4slJLE7r2eX3yQ==}
     dependencies:
-      '@codemirror/autocomplete': 6.4.0_mkfz4ln5imhou22ver6dhqxs5u
+      '@codemirror/autocomplete': 6.4.0
       '@codemirror/language': 6.3.2
       '@codemirror/state': 6.2.0
       '@lezer/common': 1.0.2
       '@lezer/xml': 1.0.1
-    transitivePeerDependencies:
-      - '@codemirror/view'
     dev: false
 
-  /@codemirror/language-data/6.1.0_mkfz4ln5imhou22ver6dhqxs5u:
+  /@codemirror/language-data/6.1.0:
     resolution: {integrity: sha512-g9V23fuLRI9AEbpM6bDy1oquqgpFlIDHTihUhL21NPmxp+x67ZJbsKk+V71W7/Bj8SCqEO1PtqQA/tDGgt1nfw==}
     dependencies:
       '@codemirror/lang-cpp': 6.0.2
-      '@codemirror/lang-css': 6.0.1_@codemirror+view@6.7.1
+      '@codemirror/lang-css': 6.0.1
       '@codemirror/lang-html': 6.4.0
       '@codemirror/lang-java': 6.0.1
       '@codemirror/lang-javascript': 6.1.2
       '@codemirror/lang-json': 6.0.1
       '@codemirror/lang-markdown': 6.0.5
       '@codemirror/lang-php': 6.0.1
-      '@codemirror/lang-python': 6.1.1_mkfz4ln5imhou22ver6dhqxs5u
+      '@codemirror/lang-python': 6.1.1
       '@codemirror/lang-rust': 6.0.1
-      '@codemirror/lang-sql': 6.3.3_@codemirror+view@6.7.1
+      '@codemirror/lang-sql': 6.3.3
       '@codemirror/lang-wast': 6.0.1
-      '@codemirror/lang-xml': 6.0.1_@codemirror+view@6.7.1
+      '@codemirror/lang-xml': 6.0.1
       '@codemirror/language': 6.3.2
       '@codemirror/legacy-modes': 6.3.1
-    transitivePeerDependencies:
-      - '@codemirror/state'
-      - '@codemirror/view'
     dev: false
 
   /@codemirror/language/6.3.2:
@@ -1037,6 +1032,11 @@ packages:
       defer-to-connect: 1.1.3
     dev: true
 
+  /@tauri-apps/api/1.2.0:
+    resolution: {integrity: sha512-lsI54KI6HGf7VImuf/T9pnoejfgkNoXveP14pVV7XarrQ46rOejIVJLFqHI9sRReJMGdh2YuCoI3cc/yCWCsrw==}
+    engines: {node: '>= 14.6.0', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
+    dev: false
+
   /@tauri-apps/cli-darwin-arm64/1.2.2:
     resolution: {integrity: sha512-W+Cp2weUMlvmGkRJeUjypbz9Lpl6o98xkgKAtobZSum5SNwpsBQfawJTESakNoD+FXyVg/snIk5sRdHge+tAaA==}
     engines: {node: '>= 10'}
@@ -1329,15 +1329,10 @@ packages:
     dev: true
     optional: true
 
-  /@uiw/codemirror-extensions-basic-setup/4.19.5_gva5kimwvcvlpyen2hjoebcciu:
+  /@uiw/codemirror-extensions-basic-setup/4.19.5:
     resolution: {integrity: sha512-1zt7ZPJ01xKkSW/KDy0FZNga0bngN1fC594wCVG7FBi60ehfcAucpooQ+JSPScKXopxcb+ugPKZvVLzr9/OfzA==}
-    peerDependencies:
-      '@codemirror/commands': '>=6.0.0'
-      '@codemirror/search': '>=6.0.0'
-      '@codemirror/state': '>=6.0.0'
-      '@codemirror/view': '>=6.0.0'
     dependencies:
-      '@codemirror/autocomplete': 6.4.0_mkfz4ln5imhou22ver6dhqxs5u
+      '@codemirror/autocomplete': 6.4.0
       '@codemirror/commands': 6.1.3
       '@codemirror/language': 6.3.2
       '@codemirror/lint': 6.1.0
@@ -1346,20 +1341,14 @@ packages:
       '@codemirror/view': 6.7.1
     dev: false
 
-  /@uiw/codemirror-theme-github/4.15.1_mkfz4ln5imhou22ver6dhqxs5u:
+  /@uiw/codemirror-theme-github/4.15.1:
     resolution: {integrity: sha512-8Q4V3kbHw/jgD35ry8mxyViN2LHWRFcMRIjY+IbTya0ehVb29bugSmJIAn1eHb/rk1hMQ6ZvDTseNBg+Abdl3Q==}
     dependencies:
-      '@uiw/codemirror-themes': 4.15.1_mkfz4ln5imhou22ver6dhqxs5u
-    transitivePeerDependencies:
-      - '@codemirror/state'
-      - '@codemirror/view'
+      '@uiw/codemirror-themes': 4.15.1
     dev: false
 
-  /@uiw/codemirror-themes/4.15.1_mkfz4ln5imhou22ver6dhqxs5u:
+  /@uiw/codemirror-themes/4.15.1:
     resolution: {integrity: sha512-+3NKdmptuZTGE56LQ3j8daOAKer2STEDklkJS9AGHAGoN1o7IdA+s2Pbp3hf5oGxukNb29UA+gskfb5grszWMg==}
-    peerDependencies:
-      '@codemirror/state': '>=6.0.0'
-      '@codemirror/view': '>=6.0.0'
     dependencies:
       '@codemirror/language': 6.3.2
       '@codemirror/state': 6.2.0
@@ -1571,10 +1560,10 @@ packages:
     resolution: {integrity: sha512-dQYDuqm/rmy8GSCE6Xl/3ShJg6Ab4bZJMT8KaTKGzT436gl1DN4REP3FCWfXoh75qGTJ+u+WsdnnpO9Jl8nyMA==}
     engines: {node: '>=14.0.0'}
     dependencies:
-      7zip-bin: 5.1.1
       '@develar/schema-utils': 2.6.5
       '@electron/universal': 1.2.1
       '@malept/flatpak-bundler': 0.4.0
+      7zip-bin: 5.1.1
       async-exit-hook: 2.0.1
       bluebird-lst: 1.0.9
       builder-util: 23.6.0
@@ -1809,9 +1798,9 @@ packages:
   /builder-util/23.6.0:
     resolution: {integrity: sha512-QiQHweYsh8o+U/KNCZFSvISRnvRctb8m/2rB2I1JdByzvNKxPeFLlHFRPQRXab6aYeXc18j9LpsDLJ3sGQmWTQ==}
     dependencies:
-      7zip-bin: 5.1.1
       '@types/debug': 4.1.7
       '@types/fs-extra': 9.0.13
+      7zip-bin: 5.1.1
       app-builder-bin: 4.0.0
       bluebird-lst: 1.0.9
       builder-util-runtime: 9.1.1

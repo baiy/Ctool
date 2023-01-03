@@ -37,6 +37,7 @@
         "ctool-adapter-electron": "workspace:*",
         "ctool-adapter-firefox": "workspace:*",
         "ctool-adapter-utools": "workspace:*",
+        "ctool-adapter-tauri": "workspace:*",
         "ctool-config": "workspace:*",
         "dayjs": "^1.11.7",
         "decode-uri-component": "^0.2.2",

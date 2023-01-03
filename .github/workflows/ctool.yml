@@ -3,9 +3,13 @@ on: [ push ]
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    outputs:
+      RELEASE_UPLOAD_ID: ${{ steps.create_release.outputs }}
+      CHECKOUT_ID: ${{ steps.checkout.outputs }}
 
     steps:
       - name: Checkout
+        id: checkout
         uses: actions/checkout@v3
 
       - name: Use Node.js
@@ -24,22 +28,18 @@ jobs:
         run: pnpm install
 
       - name: Build Core
-        run: | 
+        run: |
           pnpm run build
           ls -lh ./packages/ctool-core/dist
 
       - name: Release Adapter Platform
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          sudo dpkg --add-architecture i386
-          wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
-          sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
-          sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
-          sudo apt install --install-recommends winehq-stable
           pnpm run only-release
           ls -lh ./_release/
 
       - name: Upload Release To Github
+        id: create_release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
@@ -50,13 +50,75 @@ jobs:
             ./_release/ctool_edge.zip
             ./_release/ctool_utools.zip
             ./_release/ctool_firefox.zip
-            ./_release/ctool_electron_linux_x64.tar.gz
-            ./_release/ctool_electron_mac_arm64.zip
-            ./_release/ctool_electron_mac_x64.zip
-            ./_release/ctool_electron_win_x64.zip
 
       - name: Deploy web to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./packages/ctool-core/dist
+
+  build-tauri:
+    needs: deploy
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ macos-latest, ubuntu-latest, windows-latest ]
+
+    runs-on: ${{ matrix.platform }}
+
+    if: startsWith(github.ref, 'refs/tags/')
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Install Rust stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      # Rust cache
+      - uses: Swatinem/rust-cache@v1
+
+      - name: install dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
+
+      # Install wasm-pack
+      - uses: jetli/wasm-pack-action@v0.3.0
+        with:
+          # Optional version of wasm-pack to install(eg. 'v0.9.1', 'latest')
+          version: v0.9.1
+
+      - name: Install rsw
+        run: cargo install rsw
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Core
+        run: |
+          pnpm run build
+          ls -lh ./packages/ctool-core/dist
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        with:
+          projectPath: packages/ctool-adapter/tauri
+          releaseId: ${{ needs.deploy.outputs.RELEASE_UPLOAD_ID }}
+          tauriScript: pnpm --filter 'ctool-adapter-tauri' run platform-release

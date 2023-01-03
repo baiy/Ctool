@@ -14,10 +14,9 @@ export const initPermission = async () => {
         }
 
         // https://github.com/nolanlawson/pinafore/pull/618/files
-        //@ts-ignore
         if (!navigator.permissions || !navigator.permissions.query) {
             return resolve("")
-          }
+        }
 
         //@ts-ignore
         navigator.permissions.query({name: 'clipboard-read'}).then((result) => {
@@ -56,6 +55,11 @@ export const paste = async (force: boolean = false): Promise<string> => {
             }).catch((e) => {
                 console.error(e)
                 return resolve("")
+            })
+            navigator.clipboard.readText().then((text) => {
+                return console.log(text)
+            }).catch((e) => {
+                console.error(e)
             })
         } catch {
             resolve("")

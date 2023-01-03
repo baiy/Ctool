@@ -5,9 +5,10 @@ import {runtime as chrome} from 'ctool-adapter-chrome'
 import {runtime as electron} from 'ctool-adapter-electron'
 import {runtime as firefox} from 'ctool-adapter-firefox'
 import {runtime as utools} from 'ctool-adapter-utools'
+import {runtime as tauri} from 'ctool-adapter-tauri'
 
 // 适配平台
-const platforms = [edge, chrome, electron, firefox, utools]
+const platforms = [edge, chrome, electron, firefox, utools, tauri]
 
 export default class {
     private readonly platformRuntime: PlatformRuntime
