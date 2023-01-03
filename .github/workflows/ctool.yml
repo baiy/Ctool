@@ -23,6 +23,20 @@ jobs:
           version: 7
           run_install: false
 
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
       - name: Install dependencies
         run: pnpm install
 
@@ -84,6 +98,20 @@ jobs:
           version: 7
           run_install: false
 
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
       - name: Install Rust stable
         uses: actions-rs/toolchain@v1
         with:
@@ -113,7 +141,7 @@ jobs:
       - name: Build Core
         run: |
           pnpm run build
-          ls -lh ./packages/ctool-core/dist
+          pnpm -r --filter="ctool-adapter-tauri run init 
 
       - uses: tauri-apps/tauri-action@v0
         env:
@@ -121,4 +149,3 @@ jobs:
         with:
           projectPath: packages/ctool-adapter/tauri
           releaseId: ${{ needs.deploy.outputs.RELEASE_UPLOAD_ID }}
-          tauriScript: 'pnpm -r --filter="ctool-adapter-tauri" run platform-release'
