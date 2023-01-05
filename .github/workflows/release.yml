@@ -4,8 +4,6 @@ on: workflow_dispatch
 jobs:
   base:
     runs-on: ubuntu-latest
-    outputs:
-      RELEASE_UPLOAD_ID: ${{ steps.create_release.outputs.id }}
 
     steps:
       - name: Checkout
@@ -72,15 +70,13 @@ jobs:
           ref: gh-pages
 
       - name: Release Adapter Platform
-        #run: pnpm run only-release
+        #run:
         run: |
           pnpm run initialize
           ls -lha packages/ctool-core/dist
           node release.js clear
           node release.js init
-          pnpm --filter ctool-adapter-chrome run platform-release
-          pnpm --filter ctool-adapter-edge run platform-release
-          pnpm --filter ctool-adapter-web run platform-release
+          pnpm run only-release
           ls -lh ./_release/
           node release.js get
 
@@ -91,7 +87,6 @@ jobs:
           files: files=_release_files
 
       - name: Upload Release To Github
-        id: create_release
         uses: softprops/action-gh-release@v1
         with:
           prerelease: true
@@ -111,13 +106,71 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Checkout Dist File
-        uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
-          path: packages/ctool-core/dist
-          ref: gh-pages
+          node-version: 16
 
-      - name: Test
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
         run: |
-          ls  packages/ctool-core/dist
-          echo ${{ needs.base.outputs.RELEASE_UPLOAD_ID }}
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Rust stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      # Rust cache
+      - uses: Swatinem/rust-cache@v1
+
+      # Install wasm-pack
+      - uses: jetli/wasm-pack-action@v0.3.0
+        with:
+          # Optional version of wasm-pack to install(eg. 'v0.9.1', 'latest')
+          version: v0.9.1
+
+      - name: Install rsw
+        run: cargo install rsw
+
+      - name: Release Adapter Platform
+        run: |
+          pnpm run initialize
+          ls packages/ctool-core/dist
+          node release.js clear
+          node release.js init
+          pnpm --filter ctool-adapter-tauri run platform-release
+          ls ./_release/
+          node release.js get
+
+      - name: Get Release Files
+        uses: edwardgeorge/file-outputs-action@main
+        id: get_release_files
+        with:
+          files: files=_release_files
+
+      - name: Upload Release To Github
+        uses: softprops/action-gh-release@v1
+        with:
+          prerelease: true
+          files: |
+            ${{ steps.get_release_files.outputs.files }}
