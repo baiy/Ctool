@@ -4,9 +4,13 @@ on:
   push:
     branches:
       - 'master'
-    paths-ignore:
-      - 'README.md'
-      - 'images/**'
+    paths:
+      - 'packages/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'release.js'
+      - '!README.md'
+      - '!images/**'
 
 jobs:
   build:
