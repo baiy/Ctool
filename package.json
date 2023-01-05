@@ -7,10 +7,10 @@
     "author": "baiy",
     "license": "MIT",
     "scripts": {
-        "initialize": "pnpm -r --filter 'ctool-config' run build && pnpm -r --filter 'ctool-adapter-base' run build && pnpm -r adapter-build",
-        "dev": "pnpm run initialize && pnpm -r --filter 'ctool-core' run dev",
-        "build": "pnpm run initialize && pnpm -r --filter 'ctool-core' run build",
-        "release": "node release.js && pnpm run build && pnpm -r platform-release",
-        "only-release": "node release.js && pnpm -r platform-release"
+        "initialize": "pnpm --filter run ctool-config run build && pnpm --filter ctool-adapter-base run build && pnpm -r run adapter-build",
+        "dev": "pnpm run initialize && pnpm --filter ctool-core run dev",
+        "build": "pnpm run initialize && pnpm --filter ctool-core run build",
+        "release": "node release.js && pnpm run build && pnpm -r run platform-release",
+        "only-release": "node release.js && pnpm -r run platform-release"
     }
 }

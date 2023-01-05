@@ -9,7 +9,7 @@
         "dev": "pnpm run sync && electron dist/main.js",
         "release": "pnpm run sync && node dist/release.js",
         "adapter-build": "pnpm run build",
-        "_platform-release": "pnpm run release"
+        "platform-release": "pnpm run release"
     },
     "dependencies": {
         "ctool-adapter-base": "workspace:*",

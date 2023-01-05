@@ -4,7 +4,7 @@
     "module": "./dist/esm/index.js",
     "types": "./dist/index.d.ts",
     "scripts": {
-        "build": "pnpm exec tsup-node;node dist/generate.js"
+        "build": "pnpm exec tsup-node && node dist/generate.js"
     },
     "dependencies": {
         "json5": "^2.2.1",

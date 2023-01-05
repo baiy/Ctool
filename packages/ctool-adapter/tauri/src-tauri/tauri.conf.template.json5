@@ -39,7 +39,7 @@
             "longDescription": "##description##",
             "targets": [
                 "deb",
-//                "appimage",
+                "appimage",
                 "msi",
                 "app",
                 "dmg"
