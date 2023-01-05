@@ -74,7 +74,8 @@ jobs:
       - name: Release Adapter Platform
         #run: pnpm run only-release
         run: |
-          ls -lh packages/ctool-core/dist
+          pnpm run initialize
+          ls -lha packages/ctool-core/dist
           node release.js 
           pnpm --filter ctool-adapter-chrome run platform-release
           pnpm --filter ctool-adapter-edge run platform-release
