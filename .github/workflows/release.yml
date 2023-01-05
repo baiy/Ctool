@@ -70,11 +70,11 @@ jobs:
         with:
           path: packages/ctool-core/dist
           ref: gh-pages
-        run: ls -lh packages/ctool-core/dist
 
       - name: Release Adapter Platform
         #run: pnpm run only-release
         run: |
+          ls -lh packages/ctool-core/dist
           node release.js 
           pnpm --filter ctool-adapter-chrome run platform-release
           pnpm --filter ctool-adapter-edge run platform-release
@@ -128,7 +128,8 @@ jobs:
         with:
           path: packages/ctool-core/dist
           ref: gh-pages
-        run: ls  packages/ctool-core/dist
 
       - name: Test
-        run: echo ${{ needs.base.outputs.RELEASE_UPLOAD_ID }}
+        run: |
+          ls  packages/ctool-core/dist
+          echo ${{ needs.base.outputs.RELEASE_UPLOAD_ID }}
