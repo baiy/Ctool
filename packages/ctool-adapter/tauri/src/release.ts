@@ -1,7 +1,8 @@
 import {release} from "ctool-adapter-base";
 import {parse, join} from "path";
-import {readdirSync, statSync, existsSync} from "fs";
+import {readdirSync, statSync, existsSync, rmSync, mkdirSync, cpSync} from "fs";
 import os from 'os';
+import {getCoreDistPath} from "ctool-adapter-base/src";
 
 const platform = ["win32", "darwin"].includes(os.platform()) ? os.platform() : "linux";
 
@@ -35,10 +36,15 @@ const getTauriReleaseFile = (dir: string, name: string, extension: string) => {
     }
     if (platform === "darwin") {
         filesPush(getTauriReleaseFile("bundle/dmg", 'ctool', '.dmg'), "mac.dmg")
-        // mac app 为目录 特殊处理
+        // mac app 程序 特殊处理
         const appFile = join(__dirname, "../src-tauri/target/release/bundle/macos/ctool.app")
         if (existsSync(appFile)) {
-            filesPush(appFile, "mac.app")
+            const appTempDir1 = join(__dirname, "../src-tauri/target/release/bundle/macos/ctool")
+            const appTempDir2 = join(appTempDir1, "ctool.app")
+            rmSync(appTempDir1, {recursive: true, force: true});
+            mkdirSync(appTempDir2, {recursive: true});
+            cpSync(appFile, appTempDir2, {recursive: true})
+            filesPush(appTempDir1, "mac_app")
         }
     }
     if (platform === "linux") {
