@@ -1,6 +1,10 @@
 # 编译核心文件 发布 github page
 name: Build Ctool Core
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - 'master'
+
 jobs:
   build:
     runs-on: ubuntu-latest

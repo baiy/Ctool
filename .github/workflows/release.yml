@@ -1,6 +1,11 @@
 # 构建发布平台适配文件
 name: Release Ctool Adapter
-on: workflow_dispatch
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
 jobs:
   base:
     runs-on: ubuntu-latest
