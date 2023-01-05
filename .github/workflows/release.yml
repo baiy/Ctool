@@ -47,21 +47,10 @@ jobs:
           sudo apt install --install-recommends winehq-stable
 
       - name: Install Rust stable
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
+        uses: dtolnay/rust-toolchain@stable
 
       # Rust cache
-      - uses: Swatinem/rust-cache@v1
-
-      # Install wasm-pack
-      - uses: jetli/wasm-pack-action@v0.3.0
-        with:
-          # Optional version of wasm-pack to install(eg. 'v0.9.1', 'latest')
-          version: v0.9.1
-
-      - name: Install rsw
-        run: cargo install rsw
+      - uses: Swatinem/rust-cache@v2
 
       - name: Checkout Dist File
         uses: actions/checkout@v3
@@ -70,7 +59,6 @@ jobs:
           ref: gh-pages
 
       - name: Release Adapter Platform
-        #run:
         run: |
           pnpm run initialize
           ls -lha packages/ctool-core/dist
@@ -136,21 +124,16 @@ jobs:
         run: pnpm install
 
       - name: Install Rust stable
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
+        uses: dtolnay/rust-toolchain@stable
 
       # Rust cache
-      - uses: Swatinem/rust-cache@v1
+      - uses: Swatinem/rust-cache@v2
 
-      # Install wasm-pack
-      - uses: jetli/wasm-pack-action@v0.3.0
+      - name: Checkout Dist File
+        uses: actions/checkout@v3
         with:
-          # Optional version of wasm-pack to install(eg. 'v0.9.1', 'latest')
-          version: v0.9.1
-
-      - name: Install rsw
-        run: cargo install rsw
+          path: packages/ctool-core/dist
+          ref: gh-pages
 
       - name: Release Adapter Platform
         run: |
