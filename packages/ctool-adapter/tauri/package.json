@@ -7,7 +7,7 @@
         "build": "pnpm exec tsup-node",
         "init": "node ./dist/init.js && pnpm tauri icon ./dist/web/icon/icon_1024.png",
         "dev": "pnpm run init && pnpm tauri dev",
-        "release": "pnpm run init && pnpm tauri build",
+        "release": "pnpm run init && pnpm tauri build && node ./dist/release.js",
         "adapter-build": "pnpm run build",
         "platform-release": "pnpm run release"
     },

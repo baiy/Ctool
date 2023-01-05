@@ -1,0 +1,134 @@
+# 构建发布平台适配文件
+name: Release Ctool Adapter
+on: workflow_dispatch
+jobs:
+  base:
+    runs-on: ubuntu-latest
+    outputs:
+      RELEASE_UPLOAD_ID: ${{ steps.create_release.outputs.id }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: |
+          pnpm install
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
+          sudo dpkg --add-architecture i386
+          wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+          sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
+          sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
+          sudo apt install --install-recommends winehq-stable
+
+      - name: Install Rust stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      # Rust cache
+      - uses: Swatinem/rust-cache@v1
+
+      # Install wasm-pack
+      - uses: jetli/wasm-pack-action@v0.3.0
+        with:
+          # Optional version of wasm-pack to install(eg. 'v0.9.1', 'latest')
+          version: v0.9.1
+
+      - name: Install rsw
+        run: cargo install rsw
+
+      - name: Checkout Dist File
+        uses: actions/checkout@v3
+        with:
+          path: packages/ctool-core/dist
+          ref: gh-pages
+        run: ls -lh packages/ctool-core/dist
+
+      - name: Release Adapter Platform
+        #run: pnpm run only-release
+        run: |
+          node release.js 
+          pnpm --filter ctool-adapter-chrome run platform-release
+          pnpm --filter ctool-adapter-edge run platform-release
+          pnpm --filter ctool-adapter-web run platform-release
+          ls -lh ./_release/
+
+      - name: Get Release Files
+        id: get_release_files
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const {join} = require("path");
+            const {readdirSync, statSync} =  require("fs");
+
+            const path = join(__dirname, "_release")
+            const files = readdirSync(path).map(item => {
+                return {
+                    path: join(path, item),
+                    name: `./_release/${item}`
+                }
+            }).filter(item => {
+                return statSync(item.path).isFile()
+            }).map(item => item.name) || []
+            const result = files.join("\n")
+            console.log(result)
+            return result
+
+      - name: Upload Release To Github
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          prerelease: true
+          files: |
+            ${{ steps.get_release_files.outputs.result }}
+
+  tauri-mac-window:
+    needs: base
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ macos-latest, windows-latest ]
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Checkout Dist File
+        uses: actions/checkout@v3
+        with:
+          path: packages/ctool-core/dist
+          ref: gh-pages
+        run: ls  packages/ctool-core/dist
+
+      - name: Test
+        run: echo ${{ needs.base.outputs.RELEASE_UPLOAD_ID }}
