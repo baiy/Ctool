@@ -14,10 +14,9 @@
         "ctool-config": "workspace:*"
     },
     "devDependencies": {
-        "@types/node": "^18.11.15",
-        "typescript": "^4.9.4",
+        "@types/node": "^18.11.18",
         "tsup": "^6.5.0",
+        "typescript": "^4.9.4",
         "utools-api-types": "^3.0.0"
     }
 }
-
