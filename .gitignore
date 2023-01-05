@@ -24,8 +24,6 @@ dist-ssr
 *.sw?
 
 _release
+_release_files
 _temp
 .npmrc
-
-# clear tauri src
-packages/ctool-adapter/tauri-app/src/

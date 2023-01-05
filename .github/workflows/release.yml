@@ -76,32 +76,19 @@ jobs:
         run: |
           pnpm run initialize
           ls -lha packages/ctool-core/dist
-          node release.js 
+          node release.js clear
+          node release.js init
           pnpm --filter ctool-adapter-chrome run platform-release
           pnpm --filter ctool-adapter-edge run platform-release
           pnpm --filter ctool-adapter-web run platform-release
           ls -lh ./_release/
+          node release.js get
 
       - name: Get Release Files
+        uses: edwardgeorge/file-outputs-action@main
         id: get_release_files
-        uses: actions/github-script@v6
         with:
-          script: |
-            const {join} = require("path");
-            const {readdirSync, statSync} =  require("fs");
-
-            const path = join(__dirname, "_release")
-            const files = readdirSync(path).map(item => {
-                return {
-                    path: join(path, item),
-                    name: `./_release/${item}`
-                }
-            }).filter(item => {
-                return statSync(item.path).isFile()
-            }).map(item => item.name) || []
-            const result = files.join("\n")
-            console.log(result)
-            return result
+          files: files=_release_files
 
       - name: Upload Release To Github
         id: create_release
@@ -109,7 +96,7 @@ jobs:
         with:
           prerelease: true
           files: |
-            ${{ steps.get_release_files.outputs.result }}
+            ${{ steps.get_release_files.outputs.files }}
 
   tauri-mac-window:
     needs: base
