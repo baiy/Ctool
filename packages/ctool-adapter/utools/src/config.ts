@@ -44,7 +44,7 @@ customCmds.set(
 )
 
 customCmds.set(
-    getTool('unicode').getFeature('encoder'),
+    getTool('unicode').getFeature('decoder'),
     [
         {
             "type": "regex",
