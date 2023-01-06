@@ -39,7 +39,7 @@ export const runtime = new (class implements PlatformRuntime {
                 const feature = tool.getFeature(_feature)
 
                 // 输入框数据写入临时存储
-                if (["over", "regex", "text"].includes(type) && payload !== "") {
+                if (["over", "regex"].includes(type) && payload !== "") {
                     storage.setNoVersion('_temp_storage', payload, 10)
                 }
                 window.location.hash = `#${feature.getRouter()}?input=_temp_storage`
