@@ -241,7 +241,7 @@ importers:
       prettier: ^2.8.1
       prettier-plugin-java: ^2.0.0
       process: ^0.11.10
-      qr-code-styling: 1.6.0-rc.1
+      qr-code-styling: github:baiy/styled-qr-code
       qrcode-parser: ^2.0.4
       qs: ^6.11.0
       sm-crypto: ^0.3.11
@@ -324,7 +324,7 @@ importers:
       prettier: 2.8.1
       prettier-plugin-java: 2.0.0
       process: 0.11.10
-      qr-code-styling: 1.6.0-rc.1
+      qr-code-styling: github.com/baiy/styled-qr-code/ad58da595ea2c1301ff4ff607dfae4f33d2b791a
       qrcode-parser: 2.0.4
       qs: 6.11.0
       sm-crypto: 0.3.11
@@ -3655,12 +3655,6 @@ packages:
     resolution: {integrity: sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==}
     engines: {node: '>=6'}
 
-  /qr-code-styling/1.6.0-rc.1:
-    resolution: {integrity: sha512-ModRIiW6oUnsP18QzrRYZSc/CFKFKIdj7pUs57AEVH20ajlglRpN3HukjHk0UbNMTlKGuaYl7Gt6/O5Gg2NU2Q==}
-    dependencies:
-      qrcode-generator: 1.4.4
-    dev: false
-
   /qrcode-generator/1.4.4:
     resolution: {integrity: sha512-HM7yY8O2ilqhmULxGMpcHSF1EhJJ9yBj8gvDEuZ6M+KGJ0YY2hKpnXvRD+hZPLrDVck3ExIGhmPtSdcjC+guuw==}
     dev: false
@@ -4494,4 +4488,12 @@ packages:
     resolution: {tarball: https://codeload.github.com/abdolence/x2js/tar.gz/185e410b3fa621070fea1f86a389b477afa216b9}
     name: x2js
     version: 1.2.0
+    dev: false
+
+  github.com/baiy/styled-qr-code/ad58da595ea2c1301ff4ff607dfae4f33d2b791a:
+    resolution: {tarball: https://codeload.github.com/baiy/styled-qr-code/tar.gz/ad58da595ea2c1301ff4ff607dfae4f33d2b791a}
+    name: styled-qr-code
+    version: 1.0.2
+    dependencies:
+      qrcode-generator: 1.4.4
     dev: false

@@ -104,6 +104,7 @@ export const generateOptionsHandle = (_option: GenerateOptions, data: string, im
         margin: option.margin,
         qrOptions: {
             errorCorrectionLevel: option.error_correction_level as ErrorCorrectionLevel,
+            multibyte: "UTF-8",
         },
         image: option.image_options.size > 0 && image.isImage() ? image.toDataUrl() : "",
         imageOptions: {
