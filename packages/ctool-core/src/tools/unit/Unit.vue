@@ -50,7 +50,9 @@ const action = useAction(await initialize({
     from: 'm',
     to: 'all',
     input: 1,
-}, (value) => /^[0-9.]+$/.test(value)))
+}, {
+    paste: (str) => /^[0-9.]+$/.test(str)
+}))
 
 const unitName = (key, type, group) => {
     return `${group ? `${$t('unit_' + group)} - ` : ""}${$t(`unit_${type}_${key}`)} (${getUnit(type, key).unit})`

@@ -21,6 +21,7 @@
 import {ref, computed, watch} from "vue"
 import {useAction, initialize} from "@/store/action"
 import formatter from "./formatter"
+import {getInArrayOnlyOneItem} from "@/helper/util"
 
 import {
     OptionMap,
@@ -54,8 +55,15 @@ const action = useAction(await initialize<{ option: { [k in Languages]: OptionMa
         graphql: {tab: 4},
         sql: {tab: 4, language: "mysql"},
     }
-}, false))
-
+}, {
+    keyword: (str) => {
+        const lang = getInArrayOnlyOneItem(str, languageLists);
+        if (lang === "") {
+            return false
+        }
+        return {language: lang}
+    }
+}))
 
 const isEnableCompress = computed(() => {
     return formatter.languages[action.current.language].compress

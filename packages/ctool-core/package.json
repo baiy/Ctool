@@ -69,6 +69,7 @@
         "qr-code-styling": "github:baiy/styled-qr-code",
         "qrcode-parser": "^2.0.4",
         "qs": "^6.11.0",
+        "recursive-diff": "^1.0.8",
         "sm-crypto": "^0.3.11",
         "sortablejs": "^1.15.0",
         "sql-formatter": "^9.2.0",

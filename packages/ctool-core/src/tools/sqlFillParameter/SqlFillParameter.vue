@@ -34,7 +34,7 @@ const TYPE_STR = ['String', 'Integer', 'Long', 'Timestamp']
 const action = useAction(await initialize({
     input: "",
     params: "",
-}, false))
+}, {paste: false}))
 
 const convert = (params: string) => {
     if (params) {

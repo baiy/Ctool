@@ -40,11 +40,12 @@ const load = (element: HTMLInputElement) => {
 }
 
 const click = (tool, feature) => {
+    const keyword = input
     input = ""
     if (tool === "") {
         return;
     }
-    operate.redirectTool(tool, feature)
+    operate.redirectTool(tool, feature,'','',keyword)
     inputElement?.blur()
     isInput = false
 }

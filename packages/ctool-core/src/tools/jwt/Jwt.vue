@@ -33,7 +33,7 @@ const action = useAction(await initialize({
     header: false,
     payload: true,
     outputOption: serializeGetOutput('json'),
-}, false))
+}, {paste: false}))
 
 const outputSerialize: Serialize = $computed(() => {
     if (!action.current.input.trim()) {

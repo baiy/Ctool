@@ -12,5 +12,5 @@ import {createSerializeInput, createSerializeOutput} from "@/components/serializ
 const action = useAction(await initialize({
     input: createSerializeInput('json'),
     output: createSerializeOutput('xml')
-}, false))
+}, {paste: false}))
 </script>

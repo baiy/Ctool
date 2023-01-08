@@ -70,7 +70,7 @@ const action = useAction(await initialize<DataType>({
         collapse: false,
         revert: "b-to-a",
     }
-}, false))
+}, {paste: false}))
 
 const storeTheme = useTheme()
 

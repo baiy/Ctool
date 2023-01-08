@@ -32,7 +32,7 @@ import {computed} from "vue";
 const action = useAction(await initialize<{ input: string, type: ConventType | "" }>({
     type: "",
     input: "",
-}, false))
+}, {paste: false}))
 
 let showReference = $ref(false)
 

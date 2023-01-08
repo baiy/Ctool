@@ -46,7 +46,7 @@ const action = useAction(await initialize({
     is_global: true,
     is_ignore_case: true,
     is_delete: false,
-}, false))
+}, {paste: false}))
 
 let output = $ref("")
 let showReference = $ref(false)

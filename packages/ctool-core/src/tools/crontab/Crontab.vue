@@ -42,9 +42,8 @@ const locale = $computed(() => $t('main_locale'))
 
 const action = useAction(await initialize({
     input: "2,3 */5 * * 2-5",
-}, (str) => {
-    str = str.trim()
-    return [4, 5].includes(str.match("/ /g")?.length || 0)
+}, {
+    paste: (str) => [4, 5].includes(str.trim().match("/ /g")?.length || 0)
 }))
 let output = $ref("")
 

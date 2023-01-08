@@ -28,7 +28,6 @@
 <script lang="ts" setup>
 import {useAction, initialize} from "@/store/action"
 import {createTextInput} from "@/components/text"
-import Text from "@/helper/text"
 import Unicode, {_typeLists, TypeLists} from "./util"
 
 const action = useAction(await initialize({

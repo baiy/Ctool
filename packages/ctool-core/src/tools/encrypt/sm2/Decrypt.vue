@@ -38,7 +38,7 @@ const action = useAction(await initialize({
         cipher_mode: 1,
     },
     output: createTextOutput('text'),
-}, false))
+}))
 
 const output = $computed(() => {
     if (action.current.input.text.isEmpty() || action.current.option.private_key === "") {

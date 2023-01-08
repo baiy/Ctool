@@ -93,16 +93,13 @@ enum Time {
     unix_millisecond,
 }
 
-const action = useAction(await initialize(
-    {
+const action = useAction(await initialize({
         input: "",
         timezone: dayjs.tz.guess(),
         unix_type: Time.unix,
     },
-    (str) => {
-        return (new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+$/)).test(str)
-            || (new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+\.\d+$/)).test(str)
-            || (new RegExp(/^\d{5,}$/)).test(str)
+    {
+        paste: (str) => (new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+$/)).test(str) || (new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+\.\d+$/)).test(str) || (new RegExp(/^\d{5,}$/)).test(str)
     }
 ))
 

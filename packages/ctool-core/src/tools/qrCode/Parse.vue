@@ -26,7 +26,7 @@ import {watch} from "vue";
 
 const action = useAction(await initialize({
     input: createTextInput('upload'),
-}, false))
+}, {paste: false}))
 
 let output = $ref("")
 

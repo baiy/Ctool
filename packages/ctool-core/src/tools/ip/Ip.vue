@@ -36,7 +36,7 @@ const action = useAction(await initialize<{ input: string, option: SerializeOutp
     input: "",
     option: createSerializeOutput('json'),
     result: ""
-}, (input) => ipReg.test(input) || input === "localhost"))
+}, {paste: (input) => ipReg.test(input) || input === "localhost"}))
 
 let isLoading = $ref(false)
 

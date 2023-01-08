@@ -36,15 +36,22 @@ export default defineStore(
         const router = useRouter()
 
         // 跳转
-        const redirectTool = (_tool: string = "", _feature: string = "", _category: string = "", history: string | number = "") => {
+        const redirectTool = (_tool: string = "", _feature: string = "", _category: string = "", history: string | number = "", keyword: string = "") => {
             event.dispatch('extend_page_close')
             const tool = getTool(toolExists(_tool) ? _tool : tools[0].name)
             const category = getCategory(tool.inCategory(_category) ? _category : tool.firstCategory().name)
             const feature = tool.getFeature(tool.existFeature(_feature) ? _feature : tool.firstFeature().name)
+            const query: Record<string, any> = {}
+            if (history !== "") {
+                query['history'] = history
+            }
+            if (keyword !== "") {
+                query['keyword'] = keyword
+            }
             return router.push(
                 {
                     path: feature.getRouter(),
-                    query: feature.getQuery(category.name, history !== "" ? {history} : {})
+                    query: feature.getQuery(category.name, query)
                 }
             )
         }

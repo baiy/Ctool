@@ -59,7 +59,9 @@ import {nextTick} from "vue";
 
 const action = useAction(await initialize({
     url: "wss://echo.websocket.events",
-}, (str) => /^ws/.test(str)))
+}, {
+    paste: (str) => /^ws/.test(str)
+}))
 
 const state = $ref<{
     status: boolean,

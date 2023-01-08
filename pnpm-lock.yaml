@@ -244,6 +244,7 @@ importers:
       qr-code-styling: github:baiy/styled-qr-code
       qrcode-parser: ^2.0.4
       qs: ^6.11.0
+      recursive-diff: ^1.0.8
       sm-crypto: ^0.3.11
       sortablejs: ^1.15.0
       sql-formatter: ^9.2.0
@@ -327,6 +328,7 @@ importers:
       qr-code-styling: github.com/baiy/styled-qr-code/ad58da595ea2c1301ff4ff607dfae4f33d2b791a
       qrcode-parser: 2.0.4
       qs: 6.11.0
+      recursive-diff: 1.0.8
       sm-crypto: 0.3.11
       sortablejs: 1.15.0
       sql-formatter: 9.2.0
@@ -3721,6 +3723,10 @@ packages:
     dependencies:
       picomatch: 2.3.1
     dev: true
+
+  /recursive-diff/1.0.8:
+    resolution: {integrity: sha512-WfUcVao/HRsZZjI96PjcefTZ87rsxrgryIlWJB2UrHs4v3kFFzvMOm801a1WoqG+IAsLKJPsGlvubR74EDqGWQ==}
+    dev: false
 
   /regexp-to-ast/0.4.0:
     resolution: {integrity: sha512-4qf/7IsIKfSNHQXSwial1IFmfM1Cc/whNBQqRwe0V2stPe7KmN1U0tWQiIx6JiirgSrisjE0eECdNf7Tav1Ntw==}

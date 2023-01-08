@@ -1,10 +1,10 @@
 <template>
     <Align direction="vertical">
-        <HeightResize  :append="['.ctool-barcode-option']" v-slot="{height}" :reduce="5">
+        <HeightResize :append="['.ctool-barcode-option']" v-slot="{height}" :reduce="5">
             <Card :height="height">
                 <div style="display: flex;height: 100%;justify-content: center;align-items: center">
                     <canvas @click="copy" :style="`border: 1px dashed #666;vertical-align: middle;`" ref="container" v-show="valid" style="cursor:pointer"/>
-                    <Exception v-if="!valid" :content="$t(`barcode_generate_fail`)" />
+                    <Exception v-if="!valid" :content="$t(`barcode_generate_fail`)"/>
                 </div>
             </Card>
         </HeightResize>
@@ -17,7 +17,7 @@
                 </Input>
                 <Color v-model="action.current.background" :label="$t('barcode_background')"/>
                 <Color v-model="action.current.line_color" :label="$t('barcode_line_color')"/>
-                <InputNumber :width="100" v-model="action.current.width" :min="1" :max="4" :label="$t('barcode_bar_width')" />
+                <InputNumber :width="100" v-model="action.current.width" :min="1" :max="4" :label="$t('barcode_bar_width')"/>
                 <InputNumber :width="100" v-model="action.current.height" :min="10" :max="150" :label="$t('barcode_height')"/>
                 <InputNumber :width="100" v-model="action.current.margin" :max="25" :label="$t('barcode_margin')"/>
                 <Select
@@ -67,16 +67,18 @@ const action = useAction(await initialize({
     font_italic: false,
     font_size: 20,
     text_margin: 0
-}, (str) => {
-    if (str.length > 30) {
-        return false
-    }
-    for (let c of str.split("")) {
-        if (c.charCodeAt(0) < 0 || c.charCodeAt(0) > 127) {
+}, {
+    paste: (str) => {
+        if (str.length > 30) {
             return false
         }
+        for (let c of str.split("")) {
+            if (c.charCodeAt(0) < 0 || c.charCodeAt(0) > 127) {
+                return false
+            }
+        }
+        return true
     }
-    return true
 }))
 
 const showText = $computed(() => {

@@ -27,7 +27,7 @@ const action = useAction(await initialize({
     multiple_flag: false,
     tone_is_number: false,
     replace_v: false,
-}, false))
+}, {paste: false}))
 
 const typeLists = ['normal', 'tone', 'abbr']
 const delimiter = [

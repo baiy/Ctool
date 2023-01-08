@@ -1,10 +1,10 @@
 <template>
     <Align horizontal="center" class="ctool-page-option" :bottom="'default'">
-        <Input size="large" :width="300" v-model="action.current.input" :label="$t('ipcalc_ip')" />
+        <Input size="large" :width="300" v-model="action.current.input" :label="$t('ipcalc_ip')"/>
         <Input size="large" :width="280" v-model="action.current.mask" :label="$t('ipcalc_mask')">
             <template #append>
                 <Button @click="maskSetShow = true">
-                    <Icon hover name="setting" :tooltip="$t('ipcalc_mask_set_title')" />
+                    <Icon hover name="setting" :tooltip="$t('ipcalc_mask_set_title')"/>
                 </Button>
             </template>
         </Input>
@@ -43,7 +43,7 @@
                 <Item :title="$t(`ipcalc_network_info_broadcast`)" :value="calc.broadcast()"/>
             </div>
             <template #extra>
-                <Button type="primary" size="small" :text="$t(`ipcalc_network_export`)" @click="networkExport" />
+                <Button type="primary" size="small" :text="$t(`ipcalc_network_export`)" @click="networkExport"/>
             </template>
         </Card>
     </Align>
@@ -74,10 +74,10 @@
         </Align>
     </Modal>
     <Modal :title="$t('ipcalc_mask_set_title')" v-model="maskSetShow" footer-type="long" @ok="maskSet">
-        <InputNumber size="large" v-model="maskAvailable" :label="$t('ipcalc_network_info_available')" />
+        <InputNumber size="large" v-model="maskAvailable" :label="$t('ipcalc_network_info_available')"/>
     </Modal>
     <Modal v-model="exportDataShow" footer-type="none">
-        <Textarea :height="300" :model-value="exportData" copy />
+        <Textarea :height="300" :model-value="exportData" copy/>
     </Modal>
 </template>
 
@@ -90,7 +90,9 @@ import Item from "./Item.vue";
 const action = useAction(await initialize({
     input: "192.168.0.1",
     mask: "24",
-}, (input) => /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/.test(input)))
+}, {
+    paste: (input) => /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/.test(input)
+}))
 
 let help = $ref(false)
 let maskSetShow = $ref(false)

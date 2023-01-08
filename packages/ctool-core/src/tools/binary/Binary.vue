@@ -36,8 +36,8 @@ import {generate, GenerateType, lengthLists} from "./util"
 const action = useAction(await initialize({
     input: "",
     length: 8,
-}, (str) => {
-    return /^[\d\-+\n]+$/.test(str)
+}, {
+    paste: (str) => /^[\d\-+\n]+$/.test(str)
 }))
 
 const result = (type: GenerateType) => {

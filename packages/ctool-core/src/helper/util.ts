@@ -1,6 +1,7 @@
 import {v4 as uuidV4} from 'uuid';
 import {InputBase, OutputBase, InputOutputBase, HistorySerializable} from "@/types";
 import {isObject} from "lodash";
+import rdiff from "recursive-diff";
 
 // 版本号
 export const version = CTOOL_VERSION
@@ -31,4 +32,13 @@ export const instanceOfOutput = (object: any): object is OutputBase => {
 
 export const instanceOfHistorySerializable = (object: any): object is HistorySerializable => {
     return isObject(object) && object['__'] === '_history_serializable_';
+}
+
+export const objectInObject = (A: any, B: any) => {
+    return rdiff.getDiff(B, A).filter(item => item.op !== "delete").length === 0
+}
+
+export const getInArrayOnlyOneItem = (value: string, lists: string[]) => {
+    const exist = lists.filter(item => item.includes(value))
+    return exist.length === 1 ? exist[0] : ""
 }

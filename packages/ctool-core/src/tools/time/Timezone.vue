@@ -77,7 +77,7 @@ const action = useAction(await initialize({
     type: "",
     input: "",
     timezone: [...(new Set([dayjs.tz.guess(), ...defaultTimezoneLists]))].slice(0, 7),
-}, false))
+}, {paste: false}))
 let isMore = $ref(false)
 
 const getHandle = (target: string) => {

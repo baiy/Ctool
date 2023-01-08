@@ -50,7 +50,7 @@ const action = useAction(await initialize({
     input: "",
     map: [2, 8, 10, 16, 60, 64],
     alphabet: ""
-}, false))
+}, {paste: false}))
 
 const size: ComponentSizeType = "large";
 const base: SelectOption = $computed(() => {

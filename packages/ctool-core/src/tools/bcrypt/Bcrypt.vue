@@ -52,7 +52,7 @@ const action = useAction(await initialize<InitializeType>({
     rounds: 10,
     hash: '',
     check_result: null
-}, false))
+}, {paste: false}))
 
 let generateLoading = $ref(false)
 let checkLoading = $ref(false)

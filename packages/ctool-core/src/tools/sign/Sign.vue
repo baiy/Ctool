@@ -67,7 +67,7 @@ const action = useAction(await initialize({
     publicKey: '',
     verifyCode: '',
     algorithm: 'MD5withRSA'
-}, false))
+}, {paste: false}))
 let generateKeypair = $ref({
     show: false,
     loading: false,

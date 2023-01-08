@@ -173,7 +173,7 @@ const action = useAction(await initialize<actionType>({
         from: createSerializeInput('csv'),
         to: createSerializeOutput('xml')
     }
-}, false))
+}, {paste: false}))
 
 const size: ComponentSizeType = "default"
 

@@ -21,7 +21,7 @@ type ConvertType = "encode" | "decode" | ""
 const action = useAction(await initialize<{ input: string, type: ConvertType }>({
     type: "",
     input: "",
-}, false))
+}, {paste: false}))
 
 const getHandle = (target: ConvertType) => {
     if (action.current.type === "" || action.current.input === "") {
