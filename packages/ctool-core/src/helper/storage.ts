@@ -2,6 +2,7 @@ import {StorageInterface, StorageDataStructureInterface, StorageDataStructure} f
 import {version} from './util'
 import platform from './platform'
 import {isObject} from "lodash";
+import {isProxy, toRaw, unref} from "vue";
 import dayjs from "dayjs";
 
 const cacheVersion = version.split('.').join('');
@@ -13,8 +14,9 @@ const addKeyVersion = (key: string, is: boolean = true): string => `${is ? `v_${
 
 const encode = <T>(value: T, expiry: number = 0): StorageDataStructureInterface<T> => {
     expiry = expiry ? expiry + timestamp() : 0
+    value = unref(value)
     return {
-        v: value,
+        v: isProxy(value) ? toRaw(value) : value,
         u: dayjs().format('YYYY-MM-DD HH:mm:ss'),
         e: expiry,
         es: expiry ? dayjs(expiry * 1000).format('YYYY-MM-DD HH:mm:ss') : "",
