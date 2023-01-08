@@ -1,5 +1,5 @@
 import {copyCoreDist, release, replaceFileContent, version, getAdditionData} from "ctool-adapter-base";
-import {tools, ToolInterface, FeatureInterface,AllLocaleStructure} from "ctool-config";
+import {tools, ToolInterface, FeatureInterface, AllLocaleStructure} from "ctool-config";
 import {CustomCmd, customCmds} from "./config";
 import {join} from "path";
 import {cpSync, mkdirSync, rmSync} from "fs";
@@ -21,9 +21,6 @@ const getToolTitle = (tool: ToolInterface) => {
 const getToolFeatureTitle = (feature: FeatureInterface) => {
     return i18n.detail.zh_CN[`tool_${feature.tool.name}_${feature.name}`]?.message || ""
 }
-const getToolFeatureKeywords = (feature: FeatureInterface) => {
-    return i18n.detail.zh_CN[`tool_${feature.tool.name}_${feature.name}_keywords`]?.message || ""
-}
 
 type UtoolsFeature = {
     code: string,
@@ -40,28 +37,16 @@ tools.forEach(tool => {
     tool.features.forEach(feature => {
         const code: UtoolsFeature['code'] = `ctool-${tool.name}-${feature.name}`
         const explain: UtoolsFeature['explain'] = `${tool.isSimple() ? "" : getToolTitle(tool) + " - "}${getToolFeatureTitle(feature)}`
-        const cmds: UtoolsFeature['cmds'] = [
-            ...(
-                new Set([
-                        tool.name,
-                        feature.name,
-                        tool.isSimple() ? `ctool-${tool.name}` : `ctool-${tool.name}-${feature.name}`,
-                        getToolTitle(tool),
-                        getToolFeatureTitle(feature),
-                        explain,
-                        ...getToolFeatureKeywords(feature).split(",")
-                    ].map(item => item.trim().toLowerCase()).filter(item => item !== "")
-                )
-            )
-        ]
-
+        const cmds: UtoolsFeature['cmds'] = []
         if (customCmds.has(feature)) {
             cmds.push(...(customCmds.get(feature) as CustomCmd[]).map((item => {
                 item.label = explain
                 return item
             })))
         }
-        utoolsFeature.push({code, explain, cmds})
+        if (cmds.length > 0) {
+            utoolsFeature.push({code, explain, cmds})
+        }
     })
 });
 

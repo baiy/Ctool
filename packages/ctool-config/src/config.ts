@@ -260,6 +260,8 @@ export interface FeatureInterface<T extends ToolType = ToolType> {
     tool: ToolInterface<T>
 
     getRouter(): string
+    
+    getKey(): string
 
     getComponentPath(): string
 

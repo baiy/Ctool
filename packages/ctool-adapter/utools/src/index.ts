@@ -1,5 +1,20 @@
-import {PlatformRuntime, StorageInterface, Storage, toolExists, getTool} from "ctool-config";
+import {PlatformRuntime, StorageInterface, Storage, toolExists, getTool, FeatureInterface, tools} from "ctool-config";
 import storageUtools from "./storage"
+
+type FeatureItem = { feature: FeatureInterface, cmds: string[] }
+
+const $t = (key: string): string => {
+    // @ts-ignore
+    return window['$t'](key)
+}
+
+const setFeatures = (items: any) => {
+    try {
+        window.utools.setFeature(items)
+    } catch (e) {
+
+    }
+}
 
 export const runtime = new (class implements PlatformRuntime {
     name = "utools"
@@ -23,11 +38,18 @@ export const runtime = new (class implements PlatformRuntime {
     entry(storage: Storage) {
         return new Promise<void>((resolve) => {
             window.utools.onPluginEnter(({code, type, payload}) => {
+                try {
+                    if (window.utools.getFeatures().length === 0) {
+                        // utools 动态关键字初始化设置
+                        this.resetFeatures()
+                    }
+                } catch (e) {
+                }
                 window.utools.showMainWindow()
                 if (!code.includes("ctool-")) {
                     return resolve()
                 }
-                const [_, _tool, _feature] = code.split('-')
+                const [, _tool, _feature] = code.split('-')
                 if (!toolExists(_tool)) {
                     return resolve()
                 }
@@ -50,6 +72,85 @@ export const runtime = new (class implements PlatformRuntime {
                 window.location.hash = `#${feature.getRouter()}${query.length > 0 ? `?${query.join(`&`)}` : ''}`
                 resolve()
             })
+        })
+    }
+
+    getFeatures() {
+        const result = new Map<FeatureInterface, string[]>()
+        tools.forEach(tool => {
+            tool.features.forEach(feature => result.set(feature, []))
+        })
+        window.utools.getFeatures()
+            .filter(item => item.code.includes('ctool-') && item.code.includes('-customize'))
+            .forEach(item => {
+                const [, _tool, _feature] = item.code.split('-')
+                if (!toolExists(_tool)) {
+                    return null
+                }
+
+                const tool = getTool(_tool)
+                if (!tool.existFeature(_feature)) {
+                    return null
+                }
+                const feature = tool.getFeature(_feature)
+                result.set(feature, item.cmds as any)
+            })
+
+        return result
+    }
+
+    resetFeatures() {
+        let features: FeatureItem[] = []
+        tools.forEach(tool => {
+            tool.features.forEach(feature => {
+                features.push({
+                    feature: feature,
+                    cmds: [
+                        ...(
+                            new Set([
+                                    tool.name,
+                                    feature.name,
+                                    tool.isSimple() ? `ctool-${tool.name}` : `ctool-${tool.name}-${feature.name}`,
+                                    $t(`tool_${tool.name}`),
+                                    $t(`tool_${tool.name}_${feature.name}`),
+                                    ...$t(`tool_${tool.name}_${feature.name}_keywords`).split(","),
+                                    `${tool.isSimple() ? "" : $t(`tool_${tool.name}`) + " - "}${$t(`tool_${tool.name}_${feature.name}`)}`,
+                                ].map(item => item.trim().toLowerCase()).filter(item => item !== "")
+                            )
+                        )
+                    ]
+                })
+            })
+        });
+        this.setFeatures(features)
+    }
+
+    setFeatures(features: FeatureItem[]) {
+        // 默认添加
+        setFeatures({
+            "code": "Ctool",
+            "explain": "ctool - 程序开发常用工具",
+            "cmds": [
+                "Ctool"
+            ]
+        })
+
+        // 移除已有项目
+        window.utools.getFeatures().forEach(item => {
+            if (item.code.includes('ctool-') && item.code.includes('-customize')) {
+                window.utools.removeFeature(item.code)
+            }
+        })
+
+        // 添加项目
+        features.forEach(({feature, cmds}) => {
+            if (cmds.length > 0) {
+                setFeatures({
+                    "code": `ctool-${feature.getKey()}-customize`,
+                    "explain": `${feature.tool.isSimple() ? "" : $t(`tool_${feature.tool.name}`) + " - "}${$t(`tool_${feature.tool.name}_${feature.name}`)}`,
+                    "cmds": cmds
+                });
+            }
         })
     }
 })

@@ -36,4 +36,8 @@ export default class Feature<T extends ToolType = ToolType> implements FeatureIn
             ...other
         }
     }
+
+    getKey() {
+        return `${this.tool.name}-${this.name}`
+    }
 }

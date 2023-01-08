@@ -55,8 +55,17 @@
                     @change="(value)=>storeSetting.save('auto_read_copy_filter',value)"
                 />
             </div>
+            <template v-if="platform.isUtools()">
+                <span>uTools</span>
+                <div>
+                    <Button :size="'small'" @click="openUtoolsKeyword = true" :text="`${$t(`main_ui_keyword`)}${$t(`main_ui_config`)}`" />
+                </div>
+            </template>
         </div>
     </Card>
+    <ExtendPage v-model="openUtoolsKeyword" disable-replace>
+        <UtoolsKeyword v-if="platform.isUtools()"/>
+    </ExtendPage>
 </template>
 
 <script setup lang="ts">
@@ -65,8 +74,10 @@ import {useClipboardPermission} from "@/helper/clipboard"
 import {locales, themes} from "@/types"
 import platform from "@/helper/platform"
 import {getLocaleName} from "@/i18n"
+import UtoolsKeyword from "./utools/Keyword.vue"
 
 const storeSetting = useSetting()
+let openUtoolsKeyword = $ref(false)
 
 const localeOptions = locales.map((item) => {
     return {value: item, label: getLocaleName(item) || ""}

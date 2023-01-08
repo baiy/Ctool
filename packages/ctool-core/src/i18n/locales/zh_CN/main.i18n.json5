@@ -15,6 +15,8 @@
     "ui_setting": "设置",
     "ui_config": "配置",
     "ui_reset": "重置",
+    "ui_save": "保存",
+    "ui_submit": "提交",
     "ui_views": "查看",
     "ui_clear": "清空",
     "ui_more": "更多",
@@ -40,6 +42,7 @@
     "ui_advanced": "高级",
     "ui_simple": "简单",
     "ui_reference": "参考",
+    "ui_keyword": "关键字",
     // 界面
     "setting_language": "语言",
     "tools_lists": "工具列表",
