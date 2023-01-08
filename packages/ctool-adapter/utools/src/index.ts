@@ -38,11 +38,16 @@ export const runtime = new (class implements PlatformRuntime {
                 }
                 const feature = tool.getFeature(_feature)
 
+                let query: string[] = []
                 // 输入框数据写入临时存储
                 if (["over", "regex"].includes(type) && payload !== "") {
-                    storage.setNoVersion('_temp_storage', payload, 10)
+                    storage.setNoVersion('_temp_input_storage', payload, 10)
                 }
-                window.location.hash = `#${feature.getRouter()}?input=_temp_storage`
+                // 设置功能搜索关键字
+                if (type === "text" && payload !== "") {
+                    query.push(`keyword=${encodeURIComponent(payload)}`)
+                }
+                window.location.hash = `#${feature.getRouter()}${query.length > 0 ? `?${query.join(`&`)}` : ''}`
                 resolve()
             })
         })
