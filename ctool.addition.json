@@ -211,6 +211,12 @@
 				"main_ui_reset": {
 					"message": "重置"
 				},
+				"main_ui_save": {
+					"message": "保存"
+				},
+				"main_ui_submit": {
+					"message": "提交"
+				},
 				"main_ui_views": {
 					"message": "查看"
 				},
@@ -285,6 +291,9 @@
 				},
 				"main_ui_reference": {
 					"message": "参考"
+				},
+				"main_ui_keyword": {
+					"message": "关键字"
 				},
 				"main_setting_language": {
 					"message": "语言"
@@ -2753,6 +2762,12 @@
 				"main_ui_reset": {
 					"message": "Reset"
 				},
+				"main_ui_save": {
+					"message": "Save"
+				},
+				"main_ui_submit": {
+					"message": "Submit"
+				},
 				"main_ui_views": {
 					"message": "View"
 				},
@@ -2827,6 +2842,9 @@
 				},
 				"main_ui_reference": {
 					"message": "Reference"
+				},
+				"main_ui_keyword": {
+					"message": "Keyword"
 				},
 				"main_setting_language": {
 					"message": "Language"
