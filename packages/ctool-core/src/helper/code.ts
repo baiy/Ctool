@@ -26,9 +26,14 @@ const customLanguages = [
     defineConfig('GraphQL'),
     defineConfig('Vue', getCodemirrorLanguage('html')),
     defineConfig('Angular', getCodemirrorLanguage('html')),
-    defineConfig('Html', getCodemirrorLanguage('html'), ['html_table']),
-    defineConfig('PHP', getCodemirrorLanguage('php'), ['php_array']),
+    defineConfig('HTML Table', getCodemirrorLanguage('html'), ['html_table']),
+    defineConfig('PHP Array', getCodemirrorLanguage('php'), ['php_array']),
+    defineConfig('Http Query String', null, ['http_query_string']),
+    defineConfig('JSON Schema', getCodemirrorLanguage('json')),
+    defineConfig('JavaScript PropTypes', getCodemirrorLanguage('TypeScript')),
+    defineConfig('Flow', getCodemirrorLanguage('TypeScript')),
     defineConfig('Text'),
+    defineConfig('CSV'),
 ]
 
 // 编辑器是否支持代码高料

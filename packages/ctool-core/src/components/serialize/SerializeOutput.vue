@@ -30,7 +30,7 @@
                 :options="typeLists.map((item)=>{
                     return {
                         value:item,
-                        label:$t(`component_serialize_type_${item}`)
+                        label:getDisplayName(item)
                     }
                 })"
             />
@@ -45,6 +45,7 @@ import {serializeOutputEncoderLists, SerializeOutputEncoderType} from "@/types"
 import Serialize from "@/helper/serialize"
 import formatter from "@/tools/code/formatter";
 import {sizeConvert} from "@/components/util";
+import {getDisplayName} from "@/helper/code";
 
 const props = defineProps({
     modelValue: {

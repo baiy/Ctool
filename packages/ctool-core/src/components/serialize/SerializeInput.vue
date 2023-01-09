@@ -56,7 +56,7 @@
                 :options="typeLists.map((item)=>{
                     return {
                         value:item,
-                        label:$t(`component_serialize_type_${item}`)
+                        label:getDisplayName(item)
                     }
                 })"
             />
@@ -72,6 +72,7 @@ import {nextTick, PropType, StyleValue, toRaw, watch} from "vue"
 import Serialize from "@/helper/serialize"
 import {debounce} from "lodash";
 import {sizeConvert} from "@/components/util";
+import {getDisplayName} from "@/helper/code";
 
 const props = defineProps({
     modelValue: {
