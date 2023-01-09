@@ -17,57 +17,6 @@ export type {
 
 export {localesReal, locales,themes} from "ctool-config"
 
-/**
- * 代码编辑器语言映射
- * @see node_modules @codemirror/language-data/dist/index.js
- */
-export const editorLanguageMap = {
-    json: {lang: "JSON"},
-    javascript: {lang: "TSX"},
-    jsx: {lang: "TSX"},
-    html: {lang: "HTML", alias: ["html_table"]},
-    xml: {lang: "XML"},
-    css: {lang: "CSS"},
-    less: {lang: "LESS"},
-    scss: {lang: "SCSS"},
-    graphql: {lang: ""},
-    java: {lang: "Java"},
-    ruby: {lang: "Ruby"},
-    markdown: {lang: "Markdown"},
-    c: {lang: "C"},
-    cpp: {lang: "C++", alias: ['C++']},
-    php: {lang: "PHP", alias: ['php_array']},
-    python: {lang: "Python"},
-    sql: {lang: "SQL"},
-    yaml: {lang: "YAML"},
-    typescript: {lang: "TSX"},
-    csharp: {lang: "C#", alias: ["C#"]},
-    rust: {lang: "Rust"},
-    go: {lang: "Go"},
-    dart: {lang: "Dart"},
-    diff: {lang: "diff"},
-    vue: {lang: "HTML"},
-    protobuf: {lang: "ProtoBuf"},
-    toml: {lang: "TOML"},
-    dockerfile: {lang: "Dockerfile"},
-    erlang: {lang: "Erlang"},
-    webAssembly: {lang: "WebAssembly"},
-    coffeeScript: {lang: "CoffeeScript"},
-    kotlin: {lang: "Kotlin"},
-    lua: {lang: "Lua"},
-    nginx: {lang: "Nginx"},
-    perl: {lang: "Perl"},
-    powerShell: {lang: "PowerShell"},
-    properties: {lang: "Properties file"},
-    shell: {lang: "Shell"},
-    swift: {lang: "Swift"},
-    laTeX: {lang: "LaTeX"},
-    angular: {lang: "HTML"},
-    text: {lang: ""},
-}
-
-export type EditorLanguages = keyof typeof editorLanguageMap
-
 // 组件尺寸
 export type ComponentSizeType = "small" | "large" | "default";
 

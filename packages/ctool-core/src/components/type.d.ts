@@ -9,7 +9,6 @@ import {
     UploadFileMode,
     UploadFileButtonType,
     TextInputUpload,
-    EditorLanguages,
     SelectOption,
     SelectValue,
     RadioOption,
@@ -257,7 +256,7 @@ declare module '@vue/runtime-core' {
                 modelValue?: string,
                 'v-model'?: string,
                 toolbar?: DisplayPosition,
-                lang?: EditorLanguages | string,
+                lang?: string,
                 placeholder?: string,
                 height?: string | number
                 disableLineWrapping?: boolean,

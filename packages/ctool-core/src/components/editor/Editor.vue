@@ -30,9 +30,9 @@
 import {onUnmounted, onMounted, unref, watch, PropType, reactive} from "vue";
 import {EditorState, StateEffect, EditorSelection} from "@codemirror/state"
 import {EditorView, ViewUpdate, placeholder} from "@codemirror/view"
-import {languages} from "@codemirror/language-data"
+import {getEditorLanguage} from "@/helper/code"
 import {openSearchPanel, gotoLine} from "@codemirror/search"
-import {EditorLanguages, DisplayPosition} from "@/types"
+import {DisplayPosition} from "@/types"
 import {basicSetup} from '@uiw/codemirror-extensions-basic-setup';
 import {useTheme} from "@/store/setting"
 import {githubLight, githubDark} from '@uiw/codemirror-theme-github';
@@ -50,7 +50,7 @@ const props = defineProps({
         default: "bottom-right"
     },
     lang: {
-        type: String as PropType<EditorLanguages | string>,
+        type: String as PropType<string>,
         default: "text"
     },
     placeholder: {
@@ -92,19 +92,12 @@ let lineWrapping = $ref(!props.disableLineWrapping)
 let lineNumbers = $ref(!props.disableLineNumbers)
 
 const getLanguage = async (selectLang: string) => {
-    let name: string = ""
+    let name: string = selectLang
     if (props.langCallback !== false) {
-        name = props.langCallback()
+        name = props.langCallback() || selectLang
     }
-    if (!name) {
-        name = formatter.parseLang(selectLang)?.lang || ""
-    }
-    for (let lang of languages) {
-        if (name && name === lang.name) {
-            return await lang.load()
-        }
-    }
-    return []
+    const languageLoader = getEditorLanguage(name)
+    return languageLoader ? await languageLoader.load() : []
 }
 
 const updateListener = EditorView.updateListener.of((vu: ViewUpdate) => {
@@ -329,13 +322,15 @@ const isEnableFormat = $computed(() => {
     background-color: var(--ctool-form-element-background-color);
 }
 
-.ctool-code-editor .cm-editor .cm-scroller, .ctool-code-editor .cm-editor{
+.ctool-code-editor .cm-editor .cm-scroller, .ctool-code-editor .cm-editor {
     height: 100% !important;
 
 }
-.ctool-code-editor .cm-editor .cm-gutters{
+
+.ctool-code-editor .cm-editor .cm-gutters {
     background-color: var(--ctool-block-title-bg-color);
 }
+
 .ctool-code-editor .cm-editor.cm-focused {
     outline: unset;
 }

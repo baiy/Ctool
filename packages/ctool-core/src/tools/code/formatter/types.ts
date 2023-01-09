@@ -1,4 +1,3 @@
-import {EditorLanguages} from "@/types";
 import {SqlLanguage, formatters as sqlFormatters} from 'sql-formatter';
 
 type GlobalOption = {
@@ -24,7 +23,7 @@ export interface OptionMap {
     graphql: GlobalOption
 }
 
-export type Languages = Extract<EditorLanguages, keyof OptionMap>
+export type Languages = keyof OptionMap
 
 export interface Format<T extends Languages> {
     format(type: "beautify" | "compress"): Promise<string>
@@ -40,5 +39,4 @@ export interface Config<T extends Languages> {
     load: () => Promise<Format<T>>
 }
 
-
-export const sqlLanguages = <SqlLanguage[]>Object.keys(sqlFormatters)
+export const sqlLanguages = <SqlLanguage[]>Object.keys(sqlFormatters).sort()

@@ -2,7 +2,7 @@
     <HeightResize v-slot="{height}">
         <Editor v-model="action.current.input" :lang-callback="editorLanguage" :reload="editorReload" :lang="action.current.language" :height="`${height}px`">
             <Align>
-                <Select size="small" v-model="action.current.language" :options="languageLists"/>
+                <Select size="small" v-model="action.current.language" :options="languageLists.map(name=>{return {value:name,label:getDisplayName(name)}})"/>
                 <template v-for="lang in languageLists" :key="lang">
                     <Select v-if="action.current.language === lang" size="small" v-model="action.current.option[`${lang}`].tab" :options="tabOptions"/>
                 </template>
@@ -22,6 +22,7 @@ import {ref, computed, watch} from "vue"
 import {useAction, initialize} from "@/store/action"
 import formatter from "./formatter"
 import {getInArrayOnlyOneItem} from "@/helper/util"
+import {getDisplayName} from "@/helper/code"
 
 import {
     OptionMap,
@@ -31,7 +32,7 @@ import {
 
 // 过滤json 有单独json工具
 type Languages = Exclude<FormatterLanguages, "json">
-const languageLists = Object.keys(formatter.languages).filter((item) => {
+const languageLists = formatter.allLanguageType.filter((item) => {
     return !['json'].includes(item)
 }) as Languages[]
 

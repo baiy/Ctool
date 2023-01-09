@@ -4,7 +4,7 @@
             <div ref="container" :style="{height:`${height}px`,width:`100%`,overflow: 'hidden'}"></div>
         </HeightResize>
         <Align class="ctool-page-option" horizontal="center">
-            <Select v-model="action.current.option.lang" :options="languageLists"/>
+            <Select v-model="action.current.option.lang" :options="allLanguage"/>
             <Button :text="$t(`code_beautify`)" @click="beautify"/>
             <Bool v-model="action.current.option.lineWrapping" :label="$t(`component_editor_line_wrapping`)" border/>
             <Bool v-model="action.current.option.collapse" :label="$t(`diffs_collapse`)" border/>
@@ -40,14 +40,13 @@
 <script lang="ts" setup>
 import {onUnmounted, onMounted, watch} from "vue";
 import {EditorView, ViewUpdate, placeholder} from "@codemirror/view"
-import {languages} from "@codemirror/language-data"
 import {MergeView} from "@codemirror/merge"
-import {EditorLanguages} from "@/types"
 import {basicSetup} from '@uiw/codemirror-extensions-basic-setup';
 import {useTheme} from "@/store/setting"
 import {githubLight, githubDark} from '@uiw/codemirror-theme-github';
 import {initialize, useAction} from "@/store/action";
 import formatter from "@/tools/code/formatter";
+import {allLanguage, getEditorLanguage} from "@/helper/code";
 
 type MergeConfig = ConstructorParameters<typeof MergeView>
 
@@ -56,7 +55,7 @@ type DataType = {
     b: string,
     option: {
         lineWrapping: boolean
-        lang: EditorLanguages
+        lang: string
         collapse: boolean
         revert: MergeConfig[0]['revertControls']
     }
@@ -66,7 +65,7 @@ const action = useAction(await initialize<DataType>({
     b: "",
     option: {
         lineWrapping: true,
-        lang: "text",
+        lang: "Text",
         collapse: false,
         revert: "b-to-a",
     }
@@ -74,8 +73,6 @@ const action = useAction(await initialize<DataType>({
 
 const storeTheme = useTheme()
 
-
-const languageLists = ['text', ...Object.keys(formatter.languages)]
 let container = $ref<HTMLElement | null>(null);
 let mergeView = $ref<MergeView | null>(null);
 const difference = $ref<{ index: number, chunks: { fromA: number }[] }>({
@@ -84,13 +81,8 @@ const difference = $ref<{ index: number, chunks: { fromA: number }[] }>({
 })
 
 const getLanguage = async (selectLang: string) => {
-    const name = formatter.parseLang(selectLang)?.lang || ""
-    for (let lang of languages) {
-        if (name && name === lang.name) {
-            return await lang.load()
-        }
-    }
-    return []
+    const languageLoader = getEditorLanguage(selectLang)
+    return languageLoader ? await languageLoader.load() : []
 }
 
 const getExtensions = async () => {

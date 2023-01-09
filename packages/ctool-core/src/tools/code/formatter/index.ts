@@ -3,9 +3,9 @@ import {
     Languages,
     Format
 } from "./types"
-import {editorLanguageMap} from "@/types";
 import {isObject} from "lodash"
 import Json from "@/helper/json";
+import {getDisplayName} from "@/helper/code";
 
 const languages: { [k in Languages]: Config<k> } = {
     javascript: {
@@ -129,25 +129,27 @@ const languages: { [k in Languages]: Config<k> } = {
     },
 }
 
+const allLanguageType = Object.keys(languages).sort()
+
 const load = async <T extends Languages>(name: T): Promise<Format<T>> => {
     const handle = await languages[name].load()
     handle.setName(name)
     return handle
 }
 
-const parseLang = (lang: string) => {
-    for (let key in editorLanguageMap) {
-        const names = [key, ...(editorLanguageMap[key].alias || [])].map((item) => item.toLowerCase())
-        if (names.includes(lang.toLowerCase())) {
-            return {key, lang: editorLanguageMap[key].lang}
+const getLanguageKey = (land: string) => {
+    const landName = getDisplayName(land)
+    for (let item of allLanguageType) {
+        if (getDisplayName(item) === landName) {
+            return item as Languages
         }
     }
-    return null;
+    return ""
 }
 
-const isEnable = (lang: string, type: "compress" | "beautify") => {
-    const l = parseLang(lang)
-    return l !== null && !!((l.key in languages) && languages[l.key][type])
+const isEnable = (lang: string, type: "compress" | "beautify"): lang is Languages => {
+    const key = getLanguageKey(lang)
+    return key !== "" && languages[key][type]
 }
 
 const simple = async (lang: string, type: "compress" | "beautify", code: string | object) => {
@@ -157,10 +159,13 @@ const simple = async (lang: string, type: "compress" | "beautify", code: string 
     if (!isEnable(lang, type)) {
         return code
     }
-    const handle = await load(parseLang(lang)?.key as Languages)
-    return await handle.set(code).format(type)
+    const key = getLanguageKey(lang)
+    if (key === "") {
+        return code
+    }
+    return await (await load(key)).set(code).format(type)
 }
 
 export default {
-    simple: simple, isEnable: isEnable, parseLang: parseLang, load: load, languages: languages
+    simple: simple, isEnable: isEnable, load: load, languages: languages, allLanguageType: allLanguageType
 }
