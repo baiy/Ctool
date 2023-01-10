@@ -1,7 +1,9 @@
-import {Transform} from "./type";
+import {Transform, Option as TargetOption} from "./type";
 import QuickType from "./quickType";
 import Protobuf from "./protobuf";
 import Php from "./php/";
+import {HistorySerializable} from "@/types";
+import {has, isEmpty, merge} from "lodash";
 
 const handlers: Transform[] = [
     new Protobuf,
@@ -30,7 +32,7 @@ export const transform = async (lang: string, input: string, options: Record<str
     return getHandler(lang).execute(lang, input, options);
 }
 
-export const getDefaultOption = (lang: string) => {
+const getDefaultOption = (lang: string) => {
     const data: Record<string, any> = {}
     for (let item of getHandler(lang).getOptionDefine(lang)) {
         data[item.name] = item.defaultValue
@@ -38,16 +40,74 @@ export const getDefaultOption = (lang: string) => {
     return data
 }
 
-export const getOptionDefine = (lang: string) => {
-    return getHandler(lang).getOptionDefine(lang).sort((a, b) => {
-        const index = {
-            'string': 1,
-            'boolean': 2,
-            'select': 3,
+export class Option implements HistorySerializable<Option> {
+    public __: "_history_serializable_" = "_history_serializable_";
+
+    public lang: string = ""
+    public option: Record<string, any> = {}
+
+    constructor(lang: string = "") {
+        this.lang = lang;
+
+        let lists: Record<string, any> = {}
+        for (let language of languages) {
+            lists[language] = getDefaultOption(language)
         }
-        if (a.type === b.type) {
-            return 0
+
+        this.option = lists
+    }
+
+    define(): TargetOption[] {
+        if (this.lang === ""){
+            return []
         }
-        return index[a.type] < index[b.type] ? -1 : 1
-    })
+        return getHandler(this.lang).getOptionDefine(this.lang).sort((a, b) => {
+            const index = {
+                'string': 1,
+                'boolean': 2,
+                'select': 3,
+            }
+            if (a.type === b.type) {
+                return 0
+            }
+            return index[a.type] < index[b.type] ? -1 : 1
+        })
+    }
+
+    isSaveHistory(): boolean {
+        return true;
+    }
+
+    serialize(): Record<string, any> {
+        const option: Record<string, any> = {}
+        if (this.lang in this.option) {
+            option[this.lang] = this.option[this.lang]
+        }
+        return {
+            __: this.__,
+            lang: this.lang,
+            ...(isEmpty(option) ? {} : {option}),
+        }
+        return {};
+    }
+
+    unserialize(data?: Record<string, any>) {
+        if (!data) {
+            return this;
+        }
+        const item = new Option()
+        if (has(data, 'lang')) {
+            item.lang = data.lang
+        }
+        if (has(data, 'option')) {
+            item.option = merge(item.option, data.option)
+        }
+        return item
+    }
 }
+
+export const getOption = (lang: string = "") => {
+    return new Option(lang)
+}
+
+

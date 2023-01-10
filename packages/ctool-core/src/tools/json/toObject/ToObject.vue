@@ -3,14 +3,20 @@
         <Editor :model-value="output" :height="height" :lang="lang"/>
         <Card :height="height" :title="getDisplayName(lang)" padding="5px 10px">
             <Align :direction="'vertical'">
-                <div v-for="option in optionConfig">
-                    <template v-if="option.type === 'boolean'">
-                        <Bool v-model="options[option.name]" :label="option.description"/>
+                <div v-for="item in optionDefine">
+                    <template v-if="item.type === 'boolean'">
+                        <Bool v-model="current.option[lang][item.name]" :label="item.description"/>
                     </template>
                     <template v-else>
-                        <div style="font-size: 14px">{{ option.description }}</div>
-                        <Select :center="false" width="100%" v-if="option.type === 'select'" v-model="options[option.name]" :options="option.value"/>
-                        <Input v-else v-model="options[option.name]"/>
+                        <div style="font-size: 14px">{{ item.description }}</div>
+                        <Select
+                            v-if="item.type === 'select'"
+                            :center="false"
+                            width="100%"
+                            v-model="current.option[lang][item.name]"
+                            :options="item.value"
+                        />
+                        <Input v-else v-model="current.option[lang][item.name]"/>
                     </template>
                 </div>
             </Align>
@@ -22,11 +28,11 @@
 import {PropType, watch} from "vue"
 import Serialize from "@/helper/serialize"
 import {getDisplayName} from "@/helper/code";
-import {transform, getDefaultOption, getOptionDefine} from "./index";
+import {transform, Option} from "./index";
 
 const props = defineProps({
-    lang: {
-        type: String,
+    modelValue: {
+        type: Object as PropType<Option>,
         required: true
     },
     json: {
@@ -34,19 +40,28 @@ const props = defineProps({
         default: () => {
             return Serialize.empty()
         }
-
     }
 })
 
-const optionConfig = getOptionDefine(props.lang)
-let options = $ref(getDefaultOption(props.lang))
-let output = $ref("")
+const emit = defineEmits<{ (e: 'update:modelValue', modelValue: Option): void, (e: 'success'): void }>()
 
+const current: Option = $computed({
+    get: () => props.modelValue,
+    set: (value) => emit('update:modelValue', value)
+})
+
+let output = $ref("")
+const lang = $computed(() => {
+    return current.lang
+})
+const optionDefine = $computed(() => {
+    return current.define()
+})
 watch(() => {
     return {
-        lang: props.lang,
+        lang: current.lang,
         json: props.json,
-        options
+        options: current.option
     }
 }, async ({lang, json, options}) => {
     if (json.isError()) {
@@ -57,7 +72,8 @@ watch(() => {
         output = "";
         return;
     }
-    output = await transform(lang, json.toJson(), options)
+    output = await transform(lang, json.toJson(), options[lang])
+    emit('success')
 }, {immediate: true, deep: true})
 
 </script>

@@ -99,6 +99,7 @@
                         <Button
                             :size="size"
                             :text="getDisplayName(item)"
+                            :type="item === action.current.option.to_object.lang ? 'primary' : 'general'"
                             @click="toggleObject(item)"
                         />
                     </template>
@@ -129,7 +130,11 @@
         </Display>
     </div>
     <ExtendPage v-model="toObjectOpen">
-        <Code v-if="toObjectOpen" :lang="toObjectLang" :json="inputSerialize"/>
+        <ToObject
+            v-model="action.current.option.to_object"
+            :json="inputSerialize"
+            @success="()=>action.save()"
+        />
     </ExtendPage>
 </template>
 
@@ -148,8 +153,8 @@ import util from "./util";
 import {getDisplayName} from "@/helper/code";
 import jsonRepair from 'jsonrepair'
 import {ComponentSizeType} from "@/types";
-import Code from "./toObject/ToObject.vue";
-import {languages as toObjectLangLists} from "./toObject";
+import ToObject from "./toObject/ToObject.vue";
+import {languages as toObjectLangLists, getOption as getToObjectOption} from "./toObject";
 
 const action = useAction(await initialize<actionType>({
     input: "",
@@ -167,12 +172,12 @@ const action = useAction(await initialize<actionType>({
         },
         tab: 4,
         from: createSerializeInput('csv'),
-        to: createSerializeOutput('xml')
+        to: createSerializeOutput('xml'),
+        to_object: getToObjectOption('')
     }
 }, {paste: false}))
 
 let toObjectOpen = $ref(false)
-let toObjectLang = $ref("")
 
 const size: ComponentSizeType = "default"
 
@@ -273,6 +278,7 @@ watch(() => action.current.option.from.serialization, (serialization) => {
     general.beautify(serialization.toJson(), false)
 }, {immediate: true, deep: true})
 
+
 const inputSerialize: Serialize = $computed(() => {
     try {
         const code = action.current.input.trim()
@@ -287,7 +293,7 @@ const inputSerialize: Serialize = $computed(() => {
 
 // 切换
 const toggleObject = (lang) => {
-    toObjectLang = lang
+    action.current.option.to_object.lang = lang
     toObjectOpen = true
 }
 const toggleFrom = (item) => {

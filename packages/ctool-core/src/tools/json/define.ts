@@ -1,4 +1,5 @@
 import {SerializeInput, SerializeOutput} from "@/components/serialize";
+import {Option as toObjectOption} from "./toObject";
 //=======
 const tabsMap = [
     {label: $t('code_indent_width_null'), value: 0},
@@ -37,6 +38,7 @@ export type actionType = {
         to: SerializeOutput,
         path: PathOptionType,
         schema: SchemaOptionType,
+        to_object: toObjectOption,
     }
 }
 
