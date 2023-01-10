@@ -5,37 +5,35 @@ import buildClass from "./class";
 import {Visibility} from "./property";
 import deps from "./deps";
 import Json from "@/helper/json"
-const defaultConfig = {
-    className: "",
-    namespace: "",
-    visibility: Visibility.PRIVATE,
-    typedProperties: false,
-    getters: true,
-    typedMethods: false,
-    setters: true,
-    arraySerialization: true,
-    includeDeps: true
+import {Option, Transform} from "@/tools/json/toObject/type";
+
+function buildDeps(config, deps, classes: string[] = []) {
+    let classContent = deps.get();
+    if (classContent == null) {
+        return classes;
+    }
+    classes.push(buildClass(config, deps, classContent.value, classContent.className));
+    return buildDeps(config, deps, classes);
 }
 
-export const convert = (jsonString: string, option = {}) => {
-    const config = {...defaultConfig, ...option}
-    if (!config.className) {
-        config.className = 'ClassName'
+const convert = (jsonString: string, option: Record<string, any> = {}) => {
+    if (!option.className) {
+        option.className = 'ClassName'
     }
     let json = Json.parse(jsonString);
     if (Array.isArray(json)) {
         json = json[0];
     }
-    const res = buildDeps(config, deps().add({
-        className: config.className,
+    const res = buildDeps(option, deps().add({
+        className: option.className,
         key: null,
         value: json
     }));
     let result = "";
-    if (config.namespace) {
-        result = "namespace " + config.namespace + ";\n\n" + result;
+    if (option.namespace) {
+        result = "namespace " + option.namespace + ";\n\n" + result;
     }
-    if (!config.includeDeps) {
+    if (!option.includeDeps) {
         return result + res[0];
     }
     res.forEach((v, i) => {
@@ -48,11 +46,70 @@ export const convert = (jsonString: string, option = {}) => {
     return result !== "" ? `<?php\n${result}` : "";
 }
 
-function buildDeps(config, deps, classes: string[] = []) {
-    let classContent = deps.get();
-    if (classContent == null) {
-        return classes;
+
+export default class implements Transform {
+    getLanguages() {
+        return ['PHP']
     }
-    classes.push(buildClass(config, deps, classContent.value, classContent.className));
-    return buildDeps(config, deps, classes);
+
+    async execute(lang: string, input: string, options: Record<string, any>): Promise<string> {
+        return new Promise<string>((resolve) => {
+            return resolve(convert(input, options))
+        })
+    }
+
+    getOptionDefine(lang: string) {
+        const define: Option[] = [
+            {
+                name: 'namespace',
+                description: 'Namespace',
+                type: "string",
+                defaultValue: "Ctool"
+            },
+            {
+                name: 'className',
+                description: 'Class Name',
+                type: "string",
+                defaultValue: "Json"
+            },
+            {
+                name: 'visibility',
+                description: 'Visibility',
+                type: "select",
+                value: Object.values(Visibility),
+                defaultValue: Visibility.PRIVATE
+            },
+            {
+                name: 'getters',
+                description: 'Getters',
+                type: "boolean",
+                defaultValue: true
+            },
+            {
+                name: 'setters',
+                description: 'Setters',
+                type: "boolean",
+                defaultValue: true
+            },
+            {
+                name: 'typedProperties',
+                description: 'Typed Properties',
+                type: "boolean",
+                defaultValue: false
+            },
+            {
+                name: 'typedMethods',
+                description: 'Typed Methods',
+                type: "boolean",
+                defaultValue: false
+            },
+            {
+                name: 'includeDeps',
+                description: 'Include Class Dependencies',
+                type: "boolean",
+                defaultValue: true
+            }
+        ]
+        return define
+    }
 }

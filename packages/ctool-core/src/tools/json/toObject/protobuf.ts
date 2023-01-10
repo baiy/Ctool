@@ -1,5 +1,7 @@
 // https://github.com/json-to-proto/json-to-proto.github.io/blob/master/src/convert.ts
 import Json from "@/helper/json"
+import {Option, Transform} from "./type";
+import {defaultTargetLanguages} from "quicktype-core";
 
 const googleAnyImport = "google/protobuf/any.proto";
 const googleTimestampImport = "google/protobuf/timestamp.proto";
@@ -347,25 +349,6 @@ class Analyzer {
     }
 }
 
-export function convert(source: string, options: Options): Result {
-    if (source === "") {
-        return new Result("", "");
-    }
-
-    // hack that forces floats to stay as floats
-    const text = source.replace(/\.0/g, ".1");
-
-    try {
-        const json = Json.parse(text);
-
-        const analyzer = new Analyzer(options);
-
-        return new Result(analyzer.analyze(json), "");
-    } catch (e) {
-        return new Result("", $error(e));
-    }
-}
-
 function toMessageName(source: string): string {
     return source.charAt(0).toUpperCase() + source.substr(1).toLowerCase();
 }
@@ -385,7 +368,7 @@ function render(imports: Set<string>, messages: Array<Array<string>>, lines: Arr
 
     result.push("");
     if (options.inline) {
-        result.push("message SomeMessage {");
+        result.push("message Ctool {");
         if (messages.length > 0) {
             result.push("");
             for (const message of messages) {
@@ -401,7 +384,7 @@ function render(imports: Set<string>, messages: Array<Array<string>>, lines: Arr
             result.push("");
         }
 
-        result.push("message SomeMessage {");
+        result.push("message Ctool {");
         result.push(...lines);
         result.push("}");
     }
@@ -468,4 +451,63 @@ function numberType(value: number | BigInt): string {
     }
 
     return "double";
+}
+
+function convert(source: string, options: Options): Result {
+    if (source === "") {
+        return new Result("", "");
+    }
+
+    // hack that forces floats to stay as floats
+    const text = source.replace(/\.0/g, ".1");
+
+    try {
+        const json = Json.parse(text);
+
+        const analyzer = new Analyzer(options);
+
+        return new Result(analyzer.analyze(json), "");
+    } catch (e) {
+        return new Result("", $error(e));
+    }
+}
+
+export default class implements Transform {
+    getLanguages() {
+        return ['ProtoBuf']
+    }
+
+    async execute(lang: string, input: string, options: Record<string, any>): Promise<string> {
+        return new Promise<string>((resolve) => {
+            const result = convert(input, options as Options)
+            if (result.error !== "") {
+                throw new Error(result.error)
+            }
+            return resolve(result.success)
+        })
+    }
+
+    getOptionDefine(lang: string) {
+        const define: Option[] = [
+            {
+                name: 'inline',
+                description: 'Inline',
+                type: "boolean",
+                defaultValue: true
+            },
+            {
+                name: 'googleProtobufTimestamp',
+                description: 'Detect Timestamp',
+                type: "boolean",
+                defaultValue: false
+            },
+            {
+                name: 'mergeSimilarObjects',
+                description: 'merge Similar Objects',
+                type: "boolean",
+                defaultValue: false
+            }
+        ]
+        return define
+    }
 }

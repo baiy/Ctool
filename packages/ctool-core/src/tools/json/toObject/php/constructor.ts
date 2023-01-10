@@ -30,9 +30,6 @@ function buildBody(properties) {
 }
 
 export const buildConstructor = (properties, config) => {
-    if (!(config.arraySerialization)) {
-        return "";
-    }
     let result = "\n";
     let declaration = "";
     declaration += "public function __construct(";

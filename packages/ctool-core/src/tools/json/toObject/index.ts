@@ -1,43 +1,53 @@
-import {ToObjectType, ToObjectOptions} from "../define"
+import {Transform} from "./type";
+import QuickType from "./quickType";
+import Protobuf from "./protobuf";
+import Php from "./php/";
 
-export default (type: ToObjectType, json: string, {class_name = "", package_name = "", is_inline = true}: ToObjectOptions = {}) => {
-    return new Promise<string>(async (resolve, reject) => {
-        try {
-            json = json.trim()
-            if (json === "") {
-                return resolve("")
-            }
-            if (type === "PHP") {
-                const handle = await import('./php').then(m => m.convert)
-                return resolve(handle(json, {className: class_name, namespace: package_name}))
-            }
-            if (type === "Java") {
-                const handle = await import('./java').then(m => m.convert)
-                return resolve(handle(json, class_name, package_name))
-            }
-            if (type === "C#") {
-                const handle = await import('./cSharp').then(m => m.convert)
-                return resolve(handle(json, class_name, package_name))
-            }
-            if (type === "Dart") {
-                const handle = await import('./dart').then(m => m.convert)
-                return resolve(handle(json, class_name))
-            }
-            if (type === "Go") {
-                const handle = await import('./go').then(m => m.convert)
-                return resolve(handle(json, class_name, package_name))
-            }
-            if (type === "Protobuf") {
-                const handle = await import('./protobuf').then(m => m.convert)
-                const result = handle(json, {inline: is_inline, googleProtobufTimestamp: false, mergeSimilarObjects: false})
-                if (result.error !== "") {
-                    throw new Error(result.error)
-                }
-                return resolve(result.success)
-            }
-        } catch (e) {
-            reject($error(e))
+const handlers: Transform[] = [
+    new Protobuf,
+    new Php,
+    new QuickType,
+]
+
+const getHandler = (lang: string) => {
+    for (let handler of handlers) {
+        if (handler.getLanguages().includes(lang)) {
+            return handler
         }
-        return resolve("")
+    }
+    throw new Error("Error Lang")
+}
+
+export const languages = (() => {
+    let lists: string[] = []
+    for (let handler of handlers) {
+        lists.push(...handler.getLanguages())
+    }
+    return [...(new Set(lists))];
+})()
+
+export const transform = async (lang: string, input: string, options: Record<string, any>) => {
+    return getHandler(lang).execute(lang, input, options);
+}
+
+export const getDefaultOption = (lang: string) => {
+    const data: Record<string, any> = {}
+    for (let item of getHandler(lang).getOptionDefine(lang)) {
+        data[item.name] = item.defaultValue
+    }
+    return data
+}
+
+export const getOptionDefine = (lang: string) => {
+    return getHandler(lang).getOptionDefine(lang).sort((a, b) => {
+        const index = {
+            'string': 1,
+            'boolean': 2,
+            'select': 3,
+        }
+        if (a.type === b.type) {
+            return 0
+        }
+        return index[a.type] < index[b.type] ? -1 : 1
     })
 }

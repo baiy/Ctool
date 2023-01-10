@@ -9,13 +9,6 @@
                     v-model="action.current.option.from"
                 />
                 <Editor v-model="action.current.input" :placeholder="`Json ${$t('main_ui_input')}`" lang="json" :height="`${height}px`"/>
-                <ToObject
-                    v-if="action.current.expand_type === 'object'"
-                    :height="height"
-                    :json="inputSerialize"
-                    @success="()=>action.save()"
-                    :lang="action.current.option.to_object_lang"
-                />
                 <SerializeOutput
                     v-if="action.current.expand_type === 'to'"
                     :allow="[action.current.option.to.type]"
@@ -102,11 +95,10 @@
                     </template>
                 </Align>
                 <Align>
-                    <template v-for="item in toObjectLangOptions">
+                    <template v-for="item in toObjectLangLists.sort()">
                         <Button
                             :size="size"
-                            :type="item === action.current.option.to_object_lang ? 'primary' : 'general'"
-                            :text="item"
+                            :text="getDisplayName(item)"
                             @click="toggleObject(item)"
                         />
                     </template>
@@ -117,7 +109,7 @@
                             :size="size"
                             v-if="item !== 'json'"
                             :type="item === action.current.option.from.type ? 'primary' : 'general'"
-                            :text="$t(`component_serialize_type_${item}`)"
+                            :text="getDisplayName(item)"
                             @click="toggleFrom(item)"
                         />
                     </template>
@@ -128,7 +120,7 @@
                             :size="size"
                             v-if="item !== 'json'"
                             :type="item === action.current.option.to.type ? 'primary' : 'general'"
-                            :text="$t(`component_serialize_type_${item}`)"
+                            :text="getDisplayName(item)"
                             @click="toggleTo(item)"
                         />
                     </template>
@@ -136,23 +128,28 @@
             </Tabs>
         </Display>
     </div>
+    <ExtendPage v-model="toObjectOpen">
+        <Code v-if="toObjectOpen" :lang="toObjectLang" :json="inputSerialize"/>
+    </ExtendPage>
 </template>
 
 <script lang="ts" setup>
 import {StyleValue, watch} from "vue"
 import Json from "@/helper/json"
 import {useAction, initialize} from "@/store/action"
-import {tabOptions, toObjectLangOptions, actionType, TabsType, pathLists} from "./define"
+import {tabOptions, actionType, TabsType, pathLists} from "./define"
 import {createSerializeInput, createSerializeOutput} from "@/components/serialize";
-import ToObject from "./toObject/ToObject.vue"
 import Schema from "./Schema.vue"
 import {serializeInputEncoderLists, serializeOutputEncoderLists} from "@/types"
 import Path from "./Path.vue"
 import Serialize from "@/helper/serialize";
 import {typeLists as renameTypeLists, TypeLists as RenameType} from "@/helper/nameConvert";
 import util from "./util";
+import {getDisplayName} from "@/helper/code";
 import jsonRepair from 'jsonrepair'
 import {ComponentSizeType} from "@/types";
+import Code from "./toObject/ToObject.vue";
+import {languages as toObjectLangLists} from "./toObject";
 
 const action = useAction(await initialize<actionType>({
     input: "",
@@ -169,11 +166,13 @@ const action = useAction(await initialize<actionType>({
             jmes_path: "",
         },
         tab: 4,
-        to_object_lang: "Java",
         from: createSerializeInput('csv'),
         to: createSerializeOutput('xml')
     }
 }, {paste: false}))
+
+let toObjectOpen = $ref(false)
+let toObjectLang = $ref("")
 
 const size: ComponentSizeType = "default"
 
@@ -288,7 +287,8 @@ const inputSerialize: Serialize = $computed(() => {
 
 // 切换
 const toggleObject = (lang) => {
-    action.current.option.to_object_lang = lang
+    toObjectLang = lang
+    toObjectOpen = true
 }
 const toggleFrom = (item) => {
     action.current.option.from.value = ""
@@ -308,6 +308,6 @@ const setExpandType = (value) => {
     action.current.expand_type = value
 }
 watch(() => action.current.tabs, (tabs) => {
-    setExpandType(['from', 'object', 'to', 'path'].includes(tabs) ? tabs : "")
+    setExpandType(['from', 'to', 'path'].includes(tabs) ? tabs : "")
 })
 </script>

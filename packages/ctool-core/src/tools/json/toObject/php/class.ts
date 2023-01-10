@@ -31,7 +31,7 @@ function getClassInfo(json, className, config, deps) {
 }
 
 function buildArraySerialization(properties, config, className) {
-    if (!(config.arraySerialization || config.includeDeps)) {
+    if (!config.includeDeps) {
         return "";
     }
     return (

@@ -1,81 +1,65 @@
 <template>
-    <div>
-        <Align direction="vertical" class="ctool-json-object" v-if="lang !== 'Protobuf'" :bottom="'default'">
-            <Input v-model="packageName" label="namespace/package" />
-            <Input v-model="className" label="class/struct" />
-        </Align>
-        <HeightResize @resize="resize" :father-height="height" ignore :append="['.ctool-json-object']">
-            <Editor :model-value="output" :placeholder="`${lang} Object ${$t('main_ui_output')}`" :lang="lang" :height="`${editorHeight}px`">
-                <Bool v-if="lang==='Protobuf'" size="small" v-model="isInline" border :label="$t(`json_inline`)"/>
-            </Editor>
-        </HeightResize>
-    </div>
+    <HeightResize v-row="`1-250px`" v-slot="{height}">
+        <Editor :model-value="output" :height="height" :lang="lang"/>
+        <Card :height="height" :title="getDisplayName(lang)" padding="5px 10px">
+            <Align :direction="'vertical'">
+                <div v-for="option in optionConfig">
+                    <template v-if="option.type === 'boolean'">
+                        <Bool v-model="options[option.name]" :label="option.description"/>
+                    </template>
+                    <template v-else>
+                        <div style="font-size: 14px">{{ option.description }}</div>
+                        <Select :center="false" width="100%" v-if="option.type === 'select'" v-model="options[option.name]" :options="option.value"/>
+                        <Input v-else v-model="options[option.name]"/>
+                    </template>
+                </div>
+            </Align>
+        </Card>
+    </HeightResize>
 </template>
 
 <script lang="ts" setup>
 import {PropType, watch} from "vue"
-import {ToObjectType} from "../define"
-import toObject from "./index"
 import Serialize from "@/helper/serialize"
+import {getDisplayName} from "@/helper/code";
+import {transform, getDefaultOption, getOptionDefine} from "./index";
 
 const props = defineProps({
     lang: {
-        type: String as PropType<ToObjectType>,
-        default: "java"
+        type: String,
+        required: true
     },
     json: {
         type: Object as PropType<Serialize>,
         default: () => {
             return Serialize.empty()
         }
-    },
-    height: {
-        type: Number,
-        default: 0
-    },
+
+    }
 })
-const emit = defineEmits<{ (e: 'success'): void }>()
 
-let packageName = $ref('pag')
-let className = $ref('RootName')
-let isInline = $ref(true)
+const optionConfig = getOptionDefine(props.lang)
+let options = $ref(getDefaultOption(props.lang))
 let output = $ref("")
-watch(
-    () => {
-        return {
-            land: props.lang,
-            json: props.json,
-            package_name: packageName,
-            class_name: className,
-            is_inline: isInline,
-        }
-    },
-    ({land, json, package_name, class_name, is_inline}) => {
-        if (json.isError()) {
-            output = json.error();
-            return;
-        }
-        if (json.isEmpty()) {
-            output = "";
-            return;
-        }
-        toObject(land, json.toJson(), {
-            package_name,
-            class_name,
-            is_inline
-        }).then((result) => {
-            output = result
-        }).catch((error) => {
-            output = error
-        })
-    },
-    {immediate: true, deep: true}
-)
 
-let editorHeight = $ref(100)
-const resize = (height) => {
-    editorHeight = height
-}
+watch(() => {
+    return {
+        lang: props.lang,
+        json: props.json,
+        options
+    }
+}, async ({lang, json, options}) => {
+    if (json.isError()) {
+        output = json.error();
+        return;
+    }
+    if (json.isEmpty()) {
+        output = "";
+        return;
+    }
+    output = await transform(lang, json.toJson(), options)
+}, {immediate: true, deep: true})
+
 </script>
 
 
