@@ -107,7 +107,7 @@ const getPlaceholder = $computed(() => {
     if (props.placeholder !== "") {
         return props.placeholder
     }
-    return `${$t('main_ui_input')} ${$t(`component_serialize_type_${current.type}`)}`
+    return `${$t('main_ui_input')} ${getDisplayName(current.type)}`
 })
 
 

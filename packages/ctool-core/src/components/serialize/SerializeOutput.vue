@@ -85,7 +85,7 @@ const getPlaceholder = $computed(() => {
     if (props.placeholder !== "") {
         return props.placeholder
     }
-    return `${$t('main_ui_output')} ${$t(`component_serialize_type_${current.type}`)}`
+    return `${$t('main_ui_output')} ${getDisplayName(current.type)}`
 })
 
 const success = () => emit("success")
