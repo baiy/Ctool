@@ -2,7 +2,7 @@
     "name": "ctool-core",
     "private": true,
     "scripts": {
-        "dev": "vite",
+        "dev": "vite --force",
         "build": "vue-tsc --noEmit && vite build",
         "preview": "vite preview"
     },

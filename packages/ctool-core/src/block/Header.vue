@@ -69,7 +69,7 @@ let openTools = $ref(false);
     height: 100%;
     align-items: center;
     justify-content: center;
-    padding: 0 1.2rem;
+    padding: 0 1rem;
     cursor: pointer;
 }
 
