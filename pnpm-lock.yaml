@@ -228,7 +228,7 @@ importers:
       json-keys-sort: ^2.1.0
       json-to-properties: ^1.1.3
       jsonpath-plus: ^7.2.0
-      jsonrepair: ^2.2.1
+      jsonrepair: ^3.0.2
       jsrsasign: ^10.6.1
       jwt-decode: ^3.1.2
       lodash: ^4.17.21
@@ -313,7 +313,7 @@ importers:
       json-keys-sort: 2.1.0
       json-to-properties: 1.1.3
       jsonpath-plus: 7.2.0
-      jsonrepair: 2.2.1
+      jsonrepair: 3.0.2
       jsrsasign: 10.6.1
       jwt-decode: 3.1.2
       lodash: 4.17.21
@@ -3175,8 +3175,8 @@ packages:
     engines: {node: '>=12.0.0'}
     dev: false
 
-  /jsonrepair/2.2.1:
-    resolution: {integrity: sha512-o9Je8TceILo872uQC9fIBJm957j1Io7z8Ca1iWIqY6S5S65HGE9XN7XEEw7+tUviB9Vq4sygV89MVTxl+rhZyg==}
+  /jsonrepair/3.0.2:
+    resolution: {integrity: sha512-jf3eC13iGklfXqpER/OV6q24rMhXwNAoMg+zPZgPVHxGLoDaNaKk+9TdsRtGQSIAsbC1xafiIAKSwThhtHCpcw==}
     hasBin: true
     dev: false
 

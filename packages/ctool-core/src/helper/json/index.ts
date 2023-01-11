@@ -1,5 +1,5 @@
 import {parse, stringify} from "when-json-met-bigint";
-import jsonRepair from "jsonrepair";
+import {jsonrepair} from "jsonrepair";
 
 
 type Stringify<T = any> = Parameters<typeof stringify<T>>
@@ -7,7 +7,7 @@ type Stringify<T = any> = Parameters<typeof stringify<T>>
 export default {
     parse: (str: string, {BIGINT_TO_STING = false, JSON_REPAIR = false} = {}) => {
         return parse(
-            JSON_REPAIR ? jsonRepair(str) : str,
+            JSON_REPAIR ? jsonrepair(str) : str,
             (key, value) => {
                 // 非安全数字转字符串
                 if (BIGINT_TO_STING && typeof value === "bigint") {

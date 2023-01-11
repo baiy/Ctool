@@ -151,7 +151,7 @@ import Serialize from "@/helper/serialize";
 import {typeLists as renameTypeLists, TypeLists as RenameType} from "@/helper/nameConvert";
 import util from "./util";
 import {getDisplayName} from "@/helper/code";
-import jsonRepair from 'jsonrepair'
+import {jsonrepair} from "jsonrepair";
 import {ComponentSizeType} from "@/types";
 import ToObject from "./toObject/ToObject.vue";
 import {languages as toObjectLangLists, getOption as getToObjectOption} from "./toObject";
@@ -260,8 +260,7 @@ const general = {
     repair() {
         const code = this.getInput()
         if (code !== "") {
-            action.current.input = jsonRepair(code)
-            action.success({copy_text: action.current.input})
+            this.beautify(jsonrepair(code))
         }
     }
 }
