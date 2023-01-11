@@ -224,7 +224,7 @@
 					"message": "问题反馈"
 				},
 				"main_ui_open_full": {
-					"message": "打开全屏窗口"
+					"message": "新建全屏窗口"
 				},
 				"main_ui_open_devtools": {
 					"message": "打开开发者工具"
@@ -271,11 +271,23 @@
 				"main_setting_language": {
 					"message": "语言"
 				},
+				"main_setting_layout": {
+					"message": "页面布局"
+				},
+				"main_setting_layout_complex": {
+					"message": "复杂"
+				},
+				"main_setting_layout_simple": {
+					"message": "精简"
+				},
 				"main_tools_lists": {
-					"message": "工具列表"
+					"message": "全部工具列表"
 				},
 				"main_common_tool": {
 					"message": "常用工具"
+				},
+				"main_common_drag": {
+					"message": "拖动相应工具按钮进行操作"
 				},
 				"main_unselected_tool": {
 					"message": "未选择工具"
@@ -2748,7 +2760,7 @@
 					"message": "Issues Feedback"
 				},
 				"main_ui_open_full": {
-					"message": "Open Full Screen Page"
+					"message": "New Full Screen Page"
 				},
 				"main_ui_open_devtools": {
 					"message": "Open DevTools"
@@ -2795,11 +2807,23 @@
 				"main_setting_language": {
 					"message": "Language"
 				},
+				"main_setting_layout": {
+					"message": "Page Layout"
+				},
+				"main_setting_layout_complex": {
+					"message": "Complex"
+				},
+				"main_setting_layout_simple": {
+					"message": "Simple"
+				},
 				"main_tools_lists": {
-					"message": "Tool Lists"
+					"message": "All Tool Lists"
 				},
 				"main_common_tool": {
 					"message": "Common Tool"
+				},
+				"main_common_drag": {
+					"message": "Drag The Corresponding Tool Button To Operate"
 				},
 				"main_unselected_tool": {
 					"message": "Unselected Tool"
