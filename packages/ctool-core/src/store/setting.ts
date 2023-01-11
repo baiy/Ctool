@@ -4,7 +4,7 @@ import {Locale, ThemeType, ThemeRawType} from "@/types"
 import {commonTool, ToolType} from "@/config"
 import {onMounted, watch, onUnmounted} from 'vue';
 import {setCurrentLocale} from '@/i18n';
-import event, {heightResizeDispatch} from "@/event";
+import event from "@/event";
 
 interface Setting {
     common: ToolType[],
@@ -46,10 +46,7 @@ const useSetting = defineStore('setting', () => {
     }
 
     // 语言切换
-    watch(() => items.locale, () => {
-        heightResizeDispatch()
-        setCurrentLocale(items.locale)
-    })
+    watch(() => items.locale, () => setCurrentLocale(items.locale))
 
     // 主题切换
     watch(() => items.theme, (theme) => {

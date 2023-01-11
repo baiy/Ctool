@@ -2,7 +2,7 @@
     <div class="ctool-header">
         <Align>
             <Github/>
-            <span style="font-weight: bold">{{ $t(`tool_${storeOperate.items.tool}`) }}</span>
+            <span>{{ $t(`tool_${storeOperate.items.tool}`) }}</span>
         </Align>
         <div class="ctool-header-middle" :class="features.length > 1 ? `ctool-header-middle-center` : ''">
             <template v-if="features.length < 1">

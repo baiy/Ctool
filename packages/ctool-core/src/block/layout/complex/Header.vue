@@ -151,7 +151,9 @@ watch(() => {
     padding: 0 .5rem;
     cursor: pointer;
 }
-
+[data-locale="zh_CN"] .ctool-header-category{
+    padding: 0 1rem;
+}
 .ctool-header-middle {
     display: flex;
     flex-wrap: wrap;
