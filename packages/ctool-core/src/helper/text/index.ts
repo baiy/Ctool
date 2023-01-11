@@ -119,6 +119,10 @@ class Text {
         return (Buffer.from(this.uint.uint8Array).toString('hex'))[options.caps === "upper" ? "toUpperCase" : 'toLowerCase']()
     }
 
+    toUint8Array() {
+        return this.uint.uint8Array
+    }
+
     toDown() {
         let objectUrl = window.URL.createObjectURL(new Blob([this.uint.uint8Array], {type: this.mime()}));
         let aEle = document.createElement("a");

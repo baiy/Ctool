@@ -1,3 +1,8 @@
 {
-    "generate_keypair": "Generate Public/Private Key"
+    "generate_keypair": "Generate Public/Private Key",
+    "public_key": "Public Key",
+    "private_key": "Private Key",
+    "source_data": "Source Data",
+    "sign_value": "Sign Value",
+    "userId": "UserId(Default: 1234567812345678)"
 }
