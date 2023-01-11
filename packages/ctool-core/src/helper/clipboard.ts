@@ -56,11 +56,6 @@ export const paste = async (force: boolean = false): Promise<string> => {
                 console.error(e)
                 return resolve("")
             })
-            navigator.clipboard.readText().then((text) => {
-                return console.log(text)
-            }).catch((e) => {
-                console.error(e)
-            })
         } catch {
             resolve("")
         }

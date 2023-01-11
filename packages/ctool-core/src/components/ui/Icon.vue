@@ -35,6 +35,10 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    highlight: {
+        type: Boolean,
+        default: false
+    },
     size: {
         type: [String, Number],
         default: 0
@@ -74,6 +78,9 @@ const classes = computed(() => {
     if (props.hover) {
         lists.push('ctool-icon-hover')
     }
+    if (props.highlight) {
+        lists.push('ctool-icon-highlight')
+    }
     return lists
 })
 
@@ -105,7 +112,7 @@ const click = () => {
     cursor: pointer !important;
 }
 
-.ctool-icon-hover:hover {
+.ctool-icon-hover:hover,.ctool-icon-highlight {
     color: var(--primary)
 }
 </style>

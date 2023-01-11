@@ -163,7 +163,9 @@ declare module '@vue/runtime-core' {
             $props: {
                 name: IconType,
                 hover?: boolean,
+                highlight?: boolean,
                 reverse?: boolean,
+                color?: string,
                 size?: number | string
                 rotate?: number
                 tooltip?: string,

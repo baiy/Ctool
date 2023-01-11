@@ -1,7 +1,7 @@
 <template>
     <Teleport to="#ctool-append">
         <Transition name="ctool-extend-page">
-            <div class="ctool-extend-page" v-if="show" v-bind="$attrs">
+            <div class="ctool-extend-page" :style="style" v-if="show" v-bind="$attrs">
                 <slot></slot>
             </div>
         </Transition>
@@ -31,8 +31,8 @@ export default {
 </script>
 <script setup lang="ts">
 // 扩展页面 用于临时内容展示
-import {onMounted, onUnmounted, watch} from "vue";
-import event,{componentResizeDispatch} from "@/event";
+import {onMounted, onUnmounted, StyleValue, watch} from "vue";
+import event, {componentResizeDispatch} from "@/event";
 
 const props = defineProps({
     modelValue: {
@@ -50,6 +50,17 @@ const emit = defineEmits<{ (e: 'update:modelValue', value: boolean): void }>()
 let show = $computed({
     get: () => props.modelValue,
     set: (value) => emit('update:modelValue', value)
+})
+
+let top = $ref(document.querySelector<HTMLElement>('.ctool-header')?.offsetHeight || 33)
+let bottom = $ref(document.querySelector<HTMLElement>('.ctool-bottom')?.offsetHeight || 33)
+
+const style = $computed(() => {
+    const css: StyleValue = {
+        "top": `${top}px`,
+        "height": `calc(100vh - ${top + bottom}px)`,
+    }
+    return css
 })
 
 let isCurrentOpen = false;
@@ -76,11 +87,18 @@ const closeExtendPageListener = () => {
     close()
 }
 
+const resize = () => {
+    top = document.querySelector<HTMLElement>('.ctool-header')?.offsetHeight || 33
+    bottom = document.querySelector<HTMLElement>('.ctool-bottom')?.offsetHeight || 33
+}
+
 onMounted(() => {
     event.addListener('extend_page_close', closeExtendPageListener)
+    event.addListener("window_height_resize", resize)
 })
 onUnmounted(() => {
     event.removeListener('extend_page_close', closeExtendPageListener)
+    event.removeListener("window_height_resize", resize)
 })
 </script>
 

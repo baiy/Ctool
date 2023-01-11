@@ -1,23 +1,40 @@
 <template>
     <Suspense>
         <div class="ctool-global">
-            <Header/>
+            <SimpleHeader v-if="storeSetting.items.layout === `simple`"/>
+            <ComplexHeader v-else/>
             <Content/>
-            <Bottom/>
+            <SimpleBottom v-if="storeSetting.items.layout === `simple`"/>
+            <ComplexBottom v-else/>
         </div>
     </Suspense>
 </template>
 
 <script setup lang="ts">
 import Content from '@/block/Content.vue'
-import Bottom from '@/block/Bottom.vue'
-import Header from '@/block/Header.vue'
 import Message from "@/helper/message";
-import useSetting from "@/store/setting";
-import {onErrorCaptured} from "vue";
+
+import SimpleHeader from "@/block/layout/simple/Header.vue";
+import SimpleBottom from "@/block/layout/simple/Bottom.vue";
+import ComplexHeader from "@/block/layout/complex/Header.vue";
+import ComplexBottom from "@/block/layout/complex/Bottom.vue";
+import useSetting, {useTheme} from "@/store/setting";
+import {nextTick, onErrorCaptured, watch} from "vue";
 
 // 初始化配置
-useSetting()
+const storeSetting = useSetting()
+// 初始化主题
+useTheme()
+
+watch(() => {
+    return {
+        layout: storeSetting.items.layout
+    }
+}, async () => {
+    await nextTick()
+    window.dispatchEvent(new Event('resize'));
+})
+
 
 // 全局错误提示
 const globalErrorMessage = (err) => {

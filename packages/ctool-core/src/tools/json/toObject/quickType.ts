@@ -25,9 +25,6 @@ const getOptionType = (option: OptionDefinition): Option["type"] => {
     return "string"
 }
 
-
-console.log(isArray([]))
-console.log(isBoolean(true))
 export default class implements Transform {
     getLanguages() {
         return defaultTargetLanguages.map(item => item.displayName)

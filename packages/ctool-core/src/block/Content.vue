@@ -4,6 +4,9 @@
             <router-view v-if="is"/>
         </div>
     </div>
+    <ExtendPage v-model="openSetting">
+        <Setting/>
+    </ExtendPage>
 </template>
 
 <script setup lang="ts">
@@ -11,8 +14,10 @@ import {useRouter} from 'vue-router'
 import {onMounted} from 'vue'
 import {report} from '@/helper/stat'
 import {RouteMeta} from '@/types'
-import {categoryExists,getTool} from '@/config'
+import {categoryExists, getTool} from '@/config'
 import useOperate from '@/store/operate'
+import event from "@/event";
+import Setting from "@/block/Setting.vue"
 
 const operate = useOperate()
 const router = useRouter()
@@ -20,6 +25,13 @@ let is = $ref(false)
 
 onMounted(() => {
     window.dispatchEvent(new Event('resize'));
+})
+
+// 打开设置页面
+let openSetting = $ref(false)
+
+event.addListener('open_setting', () => {
+    openSetting = !openSetting
 })
 
 router.beforeResolve((to) => {

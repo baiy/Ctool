@@ -37,6 +37,9 @@ export default defineStore(
 
         // 跳转
         const redirectTool = (_tool: string = "", _feature: string = "", _category: string = "", history: string | number = "", keyword: string = "") => {
+            if (_tool === items.tool){
+                return;
+            }
             event.dispatch('extend_page_close')
             const tool = getTool(toolExists(_tool) ? _tool : tools[0].name)
             const category = getCategory(tool.inCategory(_category) ? _category : tool.firstCategory().name)

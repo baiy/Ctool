@@ -13,6 +13,7 @@ interface Setting {
     auto_read_copy: boolean,
     auto_read_copy_filter: boolean,
     auto_save_copy: boolean,
+    layout: "complex" | "simple",
 }
 
 const getSystemTheme = (): ThemeRawType => {
@@ -28,7 +29,8 @@ const defaultValue: Setting = {
     auto_save_copy: true,
     locale: "_default",
     theme: "auto",
-    common: [...commonTool]
+    common: [...commonTool],
+    layout: "complex"
 }
 
 const useSetting = defineStore('setting', () => {
@@ -37,7 +39,7 @@ const useSetting = defineStore('setting', () => {
     // 保存
     const save = <K extends keyof Setting>(key: K, value: Setting[K]) => {
         if (key === 'common' && (value as string[]).length < 1) {
-            items['common'] = [...commonTool]
+            items['common'] = [...new Set(commonTool)]
             return;
         }
         items[key] = value

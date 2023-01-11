@@ -13,6 +13,9 @@
             <Draggable v-model="unselected" class="ctool-common-tool-draggable" group="tool">
                 <Button :type="'dotted'" v-for="name in unselected">{{ $t(`tool_${name}`) }}</Button>
             </Draggable>
+            <template #extra>
+                {{ $t('main_common_drag') }}
+            </template>
         </Card>
     </Align>
 </template>

@@ -1,7 +1,7 @@
 <template>
     <div class="ctool-notice" ref="container">
         <TransitionGroup name="ctool-notice-list" tag="div" v-if="items.length > 0">
-            <div class="ctool-notice-list-item" v-for="(item) in items" :key="item.key">
+            <div class="ctool-notice-list-item" v-for="(item) in items" :key="item.key" :style="center ? {justifyContent:`center`} : {}">
                 <Icon :name="item.type === 'ad' ? 'ad' : 'message'" :size="14"/>
                 <template v-if="item.url.type === ''">
                     {{ item.text }}
@@ -22,6 +22,13 @@ import {onMounted, onUnmounted} from "vue";
 import {getUserUuid} from "@/store/user";
 import {isString} from "lodash";
 import useOperate from "@/store/operate";
+
+const props = defineProps({
+    center: {
+        type: Boolean,
+        default: false
+    },
+})
 
 const operate = useOperate()
 const container = $ref<HTMLElement | null>(null)
@@ -135,7 +142,7 @@ onUnmounted(() => {
 })
 </script>
 
-<style>
+<style scoped>
 .ctool-notice {
     height: 32px;
     overflow: hidden;

@@ -51,6 +51,6 @@ const selectTool = (tool: ToolType, category?: CategoryInterface, feature?: Feat
 }
 
 const recently: FeatureInterface[] = $computed(() => {
-    return operate.getRecently().slice(0, 20)
+    return operate.getRecently().slice(0, 10)
 })
 </script>
