@@ -94,33 +94,6 @@
 				"component_content_output_hex_dump_format_none": {
 					"message": "无分隔"
 				},
-				"component_serialize_type_json": {
-					"message": "Json"
-				},
-				"component_serialize_type_http_query_string": {
-					"message": "Http Query String"
-				},
-				"component_serialize_type_csv": {
-					"message": "Csv"
-				},
-				"component_serialize_type_html_table": {
-					"message": "Html Table"
-				},
-				"component_serialize_type_xml": {
-					"message": "Xml"
-				},
-				"component_serialize_type_yaml": {
-					"message": "Yaml"
-				},
-				"component_serialize_type_php_array": {
-					"message": "Php Array"
-				},
-				"component_serialize_type_toml": {
-					"message": "Toml"
-				},
-				"component_serialize_type_properties": {
-					"message": "Properties"
-				},
 				"component_serialize_csv_table_row_object": {
 					"message": "行对象"
 				},
@@ -2644,33 +2617,6 @@
 				},
 				"component_content_output_hex_dump_format_none": {
 					"message": "None"
-				},
-				"component_serialize_type_json": {
-					"message": "Json"
-				},
-				"component_serialize_type_http_query_string": {
-					"message": "Http Query String"
-				},
-				"component_serialize_type_csv": {
-					"message": "Csv"
-				},
-				"component_serialize_type_html_table": {
-					"message": "Table"
-				},
-				"component_serialize_type_xml": {
-					"message": "Xml"
-				},
-				"component_serialize_type_yaml": {
-					"message": "Yaml"
-				},
-				"component_serialize_type_php_array": {
-					"message": "Php Array"
-				},
-				"component_serialize_type_toml": {
-					"message": "Toml"
-				},
-				"component_serialize_type_properties": {
-					"message": "Properties"
 				},
 				"component_serialize_csv_table_row_object": {
 					"message": "Row Object"
