@@ -20,6 +20,8 @@
     "sm2": "SM2",
     "sm2_encrypt": "Encrypt",
     "sm2_decrypt": "Decrypt",
+    "sm2_sign": "Sign",
+    "sm2_verify": "VerifySign",
     "sm4": "SM4",
     "sm4_encrypt": "Encrypt",
     "sm4_decrypt": "Decrypt",
