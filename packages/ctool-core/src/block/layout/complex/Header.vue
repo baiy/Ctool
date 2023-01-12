@@ -190,6 +190,7 @@ watch(() => {
     border-bottom: solid 1px var(--ctool-border-color);
     overflow: hidden;
     display: flex;
+    justify-content: center;
 }
 
 .ctool-header-feature {
