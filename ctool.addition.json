@@ -430,6 +430,12 @@
 				"tool_sm2_decrypt": {
 					"message": "解密"
 				},
+				"tool_sm2_sign": {
+					"message": "签名"
+				},
+				"tool_sm2_verify": {
+					"message": "验签"
+				},
 				"tool_sm4": {
 					"message": "SM4"
 				},
@@ -629,6 +635,12 @@
 					"message": ""
 				},
 				"tool_sm2_decrypt_keywords": {
+					"message": ""
+				},
+				"tool_sm2_sign_keywords": {
+					"message": ""
+				},
+				"tool_sm2_verify_keywords": {
 					"message": ""
 				},
 				"tool_sm4_encrypt_keywords": {
@@ -837,6 +849,21 @@
 				},
 				"sm2_generate_keypair": {
 					"message": "生成公钥/私钥"
+				},
+				"sm2_public_key": {
+					"message": "公钥"
+				},
+				"sm2_private_key": {
+					"message": "私钥"
+				},
+				"sm2_source_data": {
+					"message": "签名原文"
+				},
+				"sm2_sign_value": {
+					"message": "签名值"
+				},
+				"sm2_userId": {
+					"message": "UserId"
 				},
 				"sign_sign_data": {
 					"message": "待签名内容/验签数据"
@@ -2966,6 +2993,12 @@
 				"tool_sm2_decrypt": {
 					"message": "Decrypt"
 				},
+				"tool_sm2_sign": {
+					"message": "Sign"
+				},
+				"tool_sm2_verify": {
+					"message": "VerifySign"
+				},
 				"tool_sm4": {
 					"message": "SM4"
 				},
@@ -3156,6 +3189,12 @@
 					"message": ""
 				},
 				"tool_sm2_decrypt_keywords": {
+					"message": ""
+				},
+				"tool_sm2_sign_keywords": {
+					"message": ""
+				},
+				"tool_sm2_verify_keywords": {
 					"message": ""
 				},
 				"tool_sm4_encrypt_keywords": {
@@ -3373,6 +3412,21 @@
 				},
 				"sm2_generate_keypair": {
 					"message": "Generate Public/Private Key"
+				},
+				"sm2_public_key": {
+					"message": "Public Key"
+				},
+				"sm2_private_key": {
+					"message": "Private Key"
+				},
+				"sm2_source_data": {
+					"message": "Source Data"
+				},
+				"sm2_sign_value": {
+					"message": "Sign Value"
+				},
+				"sm2_userId": {
+					"message": "UserId"
 				},
 				"sign_sign_data": {
 					"message": "Sign Data/Verify data"
