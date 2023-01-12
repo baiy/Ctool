@@ -2,7 +2,7 @@
 import {defineStore} from '@/helper/pinia'
 import {Locale, ThemeType, ThemeRawType} from "@/types"
 import {commonTool, ToolType} from "@/config"
-import {onMounted, watch, onUnmounted} from 'vue';
+import {onMounted, watch, onUnmounted, nextTick} from 'vue';
 import {setCurrentLocale} from '@/i18n';
 import event from "@/event";
 
@@ -54,6 +54,11 @@ const useSetting = defineStore('setting', () => {
     })
 
     onMounted(() => {
+        event.addListener('locale_change', async ()=>{
+            await nextTick()
+            // 语言变化重新计算窗口尺寸
+            window.dispatchEvent(new Event('resize'));
+        })
         // 初始化语言
         setCurrentLocale(items.locale)
         // 监控系统主题变化
