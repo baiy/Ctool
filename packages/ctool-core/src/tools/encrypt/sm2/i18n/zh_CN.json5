@@ -1,3 +1,8 @@
 {
-    "generate_keypair": "生成公钥/私钥"
+    "generate_keypair": "生成公钥/私钥",
+    "public_key": "公钥",
+    "private_key": "私钥",
+    "source_data": "签名原文",
+    "sign_value": "签名值",
+    "userId": "UserId(默认: 1234567812345678)"
 }

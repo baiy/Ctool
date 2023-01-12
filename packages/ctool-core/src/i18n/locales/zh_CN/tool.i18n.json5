@@ -24,6 +24,8 @@
     "sm2": "SM2",
     "sm2_encrypt": "加密",
     "sm2_decrypt": "解密",
+    "sm2_sign": "签名",
+    "sm2_verify": "验签",
     "sm4": "SM4",
     "sm4_encrypt": "加密",
     "sm4_decrypt": "解密",

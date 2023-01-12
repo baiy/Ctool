@@ -7,7 +7,8 @@
                 :height="small"
             />
             <Align v-row="`1-auto-auto`" class="ctool-page-option">
-                <Input v-model="action.current.option.private_key" placeholder="Private Key"/>
+                <Input v-model="action.current.option.private_key"  
+                :placeholder="$t(`sm2_private_key`)"/>
                 <Select
                     :options="[{value:1,label:'C1-C3-C2'},{value:0,label:'C1-C2-C3'}]"
                     v-model="action.current.option.cipher_mode"
@@ -48,11 +49,11 @@ const output = $computed(() => {
         if (action.current.input.text.isError()) {
             return action.current.input.text
         }
-        let result = sm2.doDecrypt(action.current.input.text.toHexString(), action.current.option.private_key, action.current.option.cipher_mode as CipherMode)
+        let result = sm2.doDecrypt(action.current.input.text.toHexString(), action.current.option.private_key, action.current.option.cipher_mode as CipherMode, {output: 'array'})
         if (result === "") {
             throw new Error("failure")
         }
-        return Text.fromString(result)
+        return Text.fromBuffer(result)
     } catch (e) {
         return Text.fromError($error(e))
     }

@@ -34,7 +34,7 @@ export let _tools = {
         keywords: []
     },
     sm2: {
-        feature: ['encrypt', 'decrypt'],
+        feature: ['encrypt', 'decrypt', 'sign', 'verify'],
         parent_directory: "encrypt",
         keywords: []
     },
