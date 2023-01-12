@@ -1,22 +1,24 @@
 <template>
     <HeightResize v-slot="{small,large}" ignore :append="['.ctool-page-option']" :reduce="10">
         <Align direction="vertical">
-            <TextInput
-                v-model="action.current.sourceData"
-                :height="small"
-                :placeholder="$t(`sm2_source_data`)"
-                upload="file"
-            />
-            <TextInput
-                v-model="action.current.signValue"
-                :height="small"
-                :placeholder="$t(`sm2_sign_value`)"
-                :allow="['hex','base64']"
-            />
+            <div v-row="`1-1`">
+                <TextInput
+                    v-model="action.current.sourceData"
+                    :height="large"
+                    :placeholder="$t(`sm2_source_data`)"
+                    upload="file"
+                />
+                <TextInput
+                    v-model="action.current.signValue"
+                    :height="large"
+                    :placeholder="$t(`sm2_sign_value`)"
+                    :allow="['hex','base64']"
+                />
+            </div>
             <Card :title="$t(`main_ui_config`)" class="ctool-page-option">
                 <Align horizontal="center">
-                    <Input v-model="action.current.option.public_key" :placeholder="$t(`sm2_public_key`)"/>
-                    <Input v-model="action.current.option.user_id" :placeholder="$t(`sm2_userId`)"/>
+                    <Input v-model="action.current.option.public_key" :label="$t(`sm2_public_key`)"/>
+                    <Input v-model="action.current.option.user_id" :label="$t(`sm2_userId`)"/>
                 </Align>
                 <template #extra>
                     <Align>
@@ -46,7 +48,6 @@ const action = useAction(await initialize({
     signValue: createTextInput('hex'),
     option: {
         public_key: "",
-        private_key: "",
         user_id: "1234567812345678",
     },
     output: createTextOutput('text'),
@@ -66,7 +67,16 @@ const output = $computed<Text>(() => {
         return action.current.signValue.text
     }
     try {
-        let verifyResult= sm2.doVerifySignature(action.current.sourceData.text.toUint8Array(), action.current.signValue.text.toHexString(), action.current.option.public_key, {hash: true, userId: action.current.option.user_id})
+        let verifyResult = sm2.doVerifySignature(
+            action.current.sourceData.text.toUint8Array() as any,
+            action.current.signValue.text.toHexString(),
+            action.current.option.public_key,
+            {
+                hash: true,
+                // @ts-ignore
+                userId: action.current.option.user_id
+            }
+        )
         if (!verifyResult) {
             return Text.fromString($t(`sign_verify_fail`))
         }

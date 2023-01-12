@@ -192,6 +192,9 @@ watch(() => {
                 r = data.toHex(option.hex)
                 break;
             case "image":
+                if(!data.isImage()){
+                    throw new Error("Not Image File")
+                }
                 r = data.toDataUrl()
                 break;
         }

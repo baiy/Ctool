@@ -80,6 +80,10 @@ class Text {
         return Text.fromUint8Array(Uint8Array.from(item))
     }
 
+    static fromArray(item: number[]): Text {
+        return Text.fromUint8Array(Uint8Array.from(item))
+    }
+
     static fromBase64(str: string): Text {
         let item = str.trim()
         // 兼容DataUrl
