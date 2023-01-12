@@ -37,10 +37,12 @@ export default defineStore(
 
         // 跳转
         const redirectTool = (_tool: string = "", _feature: string = "", _category: string = "", history: string | number = "", keyword: string = "") => {
-            event.dispatch('extend_page_close')
             const tool = getTool(toolExists(_tool) ? _tool : tools[0].name)
             const category = getCategory(tool.inCategory(_category) ? _category : tool.firstCategory().name)
             const feature = tool.getFeature(tool.existFeature(_feature) ? _feature : tool.firstFeature().name)
+            if (tool.name === items.tool && feature.name === items.feature){
+                return;
+            }
             const query: Record<string, any> = {}
             if (history !== "") {
                 query['history'] = history
@@ -48,6 +50,7 @@ export default defineStore(
             if (keyword !== "") {
                 query['keyword'] = keyword
             }
+            event.dispatch('extend_page_close')
             return router.push(
                 {
                     path: feature.getRouter(),
@@ -66,7 +69,6 @@ export default defineStore(
                 return false
             }
             const feature = tool.getFeature(_feature)
-
 
             // 最后访问工具
             items.tool = tool.name

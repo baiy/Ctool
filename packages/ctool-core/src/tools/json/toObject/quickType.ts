@@ -1,9 +1,28 @@
-import {getTargetLanguage, inferenceFlagNames, inferenceFlags, InputData, jsonInputForTargetLanguage, quicktype, defaultTargetLanguages} from "quicktype-core";
-import {pick, omit} from "lodash";
+import {
+    getTargetLanguage,
+    inferenceFlagNames,
+    inferenceFlags,
+    InputData,
+    jsonInputForTargetLanguage,
+    quicktype,
+    defaultTargetLanguages,
+    OptionDefinition
+} from "quicktype-core";
+import {pick, omit, isArray, isBoolean} from "lodash";
 import {Transform, Option} from "./type";
 
 const getTargetOption = (lang: string) => {
     return getTargetLanguage(lang).optionDefinitions.map(({name}) => name)
+}
+const getOptionType = (option: OptionDefinition): Option["type"] => {
+    if (option.type === Boolean) {
+        return "boolean"
+    }
+
+    if (option.legalValues !== undefined && option.type === String) {
+        return "select"
+    }
+    return "string"
 }
 
 export default class implements Transform {
@@ -36,36 +55,22 @@ export default class implements Transform {
         const define: Option[] = []
         if (lang !== "") {
             const quickTypeLanguage = getTargetLanguage(lang)
-            // @ts-ignore
-            for (let option of quickTypeLanguage.getOptions()) {
-                const optionType = option.constructor?.name || ""
-                if ("EnumOption" === optionType) {
-                    define.push({
-                        name: option.definition.name,
-                        description: option.definition.description,
-                        type: "select",
-                        value: option.definition.legalValues,
-                        defaultValue: option.definition.defaultValue
-                    })
-
+            define.push(...quickTypeLanguage.optionDefinitions.map(option => {
+                let type: Option["type"] = "string"
+                if (option.type === Boolean) {
+                    type = "boolean"
                 }
-                if ("BooleanOption" === optionType) {
-                    define.push({
-                        name: option.definition.name,
-                        description: option.definition.description,
-                        type: "boolean",
-                        defaultValue: option.definition.defaultValue
-                    })
+                if (option.legalValues !== undefined && option.type === String) {
+                    type = "select"
                 }
-                if ("StringOption" === optionType) {
-                    define.push({
-                        name: option.definition.name,
-                        description: option.definition.description,
-                        type: "string",
-                        defaultValue: option.definition.defaultValue
-                    })
+                return {
+                    name: option.name,
+                    description: option.description,
+                    type: type,
+                    value: option.legalValues,
+                    defaultValue: option.defaultValue
                 }
-            }
+            }))
             for (let item of inferenceFlagNames) {
                 const stringType = ("stringType" in inferenceFlags[item] ? inferenceFlags[item].stringType : "") || ""
                 if (stringType === "" || quickTypeLanguage.stringTypeMapping.has(stringType)) {

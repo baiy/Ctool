@@ -4,7 +4,7 @@ import {Locale, ThemeType, ThemeRawType} from "@/types"
 import {commonTool, ToolType} from "@/config"
 import {onMounted, watch, onUnmounted} from 'vue';
 import {setCurrentLocale} from '@/i18n';
-import event, {heightResizeDispatch} from "@/event";
+import event from "@/event";
 
 interface Setting {
     common: ToolType[],
@@ -13,6 +13,7 @@ interface Setting {
     auto_read_copy: boolean,
     auto_read_copy_filter: boolean,
     auto_save_copy: boolean,
+    layout: "complex" | "simple",
 }
 
 const getSystemTheme = (): ThemeRawType => {
@@ -28,7 +29,8 @@ const defaultValue: Setting = {
     auto_save_copy: true,
     locale: "_default",
     theme: "auto",
-    common: [...commonTool]
+    common: [...commonTool],
+    layout: "complex"
 }
 
 const useSetting = defineStore('setting', () => {
@@ -37,17 +39,14 @@ const useSetting = defineStore('setting', () => {
     // 保存
     const save = <K extends keyof Setting>(key: K, value: Setting[K]) => {
         if (key === 'common' && (value as string[]).length < 1) {
-            items['common'] = [...commonTool]
+            items['common'] = [...new Set(commonTool)]
             return;
         }
         items[key] = value
     }
 
     // 语言切换
-    watch(() => items.locale, () => {
-        heightResizeDispatch()
-        setCurrentLocale(items.locale)
-    })
+    watch(() => items.locale, () => setCurrentLocale(items.locale))
 
     // 主题切换
     watch(() => items.theme, (theme) => {

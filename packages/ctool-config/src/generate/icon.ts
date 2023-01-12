@@ -23,6 +23,8 @@ import message from "./icon/message";
 import ad from "./icon/ad";
 import refresh from "./icon/refresh";
 import devtools from "./icon/devtools";
+import checked from "./icon/checked";
+import unchecked from "./icon/unchecked";
 import getBounds from "svg-path-bounds";
 import {buildData} from "./fileSystem";
 
@@ -52,6 +54,8 @@ const lists = {
     ad,
     devtools,
     refresh,
+    checked,
+    unchecked
 }
 
 

@@ -14,6 +14,8 @@ const events = [
     'history_change',
     // 工具切换
     'tool_change',
+    // 打开设置页面
+    'open_setting',
 ] as const
 
 type Event = typeof events[number]

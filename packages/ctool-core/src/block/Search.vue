@@ -2,7 +2,7 @@
     <div style="display: inline-flex;">
         <Input
             size="small"
-            :width="160"
+            :width="150"
             :placeholder="$t(`main_search_placeholder`)"
             v-model="input"
             @load="load"

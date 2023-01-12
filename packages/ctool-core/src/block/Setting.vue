@@ -21,6 +21,14 @@
                     :options="localeOptions"
                 />
             </div>
+            <span>{{ $t('main_setting_layout') }}</span>
+            <div>
+                <Select
+                    :model-value="storeSetting.items.layout"
+                    @change="(value)=>storeSetting.save('layout',value)"
+                    :options="['complex','simple'].map((item)=>{return {value:item,label:$t('main_setting_layout_'+item)}})"
+                />
+            </div>
             <span style="grid-row-start: span 3">{{ $t('main_ui_clipboard') }}</span>
             <div>
                 <Bool
@@ -55,16 +63,23 @@
                     @change="(value)=>storeSetting.save('auto_read_copy_filter',value)"
                 />
             </div>
+            <span>{{ $t('main_common_tool') }}</span>
+            <div>
+                <Button :size="'small'" @click="openCommon = !openCommon" :text="`${$t(`main_ui_config`)}`"/>
+            </div>
             <template v-if="platform.isUtools()">
                 <span>uTools</span>
                 <div>
-                    <Button :size="'small'" @click="openUtoolsKeyword = true" :text="`${$t(`main_ui_keyword`)}${$t(`main_ui_config`)}`" />
+                    <Button :size="'small'" @click="openUtoolsKeyword = !openUtoolsKeyword" :text="`${$t(`main_ui_keyword`)}${$t(`main_ui_config`)}`"/>
                 </div>
             </template>
         </div>
     </Card>
     <ExtendPage v-model="openUtoolsKeyword" disable-replace>
         <UtoolsKeyword v-if="platform.isUtools()"/>
+    </ExtendPage>
+    <ExtendPage v-model="openCommon" disable-replace>
+        <Common/>
     </ExtendPage>
 </template>
 
@@ -75,9 +90,11 @@ import {locales, themes} from "@/types"
 import platform from "@/helper/platform"
 import {getLocaleName} from "@/i18n"
 import UtoolsKeyword from "./utools/Keyword.vue"
+import Common from "./Common.vue";
 
 const storeSetting = useSetting()
 let openUtoolsKeyword = $ref(false)
+let openCommon = $ref(false)
 
 const localeOptions = locales.map((item) => {
     return {value: item, label: getLocaleName(item) || ""}
