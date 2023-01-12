@@ -156,6 +156,7 @@ declare module '@vue/runtime-core' {
                 floatPosition?: DisplayPosition,
                 floatType?: ButtonType,
                 disabled?: boolean,
+                readonly?: boolean,
             }
             $emit: (e: "clickFloatText", value: boolean) => void
         }

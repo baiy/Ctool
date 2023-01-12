@@ -11,6 +11,7 @@
             <textarea
                 :style="{resize: `none`}"
                 :disabled="disabled"
+                :readonly="readonly"
                 :placeholder="placeholder"
                 v-model="current"
             />
@@ -52,6 +53,10 @@ const props = defineProps({
         default: "primary"
     },
     disabled: {
+        type: Boolean,
+        default: false
+    },
+    readonly: {
         type: Boolean,
         default: false
     },

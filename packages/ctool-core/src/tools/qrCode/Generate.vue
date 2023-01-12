@@ -1,14 +1,18 @@
 <template>
     <HeightResize v-slot="{height}" :append="['.ctool-page-option']" v-row="`1-320px`">
-        <TextInput v-model="action.current.input" :height="height" upload="file"/>
-        <Card :title="$t('main_ui_output')" :height="height">
-            <Align direction="vertical" horizontal="center" vertical="center">
-                <div v-show="res" style="cursor:pointer;border: 1px dashed #666;height: 280px;width: 280px;box-sizing: content-box;" @click="copy" ref="container"></div>
-                <Bool v-show="res" v-model="action.current.option.is_show" :label="$t(`main_ui_setting`)" border/>
-                <Exception v-if="error !== ''" :content="error"/>
-                <Exception v-if="error === '' && !res"/>
-            </Align>
-        </Card>
+        <Display :position="'bottom-right'">
+            <TextInput v-model="action.current.input" :height="height" upload="file"/>
+            <template #extra>
+                <Bool :size="'small'" v-if="!(output.isEmpty() || output.isError())" v-model="action.current.option.is_show" :label="$t(`main_ui_setting`)" border/>
+            </template>
+        </Display>
+        <TextOutput
+            v-model="action.current.output"
+            :allow="['image','hex','base64']"
+            :content="output"
+            :height="height"
+            @success="action.save()"
+        />
     </HeightResize>
     <div class="ctool-page-option" v-if="action.current.option.is_show" style="margin-top: 5px">
         <Tabs
@@ -76,7 +80,7 @@
 
 <script lang="ts" setup>
 import {initialize, useAction} from "@/store/action";
-import {createTextInput} from "@/components/text"
+import {createTextInput, createTextOutput} from "@/components/text"
 import Text from "@/helper/text";
 import {nextTick, onMounted, watch} from "vue";
 import GenerateOptionColor from "./GenerateOptionColor.vue";
@@ -87,39 +91,37 @@ import {ComponentSizeType} from "@/types";
 
 const action = useAction(await initialize({
     input: createTextInput(),
-    option: defaultGenerateOption()
+    option: defaultGenerateOption(),
+    output: createTextOutput('image'),
 }))
 const generateOptionSize: ComponentSizeType = "default"
-let container = $ref<HTMLElement | null>(null);
-let res = $ref(false)
-let error = $ref("")
+
 let image = $shallowRef(Text.empty())
+let output = $shallowRef(Text.empty())
 
-const qrCode = new QRCodeStyling(generateOptionsHandle(action.current.option, "", image))
-onMounted(async () => {
-    await nextTick()
-    if (container) {
-        qrCode.append(container)
-    }
-})
-
-const update = () => {
-    error = ""
-    res = false
+const update = async () => {
     if (action.current.input.text.isError()) {
-        error = action.current.input.text.toString()
+        output = Text.fromError(action.current.input.text.toString())
         return;
     }
+    output = Text.empty()
     if (action.current.input.text.isEmpty()) {
         return;
     }
     try {
-        qrCode.update(generateOptionsHandle(action.current.option, action.current.input.text.toString(), image))
-        res = true
-        action.save()
+        const qrCode = new QRCodeStyling(generateOptionsHandle(action.current.option, action.current.input.text.toString(), image))
+        const result = await qrCode.getRawData()
+        if (!result){
+            throw new Error('generated error')
+        }
+        output = await Text.fromBlob(result)
     } catch (e) {
-        error = $error(e);
+        output = Text.fromError($error(e))
     }
+}
+
+const uploadHandle = async (value: File) => {
+    image = (await Text.fromBlob(value)).setFileName(value.name)
 }
 
 watch(
@@ -129,14 +131,4 @@ watch(
     () => update(),
     {immediate: true, deep: true}
 )
-
-const copy = () => {
-    if (container) {
-        action.success({copy_image: (container?.childNodes[0] as HTMLCanvasElement).toDataURL(), is_save: false})
-    }
-}
-
-const uploadHandle = async (value: File) => {
-    image = (await Text.fromBlob(value)).setFileName(value.name)
-}
 </script>
