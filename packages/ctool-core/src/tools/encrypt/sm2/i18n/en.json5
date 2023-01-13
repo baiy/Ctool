@@ -4,5 +4,6 @@
     "private_key": "Private Key",
     "source_data": "Source Data",
     "sign_value": "Sign Value",
-    "userId": "UserId"
+    "userId": "UserId",
+    "public_key_error": "Public Key Format Error"
 }
