@@ -59,7 +59,14 @@ const output = $computed<Text>(() => {
         return action.current.input.text
     }
     try {
-        let result = sm2.doEncrypt(action.current.input.text.toUint8Array(), action.current.option.public_key, action.current.option.cipher_mode as CipherMode)
+        let publicKey = action.current.option.public_key
+        if(publicKey.length == 128){
+            publicKey = '04'+publicKey
+        } else if(publicKey.length != 130 || !publicKey.startsWith('04')) {
+            return Text.fromError($error($t(`public_key_error`)))
+        }
+        let result = sm2.doEncrypt(Array.from(action.current.input.text.toUint8Array()),
+        publicKey, action.current.option.cipher_mode as CipherMode)
         return Text.fromHex(result)
     } catch (e) {
         return Text.fromError($error(e))

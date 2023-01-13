@@ -66,7 +66,14 @@ const output = $computed<Text>(() => {
         return action.current.signValue.text
     }
     try {
-        let verifyResult= sm2.doVerifySignature(action.current.sourceData.text.toUint8Array(), action.current.signValue.text.toHexString(), action.current.option.public_key, {hash: true, userId: action.current.option.user_id})
+        let publicKey = action.current.option.public_key
+        if(publicKey.length == 128){
+            publicKey = '04'+publicKey
+        } else if(publicKey.length != 130 || !publicKey.startsWith('04')) {
+            return Text.fromError($error($t(`public_key_error`)))
+        }
+        let verifyResult= sm2.doVerifySignature(Array.from(action.current.sourceData.text.toUint8Array()),
+        action.current.signValue.text.toHexString(), publicKey, {hash: true, userId: action.current.option.user_id})
         if (!verifyResult) {
             return Text.fromString($t(`sign_verify_fail`))
         }
