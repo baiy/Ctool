@@ -125,6 +125,10 @@ class Text {
         return (Buffer.from(this.uint.uint8Array).toString('hex'))[options.caps === "upper" ? "toUpperCase" : 'toLowerCase']()
     }
 
+    toUint8Array() {
+        return this.uint.uint8Array
+    }
+
     toArray() {
         return Array.from(this.uint.uint8Array)
     }
