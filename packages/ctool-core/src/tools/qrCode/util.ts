@@ -30,40 +30,9 @@ export const defaultGenerateColor = (color: string): GenerateColor => {
     }
 }
 
-export const defaultGenerateOption = (): GenerateOptions => {
-    return {
-        tab: "common",
-        is_show: false,
-        width: 280,
-        height: 280,
-        margin: 10,
-        error_correction_level: "Q",
-        image_options: {
-            size: 4,
-            margin: 4,
-        },
-        dots_options: {
-            type: "square",
-            color: defaultGenerateColor("#000000"),
-        },
-        corners_square_options: {
-            type: "square",
-            color: defaultGenerateColor("#000000"),
-        },
-        corners_dot_options: {
-            type: "square",
-            color: defaultGenerateColor("#000000"),
-        },
-        background_options: {
-            color: defaultGenerateColor("#ffffff"),
-        }
-    }
-}
 export type GenerateOptions = {
     tab: string
     is_show: boolean
-    width: number;
-    height: number;
     margin: number;
     error_correction_level: string;
     image_options: {
@@ -87,6 +56,35 @@ export type GenerateOptions = {
     };
 };
 
+export const defaultGenerateOption = (): GenerateOptions => {
+    return {
+        tab: "common",
+        is_show: false,
+        margin: 10,
+        error_correction_level: "Q",
+        image_options: {
+            size: 4,
+            margin: 4,
+        },
+        dots_options: {
+            type: "square",
+            color: defaultGenerateColor("#000000"),
+        },
+        corners_square_options: {
+            type: "square",
+            color: defaultGenerateColor("#000000"),
+        },
+        corners_dot_options: {
+            type: "square",
+            color: defaultGenerateColor("#000000"),
+        },
+        background_options: {
+            color: defaultGenerateColor("#ffffff"),
+        }
+    }
+}
+
+
 const generateOptionsColorHandle = (option: GenerateColor) => {
     if (!option.is_gradient) {
         return {color: option.simple, gradient: undefined}
@@ -97,10 +95,11 @@ const generateOptionsColorHandle = (option: GenerateColor) => {
 
 export const generateOptionsHandle = (_option: GenerateOptions, data: string, image: Text): Options => {
     const option = !_option.is_show ? defaultGenerateOption() : cloneDeep(_option)
+    const rate = Math.ceil(Text.fromString(data).toUint8Array().length / 100) || 1
     return {
         data,
-        width: option.width,
-        height: option.height,
+        width: Math.min(2000, rate * 300),
+        height: Math.min(2000, rate * 300),
         margin: option.margin,
         qrOptions: {
             errorCorrectionLevel: option.error_correction_level as ErrorCorrectionLevel,

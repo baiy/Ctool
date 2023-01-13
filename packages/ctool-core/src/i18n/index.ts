@@ -1,7 +1,7 @@
 import {Locale, LocaleLists} from "@/types";
 import platform from "@/helper/platform";
 import {locales} from "@/buildDataTemp";
-import {heightResizeDispatch} from "@/event";
+import event from "@/event";
 
 export const LOCALE_DETAIL = locales.detail
 // 默认语言
@@ -68,7 +68,7 @@ export const $t = (key: string, values?: Record<string, any> | [], locale?: Loca
 export const setCurrentLocale = (value: Locale) => {
     currentLocale = value
     document.getElementsByTagName('html')[0].dataset.locale = value === "_default" ? DEFAULT_LOCALE : value
-    heightResizeDispatch()
+    event.dispatch("locale_change", value)
 }
 
 // 获取当前语言

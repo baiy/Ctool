@@ -40,9 +40,6 @@ export default defineStore(
             const tool = getTool(toolExists(_tool) ? _tool : tools[0].name)
             const category = getCategory(tool.inCategory(_category) ? _category : tool.firstCategory().name)
             const feature = tool.getFeature(tool.existFeature(_feature) ? _feature : tool.firstFeature().name)
-            if (tool.name === items.tool && feature.name === items.feature){
-                return;
-            }
             const query: Record<string, any> = {}
             if (history !== "") {
                 query['history'] = history

@@ -8,9 +8,8 @@
             />
             <Card :title="$t(`main_ui_config`)" class="ctool-page-option">
                 <Align horizontal="center">
-                    <Input v-model="action.current.option.private_key" :placeholder="$t(`sm2_private_key`)"/>
-                    <Input v-model="action.current.option.user_id" 
-                    :placeholder="$t(`sm2_userId`)"/>
+                    <Input v-model="action.current.option.private_key" :label="$t(`sm2_private_key`)"/>
+                    <Input v-model="action.current.option.user_id" :label="$t(`sm2_userId`)"/>
                 </Align>
                 <template #extra>
                     <Align>
@@ -38,7 +37,6 @@ import {sm2} from "sm-crypto"
 const action = useAction(await initialize({
     input: createTextInput('text'),
     option: {
-        public_key: "",
         private_key: "",
         user_id: "1234567812345678",
     },
@@ -53,8 +51,17 @@ const output = $computed<Text>(() => {
         return action.current.input.text
     }
     try {
-        return Text.fromHex(sm2.doSignature(Array.from(action.current.input.text.toUint8Array()), 
-        action.current.option.private_key, {hash: true, userId: action.current.option.user_id}))
+        return Text.fromHex(
+            sm2.doSignature(
+                action.current.input.text.toUint8Array() as any,
+                action.current.option.private_key,
+                {
+                    hash: true,
+                    // @ts-ignore
+                    userId: action.current.option.user_id
+                }
+            )
+        )
     } catch (e) {
         return Text.fromError($error(e))
     }

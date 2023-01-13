@@ -1,6 +1,7 @@
 <template>
     <div class="ctool-header">
         <div class="ctool-header-top">
+            <Github />
             <div class="ctool-header-top-left">
                 <div
                     v-for="name in allCategories"
@@ -56,6 +57,7 @@ import {getTool, toolExists, FeatureInterface, categories, getCategory, category
 import Search from "../../Search.vue";
 import Tools from "../../Tools.vue";
 import {nextTick, watch} from "vue";
+import Github from "../../Github.vue";
 
 const storeOperate = useOperate()
 const storeSetting = useSetting()
@@ -127,7 +129,7 @@ watch(() => {
     height: 33px;
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: minmax(0px, 1fr) auto;
+    grid-template-columns: auto minmax(0px, 1fr) auto;
     border-bottom: solid 1px var(--ctool-border-color);
     background-color: var(--ctool-block-title-bg-color);
     overflow: hidden;
@@ -136,6 +138,7 @@ watch(() => {
 .ctool-header-top-left {
     display: inline-flex;
     align-items: center;
+    padding-left: 5px;
 }
 
 .ctool-header-top-right {
@@ -148,11 +151,11 @@ watch(() => {
     display: inline-flex;
     height: 100%;
     align-items: center;
-    padding: 0 .5rem;
+    padding: 0 .85rem;
     cursor: pointer;
 }
-[data-locale="zh_CN"] .ctool-header-category{
-    padding: 0 1rem;
+[data-locale="en"] .ctool-header-category{
+    padding: 0 .3rem;
 }
 .ctool-header-middle {
     display: flex;
@@ -187,6 +190,7 @@ watch(() => {
     border-bottom: solid 1px var(--ctool-border-color);
     overflow: hidden;
     display: flex;
+    justify-content: center;
 }
 
 .ctool-header-feature {

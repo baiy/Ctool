@@ -1,10 +1,7 @@
 <template>
     <div class="ctool-bottom">
         <div class="ctool-bottom-left">
-            <Github/>
-        </div>
-        <div class="ctool-bottom-middle">
-            <Notice center/>
+            <Notice />
         </div>
         <Align class="ctool-bottom-right" :gap="'large'">
             <span style="display: inline-flex;" :class="historyExist ? `ctool-bottom-exist-history` : ''">
@@ -36,7 +33,6 @@ import {openUrl} from "@/helper/helper"
 import getHistoryInstance from "@/helper/history";
 import {onMounted, onUnmounted} from "vue";
 import event from "@/event";
-import Github from "../../Github.vue";
 
 const storeOperate = useOperate()
 
@@ -63,7 +59,7 @@ onUnmounted(() => {
     padding: 0 10px 0 5px;
     display: grid;
     column-gap: 5px;
-    grid-template-columns: auto minmax(0px, 1fr) auto;
+    grid-template-columns: minmax(0px, 1fr) auto;
     align-items: center;
     border-top: 1px var(--ctool-border-color) solid;
     background-color: var(--ctool-block-title-bg-color);

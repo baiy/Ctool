@@ -4,6 +4,8 @@ import {throttle, isArray} from "lodash"
 const events = [
     // 显示主题变化
     'theme_change',
+    // 切换显示语言
+    'locale_change',
     // 窗口高度调整
     'window_height_resize',
     // 组件尺寸更新

@@ -1,18 +1,29 @@
 <template>
     <Display position="bottom-right" :style="style">
-        <Textarea :model-value="error" v-if="error !== ''"/>
+        <Textarea :model-value="error" v-if="error !== ''" readonly/>
+        <Display position="center" v-else-if="result === ''" style="height: 100%;">
+            <Textarea readonly/>
+            <template #extra>
+                <Exception/>
+            </template>
+        </Display>
         <template v-else>
-            <Textarea :model-value="result" :placeholder="placeholder" v-if="['text', 'base64', 'hex', 'hex_dump'].includes(current.type)"/>
+            <Textarea :model-value="result" readonly :placeholder="placeholder" v-if="['text', 'base64', 'hex', 'hex_dump'].includes(current.type)"/>
             <Card v-else height="100%">
                 <Align direction="vertical" horizontal="center" vertical="center">
                     <img
                         v-if="current.type === 'image'"
-                        @click="$copy(result)"
+                        @click="copyImage(result)"
                         :src="result"
                         style="cursor:pointer;border: 1px dashed #666;max-width: 80%;max-height: 80%;"
                     />
                     <template v-if="['image','down'].includes(current.type)">
-                        <span style="font-size: .75rem;color: var(--ctool-placeholder-text-color);">{{ content.name() }}</span>
+                        <span style="font-size: .75rem;color: var(--ctool-placeholder-text-color);">
+                            {{ content.name() }}
+                            <template v-if="content.isImage()">
+                                {{content.imageSizeString ? `(${content.imageSizeString})` : ''}}
+                            </template>
+                        </span>
                         <Button size="small" type="primary" @click="down">{{ $t(`main_ui_down`) }}</Button>
                     </template>
                 </Align>
@@ -20,51 +31,53 @@
         </template>
         <template #extra>
             <Align>
-                <template v-if="current.type === 'base64'">
-                    <Bool size="small" v-model="current.option.base64.is_url_safe" border :label="$t(`component_content_output_url_safe`)"
-                          :disabled="current.option.base64.data_url_show"/>
-                    <Bool size="small" v-model="current.option.base64.data_url_show" border :label="$t(`component_content_output_data_url`)"/>
-                </template>
-                <template v-if="current.type === 'text'">
-                    <Select
-                        v-if="encoding && current.type === 'text'"
-                        size="small"
-                        :options="[
+                <template v-if="result !== ''">
+                    <template v-if="current.type === 'base64'">
+                        <Bool size="small" v-model="current.option.base64.is_url_safe" border :label="$t(`component_content_output_url_safe`)"
+                              :disabled="current.option.base64.data_url_show"/>
+                        <Bool size="small" v-model="current.option.base64.data_url_show" border :label="$t(`component_content_output_data_url`)"/>
+                    </template>
+                    <template v-if="current.type === 'text'">
+                        <Select
+                            v-if="encoding && current.type === 'text'"
+                            size="small"
+                            :options="[
                             {
                                 label:`${$t('component_content_output_analyse_encoding')}: ${analyseEncoding}`,
                                 value:`analyse`
                             },
                             ...encodings
                             ]"
-                        v-model="current.option.text.encoding"
-                    />
-                </template>
-                <template v-if="current.type === 'hex'">
-                    <template v-if="current.option.hex.type === 'dump'">
-                        <Select
-                            :label="$t(`component_content_output_hex_dump_format`)"
-                            size="small"
-                            v-model="current.option.hex.format" :options="hexFormat"
-                        />
-                        <InputNumber
-                            size="small"
-                            v-model="current.option.hex.width"
-                            :max="60"
-                            :min="1"
-                            :width="90"
-                            :label="$t(`component_content_output_hex_dump_width`)"
+                            v-model="current.option.text.encoding"
                         />
                     </template>
-                    <Select
-                        :label="$t(`component_content_output_hex_caps`)"
-                        size="small"
-                        v-model="current.option.hex.caps" :options="hexCaps"
-                    />
-                    <Select
-                        :label="$t(`component_content_output_hex_type`)"
-                        size="small"
-                        v-model="current.option.hex.type" :options="hexType"
-                    />
+                    <template v-if="current.type === 'hex'">
+                        <template v-if="current.option.hex.type === 'dump'">
+                            <Select
+                                :label="$t(`component_content_output_hex_dump_format`)"
+                                size="small"
+                                v-model="current.option.hex.format" :options="hexFormat"
+                            />
+                            <InputNumber
+                                size="small"
+                                v-model="current.option.hex.width"
+                                :max="60"
+                                :min="1"
+                                :width="90"
+                                :label="$t(`component_content_output_hex_dump_width`)"
+                            />
+                        </template>
+                        <Select
+                            :label="$t(`component_content_output_hex_caps`)"
+                            size="small"
+                            v-model="current.option.hex.caps" :options="hexCaps"
+                        />
+                        <Select
+                            :label="$t(`component_content_output_hex_type`)"
+                            size="small"
+                            v-model="current.option.hex.type" :options="hexType"
+                        />
+                    </template>
                 </template>
                 <Select
                     size="small"
@@ -79,10 +92,12 @@
 
 <script setup lang="ts">
 import {TextOutput, createTextOutput} from "./index"
+import {copyImage as _copyImage} from "@/helper/clipboard"
 import {nextTick, PropType, StyleValue, watch} from "vue"
 import Text, {encodings, Encoding} from "@/helper/text"
 import {textOutputEncoderLists, TextOutputEncoderType} from "@/types"
 import {sizeConvert} from "@/components/util";
+import Message from "@/helper/message";
 
 const props = defineProps({
     modelValue: {
@@ -90,7 +105,7 @@ const props = defineProps({
         default: () => createTextOutput()
     },
     height: {
-        type: [String,Number],
+        type: [String, Number],
         default: ""
     },
     placeholder: {
@@ -157,6 +172,12 @@ let result = $ref("")
 
 let analyseEncoding = $ref<Encoding>("utf-8")
 
+const copyImage = (base64: string) => {
+    _copyImage(base64, () => {
+        Message.success($t('main_ui_copy_image_ok'))
+    })
+}
+
 watch(() => {
     return {
         data: props.content,
@@ -192,6 +213,10 @@ watch(() => {
                 r = data.toHex(option.hex)
                 break;
             case "image":
+                if (!data.isImage()) {
+                    throw new Error("Not Image File")
+                }
+                await data.calculateImageSize()
                 r = data.toDataUrl()
                 break;
         }

@@ -8,8 +8,8 @@
             />
             <Card :title="$t(`main_ui_config`)" class="ctool-page-option">
                 <Align horizontal="center">
-                    <Input v-model="action.current.option.public_key" :placeholder="$t(`sm2_public_key`)"/>
-                    <Input v-model="action.current.option.private_key" :placeholder="$t(`sm2_private_key`)"/>
+                    <Input v-model="action.current.option.public_key" :label="$t(`sm2_public_key`)"/>
+                    <Input v-model="action.current.option.private_key" :label="$t(`sm2_private_key`)"/>
                 </Align>
                 <template #extra>
                     <Align>
@@ -39,7 +39,6 @@ import {useAction, initialize} from "@/store/action"
 import {createTextInput, createTextOutput} from "@/components/text"
 import Text from "@/helper/text"
 import {CipherMode, sm2} from "sm-crypto"
-import {Buffer} from 'buffer'
 
 const action = useAction(await initialize({
     input: createTextInput('text'),
@@ -59,14 +58,7 @@ const output = $computed<Text>(() => {
         return action.current.input.text
     }
     try {
-        let publicKey = action.current.option.public_key
-        if(publicKey.length == 128){
-            publicKey = '04'+publicKey
-        } else if(publicKey.length != 130 || !publicKey.startsWith('04')) {
-            return Text.fromError($error($t(`public_key_error`)))
-        }
-        let result = sm2.doEncrypt(Array.from(action.current.input.text.toUint8Array()),
-        publicKey, action.current.option.cipher_mode as CipherMode)
+        let result = sm2.doEncrypt(action.current.input.text.toUint8Array(), action.current.option.public_key, action.current.option.cipher_mode as CipherMode)
         return Text.fromHex(result)
     } catch (e) {
         return Text.fromError($error(e))

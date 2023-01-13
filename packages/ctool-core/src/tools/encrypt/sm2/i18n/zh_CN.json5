@@ -4,6 +4,6 @@
     "private_key": "私钥",
     "source_data": "签名原文",
     "sign_value": "签名值",
-    "userId": "UserId(默认: 1234567812345678)",
+    "userId": "UserId",
     "public_key_error": "公钥格式错误"
 }

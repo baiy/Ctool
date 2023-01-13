@@ -18,6 +18,8 @@ const extMimeList: Map<string, string> = extList()
 class Text {
     private uint: Uint
     private fileName: string = ""
+    private width = 0
+    private height = 0
     // 是否为错误内容类型
     private _isError: boolean = false
 
@@ -35,7 +37,7 @@ class Text {
         return instance
     }
 
-    static fromBlob(item: Blob) {
+    static async fromBlob(item: Blob) {
         return new Promise<Text>((resolve) => {
             const reader = new FileReader()
             reader.readAsArrayBuffer(item)
@@ -45,7 +47,7 @@ class Text {
         })
     }
 
-    static fromUrl(url: string) {
+    static async fromUrl(url: string) {
         return new Promise<Text>((resolve) => {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', url);
@@ -77,6 +79,10 @@ class Text {
     }
 
     static fromBuffer(item: Buffer): Text {
+        return Text.fromUint8Array(Uint8Array.from(item))
+    }
+
+    static fromArray(item: number[]): Text {
         return Text.fromUint8Array(Uint8Array.from(item))
     }
 
@@ -201,6 +207,31 @@ class Text {
 
     analyseEncoding() {
         return this.uint.analyseEncoding()
+    }
+
+    async calculateImageSize() {
+        return new Promise<boolean>((resolve) => {
+            this.width = 0;
+            this.height = 0;
+            if (!this.isImage()) {
+                resolve(false)
+            }
+            const img = new Image();
+            img.onload = () => {
+                this.width = Math.ceil(img.width);
+                this.height = Math.ceil(img.height);
+                resolve(true)
+            }
+            img.onerror = () => resolve(false)
+            img.src = this.toDataUrl();
+        })
+    }
+
+    get imageSizeString() {
+        if (!this.width || !this.height) {
+            return ""
+        }
+        return `${this.width}x${this.height}`
     }
 }
 
