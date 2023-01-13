@@ -865,6 +865,9 @@
 				"sm2_userId": {
 					"message": "UserId"
 				},
+				"sm2_public_key_error": {
+					"message": "公钥格式错误"
+				},
 				"sign_sign_data": {
 					"message": "待签名内容/验签数据"
 				},
@@ -3427,6 +3430,9 @@
 				},
 				"sm2_userId": {
 					"message": "UserId"
+				},
+				"sm2_public_key_error": {
+					"message": "Public Key Format Error"
 				},
 				"sign_sign_data": {
 					"message": "Sign Data/Verify data"
