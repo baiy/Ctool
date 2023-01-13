@@ -66,10 +66,4 @@ const output = $computed<Text>(() => {
         return Text.fromError($error(e))
     }
 })
-
-const generateKeypair = () => {
-    let keypair = sm2.generateKeyPairHex()
-    action.current.option.private_key = keypair.publicKey
-    action.current.option.private_key = keypair.privateKey
-}
 </script>

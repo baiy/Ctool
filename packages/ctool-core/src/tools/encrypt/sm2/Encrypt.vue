@@ -65,8 +65,8 @@ const output = $computed<Text>(() => {
             return Text.fromError($error($t(`public_key_error`)))
         }
         let result = sm2.doEncrypt(
-            action.current.input.text.toArray(), 
-            publicKey, 
+            action.current.input.text.toArray() as any,
+            publicKey,
             action.current.option.cipher_mode as CipherMode)
         return Text.fromHex(result)
     } catch (e) {
