@@ -67,10 +67,17 @@ const output = $computed<Text>(() => {
         return action.current.signValue.text
     }
     try {
+        let publicKey = action.current.option.public_key
+        if(publicKey.length == 128){
+            publicKey = '04'+publicKey
+        } else if(publicKey.length != 130 || !publicKey.startsWith('04')) {
+            return Text.fromError($error($t(`public_key_error`)))
+        }
+
         let verifyResult = sm2.doVerifySignature(
-            action.current.sourceData.text.toUint8Array() as any,
+            action.current.sourceData.text.toArray() as any,
             action.current.signValue.text.toHexString(),
-            action.current.option.public_key,
+            publicKey,
             {
                 hash: true,
                 // @ts-ignore

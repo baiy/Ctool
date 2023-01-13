@@ -53,7 +53,7 @@ const output = $computed<Text>(() => {
     try {
         return Text.fromHex(
             sm2.doSignature(
-                action.current.input.text.toUint8Array() as any,
+                action.current.input.text.toArray() as any,
                 action.current.option.private_key,
                 {
                     hash: true,
