@@ -2,8 +2,9 @@
     "name": "ctool-core",
     "private": true,
     "scripts": {
-        "dev": "vite --force",
-        "build": "vue-tsc --noEmit && vite build",
+        "check": "vue-tsc --noEmit",
+        "dev": "pnpm run check && vite --force",
+        "build": "pnpm run check && vite build",
         "preview": "vite preview"
     },
     "dependencies": {

@@ -1,8 +1,27 @@
-# 编译核心文件 发布 github page
-name: Build Ctool Core
-on: [ workflow_dispatch ]
+# 代码检查
+name: Check Ctool
+on:
+  pull_request:
+    branches:
+      - 'master'
+    paths:
+      - 'packages/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'release.js'
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'packages/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'release.js'
+
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
 
     steps:
@@ -38,11 +57,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build Core
-        run: pnpm run build
-
-      - name: Deploy web to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./packages/ctool-core/dist
+      - name: Check
+        run: pnpm run check
