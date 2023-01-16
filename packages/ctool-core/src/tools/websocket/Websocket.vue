@@ -80,7 +80,7 @@ const log = async (content, type = "other") => {
     state.logs.push({content, type, time: dayjs().format("HH:mm:ss")});
     await nextTick()
 
-    if(action.current.keepScroll) {
+    if (action.current.keepScroll) {
         const container = document.querySelector('.ctool-websocket-logs .ctool-card-body');
         if (container) {
             container.scrollTop = container.scrollHeight
