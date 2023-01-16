@@ -12,5 +12,6 @@
     "connect_ok": "Connect Success",
     "close_ok": "Close Success",
     "connect_start": "Connecting:{0}",
-    "close_start": "Closing:{0}"
+    "close_start": "Closing:{0}",
+    "keep_scroll": "Keep Scroll"
 }

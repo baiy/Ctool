@@ -12,5 +12,6 @@
     "connect_ok": "连接成功",
     "close_ok": "断开成功",
     "connect_start": "开始连接:{0}",
-    "close_start": "开始中断:{0}"
+    "close_start": "开始中断:{0}",
+    "keep_scroll": "保持滚动"
 }

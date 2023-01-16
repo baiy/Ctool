@@ -28,7 +28,7 @@
                     <Align>
                         <Button :size="'small'" :type="'primary'" :text="$t(`main_ui_copy`)" @click="()=>$copy(JSON.stringify(state.logs))"/>
                         <Button :size="'small'" :type="'danger'" :text="$t(`main_ui_clear`)" @click="state.logs = []"/>
-                        <Bool size="small" v-model="action.current.keepScroll" border :label="$t(`tool_keepScroll`)" @change="action.save()"/>
+                        <Bool size="small" v-model="action.current.keepScroll" border :label="$t('websocket_keep_scroll')" @change="action.save()"/>
                     </Align>
                 </template>
                 <Align v-if="state.logs.length < 1" horizontal="center" vertical="center">
