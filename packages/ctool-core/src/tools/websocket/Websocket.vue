@@ -28,6 +28,7 @@
                     <Align>
                         <Button :size="'small'" :type="'primary'" :text="$t(`main_ui_copy`)" @click="()=>$copy(JSON.stringify(state.logs))"/>
                         <Button :size="'small'" :type="'danger'" :text="$t(`main_ui_clear`)" @click="state.logs = []"/>
+                        <Bool size="small" v-model="action.current.keepScroll" border :label="$t(`tool_keepScroll`)" @change="action.save()"/>
                     </Align>
                 </template>
                 <Align v-if="state.logs.length < 1" horizontal="center" vertical="center">
@@ -59,6 +60,7 @@ import {nextTick} from "vue";
 
 const action = useAction(await initialize({
     url: "wss://echo.websocket.events",
+    keepScroll: true
 }, {
     paste: (str) => /^ws/.test(str)
 }))
@@ -77,9 +79,12 @@ const state = $ref<{
 const log = async (content, type = "other") => {
     state.logs.push({content, type, time: dayjs().format("HH:mm:ss")});
     await nextTick()
-    const container = document.querySelector('.ctool-websocket-logs .ctool-card-body');
-    if (container) {
-        container.scrollTop = container.scrollHeight
+
+    if(action.current.keepScroll) {
+        const container = document.querySelector('.ctool-websocket-logs .ctool-card-body');
+        if (container) {
+            container.scrollTop = container.scrollHeight
+        }
     }
 }
 const connect = () => {
