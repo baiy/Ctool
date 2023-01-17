@@ -39,7 +39,9 @@ jobs:
         run: pnpm install
 
       - name: Build Core
-        run: pnpm run build
+        run: |
+          export NODE_OPTIONS="--max_old_space_size=4096"
+          pnpm run build
 
       - name: Deploy web to gh-pages
         uses: peaceiris/actions-gh-pages@v3
