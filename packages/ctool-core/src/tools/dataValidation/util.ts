@@ -9,7 +9,18 @@ export class Bcc {
     private readonly _error: string = ""
 
     constructor(input: Text) {
-        
+        if (input.isError()){
+            this._error = input.toString()
+            return;
+        }
+        if (!input.isAscii()) {
+            this._error = "Input Error"
+            return;
+        }
+        input.toHexArray().forEach(item => {
+            this._dec = this._dec ^ parseInt(item, 16);
+            this._count++;
+        })
     }
 
     isError() {
