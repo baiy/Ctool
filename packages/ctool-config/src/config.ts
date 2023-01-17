@@ -203,12 +203,17 @@ export let _tools = {
         parent_directory: "",
         keywords: []
     },
+    dataValidation: {
+        feature: ['bcc', 'crc', 'lrc'],
+        parent_directory: "",
+        keywords: ['异或校验', '循环冗余校验', '纵向冗余校验']
+    },
 } as const;
 
 // 分类 配置
 export const _categoryTool: Record<CategoryType, ToolType[]> = {
     encryption: ["hash", "aes", "des", "tripleDes", "rc4", "rabbit", "sm2", "sm4", "sign", "base64", "bcrypt"],
-    check: ["sign", "regex", "diffs", "crontab", "bcrypt"],
+    check: ["sign", "regex", "diffs", "crontab", "bcrypt", "dataValidation"],
     encoder_decoder: ["base64", "url", "unicode", "jwt", "hexString", "html"],
     conversion: ["json", "pinyin", "radix", "serialize", "unit", "time", "ascii", "variableConversion", "hexString", "arm", "httpSnippet"],
     generate: ["qrCode", "barcode", "randomString", "uuid", "binary", "ipcalc", "sqlFillParameter", "httpSnippet"],

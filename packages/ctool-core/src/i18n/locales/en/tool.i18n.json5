@@ -73,5 +73,9 @@
     "bcrypt": "Bcrypt",
     "ipcalc": "Ipcalc",
     "sqlFillParameter": 'Fill SQL Parameters',
-    "httpSnippet": 'Http Request Code'
+    "httpSnippet": 'Http Request Code',
+    "dataValidation": 'BCC/CRC/LRC Validation',
+    "dataValidation_bcc": 'BCC',
+    "dataValidation_crc": 'CRC',
+    "dataValidation_lrc": 'LRC'
 }
