@@ -26,7 +26,6 @@
         "axios": "^0.27.2",
         "bcryptjs": "^2.4.3",
         "bignumber.js": "^9.1.1",
-        "buffer": "^6.0.3",
         "chardet": "^1.5.1",
         "chinese-simple2traditional": "^1.1.0",
         "cron-parser": "^4.7.1",
@@ -68,7 +67,6 @@
         "pinyin-pro": "^3.13.0",
         "prettier": "^2.8.3",
         "prettier-plugin-java": "^2.0.0",
-        "process": "^0.11.10",
         "qr-code-styling": "github:baiy/styled-qr-code",
         "qrcode-parser": "^2.0.4",
         "qs": "^6.11.0",
@@ -114,9 +112,9 @@
         "@types/ws": "^8.5.4",
         "@vitejs/plugin-vue": "^4.0.0",
         "@vue/runtime-core": "^3.2.45",
-        "esbuild": "^0.15.18",
         "typescript": "^4.9.4",
         "vite": "^4.0.4",
+        "vite-plugin-node-polyfills": "^0.7.0",
         "vue-tsc": "^1.0.24"
     }
 }
