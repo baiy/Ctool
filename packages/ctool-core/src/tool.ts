@@ -1,4 +1,3 @@
-import './polyfill'
 import {createApp} from 'vue'
 import {pinia} from '@/helper/pinia'
 import platform from '@/helper/platform'

@@ -1,15 +1,19 @@
 import {resolve} from 'path'
 import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
+import {nodePolyfills} from 'vite-plugin-node-polyfills'
 // @ts-ignore
 import vitePluginAdapter from './src/helper/vitePluginAdapter'
 
 export default defineConfig({
     base: "./",
-    plugins: [vue({reactivityTransform: true}), vitePluginAdapter()],
+    plugins: [
+        nodePolyfills(),
+        vue({reactivityTransform: true}),
+        vitePluginAdapter()
+    ],
     resolve: {
         alias: {
-            // './runtimeConfig': './runtimeConfig.browser',
             "@": resolve(__dirname, "./src"),
         },
     },
@@ -17,8 +21,7 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 index: resolve(__dirname, 'index.html'),
-                tool: resolve(__dirname, 'tool.html'),
-                polyfill: resolve(__dirname, 'src/polyfill.ts'),
+                tool: resolve(__dirname, 'tool.html')
             }
         },
         reportCompressedSize: false
