@@ -75,7 +75,7 @@ class Text {
     }
 
     static fromHex(str: string): Text {
-        return Text.fromBuffer(Buffer.from(str.trim(), 'hex'))
+        return Text.fromBuffer(Buffer.from(str.replaceAll(" ", "").trim(), 'hex'))
     }
 
     static fromBuffer(item: Buffer): Text {
@@ -116,6 +116,12 @@ class Text {
 
     toHexString() {
         return this.toHex({type: "hex"})
+    }
+    
+    toHexArray() {
+        return this.toArray().map(item => {
+            return Number(item).toString(16)
+        }) || []
     }
 
     toHex(options: hexyFormatOptions & { type: "hex" | "dump" }) {
@@ -190,6 +196,18 @@ class Text {
 
     isBinary() {
         return !this.isEmpty() && isBinary("", Buffer.from(this.uint.localUint8Array()))
+    }
+    
+    isAscii() {
+        if (this.isEmpty()) {
+            return false
+        }
+        for (let n of this.toArray()) {
+            if (n > 127) {
+                return false
+            }
+        }
+        return true
     }
 
     isEmpty() {
