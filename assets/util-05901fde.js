@@ -1,0 +1,3 @@
+import{a as c}from"./index-3289c9d5.js";import{J as h}from"./index-395898e3.js";const m=(r,i,t,u)=>{if(!r||r.startsWith("#"))return r;if(!u)return t+r;const s=i*2;let o="";for(let e=0;e<r.length;e+=s){const a=r.slice(e,e+s);for(let n=a.length;n>0;n-=2)o+=a.slice(n-2,n)}return t+o},d=(r,i,{response:t,prefix_0x:u=!1,swap_endian:s=!1})=>{var a,n;if(t==="")return"";if(t.code!==0)return t.info;let o=(n=(a=t.data[r])==null?void 0:a[i])==null?void 0:n[1];if(o===void 0)return"";if(!u&&!s)return o;const e={arm64:4,arm:4,armbe:4,thumb:2,thumbbe:2};return o.split(`
+`).map(l=>m(l,e[i],u?"0x":"",s)).join(`
+`)},p=r=>c({url:"https://www.baiy.org/chrome_tool/armconverter/",method:"post",data:h.stringify(r),headers:{"Content-Type":"application/json"}});export{d as h,p as r};

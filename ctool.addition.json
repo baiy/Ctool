@@ -598,6 +598,9 @@
 				"tool_sqlFillParameter": {
 					"message": "SQL参数填充"
 				},
+				"tool_httpSnippet": {
+					"message": "Http请求代码"
+				},
 				"tool_hash_hash": {
 					"message": "哈希(hash)"
 				},
@@ -821,6 +824,12 @@
 					"message": "SQL参数填充"
 				},
 				"tool_sqlFillParameter_sqlFillParameter_keywords": {
+					"message": ""
+				},
+				"tool_httpSnippet_httpSnippet": {
+					"message": "Http请求代码"
+				},
+				"tool_httpSnippet_httpSnippet_keywords": {
 					"message": ""
 				},
 				"hash_uppercase": {
@@ -1388,6 +1397,9 @@
 					"placeholders": [
 						"0"
 					]
+				},
+				"websocket_keep_scroll": {
+					"message": "保持滚动"
 				},
 				"unit_length": {
 					"message": "长度"
@@ -3155,6 +3167,9 @@
 				"tool_sqlFillParameter": {
 					"message": "Fill SQL Parameters"
 				},
+				"tool_httpSnippet": {
+					"message": "Http Request Code"
+				},
 				"tool_hash_hash": {
 					"message": "Hash"
 				},
@@ -3387,6 +3402,12 @@
 					"message": "Fill SQL Parameters"
 				},
 				"tool_sqlFillParameter_sqlFillParameter_keywords": {
+					"message": ""
+				},
+				"tool_httpSnippet_httpSnippet": {
+					"message": "Http Request Code"
+				},
+				"tool_httpSnippet_httpSnippet_keywords": {
 					"message": ""
 				},
 				"hash_uppercase": {
@@ -3954,6 +3975,9 @@
 					"placeholders": [
 						"0"
 					]
+				},
+				"websocket_keep_scroll": {
+					"message": "Keep Scroll"
 				},
 				"unit_length": {
 					"message": "Length"
