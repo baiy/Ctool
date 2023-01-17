@@ -73,4 +73,5 @@
     "bcrypt": "Bcrypt",
     "ipcalc": "Ipcalc",
     "sqlFillParameter": 'Fill SQL Parameters',
+    "httpSnippet": 'Http Request Code'
 }
