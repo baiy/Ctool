@@ -1,5 +1,5 @@
 <template>
-    <div :style="style" class="ctool-message">
+    <div :style="style" class="ctool-message" ref="container">
         <Transition name="ctool-message">
             <div class="ctool-message-block" v-if="show" :class="`ctool-message-${type}`">
                 <Icon :name="type" style="margin-right: 5px"/>
@@ -9,16 +9,13 @@
                     </template>
                     <pre v-else><code>{{ info }}</code></pre>
                 </div>
-                <template v-if="showClose">
-                    <Icon name="close" :size="10" hover style="margin-left: 5px" @click="close()"/>
-                </template>
             </div>
         </Transition>
     </div>
 </template>
 <script setup lang="ts">
 // 消息提示
-import {PropType, StyleValue} from "vue";
+import {PropType, StyleValue, onMounted, onUnmounted} from "vue";
 import {MessageType} from '@/types'
 import Icon from './ui/Icon.vue'
 import {sizeConvert} from './util'
@@ -37,10 +34,6 @@ const props = defineProps({
         type: Number,
         default: 0
     },
-    showClose: {
-        type: Boolean,
-        default: true
-    },
     close: {
         type: Function,
         default() {
@@ -50,7 +43,7 @@ const props = defineProps({
 
 const emit = defineEmits<{ (e: 'click'): void }>()
 
-let extra = $ref<HTMLElement | null>(null)
+const container = $ref<HTMLDialogElement | null>(null)
 
 let show = $ref(false)
 
@@ -67,6 +60,20 @@ const style = $computed(() => {
         "--position-top": sizeConvert(props.offset)
     }
     return css
+})
+
+const clickClose = (event: MouseEvent) => {
+    if (!container?.contains(event.target as any)) {
+        props.close()
+    }
+}
+
+onMounted(() => {
+    setTimeout(() => document.addEventListener('click', clickClose), 100)
+})
+
+onUnmounted(() => {
+    document.removeEventListener('click', clickClose);
 })
 
 defineExpose({open, exposeClose});
@@ -96,11 +103,13 @@ defineExpose({open, exposeClose});
     border-radius: var(--border-radius);
     padding: .85rem 1.2rem;
 }
-.ctool-message-block .ctool-message-content{
+
+.ctool-message-block .ctool-message-content {
     max-height: calc(100vh - 6rem);
     overflow-y: auto;
 }
-.ctool-message pre,.ctool-message pre>code{
+
+.ctool-message pre, .ctool-message pre > code {
     color: currentColor;
     background-color: transparent;
 }

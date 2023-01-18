@@ -1,6 +1,6 @@
 <template>
-    <Display position="top-right">
-        <Display position="bottom-right" :style="style">
+    <Display position="top-right" toggle>
+        <Display position="bottom-right" :style="style" toggle>
             <Textarea
                 v-if="['http_query_string','csv'].includes(current.type)"
                 :model-value="result"

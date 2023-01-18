@@ -1,5 +1,5 @@
 <template>
-    <Display :position="toolbar" class="ctool-code-editor" :style="{height:`${sizeConvert(height)}`,width:`100%`}">
+    <Display :position="toolbar" class="ctool-code-editor" :style="{height:`${sizeConvert(height)}`,width:`100%`}" toggle>
         <div ref="container" style="height: 100%;width: 100%" @contextmenu="contextMenuOpen($event)"></div>
         <context-menu v-model:show="contextMenuConfig.show" :options="contextMenuConfig.options">
             <context-menu-item icon="copy" :disabled="contextMenuConfig.selected_text === ''" :label="$t(`main_ui_copy`)" @click="contextMenuClick('copy')"/>

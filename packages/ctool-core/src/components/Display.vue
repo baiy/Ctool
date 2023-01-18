@@ -3,10 +3,35 @@
         <div class="ctool-display" v-bind="$attrs">
             <slot></slot>
             <div :style="extraStyle" style="display:inline-flex;">
-                <span ref="extra" style="display:inline-flex;align-items: center">
-                    <slot name="extra">
-                        <Button v-if="text !== ''" :type="type" size="small" @click="click">{{ text }}</Button>
-                    </slot>
+                <span
+                    ref="extra"
+                    :class="[
+                        `ctool-display-extra`,
+                        `ctool-display-extra-${position}`,
+                        position.includes('right') ? 'ctool-display-extra-right' : '',
+                        position.includes('left') ? 'ctool-display-extra-left' : '',
+                        `ctool-display-extra-${isShowExtra ? 'show' : 'hide'}`
+                    ]"
+                >
+                    <template v-if="isToggle && position.includes('right')">
+                        <Tooltip :content="$t(isShowExtra ? 'component_display_fold_option' : 'component_display_expand_option')">
+                            <div class="ctool-display-toggle" @click="extraToggle">
+                                <Icon :size="10" :name="'toggle'" hover/>
+                            </div>
+                        </Tooltip>
+                    </template>
+                    <template v-if="isShowExtra">
+                        <slot name="extra">
+                            <Button v-if="text !== ''" :type="type" size="small" @click="click">{{ text }}</Button>
+                        </slot>
+                    </template>
+                    <template v-if="isToggle && position.includes('left')">
+                        <Tooltip :content="$t(isShowExtra ? 'component_display_fold_option' : 'component_display_expand_option')">
+                            <div class="ctool-display-toggle" @click="extraToggle">
+                                <Icon :size="10" :name="'toggle'" hover/>
+                            </div>
+                        </Tooltip>
+                    </template>
                 </span>
             </div>
         </div>
@@ -30,6 +55,10 @@ const props = defineProps({
     position: {
         type: String as PropType<DisplayPosition>,
         default: "bottom-right"
+    },
+    toggle: {
+        type: Boolean,
+        default: false
     },
     bottom: {
         type: Number,
@@ -125,7 +154,6 @@ const extraStyle = $computed(() => {
     return css
 })
 
-
 const click = () => {
     emit("click");
 }
@@ -133,11 +161,51 @@ const click = () => {
 const is = $computed(() => {
     return props.enable && (props.text !== "" || !!slots.extra)
 })
+
+let isShowExtra = $ref(true)
+
+const extraToggle = () => {
+    isShowExtra = !isShowExtra
+}
+
+const isToggle = $computed(() => {
+    return props.toggle && is && extraWidth > 0
+})
 </script>
 <style>
 .ctool-display {
     position: relative;
     display: block;
     width: 100%;
+}
+
+.ctool-display .ctool-display-extra {
+    display: inline-flex;
+    align-items: center
+}
+
+.ctool-display-toggle {
+    cursor: pointer !important;
+    height: 100%;
+    width: 24px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.ctool-display .ctool-display-extra-right .ctool-display-toggle {
+    justify-content: right;
+}
+
+.ctool-display .ctool-display-extra-left .ctool-display-toggle {
+    justify-content: left;
+}
+
+.ctool-display :is(.ctool-display-extra-hide.ctool-display-extra-right,.ctool-display-extra-show.ctool-display-extra-left) .ctool-display-toggle .ctool-icon {
+    transform: rotate(180deg);
+}
+
+.ctool-display .ctool-display-extra-hide .ctool-display-toggle {
+    width: unset;
+    height: unset;
 }
 </style>

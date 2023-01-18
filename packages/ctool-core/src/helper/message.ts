@@ -9,7 +9,6 @@ const containers = new Map<HTMLElement, {
         type: MessageType,
         info: string,
         offset: number,
-        showClose: boolean,
         duration: number,
     }
 }>();
@@ -36,7 +35,7 @@ const destroy = (container: HTMLElement) => {
     }, 300)
 }
 
-const open = (type: MessageType, info: string, {offset = 16, showClose = true, duration = 3000}: MessageOption = {}) => {
+const open = (type: MessageType, info: string, {offset = 16, duration = 3000}: MessageOption = {}) => {
     const container = document.createElement("div") as HTMLElement
     document.querySelector('#ctool-append')?.appendChild(container)
 
@@ -48,7 +47,6 @@ const open = (type: MessageType, info: string, {offset = 16, showClose = true, d
             offset: sum([...[...containers].map((item) => {
                 return item[1].attr.offset + (item[0].querySelector(".ctool-message")?.clientHeight || 0)
             }), offset]),
-            showClose,
             duration,
             close: () => {
                 destroy(container)
@@ -67,7 +65,6 @@ const open = (type: MessageType, info: string, {offset = 16, showClose = true, d
             type,
             info,
             offset,
-            showClose,
             duration
         },
     })

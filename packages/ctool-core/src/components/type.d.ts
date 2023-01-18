@@ -205,6 +205,7 @@ declare module '@vue/runtime-core' {
                 top?: number,
                 text?: string,
                 enable?: boolean,
+                toggle?: boolean,
                 type?: ButtonType,
             }
             $slots: {

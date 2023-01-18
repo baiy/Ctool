@@ -1,6 +1,6 @@
 <template>
-    <Display position="top-right">
-        <Display position="bottom-right" :style="style">
+    <Display position="top-right" toggle>
+        <Display position="bottom-right" :style="style" toggle>
             <Textarea v-if="['http_query_string','csv'].includes(current.type)" v-model="current.value"
                       :placeholder="getPlaceholder"/>
             <Editor v-else disable-line-numbers v-model="current.value" :lang="current.type" height="100%" :placeholder="getPlaceholder"/>
@@ -43,7 +43,7 @@
                     <Bool size="small" v-model="current.option.properties.convertToJsonTree" border :label="$t(`component_serialize_properties_convert_to_json_tree`)"/>
                 </template>
                 <template v-if="current.type === 'xml'">
-                    <Input v-model="current.option.xml.attribute_prefix" :label="$t(`component_serialize_xml_attribute_prefix`)"/>
+                    <Input size="small" v-model="current.option.xml.attribute_prefix" :label="$t(`component_serialize_xml_attribute_prefix`)"/>
                 </template>
             </template>
         </Display>

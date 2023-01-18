@@ -25,6 +25,7 @@ import refresh from "./icon/refresh";
 import devtools from "./icon/devtools";
 import checked from "./icon/checked";
 import unchecked from "./icon/unchecked";
+import toggle from "./icon/toggle";
 import getBounds from "svg-path-bounds";
 import {buildData} from "./fileSystem";
 
@@ -55,7 +56,8 @@ const lists = {
     devtools,
     refresh,
     checked,
-    unchecked
+    unchecked,
+    toggle
 }
 
 

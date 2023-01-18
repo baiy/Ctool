@@ -101,10 +101,12 @@ const calculate = (el: HTMLElement, content: string) => {
 }
 
 onMounted(() => {
+    handle()
     setTimeout(() => handle(), 2000)
     event.addListener('component_resize', handle)
 })
 onUpdated(() => {
+    handle()
     setTimeout(() => handle(), 2000)
 })
 onUnmounted(() => {
@@ -132,7 +134,7 @@ onUnmounted(() => {
     left: var(--ctool-tooltip-left);
     bottom: var(--ctool-tooltip-bottom);
     transform: var(--ctool-tooltip-transform);
-    font-size:.75rem
+    font-size: .75rem
 }
 
 .ctool-tooltip[data-tooltip]:focus::before, .ctool-tooltip[data-tooltip]:hover::before {
@@ -142,6 +144,7 @@ onUnmounted(() => {
 .ctool-tooltip[data-tooltip]:hover::after {
     display: none;
 }
+
 .ctool-tooltip[data-tooltip]:not(a, button, input) {
     cursor: unset;
 }

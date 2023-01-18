@@ -44,5 +44,9 @@
     "editor_search": "查找/替换",
 
     // help tip
-    "click_help": "点击查看说明文档"
+    "click_help": "点击查看说明文档",
+
+    // display
+    "display_fold_option": "折叠选项",
+    "display_expand_option": "展开选项"
 }
