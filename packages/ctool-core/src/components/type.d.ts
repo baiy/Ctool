@@ -223,6 +223,9 @@ declare module '@vue/runtime-core' {
                 upload?: TextInputUpload,
                 encoding?: boolean
                 useInput?: boolean | string
+            },
+            $slots: {
+                default: () => VNode[]
             }
         }
         TextOutput: new () => {

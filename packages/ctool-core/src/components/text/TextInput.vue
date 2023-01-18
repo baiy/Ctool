@@ -11,6 +11,9 @@
                     <template v-if="current.type === `upload` && !current.text.isEmpty()">
                         <Icon name="right" :size="14"/>
                         {{ current.text.name() || "" }}
+                        <template v-if="current.text.isImage()">
+                            {{current.text.imageSizeString ? `(${current.text.imageSizeString})` : ''}}
+                        </template>
                     </template>
                     <template v-else>
                         {{ $t(`component_upload_support_paste`) }}
@@ -40,6 +43,7 @@
                     }
                 })"
                 />
+                <slot />
             </Align>
         </template>
     </Display>
@@ -110,7 +114,9 @@ const transform = debounce(async () => {
     try {
         if (current.type === "upload") {
             if (current.value instanceof File) {
-                return current.text = (await Text.fromBlob(current.value)).setFileName(current.value.name)
+                current.text = (await Text.fromBlob(current.value)).setFileName(current.value.name)
+                await current.text.calculateImageSize()
+                return
             }
             throw new Error("error data")
         }
