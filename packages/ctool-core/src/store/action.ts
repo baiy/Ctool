@@ -245,7 +245,7 @@ export const useAction = <T extends Record<string, any>>(input: InitializeReturn
         }
         // 提示
         if (message !== "") {
-            Message[message_type](message, {offset: 150, showClose: true})
+            Message[message_type](message, {offset: 150})
         }
     }
 

@@ -120,7 +120,7 @@ export const serializeOutputEncoderLists: SerializeOutputEncoderType[] = _serial
 
 // 消息提示
 export type MessageType = "success" | "error" | "info"
-export type MessageOption = { offset?: number, showClose?: boolean, duration?: number }
+export type MessageOption = { offset?: number, duration?: number }
 export type MessageMethod = {
     closeAll: () => void
     success: (info: string, options?: MessageOption) => void
