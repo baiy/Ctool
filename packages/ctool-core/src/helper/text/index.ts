@@ -135,6 +135,10 @@ class Text {
         return this.uint.uint8Array
     }
 
+    toBuffer() {
+        return Buffer.from(this.uint.uint8Array)
+    }
+
     toArray() {
         return Array.from(this.uint.uint8Array)
     }
@@ -197,7 +201,7 @@ class Text {
     isBinary() {
         return !this.isEmpty() && isBinary("", Buffer.from(this.uint.localUint8Array()))
     }
-    
+
     isAscii() {
         if (this.isEmpty()) {
             return false
