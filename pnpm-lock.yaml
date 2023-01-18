@@ -200,6 +200,7 @@ importers:
       bignumber.js: ^9.1.1
       chardet: ^1.5.1
       chinese-simple2traditional: ^1.1.0
+      crc: ^4.2.0
       cron-parser: ^4.7.1
       cronstrue: ^2.21.0
       crypto-js: ^4.1.1
@@ -287,6 +288,7 @@ importers:
       bignumber.js: 9.1.1
       chardet: 1.5.1
       chinese-simple2traditional: 1.1.0
+      crc: 4.2.0
       cron-parser: 4.7.1
       cronstrue: 2.21.0
       crypto-js: 4.1.1
@@ -2187,6 +2189,16 @@ packages:
       buffer: 5.7.1
     dev: true
     optional: true
+
+  /crc/4.2.0:
+    resolution: {integrity: sha512-TpRSRyMXRyVu2LYKgu0uxuYvk026DS7BKAk8hdrJ0deOUxArnUTgsFvbPkQc2i3qHoT0upKPBJ+WoKc6t8kCMg==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      buffer: '>=6.0.3'
+    peerDependenciesMeta:
+      buffer:
+        optional: true
+    dev: false
 
   /crc32-stream/4.0.2:
     resolution: {integrity: sha512-DxFZ/Hk473b/muq1VJ///PMNLj0ZMnzye9thBpmjpJKCc5eMgB95aK8zCGrGfQ90cWo561Te6HK9D+j4KPdM6w==}
