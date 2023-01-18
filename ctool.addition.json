@@ -136,6 +136,12 @@
 				"component_click_help": {
 					"message": "点击查看说明文档"
 				},
+				"component_display_fold_option": {
+					"message": "折叠选项"
+				},
+				"component_display_expand_option": {
+					"message": "展开选项"
+				},
 				"main_locale": {
 					"message": "zh_CN"
 				},
@@ -601,6 +607,18 @@
 				"tool_httpSnippet": {
 					"message": "Http请求代码"
 				},
+				"tool_dataValidation": {
+					"message": "BCC/CRC/LRC"
+				},
+				"tool_dataValidation_bcc": {
+					"message": "BCC"
+				},
+				"tool_dataValidation_crc": {
+					"message": "CRC"
+				},
+				"tool_dataValidation_lrc": {
+					"message": "LRC"
+				},
 				"tool_hash_hash": {
 					"message": "哈希(hash)"
 				},
@@ -830,6 +848,15 @@
 					"message": "Http请求代码"
 				},
 				"tool_httpSnippet_httpSnippet_keywords": {
+					"message": ""
+				},
+				"tool_dataValidation_bcc_keywords": {
+					"message": ""
+				},
+				"tool_dataValidation_crc_keywords": {
+					"message": ""
+				},
+				"tool_dataValidation_lrc_keywords": {
 					"message": ""
 				},
 				"hash_uppercase": {
@@ -2714,6 +2741,12 @@
 				"component_click_help": {
 					"message": "Click to view the help document"
 				},
+				"component_display_fold_option": {
+					"message": "Fold Option"
+				},
+				"component_display_expand_option": {
+					"message": "Expand Option"
+				},
 				"main_locale": {
 					"message": "en"
 				},
@@ -3170,6 +3203,18 @@
 				"tool_httpSnippet": {
 					"message": "Http Request Code"
 				},
+				"tool_dataValidation": {
+					"message": "BCC/CRC/LRC"
+				},
+				"tool_dataValidation_bcc": {
+					"message": "BCC"
+				},
+				"tool_dataValidation_crc": {
+					"message": "CRC"
+				},
+				"tool_dataValidation_lrc": {
+					"message": "LRC"
+				},
 				"tool_hash_hash": {
 					"message": "Hash"
 				},
@@ -3408,6 +3453,15 @@
 					"message": "Http Request Code"
 				},
 				"tool_httpSnippet_httpSnippet_keywords": {
+					"message": ""
+				},
+				"tool_dataValidation_bcc_keywords": {
+					"message": ""
+				},
+				"tool_dataValidation_crc_keywords": {
+					"message": ""
+				},
+				"tool_dataValidation_lrc_keywords": {
 					"message": ""
 				},
 				"hash_uppercase": {
