@@ -206,7 +206,7 @@ export let _tools = {
     dataValidation: {
         feature: ['bcc', 'crc', 'lrc'],
         parent_directory: "",
-        keywords: ['异或校验', '循环冗余校验', '纵向冗余校验']
+        keywords: ['异或校验', '循环冗余校验', '纵向冗余校验', '数据校验']
     },
 } as const;
 

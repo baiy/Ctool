@@ -74,7 +74,7 @@
     "ipcalc": "Ipcalc",
     "sqlFillParameter": 'Fill SQL Parameters',
     "httpSnippet": 'Http Request Code',
-    "dataValidation": 'BCC/CRC/LRC Validation',
+    "dataValidation": 'BCC/CRC/LRC',
     "dataValidation_bcc": 'BCC',
     "dataValidation_crc": 'CRC',
     "dataValidation_lrc": 'LRC'
