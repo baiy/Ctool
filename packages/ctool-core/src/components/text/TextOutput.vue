@@ -1,5 +1,5 @@
 <template>
-    <Display position="bottom-right" :style="style">
+    <Display position="bottom-right" :style="style" toggle>
         <Textarea :model-value="error" v-if="error !== ''" readonly/>
         <Display position="center" v-else-if="result === ''" style="height: 100%;">
             <Textarea readonly/>

@@ -1,5 +1,5 @@
 <template>
-    <Display :position="useInput ? 'right-center' : 'top-right'" :style="style">
+    <Display :position="useInput ? 'right-center' : 'top-right'" :toggle="!useInput" :style="style">
         <template v-if="current.type !== 'upload'">
             <Textarea v-if="!useInput" v-model="current.value" :disabled="disabled" :placeholder="placeholder"/>
             <Input v-else v-model="current.value" :placeholder="placeholder" :disabled="disabled" :label="useInput !== true ? useInput : ''"/>

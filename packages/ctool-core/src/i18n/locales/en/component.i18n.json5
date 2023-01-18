@@ -43,5 +43,8 @@
     "editor_goto": "Go to",
     "editor_search": "Find/Replace",
     // help tip
-    "click_help": "Click to view the help document"
+    "click_help": "Click to view the help document",
+    // display
+    "display_fold_option": "Fold Option",
+    "display_expand_option": "Expand Option"
 }
