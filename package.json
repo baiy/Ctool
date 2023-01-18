@@ -13,5 +13,12 @@
         "build": "pnpm run initialize && pnpm --filter ctool-core run build",
         "release": "node release.js && pnpm run build && pnpm -r run platform-release",
         "only-release": "node release.js && pnpm -r run platform-release"
+    },
+    "pnpm": {
+        "peerDependencyRules": {
+            "ignoreMissing": [
+                "buffer"
+            ]
+        }
     }
 }

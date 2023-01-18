@@ -1,53 +1,44 @@
-import Text from "@/helper/text";
-import {padStart} from "lodash";
 import radix from "@/helper/radix";
+import {padStart} from "lodash";
+import Text from "@/helper/text";
+import crcHandle from 'crc';
 
-// 算法来源: http://www.ip33.com/bcc.html
-export class Bcc {
-    private _dec: number = 0
-    private _count: number = 0
-    private readonly _error: string = ""
+export type CrcType = keyof typeof crcHandle;
+export const crcTypeLists = Object.keys(crcHandle) as CrcType[]
 
-    constructor(input: Text) {
-        if (input.isError()){
-            this._error = input.toString()
-            return;
-        }
-        if (!input.isAscii()) {
-            this._error = "Input Error"
-            return;
-        }
-        input.toHexArray().forEach(item => {
-            this._dec = this._dec ^ parseInt(item, 16);
-            this._count++;
-        })
+export const bcc = (text: Text) => {
+    let result = 0
+    text.toHexArray().forEach(item => {
+        result ^= parseInt(item, 16);
+    })
+    return result;
+}
+
+export const lrc = (text: Text) => {
+    let result = 0
+    text.toHexArray().forEach(item => {
+        result += parseInt(item, 16);
+    })
+    return 256 - (result % 256);
+}
+
+export const crc = async (text: Text, type: CrcType) => {
+    const handle = await import('crc');
+    return handle[type](text.toBuffer())
+}
+
+export const result = (value: number, type: string) => {
+    type = type.toLowerCase()
+    if (type === "oct") {
+        return radix(value, 10, 8)
     }
-
-    isError() {
-        return this._error !== ""
+    if (type === "hex") {
+        const temp = radix(value, 10, 16)
+        return padStart(temp, Math.ceil(temp.length / 2) * 2, "0")
     }
-
-    get error() {
-        return this._error
+    if (type === "bin") {
+        const temp = radix(value, 10, 2)
+        return padStart(temp, Math.ceil(temp.length / 8) * 8, "0")
     }
-
-    get dec() {
-        return `${this._dec}`
-    }
-
-    get oct() {
-        return radix(this._dec, 10, 8)
-    }
-
-    get hex() {
-        return padStart(radix(this._dec, 10, 16), 2, "0")
-    }
-
-    get bin() {
-        return padStart(radix(this._dec, 10, 2), 8, "0")
-    }
-
-    get count() {
-        return `${this._count} Bytes`;
-    }
+    return `${value}`
 }

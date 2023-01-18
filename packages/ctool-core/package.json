@@ -28,6 +28,7 @@
         "bignumber.js": "^9.1.1",
         "chardet": "^1.5.1",
         "chinese-simple2traditional": "^1.1.0",
+        "crc": "^4.2.0",
         "cron-parser": "^4.7.1",
         "cronstrue": "^2.21.0",
         "crypto-js": "^4.1.1",

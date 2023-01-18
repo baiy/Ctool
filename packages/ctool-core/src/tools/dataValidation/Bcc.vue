@@ -1,10 +1,10 @@
 <template>
     <HeightResize v-slot="{height}" v-row="'10-14'">
-        <TextInput v-model="action.current.input" upload="file" :height="height" :allow="['text','hex']"/>
+        <TextInput v-model="action.current.input" upload="file" :height="height"/>
         <Align direction="vertical">
             <template v-for="key in ['Hex','Dec','Oct','Bin']">
                 <Textarea
-                    :model-value="output[key]"
+                    :model-value="getResult(key)"
                     :height="(height - 15) / 4"
                     :placeholder="`${$t('main_ui_output')} ${key}`"
                     :copy="key"
@@ -17,33 +17,44 @@
 <script lang="ts" setup>
 import {initialize, useAction} from "@/store/action";
 import {createTextInput} from "@/components/text";
-import {Bcc} from "./util";
+import {bcc, result} from "./util";
+import {watch} from "vue";
 
 const action = useAction(await initialize({
     input: createTextInput('hex', ""),
 }, {paste: false}))
+let output = $ref<null | number>(null)
+let error = $ref('')
 
-const output = $computed(() => {
-    if (action.current.input.text.isEmpty()) {
-        return {
-            Hex: "",
-            Dec: "",
-            Oct: "",
-            Bin: "",
-            Count: "",
-        }
-    }
-
-    const handle = new Bcc(action.current.input.text)
-    if (!handle.isError()){
-        action.save()
-    }
+watch(() => {
     return {
-        Hex: handle.isError() ? handle.error : handle.hex,
-        Dec: handle.isError() ? handle.error : handle.dec,
-        Oct: handle.isError() ? handle.error : handle.oct,
-        Bin: handle.isError() ? handle.error : handle.bin,
-        Count: handle.count,
+        text: action.current.input.text
     }
-})
+}, ({text}) => {
+    error = ""
+    output = null
+    if (text.isError()) {
+        error = text.toString()
+        return;
+    }
+    if (text.isEmpty()) {
+        return;
+    }
+    try {
+        output = bcc(text)
+        action.save()
+    } catch (e) {
+        error = $error(e)
+    }
+}, {immediate: true, deep: true})
+
+const getResult = (type: string) => {
+    if (error !== "") {
+        return error
+    }
+    if (output === null) {
+        return ""
+    }
+    return result(output, type)
+}
 </script>
