@@ -152,6 +152,8 @@ const transform = debounce(async () => {
                 return current.serialization = Serialize.formYaml(current.value)
             case "php_array":
                 return current.serialization = Serialize.formPhpArray(current.value)
+            case "php_serialize":
+                return current.serialization = Serialize.formPhpSerialize(current.value)
             case "toml":
                 return current.serialization = Serialize.formToml(current.value)
             case "properties":

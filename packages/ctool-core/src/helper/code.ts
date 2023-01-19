@@ -28,6 +28,7 @@ const customLanguages = [
     defineConfig('Angular', getCodemirrorLanguage('html')),
     defineConfig('HTML Table', getCodemirrorLanguage('html'), ['html_table']),
     defineConfig('PHP Array', getCodemirrorLanguage('php'), ['php_array']),
+    defineConfig('Php Serialize', getCodemirrorLanguage('php'), ['php_serialize']),
     defineConfig('Http Query String', null, ['http_query_string']),
     defineConfig('JSON Schema', getCodemirrorLanguage('json')),
     defineConfig('JavaScript PropTypes', getCodemirrorLanguage('TypeScript')),
