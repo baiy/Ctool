@@ -132,6 +132,9 @@ watch(() => {
             case "php_array":
                 r = data.toPhpArray()
                 break
+            case "php_serialize":
+                r = data.toPhpSerialize()
+                break
             case "toml":
                 r = data.toToml()
                 break
@@ -145,6 +148,7 @@ watch(() => {
             result = await formatter.simple(current.type, 'beautify', r)
         }
     } catch (e) {
+        console.error(e)
         result = $error(e)
     }
 }, {immediate: true, deep: true})

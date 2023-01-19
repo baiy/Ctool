@@ -8,6 +8,7 @@ import yaml from "./yaml"
 import phpArray from "./phpArray"
 import toml from "@ltd/j-toml"
 import xml from "./xml"
+import phpSerialize from "./phpSerialize"
 import {isEmpty, isObject} from "lodash";
 import Json from "@/helper/json"
 
@@ -99,6 +100,12 @@ class Serialize<T extends ContentType = ContentType> {
         })
     }
 
+    static formPhpSerialize<T extends ContentType = ContentType>(str) {
+        return Serialize.formCallback<T>(() => {
+            return phpSerialize.parse<T>(str)
+        })
+    }
+
     static formToml<T extends ContentType = ContentType>(str: string) {
         return Serialize.formCallback<T>(() => {
             return toml.parse(str) as T
@@ -133,6 +140,10 @@ class Serialize<T extends ContentType = ContentType> {
 
     toYaml() {
         return yaml.dump(this.content())
+    }
+
+    toPhpSerialize() {
+        return phpSerialize.stringify(this.content());
     }
 
     toPhpArray() {

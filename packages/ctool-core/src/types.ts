@@ -15,7 +15,7 @@ export type {
     ThemeRawType
 } from "ctool-config"
 
-export {localesReal, locales,themes} from "ctool-config"
+export {localesReal, locales, themes} from "ctool-config"
 
 // 组件尺寸
 export type ComponentSizeType = "small" | "large" | "default";
@@ -111,10 +111,10 @@ export type TextOutputEncoderType = typeof _textOutputEncoderLists[number]
 export const textOutputEncoderLists: TextOutputEncoderType[] = _textOutputEncoderLists as any
 
 // 序列化输入输出
-const _serializeInputEncoderLists = ['json', 'http_query_string', 'csv', 'html_table', 'xml', 'yaml', 'toml', 'properties', 'php_array'] as const
+const _serializeInputEncoderLists = ['json', 'http_query_string', 'csv', 'html_table', 'xml', 'yaml', 'toml', 'properties', 'php_array', 'php_serialize'] as const
 export type SerializeInputEncoderType = typeof _serializeInputEncoderLists[number]
 export const serializeInputEncoderLists: SerializeInputEncoderType[] = _serializeInputEncoderLists as any
-const _serializeOutputEncoderLists = ['json', 'http_query_string', 'csv', 'html_table', 'xml', 'yaml', 'toml', 'properties', 'php_array'] as const
+const _serializeOutputEncoderLists = ['json', 'http_query_string', 'csv', 'html_table', 'xml', 'yaml', 'toml', 'properties', 'php_array', 'php_serialize'] as const
 export type SerializeOutputEncoderType = typeof _serializeOutputEncoderLists[number]
 export const serializeOutputEncoderLists: SerializeOutputEncoderType[] = _serializeOutputEncoderLists as any
 
