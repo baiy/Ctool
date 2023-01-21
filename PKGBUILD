@@ -10,7 +10,7 @@ license=('MIT')
 makedepends=('jq')
 depends=('webkit2gtk-4.1'
 	 'gtk3')
-source=("${url}/releases/download/v${pkgver}/ctool_tauri_linux.deb")
+source=("${url}/releases/latest/download/ctool_tauri_linux.deb")
 sha256sums=('SKIP')
 pkgver(){
 	curl --silent "https://api.github.com/repos/baiy/Ctool/releases/latest" | jq ".tag_name"
