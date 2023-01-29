@@ -166,7 +166,7 @@ importers:
       '@codemirror/search': ^6.2.3
       '@codemirror/state': ^6.2.0
       '@codemirror/view': ^6.7.3
-      '@imengyu/vue3-context-menu': 1.1.5
+      '@imengyu/vue3-context-menu': ^1.2.2
       '@ltd/j-toml': ^1.38.0
       '@prettier/plugin-php': ^0.19.2
       '@readme/httpsnippet': ^5.0.0
@@ -274,7 +274,7 @@ importers:
       '@codemirror/search': 6.2.3
       '@codemirror/state': 6.2.0
       '@codemirror/view': 6.7.3
-      '@imengyu/vue3-context-menu': 1.1.5
+      '@imengyu/vue3-context-menu': 1.2.2
       '@ltd/j-toml': 1.38.0
       '@prettier/plugin-php': 0.19.2_prettier@2.8.3
       '@readme/httpsnippet': 5.0.0
@@ -877,8 +877,8 @@ packages:
     resolution: {integrity: sha512-tLjfhinr6doUBcWi7BWnkT2zT6G5UhiZftsiIH6xVvykeXE+FU7Wr0MyqwmqideWlDD5rG+VjVLptLviGo04CA==}
     dev: false
 
-  /@imengyu/vue3-context-menu/1.1.5:
-    resolution: {integrity: sha512-MlFaoUmmahQxc/djT8ryPzbmvGxk0I5eIU4CvT1wJjlvrYFbBFFSD4tVRkufGIwLI4gskHwri3W8jsZmy1fSOg==}
+  /@imengyu/vue3-context-menu/1.2.2:
+    resolution: {integrity: sha512-Ju7tc0VRiKPgaphRC0/Q6wwsR56uZ+llgKzm+dVAxwYam1WL664NjpU0q6laSY7eKmd0AUNbdMogqem2Ivn0Xw==}
     dev: false
 
   /@jridgewell/sourcemap-codec/1.4.14:

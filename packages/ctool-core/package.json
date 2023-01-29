@@ -14,7 +14,7 @@
         "@codemirror/search": "^6.2.3",
         "@codemirror/state": "^6.2.0",
         "@codemirror/view": "^6.7.3",
-        "@imengyu/vue3-context-menu": "1.1.5",
+        "@imengyu/vue3-context-menu": "^1.2.2",
         "@ltd/j-toml": "^1.38.0",
         "@prettier/plugin-php": "^0.19.2",
         "@readme/httpsnippet": "^5.0.0",

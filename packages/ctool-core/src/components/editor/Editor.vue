@@ -10,14 +10,11 @@
             <context-menu-item :disabled="!isEnableFormat.beautify" :label="$t(`code_beautify`)" @click="contextMenuClick('beautify')"/>
             <context-menu-item :disabled="!isEnableFormat.compress" :label="$t(`code_compress`)" @click="contextMenuClick('compress')"/>
             <context-menu-sperator/>
-            <context-menu-item :icon="lineWrapping ? `selected` : ''" :label="$t(`component_editor_line_wrapping`)" @click="contextMenuClick('line_wrapping')"/>
-            <context-menu-item :icon="lineNumbers ? `selected` : ''" :label="$t(`component_editor_line_number`)" @click="contextMenuClick('line_number')"/>
+            <context-menu-item :checked="lineWrapping" :label="$t(`component_editor_line_wrapping`)" @click="contextMenuClick('line_wrapping')"/>
+            <context-menu-item :checked="lineNumbers" :label="$t(`component_editor_line_number`)" @click="contextMenuClick('line_number')"/>
             <context-menu-item :label="$t(`component_editor_multiple`)" @click="contextMenuClick('multiple')"/>
             <template #itemIconRender={icon}>
-                <i style="width: 20px">
-                    <Icon v-if="icon" :name="icon"/>
-                </i>
-                <!-- // todo @imengyu/vue3-context-menu 右键菜单最新版无法显示 暂时回滚 1.1.5 -->
+                <Icon v-if="icon" :name="icon"/>
             </template>
         </context-menu>
         <template #extra>
@@ -200,9 +197,10 @@ watch(
 const contextMenuConfig = reactive({
     show: false,
     options: {
-        theme: storeTheme.theme.raw === 'light' ? 'light' : 'dark',
+        theme: storeTheme.theme.raw === 'light' ? 'flat' : 'flat dark',
         x: 500,
-        y: 200
+        y: 200,
+        keyboardControl:false
     },
     selected_text: "",
     has_focus: false
