@@ -118,6 +118,12 @@
 				"component_serialize_xml_attribute_prefix": {
 					"message": "属性前缀"
 				},
+				"component_serialize_text_add_quote": {
+					"message": "添加引号"
+				},
+				"component_serialize_text_delimiter": {
+					"message": "分隔符"
+				},
 				"component_editor_line_wrapping": {
 					"message": "自动换行"
 				},
@@ -601,6 +607,12 @@
 				"tool_ipcalc": {
 					"message": "IP网络计算器"
 				},
+				"tool_ipcalc_ipv4": {
+					"message": "IPv4"
+				},
+				"tool_ipcalc_ipv6": {
+					"message": "IPv6"
+				},
 				"tool_sqlFillParameter": {
 					"message": "SQL参数填充"
 				},
@@ -832,10 +844,10 @@
 				"tool_bcrypt_bcrypt_keywords": {
 					"message": ""
 				},
-				"tool_ipcalc_ipcalc": {
-					"message": "IP网络计算器"
+				"tool_ipcalc_ipv4_keywords": {
+					"message": ""
 				},
-				"tool_ipcalc_ipcalc_keywords": {
+				"tool_ipcalc_ipv6_keywords": {
 					"message": ""
 				},
 				"tool_sqlFillParameter_sqlFillParameter": {
@@ -1301,9 +1313,6 @@
 				"randomString_amount": {
 					"message": "数量"
 				},
-				"randomString_delimiter": {
-					"message": "分隔符"
-				},
 				"randomString_digital": {
 					"message": "数字"
 				},
@@ -1318,12 +1327,6 @@
 				},
 				"randomString_symbol": {
 					"message": "特殊符号"
-				},
-				"randomString_add_quote": {
-					"message": "添加引号"
-				},
-				"randomString_serialize": {
-					"message": "序列化"
 				},
 				"diffs_collapse": {
 					"message": "折叠相同"
@@ -1380,6 +1383,15 @@
 				"websocket_connect": {
 					"message": "连接"
 				},
+				"websocket_reconnect": {
+					"message": "断线重连"
+				},
+				"websocket_protocols": {
+					"message": "子协议"
+				},
+				"websocket_protocols_tip": {
+					"message": "多个使用\",\"分隔"
+				},
 				"websocket_close": {
 					"message": "断开"
 				},
@@ -1420,7 +1432,7 @@
 					]
 				},
 				"websocket_close_start": {
-					"message": "开始中断:{0}",
+					"message": "开始断开:{0}",
 					"placeholders": [
 						"0"
 					]
@@ -2121,23 +2133,14 @@
 				"uuid_amount": {
 					"message": "数量"
 				},
-				"uuid_delimiter": {
-					"message": "分隔符"
-				},
 				"uuid_hyphens": {
 					"message": "连接符(-)"
 				},
 				"uuid_is_upper": {
 					"message": "大写"
 				},
-				"uuid_is_add_quote": {
-					"message": "添加引号"
-				},
 				"uuid_uint8_array": {
 					"message": "Uint8 Array"
-				},
-				"uuid_serialize": {
-					"message": "序列化"
 				},
 				"ascii_input_prompt": {
 					"message": "请输入待转换 {0} 数字, 多个用空格分隔",
@@ -2533,7 +2536,7 @@
 					]
 				},
 				"ipcalc_format": {
-					"message": "支持输入格式"
+					"message": "支持的输入格式"
 				},
 				"ipcalc_ip": {
 					"message": "IP地址"
@@ -2541,8 +2544,26 @@
 				"ipcalc_mask": {
 					"message": "掩码"
 				},
+				"ipcalc_random": {
+					"message": "随机"
+				},
+				"ipcalc_limit": {
+					"message": "数量"
+				},
+				"ipcalc_short": {
+					"message": "缩短"
+				},
 				"ipcalc_ip_info": {
 					"message": "IP 信息"
+				},
+				"ipcalc_ip_info_full": {
+					"message": "扩展地址"
+				},
+				"ipcalc_ip_info_short": {
+					"message": "缩短地址"
+				},
+				"ipcalc_ip_info_ptr": {
+					"message": "PTR"
 				},
 				"ipcalc_ip_info_long": {
 					"message": "整型IP"
@@ -2583,8 +2604,8 @@
 				"ipcalc_network_info": {
 					"message": "网络信息"
 				},
-				"ipcalc_network_export": {
-					"message": "导出可用IP"
+				"ipcalc_subnet": {
+					"message": "子网信息"
 				},
 				"ipcalc_network_info_available": {
 					"message": "可用数量"
@@ -2722,6 +2743,12 @@
 				},
 				"component_serialize_xml_attribute_prefix": {
 					"message": "Attribute Prefix"
+				},
+				"component_serialize_text_add_quote": {
+					"message": "Delimiter"
+				},
+				"component_serialize_text_delimiter": {
+					"message": "Add Quote"
 				},
 				"component_editor_line_wrapping": {
 					"message": "Line Wrapping"
@@ -3197,6 +3224,12 @@
 				"tool_ipcalc": {
 					"message": "Ipcalc"
 				},
+				"tool_ipcalc_ipv4": {
+					"message": "IPv4"
+				},
+				"tool_ipcalc_ipv6": {
+					"message": "IPv6"
+				},
 				"tool_sqlFillParameter": {
 					"message": "Fill SQL Parameters"
 				},
@@ -3437,10 +3470,10 @@
 				"tool_bcrypt_bcrypt_keywords": {
 					"message": ""
 				},
-				"tool_ipcalc_ipcalc": {
-					"message": "Ipcalc"
+				"tool_ipcalc_ipv4_keywords": {
+					"message": ""
 				},
-				"tool_ipcalc_ipcalc_keywords": {
+				"tool_ipcalc_ipv6_keywords": {
 					"message": ""
 				},
 				"tool_sqlFillParameter_sqlFillParameter": {
@@ -3906,9 +3939,6 @@
 				"randomString_amount": {
 					"message": "Amount"
 				},
-				"randomString_delimiter": {
-					"message": "Delimiter"
-				},
 				"randomString_digital": {
 					"message": "Digital"
 				},
@@ -3923,12 +3953,6 @@
 				},
 				"randomString_symbol": {
 					"message": "Symbol"
-				},
-				"randomString_add_quote": {
-					"message": "Add Quote"
-				},
-				"randomString_serialize": {
-					"message": "Serialize"
 				},
 				"diffs_collapse": {
 					"message": "Collapse Identical"
@@ -3984,6 +4008,15 @@
 				},
 				"websocket_connect": {
 					"message": "Connect"
+				},
+				"websocket_reconnect": {
+					"message": "Disconnect Reconnect"
+				},
+				"websocket_protocols": {
+					"message": "Protocols"
+				},
+				"websocket_protocols_tip": {
+					"message": "multiple values separated by comma(,)"
 				},
 				"websocket_close": {
 					"message": "Close"
@@ -4726,23 +4759,14 @@
 				"uuid_amount": {
 					"message": "Amount"
 				},
-				"uuid_delimiter": {
-					"message": "Delimiter"
-				},
 				"uuid_hyphens": {
 					"message": "Hyphens(-)"
 				},
 				"uuid_is_upper": {
 					"message": "Upper"
 				},
-				"uuid_is_add_quote": {
-					"message": "Add Quote"
-				},
 				"uuid_uint8_array": {
 					"message": "Uint8 Array"
-				},
-				"uuid_serialize": {
-					"message": "Serialize"
 				},
 				"ascii_input_prompt": {
 					"message": " Please enter the {0} number to be converted",
@@ -5146,8 +5170,26 @@
 				"ipcalc_mask": {
 					"message": "Subnet Mask"
 				},
+				"ipcalc_random": {
+					"message": "Random"
+				},
+				"ipcalc_limit": {
+					"message": "Limit"
+				},
+				"ipcalc_short": {
+					"message": "Compress"
+				},
 				"ipcalc_ip_info": {
 					"message": "IP Detail"
+				},
+				"ipcalc_ip_info_full": {
+					"message": "Expand an Address"
+				},
+				"ipcalc_ip_info_short": {
+					"message": "Compress an Address"
+				},
+				"ipcalc_ip_info_ptr": {
+					"message": "PTR"
 				},
 				"ipcalc_ip_info_long": {
 					"message": "Long IP"
@@ -5185,11 +5227,11 @@
 				"ipcalc_mask_info_mask2": {
 					"message": "Binary Mask"
 				},
+				"ipcalc_subnet": {
+					"message": "Subnet Data"
+				},
 				"ipcalc_network_info": {
 					"message": "Network Detail"
-				},
-				"ipcalc_network_export": {
-					"message": "Export Available IP"
 				},
 				"ipcalc_network_info_available": {
 					"message": "Available IP Size"
