@@ -1,19 +1,24 @@
 <template>
     <Align direction="vertical">
-        <Input v-model="action.current.url" class="ctool-page-option">
-            <template #prepend>
-                <Align horizontal="center" vertical="center" :width="20">
-                    <div
-                        :style="{backgroundColor:state.status ? '#19be6b' : '#ed4014'}"
-                        style="border-radius: 50%;height: 7px;width: 7px;display: inline-block"
-                    ></div>
-                </Align>
-            </template>
-            <template #append>
-                <Button @click="connect()" :text="$t('websocket_connect')" v-if="!state.status"/>
-                <Button @click="close()" :text="$t('websocket_close')" v-else/>
-            </template>
-        </Input>
+        <div v-row="`16-8-auto`" class="ctool-page-option">
+            <Input v-model="action.current.input">
+                <template #prepend>
+                    <Align horizontal="center" vertical="center" :width="20">
+                        <div class="ctool-websocket-status" :class="[`ctool-websocket-status-${state.status}`]"></div>
+                    </Align>
+                </template>
+                <template #suffix>
+                    <Bool :size="'small'" v-model="retry" :label="$t('websocket_reconnect')"/>
+                </template>
+            </Input>
+            <Input v-model="action.current.protocols" :label="$t('websocket_protocols')">
+                <template #suffix>
+                    <HelpTip :text="$t('websocket_protocols_tip')"/>
+                </template>
+            </Input>
+            <Button @click="connect()" :text="$t('websocket_connect')" v-if="state.status === 'close'"/>
+            <Button @click="close()" :text="$t('websocket_close')" v-else/>
+        </div>
         <HeightResize v-slot="{height}" ignore :reduce="5" :append="['.ctool-page-option']" v-row="`40-60`">
                 <Textarea
                     :height="height"
@@ -59,19 +64,25 @@ import dayjs from "dayjs";
 import {nextTick} from "vue";
 
 const action = useAction(await initialize({
-    url: "wss://echo.websocket.events",
-    keepScroll: true
+    input: "wss://echo.websocket.events",
+    keepScroll: true,
+    protocols: "",
 }, {
     paste: (str) => /^ws/.test(str)
 }))
 
+let retry = $ref(false)
+let retryTimes = 0
+let reconnecting = false
+let retryTimer: any = undefined
+
 const state = $ref<{
-    status: boolean,
+    status: "close" | "open" | "connecting",
     ws: WebSocket | null,
     send_content: string,
     logs: { content: string, type: string, time: string }[]
 }>({
-    status: false,
+    status: "close",
     ws: null,
     send_content: "",
     logs: []
@@ -88,40 +99,71 @@ const log = async (content, type = "other") => {
     }
 }
 const connect = () => {
-    if (!action.current.url.trim()) {
+    if (!action.current.input.trim() || state.status !== "close") {
         return
     }
+    state.status = "connecting"
     // ws://127.0.0.1:23451/
     action.save()
-    log($t('websocket_connect_start', [action.current.url]))
-    let websocket = new WebSocket(action.current.url);
-    websocket.onopen = () => {
-        state.status = true;
-        log($t('websocket_connect_ok'))
-    };
-    websocket.onclose = () => {
-        state.status = false;
-        log($t('websocket_close_ok'))
-    };
-    websocket.onmessage = (evt) => {
-        log(evt.data, 'accept')
-    };
-    websocket.onerror = (evt) => {
-        log($t('websocket_error', [evt]))
-    };
-    state.ws = websocket;
+    log($t('websocket_connect_start', [action.current.input]))
+    try {
+        let websocket = new WebSocket(action.current.input, action.current.protocols !== '' ? action.current.protocols.split(',') : undefined);
+        console.log(websocket)
+        websocket.addEventListener('open', (event) => {
+            console.log(event)
+            state.status = "open";
+            resetRetry()
+            log($t('websocket_connect_ok'))
+        })
+        websocket.addEventListener('close', (event) => {
+            console.log(event)
+            state.status = "close";
+            log($t('websocket_close_ok'))
+            if (retry) {
+                if (reconnecting) {
+                    return;
+                }
+                reconnecting = true
+                retryTimer = setInterval(() => {
+                    if (state.status !== 'close') {
+                        return;
+                    }
+                    retryTimes = retryTimes + 1
+                    log(`${$t('websocket_reconnect')} ${retryTimes}`)
+                    connect()
+                }, 3000)
+            }
+        })
+        websocket.addEventListener('message', (event) => {
+            console.log(event)
+            log(event.data, 'accept')
+        })
+        websocket.addEventListener('error', (event) => {
+            console.log(event)
+            log('Websocket Error')
+        })
+        state.ws = websocket;
+    } catch (e) {
+        console.log(e)
+        log($error(e))
+    }
 }
 
 const close = () => {
-    if (!state.status) {
-        return;
-    }
-    log($t('websocket_close_start', [action.current.url]))
+    retry = false
+    resetRetry()
+    log($t('websocket_close_start', [action.current.input]))
     state.ws?.close();
 }
 
+const resetRetry = () => {
+    retryTimes = 0
+    reconnecting = false
+    clearInterval(retryTimer);
+}
+
 const send = () => {
-    if (!state.status) {
+    if (state.status !== 'open') {
         throw new Error($t('websocket_error_connect'))
     }
     if (state.send_content === "") {
@@ -137,6 +179,25 @@ const send = () => {
 </script>
 
 <style scoped>
+.ctool-websocket-status.ctool-websocket-status-close {
+    background-color: var(--ctool-contrast);
+}
+
+.ctool-websocket-status.ctool-websocket-status-open {
+    background-color: var(--ctool-primary);
+}
+
+.ctool-websocket-status.ctool-websocket-status-connecting {
+    background-color: #ff9900;
+}
+
+.ctool-websocket-status {
+    border-radius: 50%;
+    height: 7px;
+    width: 7px;
+    display: inline-block
+}
+
 .ctool-websocket-logs-content {
     padding: 5px 10px;
     word-wrap: break-word;

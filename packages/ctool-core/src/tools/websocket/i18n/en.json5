@@ -1,5 +1,8 @@
 {
     "connect": "Connect",
+    "reconnect": "Disconnect Reconnect",
+    "protocols": "Protocols",
+    "protocols_tip": "multiple values separated by comma(,)",
     "close": "Close",
     "send_content": "Send Content",
     "log_content": "Request/Response/Log Content",

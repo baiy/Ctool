@@ -1,5 +1,8 @@
 {
     "connect": "连接",
+    "reconnect": "断线重连",
+    "protocols": "子协议",
+    "protocols_tip": "多个使用\",\"分隔",
     "close": "断开",
     "send_content": "发送内容",
     "log_content": "交互记录",
@@ -12,6 +15,6 @@
     "connect_ok": "连接成功",
     "close_ok": "断开成功",
     "connect_start": "开始连接:{0}",
-    "close_start": "开始中断:{0}",
+    "close_start": "开始断开:{0}",
     "keep_scroll": "保持滚动"
 }
