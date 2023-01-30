@@ -1,14 +1,21 @@
 <template>
     <Align horizontal="center" class="ctool-page-option" :bottom="'default'">
-        <Input size="large" :width="300" v-model="action.current.input" :label="$t('ipcalc_ip')"/>
+        <Input size="large" :width="300" v-model="action.current.input" :label="$t('ipcalc_ip')">
+            <template #suffix>
+                <HelpTip @click="help = true" icon="info" :text="$t('ipcalc_format')"/>
+            </template>
+        </Input>
         <Input size="large" :width="280" v-model="action.current.mask" :label="$t('ipcalc_mask')">
             <template #append>
                 <Button @click="maskSetShow = true">
                     <Icon hover name="setting" :tooltip="$t('ipcalc_mask_set_title')"/>
                 </Button>
             </template>
+            <template #suffix>
+                <HelpTip @click="help = true" icon="info" :text="$t('ipcalc_format')"/>
+            </template>
         </Input>
-        <HelpTip @click="help = true" :text="$t('ipcalc_format')"/>
+        <HelpTip link="https://www.npmjs.com/package/netmask"/>
     </Align>
     <Align direction="vertical" v-if="error === ''">
         <Card :title="$t('ipcalc_ip_info')" padding="0">
@@ -43,7 +50,7 @@
                 <Item :title="$t(`ipcalc_network_info_broadcast`)" :value="calc.broadcast()"/>
             </div>
             <template #extra>
-                <Button type="primary" size="small" :text="$t(`ipcalc_network_export`)" @click="networkExport"/>
+                <Button type="primary" size="small" :text="$t(`ipcalc_subnet`)" @click="showSubnet = true"/>
             </template>
         </Card>
     </Align>
@@ -73,23 +80,50 @@
             </Card>
         </Align>
     </Modal>
+    <ExtendPage v-model="showSubnet">
+        <Card :title="`${action.current.input} ${$t('ipcalc_subnet')}`" padding="0">
+            <HeightResize v-slot="{height}" :reduce="35">
+                <SerializeOutput
+                    disabledBorder
+                    v-model="action.current.subnetOption"
+                    :allow="['json','xml','yaml','toml','php_array','properties']"
+                    :content="subnet"
+                    :height="height"
+                />
+            </HeightResize>
+            <template #extra>
+                <Align>
+                    <Input size="small" :width="200" v-model="action.current.mask" :label="$t('ipcalc_mask')">
+                        <template #append>
+                            <Button @click="maskSetShow = true">
+                                <Icon hover name="setting" :tooltip="$t('ipcalc_mask_set_title')"/>
+                            </Button>
+                        </template>
+                        <template #suffix>
+                            <HelpTip @click="help = true" icon="info" :text="$t('ipcalc_format')"/>
+                        </template>
+                    </Input>
+                </Align>
+            </template>
+        </Card>
+    </ExtendPage>
     <Modal :title="$t('ipcalc_mask_set_title')" v-model="maskSetShow" footer-type="long" @ok="maskSet">
         <InputNumber size="large" v-model="maskAvailable" :label="$t('ipcalc_network_info_available')"/>
-    </Modal>
-    <Modal v-model="exportDataShow" footer-type="none">
-        <Textarea :height="300" :model-value="exportData" copy/>
     </Modal>
 </template>
 
 <script lang="ts" setup>
 import {initialize, useAction} from "@/store/action";
-import ipcalc, {getMaskBitByAvailable} from "./unil";
+import ipcalc, {getMaskBitByAvailable} from "./utilV4";
 import {watch} from "vue";
 import Item from "./Item.vue";
+import Serialize from "@/helper/serialize";
+import {createSerializeOutput} from "@/components/serialize";
 
 const action = useAction(await initialize({
     input: "192.168.0.1",
     mask: "24",
+    subnetOption: createSerializeOutput("json")
 }, {
     paste: (input) => /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/.test(input)
 }))
@@ -99,16 +133,15 @@ let maskSetShow = $ref(false)
 let maskAvailable = $ref(254)
 let error = $ref("")
 let calc = $ref(new ipcalc())
-let exportData = $ref("")
-let exportDataShow = $ref(false)
+let showSubnet = $ref(false)
 
-const networkExport = () => {
-    exportData = ""
-    calc.netmask.forEach((ip, long, index) => {
-        exportData = `${exportData ? exportData + "\n" : ""}${index + 1}: ${ip}`
+const subnet = $computed(() => {
+    const lists: string[] = []
+    calc.netmask.forEach((ip) => {
+        lists.push(ip)
     })
-    exportDataShow = true
-}
+    return Serialize.formObject(lists)
+})
 
 const maskSet = () => {
     action.current.mask = `${getMaskBitByAvailable(maskAvailable)}`

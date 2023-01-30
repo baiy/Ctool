@@ -219,6 +219,7 @@ importers:
       ext-list: ^4.0.0
       fast-xml-parser: ^4.0.13
       hexy: ^0.3.4
+      ip6: ^0.2.10
       istextorbinary: ^6.0.0
       jmespath: ^0.16.0
       js-base64: ^3.7.4
@@ -307,6 +308,7 @@ importers:
       ext-list: 4.0.0
       fast-xml-parser: 4.0.13
       hexy: 0.3.4
+      ip6: 0.2.10
       istextorbinary: 6.0.0
       jmespath: 0.16.0
       js-base64: 3.7.4
@@ -3321,6 +3323,11 @@ packages:
     resolution: {integrity: sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==}
     dev: true
     optional: true
+
+  /ip6/0.2.10:
+    resolution: {integrity: sha512-1LdpyKjhvepd6EbAU6rW4g14vuYtx5TnJX9TfZZBhsM6DsyPQLNzW12rtbUqXBMwqFrLVV/Gcxv0GNFvJp2cYA==}
+    hasBin: true
+    dev: false
 
   /is-arguments/1.1.1:
     resolution: {integrity: sha512-8Q7EARjzEnKpt/PCD7e1cgUS0a6X8u5tdSiMqXhojOdoV9TsMsiO+9VLC5vAmO8N7/GmXn7yjR8qnA6bVAEzfA==}

@@ -58,15 +58,6 @@ export type LinkType = 'primary' | 'default'
 export type ModalFooterType = 'normal' | 'long' | 'none'
 // Tabs 组件
 export type TabsListsType = { name: string, label: string }[]
-// center 组件
-export type CenterType = boolean // false:禁用 true:横向排列 绝对居中 = row
-    | "row"  // 横向排列 绝对居中
-    | "column"  // 竖向排列 绝对居中
-    | 'vertical' // 横向排列 垂直居中
-    | 'horizontal' // 横向排列 水平居中
-    | 'column-vertical' // 竖向排列 垂直居中
-    | 'column-horizontal' // 竖向排列 水平居中
-
 // Align 组件
 export type AlignDirection = "horizontal" | "vertical"
 export type AlignHorizontal = "left" | "center" | "right" | "none"

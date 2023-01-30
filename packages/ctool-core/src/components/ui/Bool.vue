@@ -90,12 +90,14 @@ const checked = $computed({
     cursor: pointer;
     font-size: calc(1rem * var(--font-size));
     color: var(--color);
+
 }
 
 .ctool-bool[data-border="y"] {
     border: 1px solid var(--ctool-border-color);
     padding: 0 calc(.8rem * var(--font-size));
     border-radius: var(--border-radius);
+    background-color: var(--ctool-background-color);
 }
 
 .ctool-bool[data-border="y"][data-checked="y"]:not([data-disabled="y"]), .ctool-bool[data-border="y"]:hover {

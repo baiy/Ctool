@@ -1,7 +1,7 @@
 <template>
     <div style="cursor: pointer" @click="$copy(`${value}`)" class="ctool-ipcalc-item">
         <div class="ctool-ipcalc-item-value">{{ value }}</div>
-        <div class="ctool-ipcalc-item-title">{{ title }}</div>
+        <div class="ctool-ipcalc-item-title" v-if="title !== ''">{{ title }}</div>
     </div>
 </template>
 

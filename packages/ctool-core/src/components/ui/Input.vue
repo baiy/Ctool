@@ -13,11 +13,11 @@
         </div>
         <div class="ctool-input-right" ref="inputRight">
             <template v-if="$slots.suffix || $slots.append">
-                <div class="ctool-input-append" v-if="$slots.append">
-                    <slot name="append"></slot>
-                </div>
                 <div class="ctool-input-suffix" v-if="$slots.suffix">
                     <slot name="suffix"></slot>
+                </div>
+                <div class="ctool-input-append" v-if="$slots.append">
+                    <slot name="append"></slot>
                 </div>
             </template>
         </div>
