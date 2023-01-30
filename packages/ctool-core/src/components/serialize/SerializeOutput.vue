@@ -1,6 +1,6 @@
 <template>
-    <Display position="top-right" toggle>
-        <Display position="bottom-right" :style="style" toggle>
+    <Display position="top-right" toggle :style="style" class="ctool-serialize-output" :class="disabledBorder ? ['ctool-serialize-output-disabled-border'] : []">
+        <Display position="bottom-right" style="height: 100%" toggle>
             <Textarea
                 v-if="['http_query_string','csv'].includes(current.type)"
                 :model-value="result"
@@ -20,20 +20,29 @@
                 <template v-if="current.type === 'xml'">
                     <Input size="small" v-model="current.option.xml.attribute_prefix" :width="180" :label="$t(`component_serialize_xml_attribute_prefix`)"/>
                 </template>
+                <template v-if="current.type === 'text'">
+                    <Align>
+                        <Bool size="small" border v-model="current.option.text.is_add_quote" :label="$t('component_serialize_text_add_quote')"/>
+                        <Input size="small" v-model="current.option.text.delimiter" :width="120" :label="$t('component_serialize_text_delimiter')"/>
+                    </Align>
+                </template>
             </template>
         </Display>
         <template #extra>
-            <Select
-                :size="'small'"
-                v-model="current.type"
-                v-if="typeLists.length > 1"
-                :options="typeLists.map((item)=>{
+            <Align>
+                <Select
+                    :size="'small'"
+                    v-model="current.type"
+                    v-if="typeLists.length > 1"
+                    :options="typeLists.map((item)=>{
                     return {
                         value:item,
                         label:getDisplayName(item)
                     }
                 })"
-            />
+                />
+                <slot/>
+            </Align>
         </template>
     </Display>
 </template>
@@ -62,9 +71,13 @@ const props = defineProps({
             return $t("main_ui_output")
         }
     },
+    disabledBorder: {
+        type: Boolean,
+        default: false
+    },
     allow: {
         type: Array as PropType<SerializeOutputEncoderType[]>,
-        default: () => serializeOutputEncoderLists
+        default: () => serializeOutputEncoderLists.filter(item => !['text'].includes(item))
     },
     content: {
         type: Object as PropType<Serialize>,
@@ -138,6 +151,9 @@ watch(() => {
             case "toml":
                 r = data.toToml()
                 break
+            case "text":
+                r = data.toText(option.text)
+                break
             case "properties":
                 r = data.toProperties()
                 break
@@ -161,3 +177,8 @@ const style = $computed(() => {
     return css
 })
 </script>
+<style>
+.ctool-serialize-output-disabled-border .ctool-code-editor .cm-editor {
+    border-width: 0px
+}
+</style>

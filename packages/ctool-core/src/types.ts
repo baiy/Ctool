@@ -58,15 +58,6 @@ export type LinkType = 'primary' | 'default'
 export type ModalFooterType = 'normal' | 'long' | 'none'
 // Tabs 组件
 export type TabsListsType = { name: string, label: string }[]
-// center 组件
-export type CenterType = boolean // false:禁用 true:横向排列 绝对居中 = row
-    | "row"  // 横向排列 绝对居中
-    | "column"  // 竖向排列 绝对居中
-    | 'vertical' // 横向排列 垂直居中
-    | 'horizontal' // 横向排列 水平居中
-    | 'column-vertical' // 竖向排列 垂直居中
-    | 'column-horizontal' // 竖向排列 水平居中
-
 // Align 组件
 export type AlignDirection = "horizontal" | "vertical"
 export type AlignHorizontal = "left" | "center" | "right" | "none"
@@ -114,7 +105,7 @@ export const textOutputEncoderLists: TextOutputEncoderType[] = _textOutputEncode
 const _serializeInputEncoderLists = ['json', 'http_query_string', 'csv', 'html_table', 'xml', 'yaml', 'toml', 'properties', 'php_array', 'php_serialize'] as const
 export type SerializeInputEncoderType = typeof _serializeInputEncoderLists[number]
 export const serializeInputEncoderLists: SerializeInputEncoderType[] = _serializeInputEncoderLists as any
-const _serializeOutputEncoderLists = ['json', 'http_query_string', 'csv', 'html_table', 'xml', 'yaml', 'toml', 'properties', 'php_array', 'php_serialize'] as const
+const _serializeOutputEncoderLists = ['text', 'json', 'http_query_string', 'csv', 'html_table', 'xml', 'yaml', 'toml', 'properties', 'php_array', 'php_serialize'] as const
 export type SerializeOutputEncoderType = typeof _serializeOutputEncoderLists[number]
 export const serializeOutputEncoderLists: SerializeOutputEncoderType[] = _serializeOutputEncoderLists as any
 

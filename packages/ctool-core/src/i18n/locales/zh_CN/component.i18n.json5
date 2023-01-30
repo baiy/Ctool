@@ -36,16 +36,16 @@
     "serialize_csv_quoted": "引号",
     "serialize_csv_table_header": "表头",
     "serialize_xml_attribute_prefix": "属性前缀",
+    "serialize_text_add_quote": "添加引号",
+    "serialize_text_delimiter": "分隔符",
     // 编辑器
     "editor_line_wrapping": "自动换行",
     "editor_line_number": "显示行号",
     "editor_multiple": "列选择模式",
     "editor_goto": "代码定位",
     "editor_search": "查找/替换",
-
     // help tip
     "click_help": "点击查看说明文档",
-
     // display
     "display_fold_option": "折叠选项",
     "display_expand_option": "展开选项"

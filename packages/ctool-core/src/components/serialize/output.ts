@@ -2,8 +2,13 @@ import {HistorySerializable, SerializeOutputEncoderType, OutputBase} from "@/typ
 import {has, isEmpty, merge} from "lodash";
 
 type Option = {
+    text: {
+        delimiter: string,
+        is_add_quote: boolean
+    },
     csv: {
-        quoted: boolean, header: boolean
+        quoted: boolean,
+        header: boolean
     },
     html_table: {
         header: boolean
@@ -14,6 +19,10 @@ type Option = {
 }
 
 const defaultOption: Option = {
+    text: {
+        delimiter: ",\\n",
+        is_add_quote: false
+    },
     csv: {
         quoted: false,
         header: true

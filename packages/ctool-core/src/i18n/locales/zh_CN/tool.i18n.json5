@@ -79,6 +79,8 @@
     "arm_hexToArm": "HEX to ARM",
     "bcrypt": "Bcrypt",
     "ipcalc": "IP网络计算器",
+    "ipcalc_ipv4": "IPv4",
+    "ipcalc_ipv6": "IPv6",
     "sqlFillParameter": 'SQL参数填充',
     "httpSnippet": 'Http请求代码',
     "dataValidation": 'BCC/CRC/LRC',

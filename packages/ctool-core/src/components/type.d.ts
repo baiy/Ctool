@@ -253,10 +253,14 @@ declare module '@vue/runtime-core' {
                 modelValue: SerializeOutput,
                 height?: number | string,
                 placeholder?: string,
+                disabledBorder?: boolean,
                 allow?: SerializeOutputEncoderType[]
                 content: ComponentType<Serialize>,
             },
-            $emit: (e: "success") => void
+            $emit: (e: "success") => void,
+            $slots: {
+                default: () => VNode[]
+            }
         }
         Editor: new () => {
             $props: {
@@ -294,6 +298,8 @@ declare module '@vue/runtime-core' {
         HelpTip: new () => {
             $props: {
                 link?: string,
+                icon?: IconType,
+                iconSize?: number | string,
                 text?: string,
             }
             $emit: (e: "click") => void

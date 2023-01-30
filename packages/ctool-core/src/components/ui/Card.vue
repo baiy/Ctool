@@ -53,7 +53,7 @@ const style = $computed(() => {
 }
 
 .ctool-card-header {
-    padding: 0 10px;
+    padding: 0 5px 0 10px;
     background-color: var(--ctool-block-title-bg-color);
     border-bottom: 1px solid var(--ctool-border-color);
     display: flex;

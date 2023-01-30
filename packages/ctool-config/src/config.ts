@@ -189,7 +189,7 @@ export let _tools = {
         keywords: []
     },
     ipcalc: {
-        feature: ['ipcalc'],
+        feature: ['ipv4','ipv6'],
         parent_directory: "",
         keywords: []
     },

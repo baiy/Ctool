@@ -72,6 +72,8 @@
     "arm_hexToArm": "HEX to ARM",
     "bcrypt": "Bcrypt",
     "ipcalc": "Ipcalc",
+    "ipcalc_ipv4": "IPv4",
+    "ipcalc_ipv6": "IPv6",
     "sqlFillParameter": 'Fill SQL Parameters',
     "httpSnippet": 'Http Request Code',
     "dataValidation": 'BCC/CRC/LRC',

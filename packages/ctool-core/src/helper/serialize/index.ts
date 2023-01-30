@@ -9,7 +9,7 @@ import phpArray from "./phpArray"
 import toml from "@ltd/j-toml"
 import xml from "./xml"
 import phpSerialize from "./phpSerialize"
-import {isEmpty, isObject} from "lodash";
+import {isEmpty, isObject, isArray} from "lodash";
 import Json from "@/helper/json"
 
 type  ContentType = any[] | { [key: string]: any } | [] | {}
@@ -128,6 +128,19 @@ class Serialize<T extends ContentType = ContentType> {
 
     toCsv({quoted = false, header = true}: Option = {}) {
         return csv.stringify(this.content(), {quoted, header})
+    }
+
+    toText({delimiter = ",\\n", is_add_quote = false}: Option = {}) {
+        if (this.isEmpty()) {
+            return "";
+        }
+        const content = this.content()
+        if (!isArray(content)) {
+            throw new Error("Content Only Support Array")
+        }
+        return content.map(item => {
+            return is_add_quote ? `"${item}"` : item
+        }).join(delimiter.replace(/\\n/g, "\n"));
     }
 
     toTable({header = true}: Option = {}) {
