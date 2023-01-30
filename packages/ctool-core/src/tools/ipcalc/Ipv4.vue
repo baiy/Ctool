@@ -86,7 +86,7 @@
                 <SerializeOutput
                     disabledBorder
                     v-model="action.current.subnetOption"
-                    :allow="['json','xml','yaml','toml','php_array','properties']"
+                    :allow="['json','xml','yaml','toml','php_array','properties','text']"
                     :content="subnet"
                     :height="height"
                 />
@@ -123,7 +123,7 @@ import {createSerializeOutput} from "@/components/serialize";
 const action = useAction(await initialize({
     input: "192.168.0.1",
     mask: "24",
-    subnetOption: createSerializeOutput("json")
+    subnetOption: createSerializeOutput("text")
 }, {
     paste: (input) => /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/.test(input)
 }))

@@ -1,36 +1,32 @@
 <template>
     <Align direction="vertical">
         <HeightResize v-slot="{height}" :reduce="5" :append="['.ctool-page-option']">
-            <Editor disableLineNumbers v-if="!action.current.serialize" :model-value="stringOutput" :height="`${height}px`" :placeholder="$t('main_ui_output')"/>
             <SerializeOutput
-                v-else
-                v-model="action.current.serialize_config"
-                :allow="['json','xml', 'yaml', 'toml', 'properties', 'php_array']"
+                v-model="action.current.outputOption"
+                :allow="['json','xml', 'yaml', 'toml', 'properties', 'php_array','text']"
                 :height="height"
                 :content="serializeOutput"
             />
         </HeightResize>
         <Card class="ctool-page-option">
             <Align horizontal="center">
-                <Input :size="size" v-model="action.current.base" :width="200">
+                <Input v-model="action.current.base" :width="300">
                     <template #append>
                         <Button @click="baseSetting.base = action.current.base;baseSetting.show = true">
-                            <Icon hover name="setting" :tooltip="$t('main_ui_setting')" :size="12" />
+                            <Icon hover name="setting" :tooltip="$t('main_ui_setting')" :size="12"/>
                         </Button>
                     </template>
                 </Input>
-                <InputNumber :size="size" v-model="action.current.length" :width="100" :label="$t('randomString_length')"/>
-                <InputNumber :size="size" v-model="action.current.amount" :width="100" :label="$t('randomString_amount')"/>
-                <Bool :size="size" border v-model="action.current.is_add_quote" :label="$t('randomString_add_quote')" :disabled="action.current.serialize"/>
-                <Input :size="size" v-model="action.current.delimiter" :width="120" :label="$t('randomString_delimiter')" :disabled="action.current.serialize"/>
-                <Bool :size="size" border v-model="action.current.serialize" :label="$t('uuid_serialize')"/>
-                <Button @click="generate" :size="size">
-                    <Icon name="refresh" :size="12" />
+                <InputNumber v-model="action.current.length" :width="100" :label="$t('randomString_length')"/>
+                <InputNumber v-model="action.current.amount" :width="100" :label="$t('randomString_amount')"/>
+                <Button @click="generate">
+                    <Icon name="refresh" :size="12"/>
                 </Button>
             </Align>
         </Card>
     </Align>
-    <Modal :title="`${$t('main_ui_setting')} ${$t('randomString_chars')}`" v-model="baseSetting.show" footer-type="long" @ok="action.current.base = baseSetting.base;baseSetting.show = false">
+    <Modal :title="`${$t('main_ui_setting')} ${$t('randomString_chars')}`" v-model="baseSetting.show" footer-type="long"
+           @ok="action.current.base = baseSetting.base;baseSetting.show = false">
         <Align direction="vertical">
             <Textarea v-model="baseSetting.base" :height="300"/>
             <Align horizontal="center">
@@ -51,7 +47,6 @@ import Serialize from "@/helper/serialize";
 import {onMounted, watch} from "vue";
 import {intersection} from "lodash";
 import {ComponentSizeType} from "@/types";
-import {$computed} from "vue/macros";
 
 const size: ComponentSizeType = "small"
 
@@ -63,19 +58,13 @@ const baseSymbol = "`~!@#$%^&*()-_=+[{]}|;:',<.>/?";
 const action = useAction(await initialize<{
     amount: number,
     length: number,
-    delimiter: string,
-    serialize: boolean,
-    serialize_config: SerializeOutputType,
-    is_add_quote: boolean,
+    outputOption: SerializeOutputType,
     base: string,
     result: string[]
 }>({
     amount: 10,
     length: 32,
-    delimiter: ",\\n",
-    serialize: false,
-    serialize_config: createSerializeOutput('json'),
-    is_add_quote: false,
+    outputOption: createSerializeOutput('text'),
     base: `${baseDigital}${baseLowercase}${baseUppercase}`,
     result: []
 }))
@@ -99,13 +88,7 @@ const generate = () => {
 }
 
 const serializeOutput = $computed<Serialize>(() => {
-    return Serialize.formObject(action.current.serialize && action.current.result.length > 0 ? {lists: action.current.result} : {})
-})
-
-const stringOutput = $computed(() => {
-    return (action.current.result as string[]).map(item => {
-        return action.current.is_add_quote ? `"${item}"` : item
-    }).join(action.current.delimiter.replace(/\\n/g, "\n"))
+    return Serialize.formObject(action.current.result)
 })
 
 onMounted(() => {

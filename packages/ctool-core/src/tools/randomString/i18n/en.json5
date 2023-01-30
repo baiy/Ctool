@@ -1,12 +1,9 @@
 {
     "length": "Length",
     "amount": "Amount",
-    "delimiter": "Delimiter",
     "digital": "Digital",
     "lowercase": "Lowercase",
     "uppercase": "Uppercase",
     "chars":"Chars",
     "symbol": "Symbol",
-    "add_quote": "Add Quote",
-    "serialize": "Serialize"
 }

@@ -105,7 +105,7 @@ export const textOutputEncoderLists: TextOutputEncoderType[] = _textOutputEncode
 const _serializeInputEncoderLists = ['json', 'http_query_string', 'csv', 'html_table', 'xml', 'yaml', 'toml', 'properties', 'php_array', 'php_serialize'] as const
 export type SerializeInputEncoderType = typeof _serializeInputEncoderLists[number]
 export const serializeInputEncoderLists: SerializeInputEncoderType[] = _serializeInputEncoderLists as any
-const _serializeOutputEncoderLists = ['json', 'http_query_string', 'csv', 'html_table', 'xml', 'yaml', 'toml', 'properties', 'php_array', 'php_serialize'] as const
+const _serializeOutputEncoderLists = ['text', 'json', 'http_query_string', 'csv', 'html_table', 'xml', 'yaml', 'toml', 'properties', 'php_array', 'php_serialize'] as const
 export type SerializeOutputEncoderType = typeof _serializeOutputEncoderLists[number]
 export const serializeOutputEncoderLists: SerializeOutputEncoderType[] = _serializeOutputEncoderLists as any
 

@@ -42,7 +42,7 @@
                 <SerializeOutput
                     disabledBorder
                     v-model="action.current.subnetOption"
-                    :allow="['json','xml','yaml','toml','php_array','properties']"
+                    :allow="['json','xml','yaml','toml','php_array','properties','text']"
                     :content="subnet"
                     :height="height"
                 />
@@ -75,7 +75,7 @@ const action = useAction(await initialize({
     abbr: false,
     random: false,
     maskPtr: 32,
-    subnetOption: createSerializeOutput("json")
+    subnetOption: createSerializeOutput("text")
 }, {
     paste: (input: string) => {
         try {

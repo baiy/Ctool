@@ -20,6 +20,12 @@
                 <template v-if="current.type === 'xml'">
                     <Input size="small" v-model="current.option.xml.attribute_prefix" :width="180" :label="$t(`component_serialize_xml_attribute_prefix`)"/>
                 </template>
+                <template v-if="current.type === 'text'">
+                    <Align>
+                        <Bool size="small" border v-model="current.option.text.is_add_quote" :label="$t('component_serialize_text_add_quote')"/>
+                        <Input size="small" v-model="current.option.text.delimiter" :width="120" :label="$t('component_serialize_text_delimiter')"/>
+                    </Align>
+                </template>
             </template>
         </Display>
         <template #extra>
@@ -35,7 +41,7 @@
                     }
                 })"
                 />
-                <slot />
+                <slot/>
             </Align>
         </template>
     </Display>
@@ -65,13 +71,13 @@ const props = defineProps({
             return $t("main_ui_output")
         }
     },
-    disabledBorder:{
+    disabledBorder: {
         type: Boolean,
         default: false
     },
     allow: {
         type: Array as PropType<SerializeOutputEncoderType[]>,
-        default: () => serializeOutputEncoderLists
+        default: () => serializeOutputEncoderLists.filter(item => !['text'].includes(item))
     },
     content: {
         type: Object as PropType<Serialize>,
@@ -145,6 +151,9 @@ watch(() => {
             case "toml":
                 r = data.toToml()
                 break
+            case "text":
+                r = data.toText(option.text)
+                break
             case "properties":
                 r = data.toProperties()
                 break
@@ -169,7 +178,7 @@ const style = $computed(() => {
 })
 </script>
 <style>
-.ctool-serialize-output-disabled-border .ctool-code-editor .cm-editor{
-    border-width:0px
+.ctool-serialize-output-disabled-border .ctool-code-editor .cm-editor {
+    border-width: 0px
 }
 </style>

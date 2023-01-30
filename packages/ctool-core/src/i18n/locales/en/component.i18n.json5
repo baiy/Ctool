@@ -36,6 +36,8 @@
     "serialize_csv_quoted": "Quoted",
     "serialize_csv_table_header": "Header",
     "serialize_xml_attribute_prefix": "Attribute Prefix",
+    "serialize_text_add_quote": "Delimiter",
+    "serialize_text_delimiter": "Add Quote",
     // editor
     "editor_line_wrapping": "Line Wrapping",
     "editor_line_number": "Show Line Number",
