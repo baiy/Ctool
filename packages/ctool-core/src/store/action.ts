@@ -186,10 +186,6 @@ export const useAction = <T extends Record<string, any>>(input: InitializeReturn
 
     const current: T = reactive(input.items)
 
-    onUnmounted(() => {
-        history.save()
-    });
-
     const historyPush = debounce(function () {
         // 检查是否可以保存数据
         const handle = (items) => {

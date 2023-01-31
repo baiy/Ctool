@@ -13,7 +13,6 @@ const HISTORY_MAX_LENGTH: number = 50
 class History<T = any> {
     lists: HistoryItemStructure<T>[] = []
     name: string
-    isUpdate: boolean = false
     static instance: Record<string, History> = {};
 
     static itemFactory<T>(item: T): HistoryItemStructure<T> {
@@ -37,11 +36,6 @@ class History<T = any> {
     constructor(name: string) {
         this.name = name
         this.lists = storage.get<HistoryItemStructure<T>[]>(this.cacheName(), [], true) || []
-    }
-
-    // 保存全部数据
-    save() {
-        allSave()
     }
 
     cacheName() {
@@ -71,10 +65,11 @@ class History<T = any> {
         if (this.length() > HISTORY_MAX_LENGTH) {
             this.lists.pop()
         }
-        this.isUpdate = true
+        storage.set<HistoryItemStructure<T>[]>(this.cacheName(), this.lists, TOOL_DATA_EXPIRY)
         History.change()
     }
 
+    // 获取
     get(index: number): T | null {
         return index >= 0 && index < this.length() ? cloneDeep(this.lists[index].v) : null
     }
@@ -82,13 +77,6 @@ class History<T = any> {
     // 长度
     length(): number {
         return this.lists.length;
-    }
-
-    // 写入
-    write() {
-        if (this.isUpdate) {
-            storage.set<HistoryItemStructure<T>[]>(this.cacheName(), this.lists, TOOL_DATA_EXPIRY)
-        }
     }
 
     // 清理
@@ -102,14 +90,6 @@ class History<T = any> {
         return cloneDeep(this.lists)
     }
 }
-
-const allSave = () => {
-    for (let h of Object.values(History.instance)) {
-        h.write()
-    }
-}
-
-window.addEventListener('beforeunload', allSave)
 
 let errorInstance: History
 
