@@ -2308,7 +2308,7 @@
 					"message": "词首小写"
 				},
 				"text_punctuation": {
-					"message": "中英标点"
+					"message": "标点"
 				},
 				"text_cn": {
 					"message": "中文"
@@ -2341,13 +2341,13 @@
 					"message": "移除"
 				},
 				"text_line_sort": {
-					"message": "行排序"
+					"message": "排序"
 				},
 				"text_line_sort_asc": {
-					"message": "升序"
+					"message": "行升序"
 				},
 				"text_line_sort_desc": {
-					"message": "降序"
+					"message": "行降序"
 				},
 				"text_filter": {
 					"message": "过滤"
@@ -2461,6 +2461,45 @@
 						"1",
 						"2"
 					]
+				},
+				"text_rename": {
+					"message": "命名"
+				},
+				"text_escape": {
+					"message": "转义符"
+				},
+				"text_escape_single_quote": {
+					"message": "单引号"
+				},
+				"text_escape_double_quote": {
+					"message": "双引号"
+				},
+				"text_escape_backslash": {
+					"message": "反斜杠"
+				},
+				"text_escape_new_line": {
+					"message": "换行符"
+				},
+				"text_escape_carriage_return": {
+					"message": "回车符"
+				},
+				"text_escape_tab": {
+					"message": "水平制表符"
+				},
+				"text_escape_vertical_tab": {
+					"message": "垂直制表符"
+				},
+				"text_escape_backspace": {
+					"message": "退格符"
+				},
+				"text_escape_form_feed": {
+					"message": "换页符"
+				},
+				"text_escape_forward": {
+					"message": "正向转义(\\'=>')"
+				},
+				"text_escape_reverse": {
+					"message": "逆向转义('=>\\')"
 				},
 				"html_input_encode": {
 					"message": "请输入待编码字符串"
@@ -4967,13 +5006,13 @@
 					"message": "Remove"
 				},
 				"text_line_sort": {
-					"message": "Line Sort"
+					"message": "Sort"
 				},
 				"text_line_sort_asc": {
-					"message": "Asc"
+					"message": "Line Asc"
 				},
 				"text_line_sort_desc": {
-					"message": "Desc"
+					"message": "Line Desc"
 				},
 				"text_filter": {
 					"message": "Filter"
@@ -5087,6 +5126,45 @@
 						"1",
 						"2"
 					]
+				},
+				"text_rename": {
+					"message": "Rename"
+				},
+				"text_escape": {
+					"message": "Escape"
+				},
+				"text_escape_single_quote": {
+					"message": "single quote"
+				},
+				"text_escape_double_quote": {
+					"message": "double quote"
+				},
+				"text_escape_backslash": {
+					"message": "backslash"
+				},
+				"text_escape_new_line": {
+					"message": "new line"
+				},
+				"text_escape_carriage_return": {
+					"message": "carriage return"
+				},
+				"text_escape_tab": {
+					"message": "tab"
+				},
+				"text_escape_vertical_tab": {
+					"message": "vertical tab"
+				},
+				"text_escape_backspace": {
+					"message": "backspace"
+				},
+				"text_escape_form_feed": {
+					"message": "form feed"
+				},
+				"text_escape_forward": {
+					"message": "Escape(\\'=>')"
+				},
+				"text_escape_reverse": {
+					"message": "Unescape('=>\\')"
 				},
 				"html_input_encode": {
 					"message": "Please enter a string to be encoded"
