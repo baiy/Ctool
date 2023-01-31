@@ -26,6 +26,7 @@ import Link from "./ui/Link.vue";
 import Tabs from "./ui/Tabs.vue";
 import HelpTip from "./HelpTip.vue";
 import Align from "./Align.vue";
+import Checkbox from "./ui/Checkbox.vue";
 import {App} from "vue";
 
 const components = {
@@ -81,6 +82,8 @@ const components = {
     ExtendPage,
     // 元素排列
     Align,
+    // 多选
+    Checkbox,
 }
 
 

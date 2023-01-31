@@ -22,6 +22,49 @@ const getGbkStrLength = (str: string) => {
     return realLength;
 }
 
+
+export const escapeChars = {
+    single_quote: {
+        string: "\\'",
+        char: "\'"
+    },
+    double_quote: {
+        string: "\\\"",
+        char: "\""
+    },
+    backslash: {
+        string: "\\\\",
+        char: "\\"
+    },
+    new_line: {
+        string: "\\n",
+        char: "\n"
+    },
+    carriage_return: {
+        string: "\\r",
+        char: "\r"
+    },
+    tab: {
+        string: "\\t",
+        char: "\t"
+    },
+    vertical_tab: {
+        string: "\\v",
+        char: "\v"
+    },
+    backspace: {
+        string: "\\b",
+        char: "\b"
+    },
+    form_feed: {
+        string: "\\f",
+        char: "\f"
+    },
+};
+
+export type EscapeCharsType = keyof typeof escapeChars
+
+
 export default class {
     private readonly text: string;
 
@@ -151,6 +194,28 @@ export default class {
         }
         return text
 
+    }
+
+    // 转义
+    escape({lists = []}: { lists: EscapeCharsType[] } | Record<string, any>) {
+        let text = this.text;
+        for (let item of lists) {
+            if (item in escapeChars) {
+                text = text.replaceAll(escapeChars[item].string, escapeChars[item].char)
+            }
+        }
+        return text
+    }
+
+    // 反转义
+    unescape({lists = []}: { lists: EscapeCharsType[] } | Record<string, any>) {
+        let text = this.text;
+        for (let item of lists) {
+            if (item in escapeChars) {
+                text = text.replaceAll(escapeChars[item].char, escapeChars[item].string)
+            }
+        }
+        return text
     }
 
     // 统计
