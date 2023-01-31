@@ -69,6 +69,7 @@ const resize = () => {
     small = Math.min(160, Math.ceil(current * 0.4))
     large = current - small
     emit("resize", current);
+    event.dispatch('component_resize')
 }
 
 const windowResize = async () => {
