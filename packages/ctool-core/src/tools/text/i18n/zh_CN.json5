@@ -56,6 +56,7 @@
     "explain_blank_line_length_info": "空行也会计入行数",
     "value": "值",
     "stat_show": "字数: {0}  UTF-8: {1}  GBK: {2}",
+    "rename": "命名",
     "escape": "转义符",
     "escape_single_quote": "单引号",
     "escape_double_quote": "双引号",

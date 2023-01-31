@@ -47,6 +47,8 @@
             <Button :size="size" :text="$t('text_replace')" @click="replaceShow = true"/>
             <Button :size="size" :text="$t('text_escape')" @click="escapeShow = true"/>
             <Button :size="size" :text="$t('text_line_remove_duplicate')" @click="handle('lineRemoveRepeat')"/>
+            <Dropdown :size="size" @select="(value)=>handle('rename',{type:value})" :placeholder="$t('text_rename')"
+                      :options="renameTypeLists.filter(item=>!['spaceCase','pascalCaseSpace'].includes(item.value))"/>
             <Dropdown
                 :size="size"
                 :placeholder="$t('text_line_number')"
@@ -163,6 +165,7 @@
 import {initialize, useAction} from "@/store/action";
 import TextHandle, {escapeChars, EscapeCharsType} from "./util";
 import {ComponentSizeType, CheckboxOption} from "@/types";
+import {typeLists as renameTypeLists} from "@/helper/nameConvert";
 
 const action = useAction(await initialize({
     input: "",

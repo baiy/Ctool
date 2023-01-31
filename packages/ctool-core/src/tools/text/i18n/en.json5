@@ -56,6 +56,7 @@
     "explain_blank_line_length_info": "Blank lines are also included in the number of lines",
     "value": "value",
     "stat_show": "Word: {0}  UTF-8: {1}  GBK: {2}",
+    "rename": "Rename",
     "escape": "Escape",
     "escape_single_quote": "single quote",
     "escape_double_quote": "double quote",

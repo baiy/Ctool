@@ -1,6 +1,7 @@
 import {simpleToTradition, traditionToSimple} from "chinese-simple2traditional";
 import {orderBy, uniq} from 'lodash'
 import {Buffer} from 'buffer'
+import {TypeLists as RenameType, convent as nameConvent} from "@/helper/nameConvert";
 
 const regExpQuote = function (str: string) {
     return str.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
@@ -216,6 +217,12 @@ export default class {
             }
         }
         return text
+    }
+
+    rename({type = "lowerSnakeCase"}) {
+        return this.text.replace(/\b[\w\-_]+\b/g, function (str) {
+            return nameConvent(str, type as RenameType);
+        })
     }
 
     // 统计
