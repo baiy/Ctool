@@ -49,6 +49,9 @@ export type SelectType = "general" | "primary"
 // Radio 组件
 export type RadioOption = Array<string | number | { value: string | number, label: string | number }>
 export type RadioValue = string | number
+// Checkbox 组件
+export type CheckboxOption = Array<string | number | { value: string | number, label: string | number }>
+export type CheckboxValue = (string | number)[]
 // table 组件
 export type TableConfig = { key: string, title: string, width?: number, html?: boolean }[]
 export type TableLists = Record<string, any>[]

@@ -26,7 +26,9 @@ import {
     TextInputEncoderType,
     TextOutputEncoderType,
     SerializeInputEncoderType,
-    SerializeOutputEncoderType
+    SerializeOutputEncoderType,
+    CheckboxValue,
+    CheckboxOption
 } from "@/types"
 import {SerializeInput, SerializeOutput} from "./serialize";
 import {TextInput, TextOutput} from "./text";
@@ -138,13 +140,12 @@ declare module '@vue/runtime-core' {
         }
         Checkbox: new () => {
             $props: {
-                modelValue?: boolean,
-                label?: string,
+                modelValue?: CheckboxValue,
+                direction?: AlignDirection,
+                options: CheckboxOption,
                 size?: ComponentSizeType,
                 border?: boolean
-                disabled?: boolean,
             }
-            $emit: (e: "change", value: boolean) => void
         }
         Textarea: new () => {
             $props: {

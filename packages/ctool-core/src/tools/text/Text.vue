@@ -45,7 +45,10 @@
                 @select="type=>handle('zhTran',{type})"
             />
             <Button :size="size" :text="$t('text_replace')" @click="replaceShow = true"/>
+            <Button :size="size" :text="$t('text_escape')" @click="escapeShow = true"/>
             <Button :size="size" :text="$t('text_line_remove_duplicate')" @click="handle('lineRemoveRepeat')"/>
+            <Dropdown :size="size" @select="(value)=>handle('rename',{type:value})" :placeholder="$t('text_rename')"
+                      :options="renameTypeLists.filter(item=>!['spaceCase','pascalCaseSpace'].includes(item.value))"/>
             <Dropdown
                 :size="size"
                 :placeholder="$t('text_line_number')"
@@ -145,26 +148,40 @@
             />
         </Tabs>
     </Modal>
+    <Modal v-model="escapeShow" :width="600" :title="$t('text_escape')">
+        <Align horizontal="center">
+            <Checkbox v-model="action.current.escapeChars" :options="escapeOptions"/>
+        </Align>
+        <template #footer>
+            <Align horizontal="center">
+                <Button :text="$t('text_escape_forward')" @click="handle('escape',{lists:action.current.escapeChars})"/>
+                <Button :text="$t('text_escape_reverse')" @click="handle('unescape',{lists:action.current.escapeChars})"/>
+            </Align>
+        </template>
+    </Modal>
 </template>
 
 <script lang="ts" setup>
 import {initialize, useAction} from "@/store/action";
-import TextHandle from "./util";
+import TextHandle, {escapeChars, EscapeCharsType} from "./util";
+import {ComponentSizeType, CheckboxOption} from "@/types";
+import {typeLists as renameTypeLists} from "@/helper/nameConvert";
 
 const action = useAction(await initialize({
     input: "",
     replace: {
         search: "",
         replace: "",
-        regular: false
-    }
+        regular: false,
+    },
+    escapeChars: Object.keys(escapeChars) as EscapeCharsType[]
 }))
 
-const size = $computed(() => {
-    return $t('main_locale') === 'zh_CN' ? `default` : `small`
-})
+const size: ComponentSizeType = 'small'
 
 let replaceShow = $ref(false)
+let statMore = $ref(false)
+let escapeShow = $ref(false)
 
 const replace = () => {
     if (action.current.replace.regular) {
@@ -183,9 +200,16 @@ const handle = (method, option: Record<string, any> = {}) => {
     action.success()
 }
 
-let statMore = $ref(false)
-
 const stat = $computed(() => {
     return (new TextHandle(action.current.input)).stat()
+})
+
+const escapeOptions = $computed<CheckboxOption>(() => {
+    return Object.keys(escapeChars).map(item => {
+        return {
+            value: item,
+            label: `${$t(`text_escape_${item}`)}(${escapeChars[item].string})`
+        }
+    })
 })
 </script>

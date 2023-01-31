@@ -68,7 +68,7 @@ import {createSerializeOutput} from "@/components/serialize";
 import Item from "./Item.vue";
 
 const action = useAction(await initialize({
-    input: "",
+    input: "2404:68::",
     mask0: 32,
     mask1: 64,
     limit: 100,

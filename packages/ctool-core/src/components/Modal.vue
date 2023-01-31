@@ -15,11 +15,13 @@
                         <slot></slot>
                     </main>
                     <footer v-if="$slots.footer || footerType !== 'none'">
-                        <Align v-if="footerType === 'normal'">
-                            <Button type="general" @click="show = false;emit('cancel')" :text="$t(`main_ui_cancel`)"/>
-                            <Button :loading="loading" type="primary" @click="emit('ok')" :text="$t(`main_ui_ok`)"/>
-                        </Align>
-                        <Button :loading="loading" v-if="footerType === 'long'" type="primary" long @click="emit('ok')" :text="$t(`main_ui_ok`)"/>
+                        <slot name="footer">
+                            <Align v-if="footerType === 'normal'">
+                                <Button type="general" @click="show = false;emit('cancel')" :text="$t(`main_ui_cancel`)"/>
+                                <Button :loading="loading" type="primary" @click="emit('ok')" :text="$t(`main_ui_ok`)"/>
+                            </Align>
+                            <Button :loading="loading" v-if="footerType === 'long'" type="primary" long @click="emit('ok')" :text="$t(`main_ui_ok`)"/>
+                        </slot>
                     </footer>
                 </article>
             </Transition>
@@ -119,6 +121,7 @@ onMounted(() => {
 
 dialog.ctool-modal {
     backdrop-filter: unset;
+    background-color: transparent;
     -webkit-backdrop-filter: unset;
 }
 
