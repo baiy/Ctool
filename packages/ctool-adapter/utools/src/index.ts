@@ -36,15 +36,15 @@ export const runtime = new (class implements PlatformRuntime {
     }
 
     entry(storage: Storage) {
+        try {
+            // utools 动态关键字初始化设置
+            if (window.utools.getFeatures().length === 0) {
+                this.resetFeatures()
+            }
+        } catch (e) {
+        }
         return new Promise<void>((resolve) => {
             window.utools.onPluginEnter(({code, type, payload}) => {
-                try {
-                    if (window.utools.getFeatures().length === 0) {
-                        // utools 动态关键字初始化设置
-                        this.resetFeatures()
-                    }
-                } catch (e) {
-                }
                 window.utools.showMainWindow()
                 if (!code.includes("ctool-")) {
                     return resolve()
@@ -64,6 +64,8 @@ export const runtime = new (class implements PlatformRuntime {
                 // 输入框数据写入临时存储
                 if (["over", "regex"].includes(type) && payload !== "") {
                     storage.setNoVersion('_temp_input_storage', payload, 10)
+                    //添加随机数 防止页面不刷新
+                    query.push(`_t=${Math.random()}`)
                 }
                 // 设置功能搜索关键字
                 if (type === "text" && payload !== "") {
