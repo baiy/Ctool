@@ -52,7 +52,7 @@
     "regex": "正则表达式",
     "randomString": "随机字符生成",
     "serialize": "序列化",
-    "serialize_serialize_keywords": "json,http query string,csv,html table,xml,yaml,toml,properties,php array",
+    "serialize_serialize_keywords": "json,http query string,csv,html table,xml,yaml,toml,properties,php array,php serialize",
     "diffs": "文本比对",
     "crontab": "Crontab",
     "websocket": "Websocket",

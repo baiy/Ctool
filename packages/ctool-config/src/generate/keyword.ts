@@ -1,4 +1,4 @@
-import {localesReal,tools, ToolType, FeatureType} from '../index';
+import {localesReal, tools, ToolType, FeatureType} from '../index';
 import {pinyin} from "pinyin-pro";
 import {buildData} from "./fileSystem";
 import {allLocales} from "./i18n";
@@ -24,8 +24,12 @@ export const buildKeywords = () => {
                     locale[`tool_${keywordItem.name}`].message, // 工具名称
                     locale[`tool_${keywordItem.name}_${keywordItem.feature}`].message, // 功能名称
                     ...locale[`tool_${keywordItem.name}_${keywordItem.feature}_keywords`].message.split(","), // 功能关键字
+
                 )
                 keywordItem.keyword.push(...items)
+                items.push(
+                    ...locale[`tool_${keywordItem.name}_${keywordItem.feature}_keywords`].message.replaceAll(" ", "").split(",") // 功能关键字(移除空格)
+                )
                 keywordItem.search.push(...items)
 
                 // 获取拼音
@@ -38,6 +42,8 @@ export const buildKeywords = () => {
                     })
                 }
             })
+
+            // 去重
             keywordItem.keyword = [...(new Set(keywordItem.keyword.map(item => item.trim()).filter(item => item !== '')))]
             keywordItem.search = [...(new Set(keywordItem.search.map(item => item.trim()).filter(item => item !== '').map(item => item.toLowerCase())))]
 

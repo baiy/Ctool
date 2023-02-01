@@ -5,208 +5,167 @@ const _categories = ['encryption', 'conversion', 'encoder_decoder', 'check', 'ge
 export let _tools = {
     hash: {
         feature: ['hash'],
-        parent_directory: "",
-        keywords: ['md5', 'sha1', 'sha256', 'sha512', 'sm3']
+        parent_directory: ""
     },
     aes: {
         feature: ['encrypt', 'decrypt'],
-        parent_directory: "encrypt",
-        keywords: []
+        parent_directory: "encrypt"
     },
     des: {
         feature: ['encrypt', 'decrypt'],
-        parent_directory: "encrypt",
-        keywords: []
+        parent_directory: "encrypt"
     },
     tripleDes: {
         feature: ['encrypt', 'decrypt'],
-        parent_directory: "encrypt",
-        keywords: []
+        parent_directory: "encrypt"
     },
     rc4: {
         feature: ['encrypt', 'decrypt'],
-        parent_directory: "encrypt",
-        keywords: []
+        parent_directory: "encrypt"
     },
     rabbit: {
         feature: ['encrypt', 'decrypt'],
-        parent_directory: "encrypt",
-        keywords: []
+        parent_directory: "encrypt"
     },
     sm2: {
         feature: ['encrypt', 'decrypt', 'sign', 'verify'],
-        parent_directory: "encrypt",
-        keywords: []
+        parent_directory: "encrypt"
     },
     sm4: {
         feature: ['encrypt', 'decrypt'],
-        parent_directory: "encrypt",
-        keywords: []
+        parent_directory: "encrypt"
     },
     sign: {
         feature: ['sign'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     base64: {
         feature: ['encoder', 'decoder'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     json: {
         feature: ['json'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     url: {
         feature: ['encoder', 'decoder'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     qrCode: {
         feature: ['generate', 'parse'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     barcode: {
         feature: ['barcode'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     pinyin: {
         feature: ['pinyin'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     ip: {
         feature: ['ip'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     code: {
         feature: ['code'],
-        parent_directory: "",
-        keywords: ["js", "javascript", "markdown", "typescript", "css", "less", "scss", "yaml", "html", "xml", "php", "vue", "angular", "graphql", "sql"]
+        parent_directory: ""
     },
     unicode: {
         feature: ['encoder', 'decoder'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     radix: {
         feature: ['radix'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     regex: {
         feature: ['regex'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     randomString: {
         feature: ['randomString'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     serialize: {
         feature: ['serialize'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     diffs: {
         feature: ['diffs'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     crontab: {
         feature: ['crontab'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     websocket: {
         feature: ['websocket'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     unit: {
         feature: ['unit'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     time: {
         feature: ['timestamp', 'timezone', 'calculator'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     uuid: {
         feature: ['uuid'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     ascii: {
         feature: ['ascii'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     variableConversion: {
         feature: ['variableConversion'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     jwt: {
         feature: ['jwt'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     hexString: {
         feature: ['stringToHex', 'hexToString'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     text: {
         feature: ['text'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     html: {
         feature: ['html'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     binary: {
         feature: ['binary'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     arm: {
         feature: ['armToHex', 'hexToArm'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     bcrypt: {
         feature: ['bcrypt'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     ipcalc: {
         feature: ['ipv4','ipv6'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     sqlFillParameter: {
         feature: ['sqlFillParameter'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     httpSnippet: {
         feature: ['httpSnippet'],
-        parent_directory: "",
-        keywords: []
+        parent_directory: ""
     },
     dataValidation: {
         feature: ['bcc', 'crc', 'lrc'],
-        parent_directory: "",
-        keywords: ['异或校验', '循环冗余校验', '纵向冗余校验', '数据校验']
+        parent_directory: ""
     },
 } as const;
 
