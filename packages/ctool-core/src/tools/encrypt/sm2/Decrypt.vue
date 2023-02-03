@@ -20,7 +20,6 @@
                 :allow="['text','hex','base64','image', 'down']"
                 :content="output"
                 :height="large"
-                @success="action.save()"
             />
         </Align>
     </HeightResize>
@@ -31,6 +30,7 @@ import {useAction, initialize} from "@/store/action"
 import {createTextInput, createTextOutput} from "@/components/text"
 import Text from "@/helper/text"
 import {CipherMode, sm2} from "sm-crypto"
+import {watch} from "vue";
 
 const action = useAction(await initialize({
     input: createTextInput('hex'),
@@ -64,4 +64,11 @@ const output = $computed(() => {
         return Text.fromError($error(e))
     }
 })
+
+watch(() => output, (output) => {
+    if (output.isEmpty()) {
+        return
+    }
+    action.save()
+}, {immediate: true, deep: true})
 </script>
