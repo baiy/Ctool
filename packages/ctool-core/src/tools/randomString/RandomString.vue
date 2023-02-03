@@ -20,7 +20,7 @@
                 <InputNumber v-model="action.current.length" :width="100" :label="$t('randomString_length')"/>
                 <InputNumber v-model="action.current.amount" :width="100" :label="$t('randomString_amount')"/>
                 <Button @click="generate">
-                    <Icon name="refresh" :size="12"/>
+                    <Icon name="refresh"/>
                 </Button>
             </Align>
         </Card>
@@ -125,7 +125,6 @@ const setBase = (type: string) => {
         symbol: `${baseSymbol}`,
     }[type] || "").split("")
     if (chars.length > 0) {
-        console.log(intersection(base, chars))
         // 判断是否存在
         if (intersection(base, chars).length > 0) {
             base = base.filter((char) => {

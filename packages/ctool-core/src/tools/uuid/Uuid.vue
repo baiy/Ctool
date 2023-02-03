@@ -14,6 +14,9 @@
                 <Bool border :label="$t('uuid_hyphens')" v-model="action.current.hyphens"/>
                 <Bool border :label="$t('uuid_is_upper')" v-model="action.current.isUpper"/>
                 <Bool border :label="$t('uuid_uint8_array')" v-model="action.current.uint8_array"/>
+                <Button @click="handle">
+                    <Icon name="refresh"/>
+                </Button>
             </Align>
         </Card>
     </Align>
