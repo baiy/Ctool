@@ -1,0 +1,6 @@
+{
+    "public": "PEM Public Key",
+    "private": "PEM Private Key",
+    "encrypt_input": "Encrypt Content",
+    "decrypt_input": "Decrypt Content"
+}

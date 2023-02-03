@@ -31,7 +31,6 @@
                 :allow="['hex']"
                 :content="output"
                 :height="small"
-                @success="action.save()"
             />
         </Align>
     </HeightResize>
@@ -42,6 +41,7 @@ import {useAction, initialize} from "@/store/action"
 import {createTextInput, createTextOutput} from "@/components/text"
 import Text from "@/helper/text"
 import {sm2} from "sm-crypto"
+import {watch} from "vue";
 
 const action = useAction(await initialize({
     sourceData: createTextInput('text'),
@@ -93,5 +93,12 @@ const output = $computed<Text>(() => {
         return Text.fromError($error(e))
     }
 })
+
+watch(() => output, (output) => {
+    if (output.isEmpty()) {
+        return
+    }
+    action.save()
+}, {immediate: true, deep: true})
 
 </script>

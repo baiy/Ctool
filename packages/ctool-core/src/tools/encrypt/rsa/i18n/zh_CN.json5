@@ -1,0 +1,6 @@
+{
+    "private": "私钥(PEM格式)",
+    "public": "公钥(PEM格式)",
+    "encrypt_input": "待加密内容",
+    "decrypt_input": "待解密内容"
+}

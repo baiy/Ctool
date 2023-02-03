@@ -27,7 +27,6 @@
                 :allow="['base64','hex','text']"
                 :content="output"
                 :height="large"
-                @success="action.save()"
             />
         </Align>
     </HeightResize>
@@ -38,6 +37,7 @@ import {sm4} from "sm-crypto"
 import {initialize, useAction} from "@/store/action";
 import {createTextInput, createTextOutput} from "@/components/text";
 import Text from "@/helper/text";
+import {watch} from "vue";
 
 const action = useAction(await initialize({
     input: createTextInput('hex'),
@@ -86,4 +86,11 @@ const output = $computed<Text>(() => {
         return Text.fromError($error(e))
     }
 })
+
+watch(() => output, (output) => {
+    if (output.isEmpty()) {
+        return
+    }
+    action.save()
+}, {immediate: true, deep: true})
 </script>

@@ -34,7 +34,6 @@
                 :allow="['text']"
                 :content="output"
                 :height="large"
-                @success="success"
                 encoding
             />
         </Align>
@@ -46,6 +45,7 @@ import {useAction, initialize} from "@/store/action"
 import {createTextInput, createTextOutput} from "@/components/text"
 import Text from "@/helper/text"
 import {modeLists, paddingLists, keySizeLists, aes, Option} from "../cryptoJS"
+import {watch} from "vue";
 
 const option: Option = {
     iv: "",
@@ -81,7 +81,10 @@ const output = $computed(() => {
     }
 })
 
-const success = () => {
+watch(() => output, (output) => {
+    if (output.isEmpty()) {
+        return
+    }
     action.save()
-}
+}, {immediate: true, deep: true})
 </script>

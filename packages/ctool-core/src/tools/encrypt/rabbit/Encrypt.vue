@@ -17,7 +17,6 @@
                 :allow="['base64','hex']"
                 :content="output"
                 :height="large"
-                @success="success"
             />
         </Align>
     </HeightResize>
@@ -28,6 +27,7 @@ import {useAction, initialize} from "@/store/action"
 import {createTextInput, createTextOutput} from "@/components/text"
 import Text from "@/helper/text"
 import {rabbit, Option} from "../cryptoJS"
+import {watch} from "vue";
 
 const option: Option = {
     key: "",
@@ -56,7 +56,10 @@ const output = $computed<Text>(() => {
     }
 })
 
-const success = () => {
+watch(() => output, (output) => {
+    if (output.isEmpty()) {
+        return
+    }
     action.save()
-}
+}, {immediate: true, deep: true})
 </script>

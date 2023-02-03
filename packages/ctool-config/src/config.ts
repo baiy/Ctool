@@ -35,6 +35,10 @@ export let _tools = {
         feature: ['encrypt', 'decrypt'],
         parent_directory: "encrypt"
     },
+    rsa: {
+        feature: ['encrypt', 'decrypt'],
+        parent_directory: "encrypt"
+    },
     sign: {
         feature: ['sign'],
         parent_directory: ""
@@ -152,7 +156,7 @@ export let _tools = {
         parent_directory: ""
     },
     ipcalc: {
-        feature: ['ipv4','ipv6'],
+        feature: ['ipv4', 'ipv6'],
         parent_directory: ""
     },
     sqlFillParameter: {
@@ -171,7 +175,7 @@ export let _tools = {
 
 // 分类 配置
 export const _categoryTool: Record<CategoryType, ToolType[]> = {
-    encryption: ["hash", "aes", "des", "tripleDes", "rc4", "rabbit", "sm2", "sm4", "sign", "base64", "bcrypt"],
+    encryption: ["hash", "aes", "des", "tripleDes", "rc4", "rabbit", "sm2", "sm4", "rsa", "sign", "base64", "bcrypt"],
     check: ["sign", "regex", "diffs", "crontab", "bcrypt", "dataValidation"],
     encoder_decoder: ["base64", "url", "unicode", "jwt", "hexString", "html"],
     conversion: ["json", "pinyin", "radix", "serialize", "unit", "time", "ascii", "variableConversion", "hexString", "arm", "httpSnippet"],
