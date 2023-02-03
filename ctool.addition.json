@@ -457,6 +457,15 @@
 				"tool_sm4_decrypt": {
 					"message": "解密"
 				},
+				"tool_rsa": {
+					"message": "RSA"
+				},
+				"tool_rsa_encrypt": {
+					"message": "加密"
+				},
+				"tool_rsa_decrypt": {
+					"message": "解密"
+				},
 				"tool_sign": {
 					"message": "签名/验签"
 				},
@@ -527,7 +536,7 @@
 					"message": "序列化"
 				},
 				"tool_serialize_serialize_keywords": {
-					"message": "json,http query string,csv,html table,xml,yaml,toml,properties,php array"
+					"message": "json,http query string,csv,html table,xml,yaml,toml,properties,php array,php serialize"
 				},
 				"tool_diffs": {
 					"message": "文本比对"
@@ -680,6 +689,12 @@
 					"message": ""
 				},
 				"tool_sm4_decrypt_keywords": {
+					"message": ""
+				},
+				"tool_rsa_encrypt_keywords": {
+					"message": ""
+				},
+				"tool_rsa_decrypt_keywords": {
 					"message": ""
 				},
 				"tool_sign_sign": {
@@ -915,6 +930,18 @@
 				},
 				"sm2_public_key_error": {
 					"message": "公钥格式错误"
+				},
+				"rsa_private": {
+					"message": "私钥(PEM格式)"
+				},
+				"rsa_public": {
+					"message": "公钥(PEM格式)"
+				},
+				"rsa_encrypt_input": {
+					"message": "待加密内容"
+				},
+				"rsa_decrypt_input": {
+					"message": "待解密内容"
 				},
 				"sign_sign_data": {
 					"message": "待签名内容/验签数据"
@@ -3122,6 +3149,15 @@
 				"tool_sm4_decrypt": {
 					"message": "Decrypt"
 				},
+				"tool_rsa": {
+					"message": "RSA"
+				},
+				"tool_rsa_encrypt": {
+					"message": "Encrypt"
+				},
+				"tool_rsa_decrypt": {
+					"message": "Decrypt"
+				},
 				"tool_sign": {
 					"message": "Sign"
 				},
@@ -3167,9 +3203,6 @@
 				"tool_code": {
 					"message": "Code Formatter "
 				},
-				"tool_code_code_keywords": {
-					"message": "js,javascript,markdown,typescript,css,less,scss,yaml,html,xml,php,vue,angular,graphql,sql"
-				},
 				"tool_unicode": {
 					"message": "Unicode"
 				},
@@ -3190,9 +3223,6 @@
 				},
 				"tool_serialize": {
 					"message": "Serialize"
-				},
-				"tool_serialize_serialize_keywords": {
-					"message": "json,http query string,csv,html table,xml,yaml,toml,properties,php array"
 				},
 				"tool_diffs": {
 					"message": "Compare Text"
@@ -3338,6 +3368,12 @@
 				"tool_sm4_decrypt_keywords": {
 					"message": ""
 				},
+				"tool_rsa_encrypt_keywords": {
+					"message": ""
+				},
+				"tool_rsa_decrypt_keywords": {
+					"message": ""
+				},
 				"tool_sign_sign": {
 					"message": "Sign"
 				},
@@ -3389,6 +3425,9 @@
 				"tool_code_code": {
 					"message": "Code Formatter "
 				},
+				"tool_code_code_keywords": {
+					"message": ""
+				},
 				"tool_unicode_encoder_keywords": {
 					"message": ""
 				},
@@ -3415,6 +3454,9 @@
 				},
 				"tool_serialize_serialize": {
 					"message": "Serialize"
+				},
+				"tool_serialize_serialize_keywords": {
+					"message": ""
 				},
 				"tool_diffs_diffs": {
 					"message": "Compare Text"
@@ -3580,6 +3622,18 @@
 				},
 				"sm2_public_key_error": {
 					"message": "Public Key Format Error"
+				},
+				"rsa_public": {
+					"message": "PEM Public Key"
+				},
+				"rsa_private": {
+					"message": "PEM Private Key"
+				},
+				"rsa_encrypt_input": {
+					"message": "Encrypt Content"
+				},
+				"rsa_decrypt_input": {
+					"message": "Decrypt Content"
 				},
 				"sign_sign_data": {
 					"message": "Sign Data/Verify data"
