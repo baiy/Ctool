@@ -193,6 +193,7 @@ importers:
       '@uiw/codemirror-theme-github': 4.15.1
       '@vitejs/plugin-vue': ^4.0.0
       '@vue/runtime-core': ^3.2.45
+      a-color-picker: ^1.2.1
       ajv: ^8.12.0
       ajv-i18n: ^4.2.0
       axios: ^0.27.2
@@ -200,6 +201,7 @@ importers:
       bignumber.js: ^9.1.1
       chardet: ^1.5.1
       chinese-simple2traditional: ^1.1.0
+      colord: ^2.9.3
       crc: ^4.2.0
       cron-parser: ^4.7.1
       cronstrue: ^2.21.0
@@ -282,6 +284,7 @@ importers:
       '@types/yargs-parser': 21.0.0
       '@uiw/codemirror-extensions-basic-setup': 4.19.6
       '@uiw/codemirror-theme-github': 4.15.1
+      a-color-picker: 1.2.1
       ajv: 8.12.0
       ajv-i18n: 4.2.0_ajv@8.12.0
       axios: 0.27.2
@@ -289,6 +292,7 @@ importers:
       bignumber.js: 9.1.1
       chardet: 1.5.1
       chinese-simple2traditional: 1.1.0
+      colord: 2.9.3
       crc: 4.2.0
       cron-parser: 4.7.1
       cronstrue: 2.21.0
@@ -1541,6 +1545,12 @@ packages:
   /@vue/shared/3.2.45:
     resolution: {integrity: sha512-Ewzq5Yhimg7pSztDV+RH1UDKBzmtqieXQlpTVm2AwraoRL/Rks96mvd8Vgi7Lj+h+TH8dv7mXD3FRZR3TUvbSg==}
 
+  /a-color-picker/1.2.1:
+    resolution: {integrity: sha512-aMCUKd2zTDWK2YWnjz0k3YhFc9XL0jZlPIywF6XkP6i3wdq2iHTEnl1BFPZkOVDV89M12t+zeZ8m23cfzn57/Q==}
+    dependencies:
+      is-plain-object: 2.0.4
+    dev: false
+
   /abs-svg-path/0.1.1:
     resolution: {integrity: sha512-d8XPSGjfyzlXC3Xx891DJRyZfqk5JU0BJrDQcsWomFIV1/BIzPW5HDH5iDdWpqWaav0YVIEzT1RHTwWr0FFshA==}
     dev: false
@@ -2108,6 +2118,10 @@ packages:
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
     dev: true
+
+  /colord/2.9.3:
+    resolution: {integrity: sha512-jeC1axXpnb0/2nn/Y1LPuLdgXBLH7aDcHu4KEKfqw3CUhX7ZpfBSlPKyqXE6btIgEzfWtrX3/tyBCaCvXvMkOw==}
+    dev: false
 
   /colors/1.0.3:
     resolution: {integrity: sha512-pFGrxThWcWQ2MsAz6RtgeWe4NK2kUE1WfsrvvlctdII745EW9I0yflqhe7++M5LEc7bV2c/9/5zc8sFcpL0Drw==}
@@ -3404,6 +3418,13 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
+  /is-plain-object/2.0.4:
+    resolution: {integrity: sha512-h5PpgXkWitc38BBMYawTYMWJHFZJVnBquFE57xFpjB8pJFiF6gZ+bU+WyI/yqXiFR5mdLsgYNaPe8uao6Uv9Og==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      isobject: 3.0.1
+    dev: false
+
   /is-regexp/1.0.0:
     resolution: {integrity: sha512-7zjFAPO4/gwyQAAgRRmqeEeyIICSdmCqa3tsVHMdBzaXXRiqopZL4Cyghg/XulGWrtABTpbnYYzzIRffLkP4oA==}
     engines: {node: '>=0.10.0'}
@@ -3457,6 +3478,11 @@ packages:
   /isexe/2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
+
+  /isobject/3.0.1:
+    resolution: {integrity: sha512-WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==}
+    engines: {node: '>=0.10.0'}
+    dev: false
 
   /isomorphic-fetch/2.2.1:
     resolution: {integrity: sha512-9c4TNAKYXM5PRyVcwUZrF3W09nQ+sO7+jydgs4ZGW9dhsLG2VOlISJABombdQqQRXCwuYG3sYV/puGf5rp0qmA==}
