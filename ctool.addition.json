@@ -640,6 +640,9 @@
 				"tool_dataValidation_lrc": {
 					"message": "LRC"
 				},
+				"tool_color": {
+					"message": "颜色"
+				},
 				"tool_hash_hash": {
 					"message": "哈希(hash)"
 				},
@@ -884,6 +887,12 @@
 					"message": ""
 				},
 				"tool_dataValidation_lrc_keywords": {
+					"message": ""
+				},
+				"tool_color_color": {
+					"message": "颜色"
+				},
+				"tool_color_color_keywords": {
 					"message": ""
 				},
 				"hash_uppercase": {
@@ -2705,6 +2714,13 @@
 				},
 				"sqlFillParameter_parameter_too_little": {
 					"message": "参数个数不足"
+				},
+				"color_input_placeholder": {
+					"message": "请输入颜色 {0} 值 例子:{1}",
+					"placeholders": [
+						"0",
+						"1"
+					]
 				}
 			},
 			"en": {
@@ -3317,6 +3333,9 @@
 				"tool_dataValidation_lrc": {
 					"message": "LRC"
 				},
+				"tool_color": {
+					"message": "Color"
+				},
 				"tool_hash_hash": {
 					"message": "Hash"
 				},
@@ -3576,6 +3595,12 @@
 					"message": ""
 				},
 				"tool_dataValidation_lrc_keywords": {
+					"message": ""
+				},
+				"tool_color_color": {
+					"message": "Color"
+				},
+				"tool_color_color_keywords": {
 					"message": ""
 				},
 				"hash_uppercase": {
@@ -5397,6 +5422,13 @@
 				},
 				"sqlFillParameter_parameter_too_little": {
 					"message": "No Enough Parameters"
+				},
+				"color_input_placeholder": {
+					"message": "Please enter color {0} value, e.g. {1}",
+					"placeholders": [
+						"0",
+						"1"
+					]
 				}
 			}
 		}
