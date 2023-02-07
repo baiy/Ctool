@@ -80,5 +80,6 @@
     "dataValidation": 'BCC/CRC/LRC',
     "dataValidation_bcc": 'BCC',
     "dataValidation_crc": 'CRC',
-    "dataValidation_lrc": 'LRC'
+    "dataValidation_lrc": 'LRC',
+    "color": "Color"
 }
