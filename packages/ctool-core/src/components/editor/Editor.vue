@@ -30,7 +30,9 @@ import {onUnmounted, onMounted, unref, watch, PropType, reactive} from "vue";
 import {EditorState, StateEffect, EditorSelection} from "@codemirror/state"
 import {EditorView, ViewUpdate, placeholder} from "@codemirror/view"
 import {getEditorLanguage} from "@/helper/code"
+import Json from "@/helper/json"
 import {openSearchPanel, gotoLine} from "@codemirror/search"
+import {codeFolding, Language} from "@codemirror/language"
 import {DisplayPosition} from "@/types"
 import {basicSetup} from '@uiw/codemirror-extensions-basic-setup';
 import {useTheme} from "@/store/setting"
@@ -38,6 +40,7 @@ import {githubLight, githubDark} from '@uiw/codemirror-theme-github';
 import formatter from "@/tools/code/formatter";
 import {copy, paste} from "@/helper/clipboard";
 import {sizeConvert} from "../util";
+import {isArray, isPlainObject} from "lodash";
 import Message from "@/helper/message";
 
 const props = defineProps({
@@ -110,13 +113,14 @@ const updateListener = EditorView.updateListener.of((vu: ViewUpdate) => {
 })
 
 const getExtensions = async () => {
+    const language = await getLanguage(props.lang)
     return [
         // 主题
         storeTheme.theme.raw === "dark" ? githubDark : githubLight,
         // 内容更新
         updateListener,
         // 代码语言
-        await getLanguage(props.lang),
+        language,
         // 自动换行
         lineWrapping ? EditorView.lineWrapping : [],
         // 默认字符
@@ -128,6 +132,55 @@ const getExtensions = async () => {
             lineNumbers: !!lineNumbers,
             foldGutter: !!lineNumbers,
         }),
+        codeFolding({
+            placeholderDOM(view, onclick) {
+                const placeholderText = "..."
+                let {state} = view
+                let element = document.createElement("span");
+                element.textContent = placeholderText;
+                element.setAttribute("aria-label", state.phrase("folded code"));
+                element.title = state.phrase("unfold");
+                element.className = "cm-foldPlaceholder";
+                element.onclick = onclick;
+
+                // json 折叠显示列表数量
+                setTimeout(() => {
+                    if (isArray(language) || language.language.name !== "json") {
+                        return;
+                    }
+
+                    let line = view.lineBlockAt(view.posAtDOM(element));
+                    const code = state.sliceDoc(line.from, line.to).trim().replace(/,$/, "")
+                    if (code.length < 1) {
+                        return;
+                    }
+                    let lists: any = ""
+                    try {
+                        if (!["{", '['].includes(code[0])) {
+                            const temp = Json.parse(`{${code}}`, {JSON_REPAIR: true})
+                            if (isPlainObject(temp) && Object.keys(temp).length > 0) {
+                                lists = temp[Object.keys(temp)[0]]
+                            }
+                        } else {
+                            lists = Json.parse(code, {JSON_REPAIR: true})
+                        }
+                    } catch (e) {
+                    }
+
+                    let append: { type: string, length } = {type: "", length: 0};
+                    if (isArray(lists)) {
+                        append = {type: 'Array', length: lists.length}
+                    }
+                    if (isPlainObject(lists)) {
+                        append = {type: 'Object', length: Object.keys(lists).length}
+                    }
+                    if (append.type !== "") {
+                        element.innerHTML = `${placeholderText} ${append.type}(<span style="color:var(--ctool-primary);font-weight: bold">${append.length}</span>)`
+                    }
+                }, 300)
+                return element;
+            }
+        })
     ]
 }
 
