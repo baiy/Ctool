@@ -61,7 +61,7 @@ const action = useAction(await initialize({
 }))
 
 const saltExp = $computed(() => {
-    if (['upload', 'url'].includes(action.current.input.type)) {
+    if (!action.current.is_salt || ['upload', 'url'].includes(action.current.input.type)) {
         // 文件上传禁用盐值
         return "";
     }
