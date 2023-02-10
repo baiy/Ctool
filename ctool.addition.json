@@ -139,6 +139,9 @@
 				"component_editor_search": {
 					"message": "查找/替换"
 				},
+				"component_editor_copy_with_style": {
+					"message": "复制(带样式)"
+				},
 				"component_click_help": {
 					"message": "点击查看说明文档"
 				},
@@ -2846,6 +2849,9 @@
 				},
 				"component_editor_search": {
 					"message": "Find/Replace"
+				},
+				"component_editor_copy_with_style": {
+					"message": "Copy With Style"
 				},
 				"component_click_help": {
 					"message": "Click to view the help document"
