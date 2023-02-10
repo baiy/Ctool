@@ -4,6 +4,8 @@
         <context-menu v-model:show="contextMenuConfig.show" :options="contextMenuConfig.options">
             <context-menu-item icon="copy" :disabled="contextMenuConfig.selected_text === ''" :label="$t(`main_ui_copy`)" @click="contextMenuClick('copy')"/>
             <context-menu-item icon="clipboard" :disabled="!contextMenuConfig.has_focus" :label="$t(`main_ui_paste`)" @click="contextMenuClick('paste')"/>
+            <context-menu-item :disabled="contextMenuConfig.selected_text === ''" :label="$t(`component_editor_copy_with_style`)"
+                               @click="contextMenuClick('copy_with_style')"/>
             <context-menu-item icon="location" :label="$t(`component_editor_goto`)" @click="contextMenuClick('goto')"/>
             <context-menu-item :label="$t(`component_editor_search`)" @click="contextMenuClick('search')"/>
             <context-menu-sperator/>
@@ -36,6 +38,7 @@ import {githubLight, githubDark} from '@uiw/codemirror-theme-github';
 import formatter from "@/tools/code/formatter";
 import {copy, paste} from "@/helper/clipboard";
 import {sizeConvert} from "../util";
+import Message from "@/helper/message";
 
 const props = defineProps({
     modelValue: {
@@ -200,7 +203,7 @@ const contextMenuConfig = reactive({
         theme: storeTheme.theme.raw === 'light' ? 'flat' : 'flat dark',
         x: 500,
         y: 200,
-        keyboardControl:false
+        keyboardControl: false
     },
     selected_text: "",
     has_focus: false
@@ -236,6 +239,9 @@ const contextMenuClick = async (type = "") => {
     }
     if (type === "copy") {
         return copy(contextMenuConfig.selected_text)
+    }
+    if (type === "copy_with_style") {
+        return copyWithStyle()
     }
     if (type === "paste") {
         const text = (await paste()).trim()
@@ -305,6 +311,66 @@ const isEnableFormat = $computed(() => {
         compress: formatter.isEnable(props.lang, 'compress')
     }
 })
+
+const copyWithStyle = () => {
+    let element: HTMLDivElement | null = null
+    try {
+        const selection = window.getSelection()
+        if (!selection || selection.rangeCount < 1) {
+            return;
+        }
+        const selectRange = selection.getRangeAt(0)
+
+        const selectedHtml = (() => {
+            let selectedHtml = "";
+            let documentFragment = selectRange.cloneContents();
+            if (!documentFragment) {
+                return "";
+            }
+            for (let i = 0; i < documentFragment.childNodes.length; i++) {
+                const childNode = documentFragment.childNodes[i];
+                selectedHtml += childNode.nodeType == 3 ? childNode.nodeValue : childNode['outerHTML'];
+            }
+            const tag = new RegExp('(<.+?>)');
+            return selectedHtml.split(tag).filter(Boolean).map(item => tag.test(item) ? item : item.replaceAll(" ", "&nbsp;")).join('');
+        })()
+
+        if (selectedHtml === "") {
+            throw new Error("select text is empty")
+        }
+
+        element = container?.querySelector('.cm-editor')?.cloneNode(true) as HTMLDivElement
+        if (!element) {
+            throw new Error("element is null")
+        }
+        element.querySelector('.cm-gutters')?.remove()
+        const content = element.querySelector('.cm-content')
+        if (!content) {
+            throw new Error("cm-content not found")
+        }
+        content.innerHTML = selectedHtml
+        element.style.opacity = "0";
+        element.style.position = "absolute";
+        element.style.pointerEvents = "none";
+        element.style.zIndex = "-1";
+        document.body.appendChild(element);
+
+        const range = document.createRange();
+        range.selectNode(element);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand("copy");
+        document.body.removeChild(element);
+        setTimeout(() => {
+            selection.removeAllRanges();
+            selection.addRange(selectRange);
+        }, 500)
+    } catch (e) {
+        Message.error($error(e))
+    } finally {
+        element?.remove()
+    }
+}
 </script>
 <style>
 .ctool-code-editor .cm-editor {
