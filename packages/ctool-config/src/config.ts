@@ -175,11 +175,15 @@ export let _tools = {
         feature: ['color'],
         parent_directory: ""
     },
+    hmac: {
+        feature: ['hmac'],
+        parent_directory: ""
+    },
 } as const;
 
 // 分类 配置
 export const _categoryTool: Record<CategoryType, ToolType[]> = {
-    encryption: ["hash", "aes", "des", "tripleDes", "rc4", "rabbit", "sm2", "sm4", "rsa", "sign", "base64", "bcrypt"],
+    encryption: ["hash", "hmac", "aes", "des", "tripleDes", "rc4", "rabbit", "sm2", "sm4", "rsa", "sign", "base64", "bcrypt"],
     check: ["sign", "regex", "diffs", "crontab", "bcrypt", "dataValidation"],
     encoder_decoder: ["base64", "url", "unicode", "jwt", "hexString", "html"],
     conversion: ["json", "pinyin", "radix", "serialize", "unit", "time", "ascii", "variableConversion", "hexString", "arm", "httpSnippet", "color"],

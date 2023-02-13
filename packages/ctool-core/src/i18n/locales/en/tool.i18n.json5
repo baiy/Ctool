@@ -81,5 +81,6 @@
     "dataValidation_bcc": 'BCC',
     "dataValidation_crc": 'CRC',
     "dataValidation_lrc": 'LRC',
-    "color": "Color"
+    "color": "Color",
+    "hmac": "HMAC"
 }
