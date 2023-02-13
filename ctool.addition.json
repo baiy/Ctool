@@ -590,7 +590,7 @@
 					"message": "Hex => String"
 				},
 				"tool_hexString_hexToString_keywords": {
-					"message": "字符串转十六机制"
+					"message": "字符串转十六进制"
 				},
 				"tool_text": {
 					"message": "文本处理"
@@ -645,6 +645,12 @@
 				},
 				"tool_color": {
 					"message": "颜色"
+				},
+				"tool_hmac": {
+					"message": "HMAC"
+				},
+				"tool_hmac_hmac_keywords": {
+					"message": "md5,sha1,sha256,sha512,sm3"
 				},
 				"tool_hash_hash": {
 					"message": "哈希(hash)"
@@ -897,6 +903,9 @@
 				},
 				"tool_color_color_keywords": {
 					"message": ""
+				},
+				"tool_hmac_hmac": {
+					"message": "HMAC"
 				},
 				"hash_uppercase": {
 					"message": "大写"
@@ -1848,6 +1857,12 @@
 				"unit_power_n_m_s": {
 					"message": "牛顿·米/秒"
 				},
+				"unit_power_dbm": {
+					"message": "分贝毫瓦"
+				},
+				"unit_power_dbw": {
+					"message": "分贝瓦"
+				},
 				"unit_work_j": {
 					"message": "焦耳"
 				},
@@ -2724,6 +2739,18 @@
 						"0",
 						"1"
 					]
+				},
+				"hmac_uppercase": {
+					"message": "大写"
+				},
+				"hmac_secret": {
+					"message": "密钥"
+				},
+				"hmac_multiple": {
+					"message": "批量"
+				},
+				"hmac_multiple_tooltip": {
+					"message": "按行执行操作"
 				}
 			},
 			"en": {
@@ -3342,6 +3369,9 @@
 				"tool_color": {
 					"message": "Color"
 				},
+				"tool_hmac": {
+					"message": "HMAC"
+				},
 				"tool_hash_hash": {
 					"message": "Hash"
 				},
@@ -3607,6 +3637,12 @@
 					"message": "Color"
 				},
 				"tool_color_color_keywords": {
+					"message": ""
+				},
+				"tool_hmac_hmac": {
+					"message": "HMAC"
+				},
+				"tool_hmac_hmac_keywords": {
 					"message": ""
 				},
 				"hash_uppercase": {
@@ -4559,6 +4595,12 @@
 				"unit_power_n_m_s": {
 					"message": "Newton m/s"
 				},
+				"unit_power_dbm": {
+					"message": "Decibel-milliwatt"
+				},
+				"unit_power_dbw": {
+					"message": "Decibel-Watt"
+				},
 				"unit_work_j": {
 					"message": "joule"
 				},
@@ -5435,6 +5477,18 @@
 						"0",
 						"1"
 					]
+				},
+				"hmac_uppercase": {
+					"message": "Uppercase"
+				},
+				"hmac_secret": {
+					"message": "Secret key"
+				},
+				"hmac_multiple": {
+					"message": "Multiple"
+				},
+				"hmac_multiple_tooltip": {
+					"message": "Operation By Row"
 				}
 			}
 		}
