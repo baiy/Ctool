@@ -1,3 +1,9 @@
+import {create, all} from 'mathjs'
+
+const math = create(all, {
+    number: 'BigNumber'
+})
+
 const MAX_NUM = 14       //格式化后的最长限制
 const DECIMAL_NUM = 7    //四舍五入时小数点后位数
 const EXPONENTIAL_NUM = 4 //科学计数法小数点后位数
@@ -7,12 +13,13 @@ type ConfigType = {
     unit: {
         key: string,
         unit: string,
-        calc: (x: number) => number,
-        init: (x: number) => number,
+        calc: string,
+        init: string,
     }[],
-    special: { from: string, to: string, func: (x: number) => number }[]
+    special: { from: string, to: string, func: string }[]
     group: { key: string, list: string[] }[]
 }
+
 export const config: ConfigType[] = [
     {
         key: "length",
@@ -21,146 +28,146 @@ export const config: ConfigType[] = [
             {
                 key: "km",
                 unit: "km",
-                calc: x => x / 1000,
-                init: x => (x * 1000)
+                calc: `x / 1000`,
+                init: `x * 1000`,
             },
             {
                 key: "m",
                 unit: "m",
-                calc: x => x,
-                init: x => x
+                calc: `x`,
+                init: `x`,
             },
             {
                 key: "dm",
                 unit: "dm",
-                calc: x => x / 0.1,
-                init: x => (x * 0.1)
+                calc: `x / 0.1`,
+                init: `x * 0.1`,
             },
             {
                 key: "cm",
                 unit: "cm",
-                calc: x => x / 0.01,
-                init: x => (x * 0.01)
+                calc: `x / 0.01`,
+                init: `x * 0.01`,
             },
             {
                 key: "mm",
                 unit: "mm",
-                calc: x => x / 0.001,
-                init: x => (x * 0.001)
+                calc: `x / 0.001`,
+                init: `(x * 0.001)`,
             },
             {
                 key: "um",
                 unit: "um",
-                calc: x => x / 0.000001,
-                init: x => (x * 0.000001)
+                calc: `x / 0.000001`,
+                init: `x * 0.000001`,
             },
             {
                 key: "nm",
                 unit: "nm",
-                calc: x => x / 0.000000001,
-                init: x => (x * 0.000000001)
+                calc: `x / 0.000000001`,
+                init: `x * 0.000000001`,
             },
             {
                 key: "pm",
                 unit: "pm",
-                calc: x => x / 0.000000000001,
-                init: x => (x * 0.000000000001)
+                calc: `x / 0.000000000001`,
+                init: `x * 0.000000000001`,
             },
             {
                 key: "ly",
                 unit: "ly",
-                calc: x => x / 9460730472580800,
-                init: x => (x * 9460730472580800)
+                calc: `x / 9460730472580800`,
+                init: `x * 9460730472580800`,
             },
             {
                 key: "au",
                 unit: "AU",
-                calc: x => x / 149597870700,
-                init: x => (x * 149600000000)
+                calc: `x / 149597870700`,
+                init: `(x * 149600000000)`,
             },
             {
                 key: "in",
                 unit: "in",
-                calc: x => x / (0.3048 / 12),
-                init: x => (x * (0.3048 / 12))
+                calc: `x / (0.3048 / 12)`,
+                init: `x * (0.3048 / 12)`,
             },
             {
                 key: "ft",
                 unit: "ft",
-                calc: x => x / 0.3048,
-                init: x => (x * 0.3048)
+                calc: `x / 0.3048`,
+                init: `x * 0.3048`,
             },
             {
                 key: "yd",
                 unit: "yd",
-                calc: x => x / (0.3048 * 3),
-                init: x => (x * (0.3048 * 3))
+                calc: `x / (0.3048 * 3)`,
+                init: `x * (0.3048 * 3)`,
             },
             {
                 key: "mi",
                 unit: "mi",
-                calc: x => x / (0.3048 * 3 * 1760),
-                init: x => (x * (0.3048 * 3 * 1760))
+                calc: `x / (0.3048 * 3 * 1760)`,
+                init: `x * (0.3048 * 3 * 1760)`,
             },
             {
                 key: "nmi",
                 unit: "nmi",
-                calc: x => x / 1852,
-                init: x => (x * 1852)
+                calc: `x / 1852`,
+                init: `x * 1852`,
             },
             {
                 key: "fm",
                 unit: "fm",
-                calc: x => x / 1.8288,
-                init: x => (x * 1.8288)
+                calc: `x / 1.8288`,
+                init: `x * 1.8288`,
             },
             {
                 key: "fur",
                 unit: "fur",
-                calc: x => x / 201.168,
-                init: x => (x * 201.168)
+                calc: `x / 201.168`,
+                init: `x * 201.168`,
             },
             {
                 key: "cn_li",
                 unit: "li",
-                calc: x => x / 500,
-                init: x => (x * 500)
+                calc: `x / 500`,
+                init: `(x * 500)`,
             },
             {
                 key: "cn_zhang",
                 unit: "zhang",
-                calc: x => x / (10 / 3),
-                init: x => (x * (10 / 3))
+                calc: `x / (10 / 3)`,
+                init: `x * (10 / 3)`,
             },
             {
                 key: "cn_chi",
                 unit: "chi",
-                calc: x => x / (1 / 3),
-                init: x => (x * (1 / 3))
+                calc: `x / (1 / 3)`,
+                init: `x * (1 / 3)`,
             },
             {
                 key: "cn_cun",
                 unit: "cun",
-                calc: x => x / (0.1 / 3),
-                init: x => (x * (0.1 / 3))
+                calc: `x / (0.1 / 3)`,
+                init: `x * (0.1 / 3)`,
             },
             {
                 key: "cn_fen",
                 unit: "fen",
-                calc: x => x / (0.01 / 3),
-                init: x => (x * (0.01 / 3))
+                calc: `x / (0.01 / 3)`,
+                init: `x * (0.01 / 3)`,
             },
             {
                 key: "cn_li2",
                 unit: "li",
-                calc: x => x / (0.001 / 3),
-                init: x => (x * (0.001 / 3))
+                calc: `x / (0.001 / 3)`,
+                init: `x * (0.001 / 3)`,
             },
             {
                 key: "cn_hao",
                 unit: "hao",
-                calc: x => x / (0.0001 / 3),
-                init: x => (x * (0.0001 / 3))
+                calc: `x / (0.0001 / 3)`,
+                init: `x * (0.0001 / 3)`,
             }
         ],
         special: [],
@@ -186,110 +193,110 @@ export const config: ConfigType[] = [
             {
                 key: "km_2",
                 unit: "km²",
-                calc: x => x / 1000000,
-                init: x => (x * 1000000)
+                calc: `x / 1000000`,
+                init: `x * 1000000`,
             },
             {
                 key: "ha",
                 unit: "ha",
-                calc: x => x / 10000,
-                init: x => (x * 10000)
+                calc: `x / 10000`,
+                init: `x * 10000`,
             },
             {
                 key: "are",
                 unit: "are",
-                calc: x => x / 100,
-                init: x => (x * 100)
+                calc: `x / 100`,
+                init: `x * 100`,
             },
             {
                 key: "m_2",
                 unit: "m²",
-                calc: x => x,
-                init: x => x
+                calc: `x`,
+                init: `x`,
             },
             {
                 key: "dm_2",
                 unit: "dm²",
-                calc: x => x / 0.01,
-                init: x => (x * 0.01)
+                calc: `x / 0.01`,
+                init: `x * 0.01`,
             },
             {
                 key: "cm_2",
                 unit: "cm²",
-                calc: x => x / 0.0001,
-                init: x => (x * 0.0001)
+                calc: `x / 0.0001`,
+                init: `(x * 0.0001)`,
             },
             {
                 key: "mm_2",
                 unit: "mm²",
-                calc: x => x / 0.000001,
-                init: x => (x * 0.000001)
+                calc: `x / 0.000001`,
+                init: `x * 0.000001`,
             },
             {
                 key: "acre",
                 unit: "acre",
-                calc: x => x / (Math.pow(0.3048, 2) * Math.pow(16.5, 2) * 160),
-                init: x => (x * (Math.pow(0.3048, 2) * Math.pow(16.5, 2) * 160))
+                calc: `x / ((0.3048^2) * (16.5^2) * 160)`,
+                init: `x * ((0.3048^2) * (16.5^2) * 160)`,
             },
             {
                 key: "mi_2",
                 unit: "mi²",
-                calc: x => x / Math.pow((0.3048 * 3 * 1760), 2),
-                init: x => (x * Math.pow((0.3048 * 3 * 1760), 2))
+                calc: `x / ((0.3048 * 3 * 1760)^2)`,
+                init: `(x * ((0.3048 * 3 * 1760)^2))`,
             },
             {
                 key: "yd_2",
                 unit: "yd²",
-                calc: x => x / (Math.pow(0.3048, 2) * 9),
-                init: x => (x * (Math.pow(0.3048, 2) * 9))
+                calc: `x / ((0.3048^2) * 9)`,
+                init: `x * ((0.3048^2) * 9)`,
             },
             {
                 key: "ft_2",
                 unit: "ft²",
-                calc: x => x / Math.pow(0.3048, 2),
-                init: x => (x * (Math.pow(0.3048, 2)))
+                calc: `x / (0.3048^2)`,
+                init: `x * (0.3048^2)`,
             },
             {
                 key: "in_2",
                 unit: "in²",
-                calc: x => x / (Math.pow(0.3048, 2) / 144),
-                init: x => (x * (Math.pow(0.3048, 2) / 144))
+                calc: `x / ((0.3048^2) / 144)`,
+                init: `x * ((0.3048^2) / 144)`,
             },
             {
                 key: "rd_2",
                 unit: "rd²",
-                calc: x => x / (Math.pow(0.3048, 2) * Math.pow(16.5, 2)),
-                init: x => (x * (Math.pow(0.3048, 2) * Math.pow(16.5, 2)))
+                calc: `x / ((0.3048^2) * (16.5^2))`,
+                init: `x * ((0.3048^2) * (16.5^2))`,
             },
             {
                 key: "cn_qing",
                 unit: "qing",
-                calc: x => x / (100 / 0.0015),
-                init: x => (x * (100 / 0.0015))
+                calc: `x / (100 / 0.0015)`,
+                init: `x * (100 / 0.0015)`,
             },
             {
                 key: "cn_mu",
                 unit: "mu",
-                calc: x => x / (1 / 0.0015),
-                init: x => (x * (1 / 0.0015))
+                calc: `x / (1 / 0.0015)`,
+                init: `x * (1 / 0.0015)`,
             },
             {
                 key: "cn_fen",
                 unit: "fen",
-                calc: x => x / (1 / 0.015),
-                init: x => (x * (1 / 0.015))
+                calc: `x / (1 / 0.015)`,
+                init: `x * (1 / 0.015)`,
             },
             {
                 key: "cn_chi_2",
                 unit: "chi²",
-                calc: x => x / (1 / 9),
-                init: x => (x * (1 / 9))
+                calc: `x / (1 / 9)`,
+                init: `(x * (1 / 9))`,
             },
             {
                 key: "cn_cun_2",
                 unit: "cun²",
-                calc: x => x / (0.01 / 9),
-                init: x => (x * (0.01 / 9))
+                calc: `x / (0.01 / 9)`,
+                init: `x * (0.01 / 9)`,
             }
         ],
         special: [],
@@ -315,110 +322,110 @@ export const config: ConfigType[] = [
             {
                 key: "m_3",
                 unit: "m³",
-                calc: x => x,
-                init: x => x
+                calc: `x`,
+                init: `x`,
             },
             {
                 key: "dm_3",
                 unit: "dm³",
-                calc: x => x / 0.001,
-                init: x => (x * 0.001)
+                calc: `x / 0.001`,
+                init: `(x * 0.001)`,
             },
             {
                 key: "cm_3",
                 unit: "cm³",
-                calc: x => x / 0.000001,
-                init: x => (x * 0.000001)
+                calc: `x / 0.000001`,
+                init: `(x * 0.000001)`,
             },
             {
                 key: "mm_3",
                 unit: "mm³",
-                calc: x => x / 0.000000001,
-                init: x => (x * 0.000000001)
+                calc: `x / 0.000000001`,
+                init: `(x * 0.000000001)`,
             },
             {
                 key: "l",
                 unit: "l",
-                calc: x => x / 0.001,
-                init: x => (x * 0.001)
+                calc: `x / 0.001`,
+                init: `(x * 0.001)`,
             },
             {
                 key: "dl",
                 unit: "dl",
-                calc: x => x / 0.0001,
-                init: x => (x * 0.0001)
+                calc: `x / 0.0001`,
+                init: `(x * 0.0001)`,
             },
             {
                 key: "ml",
                 unit: "ml",
-                calc: x => x / 0.000001,
-                init: x => (x * 0.000001)
+                calc: `x / 0.000001`,
+                init: `(x * 0.000001)`,
             },
             {
                 key: "cl",
                 unit: "cl",
-                calc: x => x / 0.00001,
-                init: x => (x * 0.00001)
+                calc: `x / 0.00001`,
+                init: `(x * 0.00001)`,
             },
             {
                 key: "uL",
                 unit: "μL",
-                calc: x => x / 0.000000001,
-                init: x => (x * 0.000000001)
+                calc: `x / 0.000000001`,
+                init: `(x * 0.000000001)`,
             },
             {
                 key: "hl",
                 unit: "hl",
-                calc: x => x / 0.1,
-                init: x => (x * 0.1)
+                calc: `x / 0.1`,
+                init: `(x * 0.1)`,
             },
             {
                 key: "ft_3",
                 unit: "ft_3",
-                calc: x => x / 0.0283168,
-                init: x => (x * 0.0283168)
+                calc: `x / 0.0283168`,
+                init: `(x * 0.0283168)`,
             },
             {
                 key: "in_3",
                 unit: "in_3",
-                calc: x => x / (0.0283168 / 1728),
-                init: x => (x * (0.0283168 / 1728))
+                calc: `x / (0.0283168 / 1728)`,
+                init: `(x * (0.0283168 / 1728))`,
             },
             {
                 key: "yd_3",
                 unit: "yd_3",
-                calc: x => x / (0.0283168 * 27),
-                init: x => (x * (0.0283168 * 27))
+                calc: `x / (0.0283168 * 27)`,
+                init: `(x * (0.0283168 * 27))`,
             },
             {
                 key: "acre_ft",
                 unit: "acre ft",
-                calc: x => x / (43560 * 1728 * 0.016387064 / 1000),
-                init: x => (x * (43560 * 1728 * 0.016387064 / 1000))
+                calc: `x / (43560 * 1728 * 0.016387064 / 1000)`,
+                init: `(x * (43560 * 1728 * 0.016387064 / 1000))`,
             },
             {
                 key: "uk_gal",
                 unit: "uk gal",
-                calc: x => x / 0.00454609188,
-                init: x => (x * 0.00454609188)
+                calc: `x / 0.00454609188`,
+                init: `(x * 0.00454609188)`,
             },
             {
                 key: "us_gal",
                 unit: "us gal",
-                calc: x => x / (231 * 0.016387064 / 1000),
-                init: x => (x * (231 * 0.016387064 / 1000))
+                calc: `x / (231 * 0.016387064 / 1000)`,
+                init: `(x * (231 * 0.016387064 / 1000))`,
             },
             {
                 key: "uk_oz",
                 unit: "uk oz",
-                calc: x => x / (0.000001 * 28.41),
-                init: x => (x * 0.000001 * 28.41)
+                calc: `x / (0.000001 * 28.41)`,
+                init: `(x * 0.000001 * 28.41)`,
             },
             {
                 key: "us_oz",
                 unit: "us oz",
-                calc: x => x / (0.000001 * 29.57),
-                init: x => (x * 0.000001 * 29.57)
+                calc: `x / (0.000001 * 29.57)`,
+                init: `(x * 0.000001 * 29.57)`,
             }
         ],
         special: [],
@@ -440,123 +447,123 @@ export const config: ConfigType[] = [
             {
                 key: "kg",
                 unit: "kg",
-                calc: x => x,
-                init: x => x
+                calc: `x`,
+                init: `x`,
             },
             {
                 key: "g",
                 unit: "g",
-                calc: x => x / 0.001,
-                init: x => (x * 0.001)
+                calc: `x / 0.001`,
+                init: `(x * 0.001)`,
             },
             {
                 key: "mg",
                 unit: "mg",
-                calc: x => x / 0.000001,
-                init: x => (x * 0.000001)
+                calc: `x / 0.000001`,
+                init: `(x * 0.000001)`,
             },
             {
                 key: "ug",
                 unit: "μg",
-                calc: x => x / 0.000000001,
-                init: x => (x * 0.000000001)
+                calc: `x / 0.000000001`,
+                init: `(x * 0.000000001)`,
             },
             {
                 key: "t",
                 unit: "t",
-                calc: x => x / 1000,
-                init: x => (x * 1000)
+                calc: `x / 1000`,
+                init: `(x * 1000)`,
             },
             {
                 key: "q",
                 unit: "q",
-                calc: x => x / 100,
-                init: x => (x * 100)
+                calc: `x / 100`,
+                init: `(x * 100)`,
             },
             {
                 key: "ct",
                 unit: "ct",
-                calc: x => x / 0.0002,
-                init: x => (x * 0.0002)
+                calc: `x / 0.0002`,
+                init: `(x * 0.0002)`,
             },
 
             {
                 key: "lb",
                 unit: "lb",
-                calc: x => x / 0.45359237,
-                init: x => (x * 0.45359237)
+                calc: `x / 0.45359237`,
+                init: `(x * 0.45359237)`,
             },
             {
                 key: "oz",
                 unit: "oz",
-                calc: x => x / (0.45359237 / 16),
-                init: x => (x * (0.45359237 / 16))
+                calc: `x / (0.45359237 / 16)`,
+                init: `(x * (0.45359237 / 16))`,
             },
             {
                 key: "gr",
                 unit: "gr",
-                calc: x => x / (0.45359237 / 7000),
-                init: x => (x * (0.45359237 / 7000))
+                calc: `x / (0.45359237 / 7000)`,
+                init: `(x * (0.45359237 / 7000))`,
             },
             {
                 key: "lt",
                 unit: "lt",
-                calc: x => x / (0.45359237 * 2240),
-                init: x => (x * (0.45359237 * 2240))
+                calc: `x / (0.45359237 * 2240)`,
+                init: `(x * (0.45359237 * 2240))`,
             },
             {
                 key: "st1",
                 unit: "st",
-                calc: x => x / (0.45359237 * 2000),
-                init: x => (x * (0.45359237 * 2000))
+                calc: `x / (0.45359237 * 2000)`,
+                init: `(x * (0.45359237 * 2000))`,
             },
             {
                 key: "uk_cwt",
                 unit: "uk cwt",
-                calc: x => x / (0.45359237 * 112),
-                init: x => (x * (0.45359237 * 112))
+                calc: `x / (0.45359237 * 112)`,
+                init: `(x * (0.45359237 * 112))`,
             },
             {
                 key: "us_cwt",
                 unit: "us cwt",
-                calc: x => x / (0.45359237 * 100),
-                init: x => (x * (0.45359237 * 100))
+                calc: `x / (0.45359237 * 100)`,
+                init: `(x * (0.45359237 * 100))`,
             },
             {
                 key: "st2",
                 unit: "st",
-                calc: x => x / (0.45359237 * 14),
-                init: x => (x * (0.45359237 * 14))
+                calc: `x / (0.45359237 * 14)`,
+                init: `(x * (0.45359237 * 14))`,
             },
             {
                 key: "dr",
                 unit: "dr",
-                calc: x => x / (0.45359237 / 256),
-                init: x => (x * (0.45359237 / 256))
+                calc: `x / (0.45359237 / 256)`,
+                init: `(x * (0.45359237 / 256))`,
             },
             {
                 key: "cn_dan",
                 unit: "dan",
-                calc: x => x / 50,
-                init: x => (x * 50)
+                calc: `x / 50`,
+                init: `(x * 50)`,
             },
             {
                 key: "cn_jin",
                 unit: "jin",
-                calc: x => x / 0.5,
-                init: x => (x * 0.5)
+                calc: `x / 0.5`,
+                init: `(x * 0.5)`,
             },
             {
                 key: "cn_liang",
                 unit: "liang",
-                calc: x => x / 0.05,
-                init: x => (x * 0.05)
+                calc: `x / 0.05`,
+                init: `(x * 0.05)`,
             },
             {
                 key: "cn_qian",
                 unit: "qian",
-                calc: x => x / 0.005,
-                init: x => (x * 0.005)
+                calc: `x / 0.005`,
+                init: `(x * 0.005)`,
             }
         ],
         special: [],
@@ -582,32 +589,32 @@ export const config: ConfigType[] = [
             {
                 key: "c",
                 unit: "°C",
-                calc: x => (x - 273.15),
-                init: x => x + 273.15
+                calc: `(x - 273.15)`,
+                init: `x + 273.15`,
             },
             {
                 key: "f",
                 unit: "°F",
-                calc: x => 32 + ((x - 273.15) * 9 / 5),
-                init: x => (5 * (x - 32) / 9) + 273.15
+                calc: `32 + ((x - 273.15) * 9 / 5)`,
+                init: `(5 * (x - 32) / 9) + 273.15`,
             },
             {
                 key: "k",
                 unit: "K",
-                calc: x => (x - 273.15) + 273.15,
-                init: x => (x - 273.15) + 273.15
+                calc: `(x - 273.15) + 273.15`,
+                init: `(x - 273.15) + 273.15`,
             },
             {
                 key: "r",
                 unit: "°R",
-                calc: x => ((x - 273.15) + 273.15) * 1.8,
-                init: x => (x / 1.8 - 273.15) + 273.15
+                calc: `((x - 273.15) + 273.15) * 1.8`,
+                init: `(x / 1.8 - 273.15) + 273.15`,
             },
             {
                 key: "re",
                 unit: "°Re",
-                calc: x => (x - 273.15) / 1.25,
-                init: x => (x * 1.25) + 273.15
+                calc: `(x - 273.15) / 1.25`,
+                init: `(x * 1.25) + 273.15`,
             }
         ],
         special: [],
@@ -625,86 +632,86 @@ export const config: ConfigType[] = [
             {
                 key: "pa",
                 unit: "Pa",
-                calc: x => x,
-                init: x => x
+                calc: `x`,
+                init: `x`,
             },
             {
                 key: "kpa",
                 unit: "kpa",
-                calc: x => x / 1000,
-                init: x => (x * 1000)
+                calc: `x / 1000`,
+                init: `(x * 1000)`,
             },
             {
                 key: "hpa",
                 unit: "hpa",
-                calc: x => x / 100,
-                init: x => (x * 100)
+                calc: `x / 100`,
+                init: `(x * 100)`,
             },
             {
                 key: "atm",
                 unit: "atm",
-                calc: x => x / 101325,
-                init: x => (x * 101325)
+                calc: `x / 101325`,
+                init: `(x * 101325)`,
             },
             {
                 key: "mmhg",
                 unit: "mmHg",
-                calc: x => x / (101325 / 760),
-                init: x => (x * (101325 / 760))
+                calc: `x / (101325 / 760)`,
+                init: `(x * (101325 / 760))`,
             },
             {
                 key: "in_hg",
                 unit: "in Hg",
-                calc: x => x / (101325 / 760 * 25.4),
-                init: x => (x * (101325 / 760 * 25.4))
+                calc: `x / (101325 / 760 * 25.4)`,
+                init: `(x * (101325 / 760 * 25.4))`,
             },
             {
                 key: "bar",
                 unit: "bar",
-                calc: x => x / 100000,
-                init: x => (x * 100000)
+                calc: `x / 100000`,
+                init: `(x * 100000)`,
             },
             {
                 key: "mbar",
                 unit: "mbar",
-                calc: x => x / 100,
-                init: x => (x * 100)
+                calc: `x / 100`,
+                init: `(x * 100)`,
             },
             {
                 key: "psf",
                 unit: "psf",
-                calc: x => x / (6894.757 / 144),
-                init: x => (x * (6894.757 / 144))
+                calc: `x / (6894.757 / 144)`,
+                init: `(x * (6894.757 / 144))`,
             },
             {
                 key: "psi",
                 unit: "psi",
-                calc: x => x / 6894.757,
-                init: x => (x * 6894.757)
+                calc: `x / 6894.757`,
+                init: `(x * 6894.757)`,
             },
             {
                 key: "mmwg",
                 unit: "mmWG",
-                calc: x => x / (1 / 0.101972),
-                init: x => (x * (1 / 0.101972))
+                calc: `x / (1 / 0.101972)`,
+                init: `(x * (1 / 0.101972))`,
             },
             {
                 key: "kgf_cm_2",
                 unit: "kgf/cm²",
-                calc: x => x / 98066.5,
-                init: x => (x * 98066.5)
+                calc: `x / 98066.5`,
+                init: `(x * 98066.5)`,
             },
             {
                 key: "kgf_m_2",
                 unit: "kgf/m²",
-                calc: x => x / 9.80665,
-                init: x => (x * 9.80665)
+                calc: `x / 9.80665`,
+                init: `(x * 9.80665)`,
             },
             {
                 key: "mpa",
                 unit: "MPa",
-                calc: x => x / 1000000,
-                init: x => (x * 1000000)
+                calc: `x / 1000000`,
+                init: `(x * 1000000)`,
             }
         ],
         special: [],
@@ -722,62 +729,62 @@ export const config: ConfigType[] = [
             {
                 key: "w",
                 unit: "W",
-                calc: x => x,
-                init: x => x
+                calc: `x`,
+                init: `x`,
             },
             {
                 key: "kw",
                 unit: "kW",
-                calc: x => x / 1000,
-                init: x => (x * 1000)
+                calc: `x / 1000`,
+                init: `(x * 1000)`,
             },
             {
                 key: "hp",
                 unit: "hp",
-                calc: x => x / 745.699872,
-                init: x => (x * 745.699872)
+                calc: `x / 745.699872`,
+                init: `(x * 745.699872)`,
             },
             {
                 key: "ps",
                 unit: "ps",
-                calc: x => x / (9.80665 * 75),
-                init: x => (x * (9.80665 * 75))
+                calc: `x / (9.80665 * 75)`,
+                init: `(x * (9.80665 * 75))`,
             },
             {
                 key: "kg_m_s",
                 unit: "kg·m/s",
-                calc: x => x / 9.80665,
-                init: x => (x * 9.80665)
+                calc: `x / 9.80665`,
+                init: `(x * 9.80665)`,
             },
             {
                 key: "kcal_s",
                 unit: "kcal/s",
-                calc: x => x / 4184.1004,
-                init: x => (x * 4184.1004)
+                calc: `x / 4184.1004`,
+                init: `(x * 4184.1004)`,
             },
             {
                 key: "btu_s",
                 unit: "Btu/s",
-                calc: x => x / 1055.05585,
-                init: x => (x * 1055.05585)
+                calc: `x / 1055.05585`,
+                init: `(x * 1055.05585)`,
             },
             {
                 key: "ft_lb_s",
                 unit: "ft·lb/s",
-                calc: x => x / (745.699872 / 550),
-                init: x => (x * (745.699872 / 550))
+                calc: `x / (745.699872 / 550)`,
+                init: `(x * (745.699872 / 550))`,
             },
             {
                 key: "j_s",
                 unit: "J/s",
-                calc: x => x,
-                init: x => x
+                calc: `x`,
+                init: `x`,
             },
             {
                 key: "n_m_s",
                 unit: "N·m/s",
-                calc: x => x,
-                init: x => x
+                calc: `x`,
+                init: `x`,
             }
         ],
         special: [],
@@ -795,68 +802,68 @@ export const config: ConfigType[] = [
             {
                 key: "j",
                 unit: "J",
-                calc: x => x,
-                init: x => x
+                calc: `x`,
+                init: `x`,
             },
             {
                 key: "kg_m",
                 unit: "kg·m",
-                calc: x => x / 9.80392157,
-                init: x => (x * 9.80392157)
+                calc: `x / 9.80392157`,
+                init: `(x * 9.80392157)`,
             },
             {
                 key: "ps_h",
                 unit: "ps·h",
-                calc: x => x / (9.80665 * 75 * 3600),
-                init: x => (x * (9.80665 * 75 * 3600))
+                calc: `x / (9.80665 * 75 * 3600)`,
+                init: `(x * (9.80665 * 75 * 3600))`,
             },
             {
                 key: "hp_h",
                 unit: "hp·h",
-                calc: x => x / (745.699872 * 3600),
-                init: x => (x * (745.699872 * 3600))
+                calc: `x / (745.699872 * 3600)`,
+                init: `(x * (745.699872 * 3600))`,
             },
             {
                 key: "kw_h",
                 unit: "kW·h",
-                calc: x => x / 3600000,
-                init: x => (x * 3600000)
+                calc: `x / 3600000`,
+                init: `(x * 3600000)`,
             },
             {
                 key: "kw_h_",
                 unit: "kW·h",
-                calc: x => x / 3600000,
-                init: x => (x * 3600000)
+                calc: `x / 3600000`,
+                init: `(x * 3600000)`,
             },
             {
                 key: "cal",
                 unit: "cal",
-                calc: x => x / 4.185851820846,
-                init: x => (x * 4.185851820846)
+                calc: `x / 4.185851820846`,
+                init: `(x * 4.185851820846)`,
             },
             {
                 key: "kcal",
                 unit: "kcal",
-                calc: x => x / 4185.851820846,
-                init: x => (x * 4185.851820846)
+                calc: `x / 4185.851820846`,
+                init: `(x * 4185.851820846)`,
             },
             {
                 key: "btu",
                 unit: "btu",
-                calc: x => x / 1055.05585262,
-                init: x => (x * 1055.05585262)
+                calc: `x / 1055.05585262`,
+                init: `(x * 1055.05585262)`,
             },
             {
                 key: "ft_lb",
                 unit: "ft·lb",
-                calc: x => x / 1.3557483731,
-                init: x => (x * 1.3557483731)
+                calc: `x / 1.3557483731`,
+                init: `(x * 1.3557483731)`,
             },
             {
                 key: "kj",
                 unit: "kJ",
-                calc: x => x / 1000,
-                init: x => (x * 1000)
+                calc: `x / 1000`,
+                init: `(x * 1000)`,
             }
         ],
         special: [],
@@ -874,38 +881,38 @@ export const config: ConfigType[] = [
             {
                 key: "kg_cm_3",
                 unit: "kg/cm³",
-                calc: x => x / (Math.pow(10, 6)),
-                init: x => (x * 1000000)
+                calc: `x / (10^6)`,
+                init: `(x * 1000000)`,
             },
             {
                 key: "kg_dm_3",
                 unit: "kg/dm³",
-                calc: x => x / 1000,
-                init: x => (x * 1000)
+                calc: `x / 1000`,
+                init: `(x * 1000)`,
             },
             {
                 key: "kg_m_3",
                 unit: "kg/m³",
-                calc: x => x,
-                init: x => x
+                calc: `x`,
+                init: `x`,
             },
             {
                 key: "g_cm_3",
                 unit: "g/cm³",
-                calc: x => x / 1000,
-                init: x => (x * 1000)
+                calc: `x / 1000`,
+                init: `(x * 1000)`,
             },
             {
                 key: "g_dm_3",
                 unit: "g/dm³",
-                calc: x => x,
-                init: x => x
+                calc: `x`,
+                init: `x`,
             },
             {
                 key: "g_m_3",
                 unit: "g/m³",
-                calc: x => (x * 1000),
-                init: x => x / 1000
+                calc: `(x * 1000)`,
+                init: `x / 1000`,
             }
         ],
         special: [],
@@ -923,50 +930,50 @@ export const config: ConfigType[] = [
             {
                 key: "n",
                 unit: "N",
-                calc: x => x,
-                init: x => x
+                calc: `x`,
+                init: `x`,
             },
             {
                 key: "kn",
                 unit: "kN",
-                calc: x => x / 1000,
-                init: x => (x * 1000)
+                calc: `x / 1000`,
+                init: `(x * 1000)`,
             },
             {
                 key: "kgf",
                 unit: "kgf",
-                calc: x => (x * 101.971621) / 1000,
-                init: x => (x * 9.806650)
+                calc: `(x * 101.971621) / 1000`,
+                init: `(x * 9.806650)`,
             },
             {
                 key: "gf",
                 unit: "gf",
-                calc: x => (x * 101.971621),
-                init: x => (x * 9.806650) / 1000
+                calc: `(x * 101.971621)`,
+                init: `(x * 9.806650) / 1000`,
             },
             {
                 key: "tf",
                 unit: "tf",
-                calc: x => (x * 101.971621) / (Math.pow(10, 6)),
-                init: x => (x * 9806.650000)
+                calc: `(x * 101.971621) / (10^6)`,
+                init: `(x * 9806.650000)`,
             },
             {
                 key: "lbf",
                 unit: "lbf",
-                calc: x => (x * 224.808943) / 1000,
-                init: x => (x * 4.448222)
+                calc: `(x * 224.808943) / 1000`,
+                init: `(x * 4.448222)`,
             },
             {
                 key: "kip",
                 unit: "kip",
-                calc: x => (x * 224.808943) / (Math.pow(10, 6)),
-                init: x => (x * 4448.221615)
+                calc: `(x * 224.808943) / (10^6)`,
+                init: `(x * 4448.221615)`,
             },
             {
                 key: "dyn",
                 unit: "dyn",
-                calc: x => (x * 100000),
-                init: x => x / 100000
+                calc: `(x * 100000)`,
+                init: `x / 100000`,
             }
         ],
         special: [],
@@ -984,63 +991,63 @@ export const config: ConfigType[] = [
             {
                 key: "yr",
                 unit: "yr",
-                calc: x => (x * 31.709792) / (Math.pow(10, 9)),
-                init: x => (x * 31536000)
+                calc: `x / 31536000`,
+                init: `x * 31536000`,
             },
             {
                 key: "week",
                 unit: "week",
-                calc: x => (x * 1.653439) / (Math.pow(10, 6)),
-                init: x => (x * 604800)
+                calc: `x / 604800`,
+                init: `x * 604800`,
             },
             {
                 key: "d",
                 unit: "d",
-                calc: x => (x * 11.574074) / (Math.pow(10, 6)),
-                init: x => (x * 86400)
+                calc: `x / 86400`,
+                init: `x * 86400`,
             },
             {
                 key: "h",
                 unit: "h",
-                calc: x => (x * 277.777778) / (Math.pow(10, 6)),
-                init: x => (x * 3600)
+                calc: `x / 3600`,
+                init: `x * 3600`,
             },
             {
                 key: "min",
                 unit: "min",
-                calc: x => (x * 16.6666667) / 1000,
-                init: x => (x * 60)
+                calc: `x / 60`,
+                init: `x * 60`,
             },
             {
                 key: "s",
                 unit: "s",
-                calc: x => x,
-                init: x => x
+                calc: `x`,
+                init: `x`,
             },
             {
                 key: "ms",
                 unit: "ms",
-                calc: x => (x * 1000),
-                init: x => x / 1000
+                calc: `x * 1000`,
+                init: `x / 1000`,
             },
             {
                 key: "us",
                 unit: "μs",
-                calc: x => (x * 1000000),
-                init: x => x / 1000000
+                calc: `x * 1000000`,
+                init: `x / 1000000`,
             },
             {
                 key: "ns",
                 unit: "ns",
-                calc: x => (x * 1000000000),
-                init: x => x / 1000000000
+                calc: `x * 1000000000`,
+                init: `x / 1000000000`,
             }
         ],
         special: [
             {
                 from: "h",
                 to: "min",
-                func: x => (x * 60)
+                func: `x * 60`,
             }
         ],
         group: [
@@ -1057,44 +1064,44 @@ export const config: ConfigType[] = [
             {
                 key: "m_s",
                 unit: "m/s",
-                calc: x => x,
-                init: x => x
+                calc: `x`,
+                init: `x`,
             },
             {
                 key: "km_s",
                 unit: "km/s",
-                calc: x => x / 1000,
-                init: x => (x * 1000)
+                calc: `x / 1000`,
+                init: `x * 1000`,
             },
             {
                 key: "km_h",
                 unit: "km/h",
-                calc: x => (x * 3.600000),
-                init: x => (x * 277.777778) / 1000
+                calc: `x * 3.6`,
+                init: `x / 3.6`,
             },
             {
                 key: "c",
                 unit: "c",
-                calc: x => (x * 3.335641) / (Math.pow(10, 9)),
-                init: x => (x * 299792458)
+                calc: `x / 299792458`,
+                init: `x * 299792458`,
             },
             {
                 key: "mach",
                 unit: "mach",
-                calc: x => (x * 2.938584) / 1000,
-                init: x => (x * 340.300000)
+                calc: `x / 340.3`,
+                init: `x * 340.3`,
             },
             {
                 key: "mile_h",
                 unit: "mile/h",
-                calc: x => (x * 2.236936),
-                init: x => (x * 447.040000) / 1000
+                calc: `x * 2.236936`,
+                init: `x / 2.236936`,
             },
             {
                 key: "in_s",
                 unit: "in/s",
-                calc: x => (x * 39.370079),
-                init: x => (x * 25.400000) / 1000
+                calc: `x * 39.370079`,
+                init: `x / 39.370079`,
             }
         ],
         special: [],
@@ -1112,50 +1119,50 @@ export const config: ConfigType[] = [
             {
                 key: "bit",
                 unit: "bit",
-                calc: x => (x * 8),
-                init: x => x / 8
+                calc: `x * 8`,
+                init: `x / 8`,
             },
             {
                 key: "b",
                 unit: "b",
-                calc: x => x,
-                init: x => x
+                calc: `x`,
+                init: `x`,
             },
             {
                 key: "kb",
                 unit: "kb",
-                calc: x => x / (Math.pow(2, 10)),
-                init: x => (x * 1024)
+                calc: `x / (2^10)`,
+                init: `(x * (2^10))`,
             },
             {
                 key: "mb",
                 unit: "mb",
-                calc: x => x / (Math.pow(2, 20)),
-                init: x => (x * Math.pow(2, 20))
+                calc: `x / (2^20)`,
+                init: `(x * (2^20))`,
             },
             {
                 key: "gb",
                 unit: "gb",
-                calc: x => x / (Math.pow(2, 30)),
-                init: x => (x * Math.pow(2, 30))
+                calc: `x / (2^30)`,
+                init: `(x * (2^30))`,
             },
             {
                 key: "tb",
                 unit: "tb",
-                calc: x => x / (Math.pow(2, 40)),
-                init: x => (x * Math.pow(2, 40))
+                calc: `x / (2^40)`,
+                init: `(x * (2^40))`,
             },
             {
                 key: "pb",
                 unit: "pb",
-                calc: x => x / (Math.pow(2, 50)),
-                init: x => (x * Math.pow(2, 50))
+                calc: `x / (2^50)`,
+                init: `(x * (2^50))`,
             },
             {
                 key: "eb",
                 unit: "eb",
-                calc: x => x / (Math.pow(2, 60)),
-                init: x => (x * Math.pow(2, 60))
+                calc: `x / (2^60)`,
+                init: `(x * (2^60))`,
             }
         ],
         special: [],
@@ -1173,50 +1180,50 @@ export const config: ConfigType[] = [
             {
                 key: "circle",
                 unit: "circle",
-                calc: x => (x * 2.777778) / 1000,
-                init: x => (x * 360)
+                calc: `x / 360`,
+                init: `x * 360`,
             },
             {
                 key: "angle",
                 unit: "angle",
-                calc: x => (x * 11.111111) / 1000,
-                init: x => (x * 90)
+                calc: `x / 90`,
+                init: `x * 90`,
             },
             {
                 key: "gon",
                 unit: "gon",
-                calc: x => (x * 1.111111),
-                init: x => (x * 900) / 1000
+                calc: `x * (400 / 360)`,
+                init: `x / (400 / 360)`,
             },
             {
                 key: "degree",
                 unit: "°",
-                calc: x => x,
-                init: x => x
+                calc: `x`,
+                init: `x`,
             },
             {
                 key: "min",
                 unit: " ′",
-                calc: x => (x * 60),
-                init: x => (x * 16.6666667) / 1000
+                calc: `x * 60`,
+                init: `x / 60`,
             },
             {
                 key: "s",
                 unit: "'",
-                calc: x => (x * 3600),
-                init: x => (x * 0.2777778) / 1000
+                calc: `(x * 3600)`,
+                init: `x / 3600`,
             },
             {
                 key: "rad",
                 unit: "rad",
-                calc: x => (x * 17.453293) / 1000,
-                init: x => (x * 57.295780)
+                calc: `x / 57.29578`,
+                init: `x * 57.29578`,
             },
             {
                 key: "mrad",
                 unit: "mrad",
-                calc: x => (x * 17.453293),
-                init: x => (x * 57.295780) / 1000
+                calc: `x * 17.453293`,
+                init: `x / 17.453293`,
             }
         ],
         special: [],
@@ -1233,7 +1240,6 @@ export const config: ConfigType[] = [
     }
 ]
 
-
 export const getGroupByUnit = (type: string, unit: string) => {
     for (let group of getType(type).group) {
         if (group.list.includes(unit)) {
@@ -1243,7 +1249,7 @@ export const getGroupByUnit = (type: string, unit: string) => {
     return ""
 }
 
-export const calculate = function (type, num, from, to) {
+export const calculate = function (type: string, num: string, from: string, to: string) {
     let fromUnit = getUnit(type, from)
     if (from === to) {
         return format(num)
@@ -1251,10 +1257,14 @@ export const calculate = function (type, num, from, to) {
     let toUnit = getUnit(type, to)
 
     let special = getSpecial(type, from, to)
+
+    const calc = (input: string, expression: string) => {
+        return math.evaluate(expression.replaceAll("x", input)).toString()
+    }
     if (special !== null) {
-        num = special(num)
+        num = calc(num, special)
     } else {
-        num = toUnit.calc(fromUnit.init(num))
+        num = calc(calc(num, fromUnit.init), toUnit.calc)
     }
     return format(num)
 }
@@ -1292,7 +1302,9 @@ const getSpecial = (name, from, to) => {
 /*
  * 对结果进行格式化(内部使用)
  */
-const format = function (num) {
+const format = function (_num: string) {
+    let num = Number(_num)
+
     //格式策略，整体不超过14位
     let strNum = `${num}`,
         isFloat = false,
@@ -1315,7 +1327,7 @@ const format = function (num) {
                 num = exponential(num, EXPONENTIAL_NUM)
             } else {
                 //保留7位小数
-                num = num.toFixed(DECIMAL_NUM) * 1
+                num = Number(num.toFixed(DECIMAL_NUM))
             }
         } else {
             arr = strNum.split('.')
@@ -1328,14 +1340,14 @@ const format = function (num) {
                     num = exponential(num, EXPONENTIAL_NUM)
                 } else {
                     if (intPart.length < DECIMAL_NUM - 1) {
-                        num = num.toFixed(DECIMAL_NUM) * 1
+                        num = Number(num.toFixed(DECIMAL_NUM))
                     } else {
-                        num = num.toFixed(MAX_NUM - intPart.length - 1) * 1
+                        num = Number(num.toFixed(MAX_NUM - intPart.length - 1))
                     }
                 }
             } else {
                 if (decPart.length > DECIMAL_NUM) {
-                    num = num.toFixed(DECIMAL_NUM) * 1
+                    num = Number(num.toFixed(DECIMAL_NUM))
                 }
             }
         }

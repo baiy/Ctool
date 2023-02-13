@@ -79,7 +79,7 @@ const result = $computed(() => {
     for (let unit of getType(action.current.type).unit) {
         lists.push({
             key: unit.key,
-            value: calculate(action.current.type, action.current.input, action.current.from, unit.key),
+            value: calculate(action.current.type, `${action.current.input}`, action.current.from, unit.key),
             name: unitName(unit.key, action.current.type, getGroupByUnit(action.current.type, unit.key))
         })
     }
