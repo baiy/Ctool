@@ -90,5 +90,7 @@
     "dataValidation_bcc": 'BCC',
     "dataValidation_crc": 'CRC',
     "dataValidation_lrc": 'LRC',
-    "color": "颜色"
+    "color": "颜色",
+    "hmac": "HMAC",
+    "hmac_hmac_keywords": "md5,sha1,sha256,sha512,sm3"
 }
