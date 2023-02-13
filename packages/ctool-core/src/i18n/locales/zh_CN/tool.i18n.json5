@@ -72,7 +72,7 @@
     "hexString_stringToHex": "String => Hex",
     "hexString_stringToHex_keywords": "十六进制转字符串",
     "hexString_hexToString": "Hex => String",
-    "hexString_hexToString_keywords": "字符串转十六机制",
+    "hexString_hexToString_keywords": "字符串转十六进制",
     "text": "文本处理",
     "text_text_keywords": "大小写转换,中英文标点转换,简繁转换,字符替换,字符统计,行去重,添加行号,行排序,过滤行首尾不可见字符,过滤空行",
     "html": "Html编码",
