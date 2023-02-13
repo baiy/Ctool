@@ -122,6 +122,8 @@
     "power_ft_lb_s": "Feet·lbs/sec",
     "power_j_s": "Joule/sec",
     "power_n_m_s": "Newton m/s",
+    "power_dbm": "Decibel-milliwatt",
+    "power_dbw": "Decibel-Watt",
     "work_j": "joule",
     "work_kg_m": "Kg·m",
     "work_ps_h": "Metric horsepower·hour",

@@ -738,6 +738,7 @@ export const config: ConfigType[] = [
                 calc: `x / 1000`,
                 init: `(x * 1000)`,
             },
+
             {
                 key: "hp",
                 unit: "hp",
@@ -785,13 +786,25 @@ export const config: ConfigType[] = [
                 unit: "N·m/s",
                 calc: `x`,
                 init: `x`,
+            },
+            {
+                key: "dbm",
+                unit: "dBm",
+                calc: `10 * log(x,10) + 30`,
+                init: `10^((x - 30)/10)`,
+            },
+            {
+                key: "dbw",
+                unit: "dBW",
+                calc: `10 * log(x,10)`,
+                init: `10^(x/10)`,
             }
         ],
         special: [],
         group: [
             {
                 key: "",
-                list: ["w", "kw", "hp", "ps", "kg_m_s", "kcal_s", "btu_s", "ft_lb_s", "j_s", "n_m_s"]
+                list: ["w", "kw", "hp", "ps", "kg_m_s", "kcal_s", "btu_s", "ft_lb_s", "j_s", "n_m_s", "dbm", "dbw"]
             }
         ]
     },
