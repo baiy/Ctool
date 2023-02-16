@@ -2452,7 +2452,7 @@
 					"message": "查找"
 				},
 				"text_replace_replace": {
-					"message": "替换"
+					"message": "替换(留空为删除)"
 				},
 				"text_replace_regular": {
 					"message": "正则"
@@ -5214,7 +5214,7 @@
 					"message": "Search"
 				},
 				"text_replace_replace": {
-					"message": "Replace"
+					"message": "Replace (Leave blank to delete)"
 				},
 				"text_replace_regular": {
 					"message": "Regular"
