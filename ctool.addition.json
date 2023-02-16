@@ -512,7 +512,13 @@
 					"message": "IP地址查询"
 				},
 				"tool_code": {
-					"message": "代码格式化"
+					"message": "代码"
+				},
+				"tool_code_code": {
+					"message": "格式化"
+				},
+				"tool_code_run": {
+					"message": "运行"
 				},
 				"tool_code_code_keywords": {
 					"message": "js,javascript,markdown,typescript,css,less,scss,yaml,html,xml,php,vue,angular,graphql,sql"
@@ -757,8 +763,8 @@
 				"tool_ip_ip_keywords": {
 					"message": ""
 				},
-				"tool_code_code": {
-					"message": "代码格式化"
+				"tool_code_run_keywords": {
+					"message": ""
 				},
 				"tool_unicode_encoder_keywords": {
 					"message": ""
@@ -1242,6 +1248,24 @@
 				},
 				"code_compress": {
 					"message": "压缩"
+				},
+				"code_run": {
+					"message": "运行"
+				},
+				"code_running": {
+					"message": "运行中"
+				},
+				"code_run_used_times": {
+					"message": "今日使用次数: {0} ",
+					"placeholders": [
+						"0"
+					]
+				},
+				"code_run_config_explain": {
+					"message": "点击获取配置, 第三方服务({0})风险自担, 与Ctool没有任何关系",
+					"placeholders": [
+						"0"
+					]
 				},
 				"code_not_support": {
 					"message": "暂不支持{0}的{1}",
@@ -3250,7 +3274,13 @@
 					"message": "Ip Query"
 				},
 				"tool_code": {
-					"message": "Code Formatter "
+					"message": "Code"
+				},
+				"tool_code_code": {
+					"message": "Formatter"
+				},
+				"tool_code_run": {
+					"message": "Run"
 				},
 				"tool_unicode": {
 					"message": "Unicode"
@@ -3477,10 +3507,10 @@
 				"tool_ip_ip_keywords": {
 					"message": ""
 				},
-				"tool_code_code": {
-					"message": "Code Formatter "
-				},
 				"tool_code_code_keywords": {
+					"message": ""
+				},
+				"tool_code_run_keywords": {
 					"message": ""
 				},
 				"tool_unicode_encoder_keywords": {
@@ -3980,6 +4010,24 @@
 				},
 				"code_compress": {
 					"message": "Compress"
+				},
+				"code_run": {
+					"message": "Run"
+				},
+				"code_running": {
+					"message": "Running"
+				},
+				"code_run_used_times": {
+					"message": "Today Used Times: {0} ",
+					"placeholders": [
+						"0"
+					]
+				},
+				"code_run_config_explain": {
+					"message": "Click to get configuration, the third-party service({0}) is at your own risk, and has nothing to do with Ctool",
+					"placeholders": [
+						"0"
+					]
 				},
 				"code_not_support": {
 					"message": "Not Support {0} {1}",

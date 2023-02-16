@@ -32,6 +32,12 @@
 
 - [点击下载](https://github.com/baiy/Ctool/releases)
 
+### aur
+
+```
+paru -S ctool-bin
+```
+
 ## 开发
 
 ```
