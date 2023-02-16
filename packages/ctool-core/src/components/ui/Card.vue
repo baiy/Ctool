@@ -6,14 +6,15 @@
                 <slot name="extra"></slot>
             </div>
         </div>
-        <div class="ctool-card-body" :style="{padding:`${padding}`}">
+        <div class="ctool-card-body" :style="{padding:`${padding}`}" ref="body">
             <slot></slot>
         </div>
     </div>
 </template>
 <script setup lang="ts">
 import {sizeConvert} from "../util"
-import {StyleValue} from "vue";
+import {StyleValue, onMounted, onUnmounted} from "vue";
+import {componentResizeDispatch} from "@/event";
 
 const props = defineProps({
     title: {
@@ -28,6 +29,15 @@ const props = defineProps({
         type: [Number, String],
         default: ""
     }
+})
+const body = $ref<HTMLElement | null>(null)
+
+onMounted(() => {
+    body?.addEventListener('scroll', componentResizeDispatch)
+})
+
+onUnmounted(() => {
+    body?.removeEventListener('scroll', componentResizeDispatch)
 })
 
 const style = $computed(() => {
@@ -65,7 +75,8 @@ const style = $computed(() => {
 .ctool-card-title, .ctool-card-extra {
     font-size: .875rem;
 }
-.ctool-card-body{
+
+.ctool-card-body {
     overflow-y: auto;
 }
 </style>
