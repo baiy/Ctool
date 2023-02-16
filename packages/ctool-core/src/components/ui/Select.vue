@@ -7,9 +7,9 @@
         :style="style"
         ref="container"
     >
-        <details role="list">
+        <details role="list" ref="details">
             <summary aria-haspopup="listbox" role="button">{{ placeholderValue }}</summary>
-            <ul role="listbox">
+            <ul role="listbox" v-if="!dialog">
                 <li v-for="item in getOptions" :key="item.value"><a @click="selected = item.value"> {{ item.label }}</a></li>
             </ul>
         </details>
@@ -18,6 +18,17 @@
                 <div class="ctool-select-prepend" :class="label !== '' ? `ctool-input-label` : ``">{{ label }}</div>
             </template>
         </div>
+        <Modal v-model="dialogShow" :title="label" padding="20px 10px" width="85%" @close="close">
+            <Align horizontal="center">
+                <Button
+                    :type="selected === item.value ? `primary` : `general`"
+                    v-for="item in getOptions"
+                    :key="item.value"
+                    @click="selected = item.value"
+                    :text="item.label"
+                />
+            </Align>
+        </Modal>
     </div>
 </template>
 
@@ -62,6 +73,14 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    dialog: {
+        type: Boolean,
+        default: false
+    },
+    disabledDialogClickClose: {
+        type: Boolean,
+        default: false
+    },
     center: {
         type: Boolean,
         default: true
@@ -76,6 +95,7 @@ let menuPosition = $ref<Record<"top" | "right" | "left" | "bottom", string>>({
     left: "unset",
     bottom: "unset"
 })
+let dialogShow = $ref(false)
 
 const emit = defineEmits<{ (e: 'update:modelValue', value: SelectValue): void, (e: 'change', value: SelectValue): void }>()
 
@@ -84,11 +104,16 @@ let selected = $computed({
     set: (value) => {
         emit('update:modelValue', value)
         emit('change', value)
-        if (container) {
-            container.querySelector("details")?.removeAttribute("open")
+        if (props.dialog && props.disabledDialogClickClose) {
+            return;
         }
+        close()
     }
 })
+
+const close = () => {
+    container?.querySelector("details")?.removeAttribute("open")
+}
 
 const getOptions = $computed(() => {
     let items: Array<{ value: SelectValue, label: string }> = []
@@ -157,16 +182,25 @@ const update = () => {
     selectLeftWidth = (container.querySelector('.ctool-select-left') as HTMLElement).offsetWidth
 
 }
+
+const dialogOpen = () => {
+    if (!props.dialog) {
+        return;
+    }
+    dialogShow = !!container?.querySelector("details")?.open
+}
 onMounted(() => {
     update()
-    setTimeout(() => update(), 2000)
+    setTimeout(() => update(), 500)
     event.addListener('component_resize', update)
+    container?.querySelector("details")?.addEventListener('toggle', dialogOpen)
 })
 onUpdated(() => {
-    setTimeout(() => update(), 2000)
+    setTimeout(() => update(), 500)
 })
 onUnmounted(() => {
     event.removeListener('component_resize', update)
+    container?.querySelector("details")?.removeEventListener('toggle', dialogOpen)
 })
 </script>
 

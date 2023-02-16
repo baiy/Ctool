@@ -28,7 +28,7 @@
     "more_stat": "More Stat",
     "stat_explain": "Explain",
     "replace_search": "Search",
-    "replace_replace": "Replace",
+    "replace_replace": "Replace (Leave blank to delete)",
     "replace_regular": "Regular",
     "replace_explain": "You can enter multiple lines, batch replace by line",
     "string_length": "String",

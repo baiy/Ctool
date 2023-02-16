@@ -7,7 +7,7 @@
             <template #extra>
                 <Align>
                     <span v-if="enabled">{{ isNumber(used) ? $t(`code_run_used_times`, [used]) : used }}</span>
-                    <Select size="small" v-model="action.current.language" :options="languageLists.map(name=>{return {value:name,label:getDisplayName(name)}})"/>
+                    <Select dialog size="small" v-model="action.current.language" :options="languageLists.map(name=>{return {value:name,label:getDisplayName(name)}})"/>
                     <Select size="small" v-model="action.current.version[action.current.language]" :options="languageVersionLists"/>
                     <Button
                         type="primary"
@@ -93,7 +93,7 @@ let showSetting = $ref(false)
 let used = $ref<number | string>(0)
 let config = $ref(getConfig())
 
-const languageLists = language.map((item) => item.code)
+const languageLists = language.map((item) => item.code).sort()
 const languageVersionLists: SelectOption = $computed(() => {
     return getLanguage(action.current.language).version.map((item) => {
         return {value: item.value, label: item.name}

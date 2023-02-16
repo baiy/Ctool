@@ -62,7 +62,7 @@ const props = defineProps({
 
 const container = $ref<HTMLDialogElement | null>(null)
 
-const emit = defineEmits<{ (e: 'update:modelValue', modelValue: boolean): void, (e: 'ok'): void, (e: 'cancel'): void }>()
+const emit = defineEmits<{ (e: 'update:modelValue', modelValue: boolean): void, (e: 'ok'): void, (e: 'cancel'): void, (e: 'close'): void }>()
 
 let show = $computed({
     get: () => props.modelValue,
@@ -95,7 +95,10 @@ const close = () => {
     if (!container) {
         return;
     }
-    setTimeout(() => container.close(), 300)
+    setTimeout(() => {
+        container.close()
+        emit('close')
+    }, 300)
     document.removeEventListener('click', clickClose);
 }
 

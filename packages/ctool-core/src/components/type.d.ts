@@ -84,6 +84,8 @@ declare module '@vue/runtime-core' {
                 options: SelectOption,
                 disabled?: boolean,
                 center?: boolean,
+                dialog?: boolean,
+                disabledDialogClickClose?: boolean,
                 size?: ComponentSizeType,
                 width?: number | string,
                 type?: SelectType,
@@ -100,6 +102,8 @@ declare module '@vue/runtime-core' {
                 options: SelectOption,
                 size?: ComponentSizeType,
                 disabled?: boolean,
+                dialog?: boolean,
+                disabledDialogClickClose?: boolean,
                 type?: SelectType,
             }
             $emit: (e: "select", value: ComponentType<SelectValue>) => void
@@ -361,7 +365,7 @@ declare module '@vue/runtime-core' {
                 width?: string | number
                 footerType?: ModalFooterType
             }
-            $emit: { (e: 'ok'): void, (e: 'cancel'): void }
+            $emit: { (e: 'ok'): void, (e: 'cancel'): void, (e: 'close'): void }
             $slots: {
                 default: () => VNode[]
                 footer: () => VNode[]

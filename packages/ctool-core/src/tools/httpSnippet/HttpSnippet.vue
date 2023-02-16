@@ -16,7 +16,7 @@
             <template #extra>
                 <Align>
                     <HelpTip v-if="targetInfo.url !== ''" :link="targetInfo.url"/>
-                    <Select :size="'small'" :options="targets" v-model="action.current.target"/>
+                    <Select dialog :size="'small'" :options="targets" v-model="action.current.target"/>
                 </Align>
             </template>
         </Display>

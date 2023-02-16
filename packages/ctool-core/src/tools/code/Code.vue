@@ -2,7 +2,7 @@
     <HeightResize v-slot="{height}">
         <Editor v-model="action.current.input" :lang-callback="editorLanguage" :reload="editorReload" :lang="action.current.language" :height="`${height}px`">
             <Align>
-                <Select size="small" v-model="action.current.language" :options="languageLists.map(name=>{return {value:name,label:getDisplayName(name)}})"/>
+                <Select size="small" dialog v-model="action.current.language" :options="languageLists.map(name=>{return {value:name,label:getDisplayName(name)}})"/>
                 <template v-for="lang in languageLists" :key="lang">
                     <Select v-if="action.current.language === lang" size="small" v-model="action.current.option[`${lang}`].tab" :options="tabOptions"/>
                 </template>

@@ -23,6 +23,9 @@ const expZh = [
     {value: "-[1-9]\\d*|0", label: "非正整数（负整数 + 0）"},
     {value: "[1-9]\\d*\\.\\d*|0\\.\\d*[1-9]\\d*", label: "正浮点数"},
     {value: "-[1-9]\\d*\\.\\d*|-0\\.\\d*[1-9]\\d*", label: "负浮点数"},
+    {value: "\\s*[^=\\s+]+\\s*=\\s*([^=>]+)?(?=(\\s+|>))", label: "HTML元素属性"},
+    {value: "<[^>]*>", label: "HTML标签"},
+    {value: "\\s+", label: "连续空白"},
 ]
 
 const expEn = [
@@ -82,7 +85,10 @@ const expEn = [
         value: '((http|https|ftp)://)?([[a-zA-Z0-9]\-\.])+(\.)([[a-zA-Z0-9]]){2,4}([[a-zA-Z0-9]/+=%&_\.~?\-]*)',
         label: "URL regex"
     },
-    {value: '[0-9]{5}(?:-[0-9]{4})?', label: "US ZIP Codes regex"}
+    {value: '[0-9]{5}(?:-[0-9]{4})?', label: "US ZIP Codes regex"},
+    {value: "\\s*[^=\\s+]+\\s*=\\s*([^=>]+)?(?=(\\s+|>))", label: "HTML Element Attribute"},
+    {value: "<[^>]*>", label: "HTML Tag"},
+    {value: "\\s+", label: "Continuous Blank"},
 ]
 
 const referenceZh = [

@@ -88,7 +88,10 @@
                         :placeholder="`${$t('text_replace_search')}${!action.current.replace.regular ? `\n${$t('text_replace_explain')}` : ''}`"
                     />
                 <template #extra>
-                    <Bool v-model="action.current.replace.regular" :label="$t('text_replace_regular')"/>
+                    <Align>
+                        <Dropdown :size="'small'" :options="getCommonExpression()" :placeholder="$t('regex_common')" @select="selectReplaceExplain"/>
+                        <Bool border :size="'small'" v-model="action.current.replace.regular" :label="$t('text_replace_regular')"/>
+                    </Align>
                 </template>
             </Display>
             <Textarea
@@ -164,6 +167,7 @@
 <script lang="ts" setup>
 import {initialize, useAction} from "@/store/action";
 import TextHandle, {escapeChars, EscapeCharsType} from "./util";
+import {getCommonExpression} from "../regex/util";
 import {ComponentSizeType, CheckboxOption} from "@/types";
 import {typeLists as renameTypeLists} from "@/helper/nameConvert";
 
@@ -212,4 +216,9 @@ const escapeOptions = $computed<CheckboxOption>(() => {
         }
     })
 })
+
+const selectReplaceExplain = (value) => {
+    action.current.replace.search = value
+    action.current.replace.regular = true
+}
 </script>

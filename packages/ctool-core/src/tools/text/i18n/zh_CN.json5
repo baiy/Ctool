@@ -28,7 +28,7 @@
     "more_stat": "更多统计",
     "stat_explain": "统计说明",
     "replace_search": "查找",
-    "replace_replace": "替换",
+    "replace_replace": "替换(留空为删除)",
     "replace_regular": "正则",
     "replace_explain": "可输入多行, 按行进行批量替换",
     "string_length": "字符数",
