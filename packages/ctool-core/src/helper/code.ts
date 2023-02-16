@@ -35,10 +35,14 @@ const customLanguages = [
     defineConfig('Flow', getCodemirrorLanguage('TypeScript')),
     defineConfig('Text'),
     defineConfig('CSV'),
+    defineConfig('C-99',getCodemirrorLanguage('c'),['c99']),
+    defineConfig('C++ 14',getCodemirrorLanguage('c++'),['cpp14']),
+    defineConfig('C++ 17',getCodemirrorLanguage('c++'),['cpp17']),
+    defineConfig('Python 2',getCodemirrorLanguage('python'),['python2']),
+    defineConfig('Python 3',getCodemirrorLanguage('python'),['python3']),
+    defineConfig('VB.NET',getCodemirrorLanguage('VB.NET'),['vbn']),
+    defineConfig('JavaScript',getCodemirrorLanguage('JavaScript'),['nodejs']),
 ]
-
-// 编辑器是否支持代码高料
-export const isSupportEditor = (land: string) => !!getEditorLanguage(land)
 
 // 获取 编辑器 语言处理对象
 export const getEditorLanguage = (land: string) => {
@@ -62,11 +66,6 @@ export const getEditorLanguage = (land: string) => {
 
 // 获取程序语言显示名称
 export const getDisplayName = (land: string) => {
-    const codemirrorLanguage = getCodemirrorLanguage(land)
-    if (codemirrorLanguage !== null) {
-        return codemirrorLanguage.name
-    }
-
     // 自定义
     for (let language of customLanguages) {
         if (
@@ -74,6 +73,11 @@ export const getDisplayName = (land: string) => {
         ) {
             return language.name
         }
+    }
+
+    const codemirrorLanguage = getCodemirrorLanguage(land)
+    if (codemirrorLanguage !== null) {
+        return codemirrorLanguage.name
     }
 
     return land;

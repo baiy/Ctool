@@ -333,7 +333,6 @@ declare module '@vue/runtime-core' {
             $props: {
                 type?: LinkType
                 href?: string
-                underline?: boolean
                 self?: boolean
                 tooltip?: string,
             }

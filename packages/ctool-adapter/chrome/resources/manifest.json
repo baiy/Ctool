@@ -25,6 +25,7 @@
         "clipboardWrite",
         "clipboardRead",
         "*://get.geojs.io/*",
+        "*://api.jdoodle.com/*",
         "*://*.baiy.org/*"
     ],
     "commands": {

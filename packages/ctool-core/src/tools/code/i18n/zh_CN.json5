@@ -4,5 +4,9 @@
     "indent_width_null": "无缩进",
     "xml_collapse_content": "内容同行",
     "compress": "压缩",
+    "run": "运行",
+    "running": "运行中",
+    "run_used_times": "今日使用次数: {0} ",
+    "run_config_explain": "点击获取配置, 第三方服务({0})风险自担, 与Ctool没有任何关系",
     "not_support": "暂不支持{0}的{1}"
 }
