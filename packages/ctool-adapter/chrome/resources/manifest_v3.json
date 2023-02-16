@@ -26,6 +26,7 @@
     ],
     "host_permissions": [
         "*://get.geojs.io/*",
+        "*://api.jdoodle.com/*",
         "*://*.baiy.org/*"
     ],
     "commands": {

@@ -72,7 +72,7 @@ export let _tools = {
         parent_directory: ""
     },
     code: {
-        feature: ['code'],
+        feature: ['code', 'run'],
         parent_directory: ""
     },
     unicode: {

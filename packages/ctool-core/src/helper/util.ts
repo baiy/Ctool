@@ -18,6 +18,15 @@ export const debug = (value: any) => {
     console.log(value)
 }
 
+// 开发环境跨域代理url转换 需对应配置 `vite.config.ts`.server.proxy
+export const proxyUrl = (url: string) => {
+    if (import.meta.env.DEV) {
+        const urlInfo = new URL(url)
+        return `/__proxy/${urlInfo.host}${urlInfo.pathname}`
+    }
+    return url
+}
+
 export const instanceOfInputOutput = (object: any): object is InputOutputBase => {
     return instanceOfInput(object) || instanceOfOutput(object);
 }
