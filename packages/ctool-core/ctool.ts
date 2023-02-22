@@ -58,14 +58,19 @@ export const META_INFO: IHTMLTag[] = [
 
 export const LINK_INFO: IHTMLTag[] = [
     {
-        name: "mask-icon",
+        rel: "mask-icon",
         href: "./icon/icon.svg",
         color: '#FFFFFF',
     },
     {
-        name: "icon",
+        rel: "icon",
         href: "./favicon.ico",
         type: 'image/x-ico',
+    },
+    {
+        rel: "apple-touch-icon",
+        href: "./icon/icon_512.png",
+        sizes: '512x512',
     }
 ]
 
