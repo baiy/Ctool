@@ -12,6 +12,7 @@
     "ui_error": "Error: {0}",
     "ui_cancel": "Cancel",
     "ui_prompt": "Prompt",
+    "ui_reload": "Reload",
     "ui_setting": "Settings",
     "ui_config": "Config",
     "ui_reset": "Reset",
@@ -77,5 +78,6 @@
     "clipboard_get": "Authorize Clipboard Permissions",
     "clipboard_granted": "Clipboard Authorization Success",
     "clipboard_denied": "No Clipboard Authorization, Please Manually Authorize",
-    "clipboard_prompt": "Click To Get Clipboard Authorization"
+    "clipboard_prompt": "Click To Get Clipboard Authorization",
+    "new_version_found": "New version found. Refresh to update."
 }
