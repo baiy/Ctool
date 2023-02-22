@@ -18,9 +18,9 @@ import {initPermission as initClipboardPermission} from "@/helper/clipboard"
             page.style.height = 'auto'
         }
     }
+    const app = createApp(Tool)
+    app.use(pinia).use(router).use(ctool).use(ContextMenu)
     await platform.runtime.entry(() => {
-        const app = createApp(Tool)
-        app.use(pinia).use(router).use(ctool).use(ContextMenu)
         app.mount('#app')
     }, storage)
 })()
