@@ -187,6 +187,9 @@
 				"main_ui_cancel": {
 					"message": "取消"
 				},
+				"main_ui_reload": {
+					"message": "重新加载"
+				},
 				"main_ui_prompt": {
 					"message": "提示"
 				},
@@ -381,6 +384,9 @@
 				},
 				"main_clipboard_prompt": {
 					"message": "点击获取剪贴板授权"
+				},
+				"main_new_version_found": {
+					"message": "发现新版本, 建议重新加载(刷新)页面"
 				},
 				"tool_hash": {
 					"message": "哈希(hash)"
@@ -2952,6 +2958,9 @@
 				"main_ui_prompt": {
 					"message": "Prompt"
 				},
+				"main_ui_reload": {
+					"message": "Reload"
+				},
 				"main_ui_setting": {
 					"message": "Settings"
 				},
@@ -3143,6 +3152,9 @@
 				},
 				"main_clipboard_prompt": {
 					"message": "Click To Get Clipboard Authorization"
+				},
+				"main_new_version_found": {
+					"message": "New version found. Refresh to update."
 				},
 				"tool_hash": {
 					"message": "Hash"
