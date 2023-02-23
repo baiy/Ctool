@@ -10,7 +10,7 @@
 
 ### 在线使用
 
-<https://baiy.github.io/Ctool/>
+<https://ctool.dev>
 
 ### Chrome 安装
 
