@@ -1,0 +1,347 @@
+@import "normalize.css";
+
+html {
+    --ctool-primary: #1abc9c;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+}
+
+html {
+    --ctool-background-color: #f1f5f9;
+    --ctool-header-background-color: #3b82f6;
+    --ctool-footer-background-color: #e2e8f0;
+}
+
+html[data-theme="dark"] {
+    --ctool-background-color: #0f172a;
+    --ctool-header-background-color: #1e293b;
+    --ctool-footer-background-color: #1e293b;
+}
+
+body {
+    background-color: var(--ctool-background-color);
+}
+
+a {
+    text-decoration: none;
+}
+
+:where(svg:not([fill])) {
+    fill: currentColor;
+}
+
+.ctool-container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: .75rem;
+}
+
+.ctool-hover-opacity {
+    cursor: pointer;
+}
+
+.ctool-hover-opacity:hover {
+    opacity: .8
+}
+
+.ctool-header {
+    background-color: var(--ctool-header-background-color);
+}
+
+.ctool-header-top {
+    display: flex;
+    height: 48px;
+    padding: 12px 0;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ctool-logo {
+    display: flex;
+    gap: 0 5px;
+    align-items: center;
+}
+
+.ctool-logo {
+    display: flex;
+    gap: 0 5px;
+    align-items: center;
+}
+
+.ctool-logo-image {
+    width: 40px;
+    height: 40px;
+    background-color: var(--ctool-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 7px;
+}
+
+.ctool-site-name {
+    display: inline-flex;
+    color: #f1f5f9;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.ctool-option {
+    display: flex;
+    column-gap: 8px;
+    align-items: center;
+}
+
+.ctool-theme, .ctool-locale, .ctool-suggest {
+    width: 28px;
+    height: 28px;
+    color: #2C3E50;
+    background-color: #e5e7eb;
+    border-radius: 9999px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+[data-theme="dark"] :is(.ctool-theme,.ctool-locale,.ctool-suggest) {
+    color: #d1d5db;
+    background-color: #111827;
+}
+
+.ctool-header-bottom {
+    display: flex;
+    row-gap: 25px;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 12px 30px;
+}
+
+.ctool-header-bottom h1, .ctool-header-bottom h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.ctool-header-bottom h1 {
+    font-size: 48px;
+    font-weight: 400;
+    color: #f8fafc;
+}
+
+.ctool-header-bottom h2 {
+    font-size: 24px;
+    font-weight: 200;
+    color: #e2e8f0;
+}
+
+[data-theme="dark"] .ctool-header-bottom :is(h1,h2) {
+    color: #cbd5e1;
+}
+
+.ctool-use {
+    display: flex;
+    width: 100%;
+    gap: 0 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.ctool-use > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #f1f5f9;
+    background-color: var(--ctool-primary);
+    border-radius: 8px;
+    padding: 8px 32px;
+    line-height: 28px;
+    font-size: 18px;
+}
+
+.ctool-platform {
+    display: flex;
+    gap: 0 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.ctool-platform-bg {
+    background-color: #ffffff;
+    border-radius: 9999px;
+}
+
+.ctool-platform > a {
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ctool-list {
+    max-width: 1030px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    padding: 40px 15px 0;
+}
+
+.ctool-list-block {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.ctool-list-item {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px
+}
+
+.ctool-list-item > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #f1f5f9;
+    background-color: #34495E;
+    border-radius: 8px;
+    padding: 8px 5px;
+    line-height: 28px;
+    font-size: 16px;
+}
+
+.ctool-list-name {
+    display: grid;
+    line-height: 40px;
+    grid-template-columns:auto 1fr;
+}
+
+.ctool-list-name span {
+    color: #1e293b;
+    padding: 0 10px 0 5px;
+    font-weight: 500;
+    font-size: 18px;
+    border-bottom: 4px solid #e2e8f0;
+}
+
+[data-theme="dark"] .ctool-list-name span {
+    color: #cbd5e1;
+    border-bottom: 4px solid #0f172a;
+}
+
+.ctool-list-name span:nth-child(1) {
+    border-bottom: 4px solid var(--ctool-primary);
+}
+
+[data-theme="dark"] .ctool-list-name span:nth-child(1) {
+    border-bottom: 4px solid #1e293b;
+}
+
+.ctool-contribution {
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 15px 40px;
+}
+
+.ctool-contribution > span {
+    display: flex;
+    width: 60px;
+    height: 4px;
+    background-color: var(--ctool-primary);
+    border-radius: 9999px;
+}
+
+.ctool-contribution h3 {
+    font-size: 32px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+}
+
+.ctool-contribution p {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+.ctool-contribution :is(h3,p) {
+    color: #1e293b;
+}
+
+[data-theme="dark"] .ctool-contribution :is(h3,p) {
+    color: #cbd5e1;
+}
+
+.ctool-contribution .ctool-contribution-button {
+    display: inline-flex;
+    column-gap: 10px;
+    align-items: center;
+    justify-content: center;
+    color: #f1f5f9;
+    background-color: #34495E;
+    border-radius: 9999px;
+    padding: 8px 50px;
+    line-height: 32px;
+    font-size: 20px;
+}
+
+.ctool-footer {
+    margin-top: 70px;
+    background-color: var(--ctool-footer-background-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ctool-footer > p {
+    font-size: 14px;
+    border-top: 1px solid #cbd5e1;
+    height: 50px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    color: #64748b;
+    margin: 0;
+    padding: 0;
+}
+
+[data-theme="dark"] .ctool-footer > p {
+    border-top-color: #334155;
+}
+
+@media (max-width: 768px) {
+    .ctool-use {
+        flex-direction: column;
+        gap: 10px 0;
+    }
+
+    .ctool-header-bottom {
+        row-gap: 15px;
+    }
+
+    .ctool-header-bottom h1 {
+        font-size: 32px;
+    }
+
+    .ctool-header-bottom h2 {
+        font-size: 16px;
+    }
+
+    .ctool-use > a {
+        width: 70%;
+    }
+
+    .ctool-header-top {
+        padding: 5px;
+    }
+
+    .ctool-list-item {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px
+    }
+}

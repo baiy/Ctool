@@ -1,0 +1,26 @@
+{
+    "zh_CN": {
+        "short_description": "程序开发常用工具",
+        "description": "哈希/加解密/编码转换/JSON/时间戳/二维码/拼音/IP查询/代码优化/Unicode/正则...",
+        "online": "在线使用",
+        "install": "在线安装",
+        "download": "立即下载",
+        "suggest": "反馈",
+        "extension": "插件",
+        "application": "应用",
+        "contribution_1": "为 Ctool 做出贡献",
+        "contribution_2": "我们十分期待您通过 Merge Requests 让 Ctool 变的更加完善。"
+    },
+    "en": {
+        "short_description": "Commonly Used Software Development Tools",
+        "description": "Hash/En-Decrypt/Code/JSON/Timestamp/Qrcode/IP Query/Code Formatter/Unicode/Regex/...",
+        "online": "Online Use",
+        "install": "Online Install",
+        "download": "Download",
+        "suggest": "Suggest",
+        "extension": "Extension",
+        "application": "Application",
+        "contribution_1": "Contribute to Ctool",
+        "contribution_2": "We look forward to your Merge Requests to make Ctool more perfect."
+    }
+}

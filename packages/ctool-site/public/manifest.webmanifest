@@ -1,0 +1,25 @@
+{
+    "name": "Ctool",
+    "short_name": "Ctool",
+    "start_url": "/tool.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "lang": "en",
+    "scope": "./",
+    "description": "Commonly Used Software Development Tools",
+    "theme_color": "#ffffff",
+    "icons": [
+        {
+            "src": "./icon/icon_512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "./icon/icon.svg",
+            "sizes": "48x48 72x72 96x96 128x128 256x256 512x512",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ]
+}

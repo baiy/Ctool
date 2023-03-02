@@ -1,9 +1,9 @@
 <template>
     <Align class="ctool-github" gap="none">
-        <span class="ctool-github-name" @click="openUrl(`https://github.com/baiy/Ctool`)">
+        <span class="ctool-github-name" @click="openUrl(`https://ctool.dev/`)">
             <Icon name="github" :size="12"/> <strong>Ctool</strong>
         </span>
-        <span class="ctool-github-star" v-if="star > 0" @click="openUrl(`https://github.com/baiy/Ctool/stargazers`)">
+        <span class="ctool-github-star" v-if="star > 0" @click="openUrl(`https://github.com/baiy/Ctool`)">
             {{ `${star}`.replace(/(\d)(?=(\d{3})+$)/g, "$1,") }}
         </span>
     </Align>

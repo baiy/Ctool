@@ -7,14 +7,6 @@
     <ExtendPage v-model="openSetting">
         <Setting/>
     </ExtendPage>
-    <Modal :title="$t('main_ui_prompt')" v-model="pwaUpdate" width="500">
-        <Align :horizontal="'center'" top="15" bottom="15">
-            {{ $t(`main_new_version_found`) }}
-        </Align>
-        <template #footer>
-            <Button type="primary" long @click="pwaUpdate = false;platform.runtime.call(`pwaRefresh`)" :text="$t(`main_ui_reload`)"/>
-        </template>
-    </Modal>
 </template>
 
 <script setup lang="ts">
@@ -26,21 +18,13 @@ import {categoryExists, getTool} from '@/config'
 import useOperate from '@/store/operate'
 import event from "@/event";
 import Setting from "@/block/Setting.vue"
-import platform from "@/helper/platform"
 
 const operate = useOperate()
 const router = useRouter()
-let pwaUpdate = $ref(false)
 let is = $ref(false)
 
 onMounted(() => {
     window.dispatchEvent(new Event('resize'));
-    if (platform.isWeb()) {
-        // pwa 更新检测
-        platform.runtime.call<Promise<boolean>>('pwaIsNeedRefresh').then(status => {
-            pwaUpdate = status
-        })
-    }
 })
 
 // 打开设置页面

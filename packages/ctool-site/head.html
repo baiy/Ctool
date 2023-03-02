@@ -1,0 +1,71 @@
+<meta name="keywords" content="ctool,software development tools">
+<meta name="name" content="Ctool - Commonly Used Software Development Tools">
+<meta name="description" content="Commonly Used Software Development Tools: Hash/Encrypt/Decrypt/Code Convert/Timestamp/Qrcode/IP Query/Code Formatter/Unicode/Regex/...">
+<meta name="image" content="./icon/banner.png">
+<meta name="application-name" content="Ctool">
+<meta name="apple-mobile-web-app-title" content="Ctool">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#ffffff">
+<link rel="mask-icon" href="./icon/icon.svg" color="#FFFFFF">
+<link rel="apple-touch-icon" href="./icon/icon_512.png" sizes="512x512">
+<link rel="manifest" href="./manifest.webmanifest">
+<script>
+    // service worker
+    // https://whatwebcando.today/articles/handling-service-worker-updates/
+    if ('serviceWorker' in navigator) {
+        const invokeServiceWorkerUpdateFlow = (registration) => {
+            if (registration.waiting) {
+                registration.waiting.postMessage({type: "SKIP_WAITING"})
+            }
+        }
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js', {scope: '/'}).then((registration) => {
+                if (registration.waiting) {
+                    invokeServiceWorkerUpdateFlow(registration)
+                }
+                registration.addEventListener('updatefound', () => {
+                    if (registration.installing) {
+                        registration.installing.addEventListener('statechange', () => {
+                            if (registration.waiting) {
+                                if (navigator.serviceWorker.controller) {
+                                    invokeServiceWorkerUpdateFlow(registration)
+                                } else {
+                                    console.log('Service Worker initialized for the first time')
+                                }
+                            }
+                        })
+                    }
+                })
+            })
+            let refreshing = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (!refreshing) {
+                    window.location.reload()
+                    refreshing = true
+                }
+            })
+        })
+    }
+
+    // pwa app
+    window.addEventListener("beforeinstallprompt", (event) => {
+        setTimeout(function () {
+            window.dispatchEvent(new CustomEvent('ctool_pwa_install', {
+                detail: {
+                    installer: () => {
+                        if (event) {
+                            event.prompt()
+                            event.userChoice.then(
+                                (choiceResult) => {
+                                    console.log(choiceResult)
+                                }, () => {
+                                }
+                            )
+                        }
+                    }
+                }
+            }))
+        }, 2000)
+    })
+</script>
