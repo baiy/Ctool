@@ -1,6 +1,6 @@
 <template>
     <HeightResize v-slot="{small,large}" :reduce="10" ignore :append="['.ctool-page-option']">
-        <Align>
+        <Align direction="vertical">
             <Textarea :height="small" :placeholder="$t(`main_ui_input`)" v-model="action.current.input"/>
             <Card class="ctool-page-option">
                 <Align horizontal="center">
