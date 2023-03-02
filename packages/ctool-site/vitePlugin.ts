@@ -19,7 +19,7 @@ const copyCore = (config: ResolvedConfig) => {
 
 const generateManifestFile = (config) => {
     writeFileSync(
-        join(config.root, config.build.outDir, 'manifest.webmanifest'),
+        join(config.root, config.build.outDir, 'manifest.webmanifest.json'),
         readFileSync(join(config.root, 'manifest.webmanifest.json')).toString().replace(
             '"#shortcuts#"', JSON.stringify(manifestShortcuts())
         )
@@ -45,10 +45,16 @@ const manifestShortcuts = () => {
                 short_name: name,
                 description: `Ctool ${name}`,
                 url: `/tool.html#${feature.getRouter()}`,
-                icons: [{
-                    src: "/icon/icon_180.png",
-                    sizes: "180x180",
-                }]
+                icons: [
+                    {
+                        src: "/icon/icon_96.png",
+                        sizes: "96x96",
+                    },
+                    {
+                        src: "/icon/icon_512.png",
+                        sizes: "512x512",
+                    }
+                ]
             })
         })
     })

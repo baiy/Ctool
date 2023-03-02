@@ -18,7 +18,7 @@ export default defineConfig({
             registerType: "prompt",
             manifest: false,
             workbox: {
-                globPatterns: ["**\/*.{js,css,html,png,jpg,ico,svg}"],
+                globPatterns: ["**\/*.{js,css,html,png,jpg,ico,svg,json}"],
                 cleanupOutdatedCaches: true,
                 maximumFileSizeToCacheInBytes: 10485760
             },

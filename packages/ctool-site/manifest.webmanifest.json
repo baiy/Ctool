@@ -45,6 +45,18 @@
             "purpose": "maskable"
         },
         {
+            "src": "/icon/icon_96.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icon/icon_96.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
             "src": "/icon/icon_180.png",
             "sizes": "180x180",
             "type": "image/png",
