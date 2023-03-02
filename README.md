@@ -28,7 +28,11 @@
 
 - [utools](https://u.tools/) 插件中心 搜索 `ctool`
 
-### 桌面客户端
+### Windows 客户端安装
+
+- 在 [Microsoft 应用商店](https://www.microsoft.com/store/apps/9P63J98XZ0M1) 安装
+
+### 其他桌面客户端安装
 
 - [点击下载](https://github.com/baiy/Ctool/releases)
 

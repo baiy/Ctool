@@ -38,7 +38,7 @@
                     </a>
                 </div>
                 <div class="ctool-platform">
-                    <a href="https://github.com/baiy/Ctool/releases/latest" target="_blank" v-tooltip="`Windows ${translation('application')}`"
+                    <a href="https://www.microsoft.com/store/apps/9P63J98XZ0M1" target="_blank" v-tooltip="`Windows ${translation('application')}`"
                        class="ctool-hover-opacity">
                         <Windows/>
                     </a>
