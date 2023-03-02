@@ -43,7 +43,7 @@ const manifestShortcuts = () => {
             lists.push({
                 name,
                 short_name: name,
-                description: "",
+                description: `Ctool ${name}`,
                 url: `/tool.html#${feature.getRouter()}`,
                 icons: [{
                     src: "/icon/icon_180.png",
