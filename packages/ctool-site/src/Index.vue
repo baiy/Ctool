@@ -72,7 +72,7 @@
     <section class="ctool-list">
         <div class="ctool-list-block">
             <div class="ctool-list-item">
-                <a :href="`./tool.html#${tool.firstFeature().getRouter()}`" v-for="tool in common" class="ctool-hover-opacity">
+                <a :href="`/tool.html#${tool.firstFeature().getRouter()}`" v-for="tool in common" class="ctool-hover-opacity">
                     {{ translation(`tool_${tool.name}`) }}
                 </a>
             </div>
@@ -84,7 +84,7 @@
             </div>
             <div class="ctool-list-item">
                 <template v-for="tool in cate.tools">
-                    <a :href="`./tool.html#${item.getRouter()}`" v-for="item in tool.features" class="ctool-hover-opacity">
+                    <a :href="`/tool.html#${item.getRouter()}`" v-for="item in tool.features" class="ctool-hover-opacity">
                         {{ `${translation(`tool_${item.tool.name}`)}${item.tool.isSimple() ? `` : ` - ${translation(`tool_${item.tool.name}_${item.name}`)}`}` }}
                     </a>
                 </template>

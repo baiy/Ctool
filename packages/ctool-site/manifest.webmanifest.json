@@ -1,0 +1,84 @@
+{
+    "name": "Ctool",
+    "short_name": "Ctool",
+    "start_url": "/tool.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "lang": "en",
+    "scope": "/",
+    "description": "Commonly Used Software Development Tools",
+    "theme_color": "#ffffff",
+    "orientation": "any",
+    "categories": [
+        "productivity"
+    ],
+    "display_override": [
+        "standalone",
+        "browser",
+        "fullscreen",
+        "minimal-ui",
+        "window-controls-overlay"
+    ],
+    "dir": "ltr",
+    "prefer_related_applications": false,
+    "related_applications": [],
+    "shortcuts": "#shortcuts#",
+    "screenshots": [
+        {
+            "src": "/icon/screenshot_light.png"
+        },
+        {
+            "src": "/icon/screenshot_dark.png"
+        }
+    ],
+    "icons": [
+        {
+            "src": "/icon/icon_60.png",
+            "sizes": "60x60",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icon/icon_60.png",
+            "sizes": "60x60",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/icon/icon_180.png",
+            "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icon/icon_180.png",
+            "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/icon/icon_512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icon/icon_512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/icon/icon_1024.png",
+            "sizes": "1024x1024",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icon/icon_1024.png",
+            "sizes": "1024x1024",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}
