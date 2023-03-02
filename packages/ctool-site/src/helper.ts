@@ -42,6 +42,15 @@ export const initTheme = () => {
     document.getElementsByTagName('html')[0].dataset.theme = theme
 }
 
+export const isToToolIndex = ()=>{
+    if (document.referrer === 'app-info://platform/microsoft-store'){
+        // 识别 Microsoft Store App
+        return true
+    }
+
+    return false
+}
+
 export const translation = (key: string, locale: Locale) => {
     let l = locale === "_default" ? defaultLocale : locale
     if (key in i18n[l]) {
