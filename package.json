@@ -13,7 +13,7 @@
         "build": "pnpm run initialize && pnpm --filter ctool-core run build",
         "release": "node release.js && pnpm run build && pnpm -r run platform-release",
         "only-release": "node release.js && pnpm -r run platform-release",
-        "vercel-deploy": "pnpm run build && pnpm --filter ctool-site run build"
+        "vercel-build": "pnpm run build && pnpm --filter ctool-site run build"
     },
     "pnpm": {
         "peerDependencyRules": {
