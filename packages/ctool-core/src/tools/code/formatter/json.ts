@@ -21,7 +21,7 @@ export const formatter = new (class extends Base<'json'> {
             quoteProps: "preserve",
             trailingComma: "none",
             tabWidth: 0,
-        }).replace(/[\n|\r]/g, "")
+        }).replace(/[\n\r]/g, "")
     }
 })
 
