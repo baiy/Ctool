@@ -5,11 +5,12 @@ import {rmSync} from "fs";
 
 const extraMetadata = getRootPackageJson()
 extraMetadata['main'] = "dist/main.js"
+extraMetadata['name'] = "Ctool"
 
 const options: Configuration = {
     productName: "ctool",
     appId: "org.baiy.ctool",
-    asar: true,
+    asar: false,
     copyright: "Copyright © baiy",
     directories: {
         output: "_temp/"
