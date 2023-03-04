@@ -42,7 +42,7 @@
                        class="ctool-hover-opacity">
                         <Windows/>
                     </a>
-                    <a href="https://github.com/baiy/Ctool/releases/latest" target="_blank" v-tooltip="`MacOx ${translation('application')}`" class="ctool-hover-opacity">
+                    <a href="https://github.com/baiy/Ctool/releases/latest" target="_blank" v-tooltip="`Mac OS ${translation('application')}`" class="ctool-hover-opacity">
                         <Mac/>
                     </a>
                     <a href="https://github.com/baiy/Ctool/releases/latest" target="_blank" v-tooltip="`Linux ${translation('application')}`"
@@ -64,6 +64,10 @@
                     <a href="https://github.com/baiy/Ctool#utools-%E5%AE%89%E8%A3%85" v-tooltip="`Utools ${translation('extension')}`" target="_blank"
                        class="ctool-platform-bg ctool-hover-opacity">
                         <Utools/>
+                    </a>
+                    <a href="https://aur.archlinux.org/packages/ctool-bin" v-tooltip="`Arch Linux AUR`" target="_blank"
+                       class="ctool-platform-bg ctool-hover-opacity">
+                        <Arc/>
                     </a>
                 </div>
             </div>
@@ -120,6 +124,7 @@ import Linux from "./statics/linux.svg?component"
 import Mac from "./statics/mac.svg?component"
 import Windows from "./statics/windows.svg?component"
 import Utools from "./statics/utools.svg?component"
+import Arc from "./statics/arc.svg?component"
 import Suggest from "./statics/suggest.svg?component"
 import {ref, onMounted} from "vue"
 import {getSetting, updateTheme, updateLocale as _updateLocale, translation as _translation} from "@/helper"
