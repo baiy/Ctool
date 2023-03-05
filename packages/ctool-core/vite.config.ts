@@ -40,7 +40,8 @@ export default defineConfig({
                 tool: resolve(__dirname, 'tool.html')
             }
         },
-        reportCompressedSize: false
+        reportCompressedSize: false,
+        chunkSizeWarningLimit: 5000
     },
     server: {
         proxy: {

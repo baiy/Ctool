@@ -95,12 +95,12 @@ const getExtensions = async () => {
                 return
             }
             if (vu.docChanged) {
-                if (vu.view.dom.contains(mergeView.a.dom)) {
+                if (vu.view.dom.contains(mergeView.a.dom as any)) {
                     if (vu.state.doc.toString() !== action.current.a) {
                         action.current.a = vu.state.doc.toString()
                     }
                 }
-                if (vu.view.dom.contains(mergeView.b.dom)) {
+                if (vu.view.dom.contains(mergeView.b.dom as any)) {
                     if (vu.state.doc.toString() !== action.current.b) {
                         action.current.b = vu.state.doc.toString()
                     }

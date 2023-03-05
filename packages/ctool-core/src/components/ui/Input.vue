@@ -109,7 +109,7 @@ onMounted(() => {
     updatePadding()
     event.addListener('component_resize', updatePadding)
     if (container) {
-        emit('load', container)
+        emit('load', container as HTMLInputElement)
     }
 })
 onUpdated(() => {
