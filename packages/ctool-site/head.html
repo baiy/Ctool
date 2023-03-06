@@ -15,9 +15,15 @@
     // https://whatwebcando.today/articles/handling-service-worker-updates/
     if ('serviceWorker' in navigator) {
         const invokeServiceWorkerUpdateFlow = (registration) => {
-            if (registration.waiting) {
-                registration.waiting.postMessage({type: "SKIP_WAITING"})
-            }
+            window.dispatchEvent(new CustomEvent('ctool_service_worker_update', {
+                detail: {
+                    update: () => {
+                        if (registration.waiting) {
+                            registration.waiting.postMessage({type: "SKIP_WAITING"})
+                        }
+                    }
+                }
+            }))
         }
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('/sw.js', {scope: '/'}).then((registration) => {
@@ -66,6 +72,6 @@
                     }
                 }
             }))
-        }, 2000)
+        }, 500)
     })
 </script>

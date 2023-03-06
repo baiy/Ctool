@@ -7,6 +7,14 @@
     <ExtendPage v-model="openSetting">
         <Setting/>
     </ExtendPage>
+    <Modal :title="$t('main_ui_prompt')" v-model="pwaUpdate" width="500">
+        <Align :horizontal="'center'" top="15" bottom="15">
+            {{ $t(`main_new_version_found`) }}
+        </Align>
+        <template #footer>
+            <Button type="primary" long @click="pwaUpdate = false;pwaUpdater?.()" :text="$t(`main_ui_reload`)"/>
+        </template>
+    </Modal>
 </template>
 
 <script setup lang="ts">
@@ -21,10 +29,17 @@ import Setting from "@/block/Setting.vue"
 
 const operate = useOperate()
 const router = useRouter()
+let pwaUpdate = $ref(false)
+let pwaUpdater = $ref<(() => void) | null>(null)
 let is = $ref(false)
 
 onMounted(() => {
     window.dispatchEvent(new Event('resize'));
+    // pwa 更新检测事件
+    window.addEventListener('ctool_service_worker_update', (event: any) => {
+        pwaUpdate = true
+        pwaUpdater = event.detail.update
+    })
 })
 
 // 打开设置页面
