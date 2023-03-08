@@ -5,10 +5,10 @@
 <script setup lang="ts">
 import {onMounted, getCurrentInstance, watch} from "vue";
 import tippy, {Instance as TippyInstance} from 'tippy.js';
+import {useSetting} from '@/helper';
 import 'tippy.js/dist/tippy.css'
 import 'tippy.js/animations/scale.css';
 import 'tippy.js/themes/light.css'
-import {useTheme} from "@/store/setting";
 
 // 提示
 const props = defineProps({
@@ -17,7 +17,7 @@ const props = defineProps({
         default: ""
     }
 })
-const storeTheme = useTheme()
+const setting = useSetting()
 const instance = getCurrentInstance();
 let tooltip: TippyInstance | undefined = undefined;
 
@@ -36,7 +36,7 @@ const update = () => {
     }
     tooltip.setProps({
         content: props.content,
-        theme: storeTheme.theme.raw === 'dark' ? 'light' : 'dark',
+        theme: setting.theme.value === 'dark' ? 'light' : 'dark',
     })
     tooltip[props.content !== "" ? 'enable' : 'disable']()
 }
@@ -44,7 +44,9 @@ const update = () => {
 watch(() => {
     return {
         content: props.content,
-        theme: storeTheme.theme
+        theme: setting.theme
     }
-}, () => update(), {deep: true, immediate: true})
+}, () => {
+    update()
+}, {deep: true, immediate: true})
 </script>
