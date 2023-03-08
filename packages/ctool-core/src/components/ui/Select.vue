@@ -9,7 +9,7 @@
     >
         <details role="list" ref="details">
             <summary aria-haspopup="listbox" role="button">{{ placeholderValue }}</summary>
-            <ul role="listbox" v-if="!dialog">
+            <ul role="listbox" class="ctool-select-option-hidden" v-if="!dialog">
                 <li v-for="item in getOptions" :key="item.value"><a @click="selected = item.value"> {{ item.label }}</a></li>
             </ul>
         </details>
@@ -180,27 +180,27 @@ const update = () => {
 
     // 边距
     selectLeftWidth = (container.querySelector('.ctool-select-left') as HTMLElement).offsetWidth
-
 }
 
-const dialogOpen = () => {
+const toggle = () => {
+    if (container?.querySelector("ul")) {
+        if (container.querySelector("details")?.open) {
+            container.querySelector("ul")?.classList.remove('ctool-select-option-hidden')
+            update()
+        } else {
+            container.querySelector("ul")?.classList.add('ctool-select-option-hidden')
+        }
+    }
     if (!props.dialog) {
         return;
     }
     dialogShow = !!container?.querySelector("details")?.open
 }
 onMounted(() => {
-    update()
-    setTimeout(() => update(), 500)
-    event.addListener('component_resize', update)
-    container?.querySelector("details")?.addEventListener('toggle', dialogOpen)
-})
-onUpdated(() => {
-    setTimeout(() => update(), 500)
+    container?.querySelector("details")?.addEventListener('toggle', toggle)
 })
 onUnmounted(() => {
-    event.removeListener('component_resize', update)
-    container?.querySelector("details")?.removeEventListener('toggle', dialogOpen)
+    container?.querySelector("details")?.removeEventListener('toggle', toggle)
 })
 </script>
 
@@ -259,6 +259,10 @@ onUnmounted(() => {
     right: var(--ctool-select-menu-right);
     left: var(--ctool-select-menu-left);
     bottom: var(--ctool-select-menu-bottom);
+}
+
+.ctool-select ul[role="listbox"].ctool-select-option-hidden {
+    right: -100000px;
 }
 
 .ctool-select details[role=list] summary + ul li a {
