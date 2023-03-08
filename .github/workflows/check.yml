@@ -1,5 +1,5 @@
 # 代码检查
-name: Check Ctool
+name: check-ctool
 on:
   pull_request:
     branches:

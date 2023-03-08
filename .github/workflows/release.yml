@@ -1,5 +1,5 @@
 # 构建发布平台适配文件
-name: Release Ctool Adapter
+name: release-ctool-adapter
 on:
   push:
     tags:
