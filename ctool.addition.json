@@ -386,7 +386,10 @@
 					"message": "点击获取剪贴板授权"
 				},
 				"main_new_version_found": {
-					"message": "发现新版本, 建议重新加载(刷新)页面"
+					"message": "发现新版本, 建议重新加载页面"
+				},
+				"main_last_updated": {
+					"message": "最后更新: "
 				},
 				"tool_hash": {
 					"message": "哈希(hash)"
@@ -3155,6 +3158,9 @@
 				},
 				"main_new_version_found": {
 					"message": "New version found. Refresh to update."
+				},
+				"main_last_updated": {
+					"message": "Last Updated on "
 				},
 				"tool_hash": {
 					"message": "Hash"
