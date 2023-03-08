@@ -4,9 +4,9 @@ import {isObject} from "lodash";
 import rdiff from "recursive-diff";
 
 // 版本号
-export const version = CTOOL_VERSION
-// 更新时间
-export const updateTime = parseInt(CTOOL_UPDATE_TIME)
+export const version = document.querySelector('meta[name="ctool-version"]')?.getAttribute('content') || "dev"
+// 构建时间
+export const buildTimestamp = parseInt(document.querySelector('meta[name="ctool-build-timestamp"]')?.getAttribute('content') || `${Date.parse((new Date()).toString()) / 1000}`)
 
 // uuid
 export const uuid = (): string => {

@@ -150,5 +150,5 @@ export const buildI18n = () => {
     })
     buildType.append(`type I18nLocale = "${localesReal.join(`" | "`)}"`, '语言地区类型')
     buildType.append(`type I18nKey = ${typeLists.join(`\n${" ".repeat(4)} | `)}`, '语言key类型')
-    buildType.append(`declare const $t: (key: I18nKey | string, value?: Record<string, any> | [], locale?: I18nLocale) => string`)
+    buildType.append(`declare const $t: (key: I18nKey | string, value?: Record<string, any> | any[], locale?: I18nLocale) => string`)
 }

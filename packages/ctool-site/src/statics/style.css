@@ -112,7 +112,7 @@ a {
     row-gap: 25px;
     flex-direction: column;
     align-items: center;
-    padding: 20px 12px 30px;
+    padding: 20px 12px;
 }
 
 .ctool-header-bottom h1, .ctool-header-bottom h2 {
@@ -138,13 +138,28 @@ a {
 
 .ctool-use {
     display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.ctool-use-time {
+    font-size: 12px;
+    color: #e2e8f0;
+}
+[data-theme="dark"] .ctool-use-time {
+    color: #cbd5e1;
+}
+.ctool-use-button {
+    display: flex;
     width: 100%;
     gap: 0 10px;
     justify-content: center;
     align-items: center;
 }
 
-.ctool-use > a {
+.ctool-use-button > a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -315,7 +330,7 @@ a {
 }
 
 @media (max-width: 768px) {
-    .ctool-use {
+    .ctool-use-button {
         flex-direction: column;
         gap: 10px 0;
     }
@@ -332,7 +347,7 @@ a {
         font-size: 16px;
     }
 
-    .ctool-use > a {
+    .ctool-use-button > a {
         width: 70%;
     }
 

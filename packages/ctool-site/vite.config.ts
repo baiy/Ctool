@@ -1,14 +1,28 @@
-import {resolve} from 'path'
+import {join, resolve} from 'path'
 import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import {VitePWA} from 'vite-plugin-pwa'
 import svgLoader from 'vite-svg-loader'
 import ctoolPlugin from './vitePlugin'
+import {readFileSync} from "fs";
+import HtmlConfig from "vite-plugin-html-config"
 
 export default defineConfig({
     base: "./",
     plugins: [
         ctoolPlugin(),
+        HtmlConfig({
+            metas: [
+                {
+                    name: "ctool-version",
+                    content: JSON.parse(readFileSync(join(__dirname, '../../package.json')).toString())['version'],
+                },
+                {
+                    name: "ctool-build-timestamp",
+                    content: `${Date.parse((new Date()).toString()) / 1000}`,
+                }
+            ]
+        }),
         vue(),
         svgLoader({
             defaultImport: "component"

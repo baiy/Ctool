@@ -3,29 +3,25 @@ import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import {nodePolyfills} from 'vite-plugin-node-polyfills'
 import {readFileSync} from "fs";
-
-export const ctoolVitePlugin = () => {
-    return {
-        name: 'ctool',
-        config: () => {
-            const version = JSON.parse(readFileSync(join(__dirname, '../../package.json')).toString())['version']
-            const updateTime = `${Date.parse((new Date()).toString()) / 1000}`
-            return {
-                define: {
-                    CTOOL_VERSION: JSON.stringify(version),
-                    CTOOL_UPDATE_TIME: JSON.stringify(updateTime),
-                }
-            }
-        }
-    }
-}
+import HtmlConfig from "vite-plugin-html-config"
 
 export default defineConfig({
     base: "./",
     plugins: [
         nodePolyfills(),
+        HtmlConfig({
+            metas: [
+                {
+                    name: "ctool-version",
+                    content: JSON.parse(readFileSync(join(__dirname, '../../package.json')).toString())['version'],
+                },
+                {
+                    name: "ctool-build-timestamp",
+                    content: `${Date.parse((new Date()).toString()) / 1000}`,
+                }
+            ]
+        }),
         vue({reactivityTransform: true}),
-        ctoolVitePlugin()
     ],
     resolve: {
         alias: {

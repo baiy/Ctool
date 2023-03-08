@@ -79,5 +79,6 @@
     "clipboard_granted": "Clipboard Authorization Success",
     "clipboard_denied": "No Clipboard Authorization, Please Manually Authorize",
     "clipboard_prompt": "Click To Get Clipboard Authorization",
-    "new_version_found": "New version found. Refresh to update."
+    "new_version_found": "New version found. Refresh to update.",
+    "last_updated": "Last Updated on "
 }

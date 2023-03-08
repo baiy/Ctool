@@ -1,5 +1,8 @@
 <template>
     <Card :title="$t('main_ui_setting')" height="100%" padding="20px 10px 10px 30px">
+        <template #extra>
+            Ctool v{{version}} {{ $t(`main_last_updated`)}}{{lastUpdate}}
+        </template>
         <div class="ctool-setting">
             <template v-if="platform.isChromium()">
                 <span>{{ $t('main_keyboard_setting') }}</span>
@@ -91,10 +94,15 @@ import platform from "@/helper/platform"
 import {getLocaleName} from "@/i18n"
 import UtoolsKeyword from "./utools/Keyword.vue"
 import Common from "./Common.vue";
+import {version, buildTimestamp} from "@/helper/util";
+import Tooltip from "@/components/ui/Tooltip.vue";
+import dayjs from "dayjs";
 
 const storeSetting = useSetting()
 let openUtoolsKeyword = $ref(false)
 let openCommon = $ref(false)
+
+const lastUpdate = dayjs.unix(buildTimestamp).format('YYYY-MM-DD HH:mm:ss')
 
 const localeOptions = locales.map((item) => {
     return {value: item, label: getLocaleName(item) || ""}
