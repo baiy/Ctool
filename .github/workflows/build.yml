@@ -1,6 +1,26 @@
-# 编译核心文件 发布 github page
+# 编译核心文件 发布到 github page 用于测试
 name: build-ctool-core
-on: [ workflow_dispatch ]
+on:
+  pull_request:
+    branches:
+      - 'master'
+    paths:
+      - 'packages/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'release.js'
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'packages/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'release.js'
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
