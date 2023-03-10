@@ -286,6 +286,12 @@
 				"main_ui_keyword": {
 					"message": "关键字"
 				},
+				"main_ui_enable": {
+					"message": "启用"
+				},
+				"main_ui_disable": {
+					"message": "禁用"
+				},
 				"main_setting_language": {
 					"message": "语言"
 				},
@@ -390,6 +396,15 @@
 				},
 				"main_last_updated": {
 					"message": "最后更新: "
+				},
+				"main_network_request_proxy": {
+					"message": "网络请求代理"
+				},
+				"main_network_request_proxy_prompt": {
+					"message": "当前功能需要访问网络, 由于平台安全限制(跨域问题)需要使用代理访问, 请到设置页面启用[网络请求代理]"
+				},
+				"main_privacy_policy": {
+					"message": "隐私条款"
 				},
 				"tool_hash": {
 					"message": "哈希(hash)"
@@ -3057,6 +3072,12 @@
 				"main_ui_keyword": {
 					"message": "Keyword"
 				},
+				"main_ui_enable": {
+					"message": "Enable"
+				},
+				"main_ui_disable": {
+					"message": "Disable"
+				},
 				"main_setting_language": {
 					"message": "Language"
 				},
@@ -3161,6 +3182,15 @@
 				},
 				"main_last_updated": {
 					"message": "Last Updated on "
+				},
+				"main_network_request_proxy": {
+					"message": "Network Request Proxy"
+				},
+				"main_network_request_proxy_prompt": {
+					"message": "The current function requires accessing the network. Due to platform security restrictions (cross-origin issues), you need to access it through a proxy. Please enable [Network Request Proxy] on the settings page."
+				},
+				"main_privacy_policy": {
+					"message": "Privacy Policy"
 				},
 				"tool_hash": {
 					"message": "Hash"
