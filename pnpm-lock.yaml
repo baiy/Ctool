@@ -3,7 +3,21 @@ lockfileVersion: 5.4
 importers:
 
   .:
-    specifiers: {}
+    specifiers:
+      '@types/http-proxy': ^1.17.10
+      '@types/node': ^18.11.18
+      '@vercel/node': ^2.9.12
+      ctool-config: workspace:*
+      http-proxy: ^1.18.1
+      typescript: ^4.9.5
+    dependencies:
+      ctool-config: link:packages/ctool-config
+      http-proxy: 1.18.1
+    devDependencies:
+      '@types/http-proxy': 1.17.10
+      '@types/node': 18.14.6
+      '@vercel/node': 2.9.12
+      typescript: 4.9.5
 
   packages/ctool-adapter/base:
     specifiers:

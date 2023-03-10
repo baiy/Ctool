@@ -33,7 +33,7 @@ export default defineConfig({
             manifest: false,
             workbox: {
                 navigateFallbackDenylist: [
-                    /^\/proxy/,
+                    /^\/api/,
                     /^\/privacy/,
                 ],
                 globPatterns: ["**\/*.{js,css,html,png,jpg,ico,svg,json}"],

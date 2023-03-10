@@ -7,10 +7,6 @@
     },
     "routes": [
         {
-            "src": "/proxy",
-            "dest": "/packages/ctool-site/api/proxy.ts"
-        },
-        {
             "src": "/privacy",
             "status": 302,
             "headers": {
