@@ -106,6 +106,7 @@ defineExpose({open, exposeClose});
 
 .ctool-message-block .ctool-message-content {
     max-height: calc(100vh - 6rem);
+    line-height: 24px;
     overflow-y: auto;
 }
 

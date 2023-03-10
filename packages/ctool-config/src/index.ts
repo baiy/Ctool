@@ -103,6 +103,9 @@ export interface PlatformRuntime {
     getLocale?: () => string
 
     entry?: (storage: Storage) => Promise<void>
+
+    // 是否开启 web同源策略(跨域) 默认为不开启
+    webSecurity?: () => boolean
 }
 
 // 多语言
@@ -150,4 +153,5 @@ export const themes = ["light", "dark", "auto"] as const
 export type ThemeType = typeof themes[number];
 export type ThemeRawType = Exclude<ThemeType, "auto">;
 
-
+// 代理配置
+export {default as proxy} from './proxy';

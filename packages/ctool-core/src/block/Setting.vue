@@ -1,7 +1,7 @@
 <template>
     <Card :title="$t('main_ui_setting')" height="100%" padding="20px 10px 10px 30px">
         <template #extra>
-            Ctool v{{version}} {{ $t(`main_last_updated`)}}{{lastUpdate}}
+            Ctool v{{ version }} {{ $t(`main_last_updated`) }}{{ lastUpdate }}
         </template>
         <div class="ctool-setting">
             <template v-if="platform.isChromium()">
@@ -76,6 +76,24 @@
                     <Button :size="'small'" @click="openUtoolsKeyword = !openUtoolsKeyword" :text="`${$t(`main_ui_keyword`)}${$t(`main_ui_config`)}`"/>
                 </div>
             </template>
+            <template v-if="platform.runtime.webSecurity()">
+                <span>{{ $t('main_network_request_proxy') }}</span>
+                <Align>
+                    <Bool
+                        :label="$t(`main_ui_enable`)"
+                        :model-value="storeSetting.items.proxy_enable"
+                        @change="(value)=>storeSetting.save('proxy_enable',value)"
+                    />
+                    <template v-if="storeSetting.items.proxy_enable">
+                        <Input :model-value="storeSetting.items.proxy_url" :width="400" @change="(value)=>storeSetting.save('proxy_url',value)">
+                            <template #append>
+                                <Icon hover name="refresh" @click="storeSetting.save('proxy_url',proxy.defaultProxyUrl)" :tooltip="$t('main_ui_reset')"/>
+                            </template>
+                        </Input>
+                        <Link type="primary" style="font-size: 12px" href="https://ctool.dev/privacy/">{{ $t('main_privacy_policy') }}</Link>
+                    </template>
+                </Align>
+            </template>
         </div>
     </Card>
     <ExtendPage v-model="openUtoolsKeyword" disable-replace>
@@ -95,8 +113,13 @@ import {getLocaleName} from "@/i18n"
 import UtoolsKeyword from "./utools/Keyword.vue"
 import Common from "./Common.vue";
 import {version, buildTimestamp} from "@/helper/util";
-import Tooltip from "@/components/ui/Tooltip.vue";
+import {proxy} from "ctool-config"
 import dayjs from "dayjs";
+import Bool from "@/components/ui/Bool.vue";
+import Align from "@/components/Align.vue";
+import Input from "@/components/ui/Input.vue";
+import Link from "@/components/ui/Link.vue";
+import Button from "@/components/ui/Button.vue";
 
 const storeSetting = useSetting()
 let openUtoolsKeyword = $ref(false)

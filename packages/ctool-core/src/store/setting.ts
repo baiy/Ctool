@@ -2,6 +2,7 @@
 import {defineStore} from '@/helper/pinia'
 import {Locale, ThemeType, ThemeRawType} from "@/types"
 import {commonTool, ToolType} from "@/config"
+import {proxy} from "ctool-config"
 import {onMounted, watch, onUnmounted, nextTick} from 'vue';
 import {setCurrentLocale} from '@/i18n';
 import event from "@/event";
@@ -14,6 +15,8 @@ interface Setting {
     auto_read_copy_filter: boolean,
     auto_save_copy: boolean,
     layout: "complex" | "simple",
+    proxy_enable: boolean,
+    proxy_url: string,
 }
 
 const getSystemTheme = (): ThemeRawType => {
@@ -30,7 +33,9 @@ const defaultValue: Setting = {
     locale: "_default",
     theme: "auto",
     common: [...commonTool],
-    layout: "complex"
+    layout: "complex",
+    proxy_enable: false,
+    proxy_url: proxy.defaultProxyUrl
 }
 
 const useSetting = defineStore('setting', () => {
@@ -54,7 +59,7 @@ const useSetting = defineStore('setting', () => {
     })
 
     onMounted(() => {
-        event.addListener('locale_change', async ()=>{
+        event.addListener('locale_change', async () => {
             await nextTick()
             // 语言变化重新计算窗口尺寸
             window.dispatchEvent(new Event('resize'));

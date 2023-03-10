@@ -1,7 +1,8 @@
 <template>
-    <Input class="ctool-page-option" label="Offset (hex) 0x" v-model="action.current.offset" placeholder="0 - for branch and LDR put hex value here" style="margin-bottom: 5px">
+    <Input class="ctool-page-option" label="Offset (hex) 0x" v-model="action.current.offset" placeholder="0 - for branch and LDR put hex value here"
+           style="margin-bottom: 5px">
         <template #append>
-            <HelpTip link="https://armconverter.com/" />
+            <HelpTip link="https://armconverter.com/"/>
         </template>
     </Input>
     <div>
@@ -67,13 +68,16 @@ const convert = async () => {
         action.current.response = "";
         return;
     }
-    action.current.response = (await request({
+    request({
         "hex": action.current.input,
         "offset": action.current.offset,
         "arch": ["arm64", "arm", "armbe", "thumb", "thumbbe"]
-    })).data;
-    loading = false
-    action.success()
+    }).then(({data}) => {
+        action.current.response = data;
+        action.success()
+    }).finally(() => {
+        loading = false
+    })
 }
 
 const result = $computed(() => {

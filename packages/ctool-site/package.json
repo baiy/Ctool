@@ -8,12 +8,15 @@
     },
     "dependencies": {
         "ctool-config": "workspace:*",
+        "http-proxy": "^1.18.1",
         "normalize.css": "^8.0.1",
         "tippy.js": "^6.3.7",
         "vue": "^3.2.47"
     },
     "devDependencies": {
+        "@types/http-proxy": "^1.17.10",
         "@types/node": "^18.11.18",
+        "@vercel/node": "^2.9.12",
         "@vitejs/plugin-vue": "^4.0.0",
         "typescript": "^4.9.5",
         "vite": "^4.1.4",

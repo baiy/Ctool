@@ -6,13 +6,13 @@
         <Card :title="$t('main_ui_output')" :height="200" padding="0">
             <template #extra>
                 <Align>
-                    <span v-if="enabled">{{ isNumber(used) ? $t(`code_run_used_times`, [used]) : used }}</span>
+                    <span>{{ $t(`code_run_used_times`, [used]) }}</span>
                     <Select dialog size="small" v-model="action.current.language" :options="languageLists.map(name=>{return {value:name,label:getDisplayName(name)}})"/>
                     <Select size="small" v-model="action.current.version[action.current.language]" :options="languageVersionLists"/>
                     <Button
                         type="primary"
                         :text="isRunning ? $t(`code_running`) : $t(`code_run`)"
-                        :disabled="isRunning|| !isNumber(used) || !enabled || action.current.input === ''"
+                        :disabled="isRunning || !isEnable || action.current.input === ''"
                         size="small"
                         @click="run()"
                     />
@@ -20,11 +20,7 @@
                     <Button type="primary" size="small" @click="showSetting = !showSetting">{{ $t(`main_ui_setting`) }}</Button>
                 </Align>
             </template>
-            <Align v-if="!enabled" height="100%" horizontal="center">
-                由于跨域问题, 当前版本无法使用
-                <Link href="https://github.com/baiy/Ctool/releases/latest" type="primary">下载其他平台适配版本</Link>
-            </Align>
-            <Editor v-else lang="shell" :model-value="action.current.result.error !== '' ? action.current.result.error : action.current.result.output">
+            <Editor lang="shell" :model-value="action.current.result.error !== '' ? action.current.result.error : action.current.result.output">
                 <Button
                     v-if="action.current.result.output !== '' && action.current.result.error === ''"
                     :type="'dotted'" size="small"
@@ -88,9 +84,8 @@ const action = useAction(await initialize({
     } as Result
 }))
 
-const enabled = !platform.isWeb() || import.meta.env.DEV
 let showSetting = $ref(false)
-let used = $ref<number | string>(0)
+let used = $ref<number>(0)
 let config = $ref(getConfig())
 
 const languageLists = language.map((item) => item.code).sort()
@@ -99,6 +94,7 @@ const languageVersionLists: SelectOption = $computed(() => {
         return {value: item.value, label: item.name}
     })
 })
+let isEnable = $ref(false)
 let isRunning = $ref(false)
 const run = () => {
     try {
@@ -145,13 +141,13 @@ watch(
 )
 
 const resetUsed = () => {
-    if (!enabled) {
-        return;
-    }
     getUsed().then(times => {
         used = times
+        isEnable = true
     }).catch(e => {
-        used = $error(e)
+        used = 0
+        isEnable = false
+        throw e
     })
 }
 onMounted(() => {

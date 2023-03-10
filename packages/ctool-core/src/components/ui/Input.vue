@@ -31,7 +31,7 @@ export default {
 <script setup lang="ts">
 import {onMounted, onUnmounted, onUpdated, PropType, StyleValue} from "vue"
 import {sizeConvert} from "../util"
-import {ComponentSizeType} from "@/types";
+import {ComponentSizeType, SelectValue} from "@/types";
 import event from "@/event";
 
 const props = defineProps({
@@ -73,11 +73,14 @@ const container = $ref<HTMLInputElement | null>(null)
 const inputLeft = $ref<HTMLElement | null>(null)
 const inputRight = $ref<HTMLElement | null>(null)
 
-const emit = defineEmits<{ (e: 'update:modelValue', value: string): void, (e: 'load', value: HTMLInputElement): void }>()
+const emit = defineEmits<{ (e: 'update:modelValue', value: string): void, (e: 'load', value: HTMLInputElement): void, (e: 'change', value: string): void }>()
 
 const content = $computed({
     get: () => props.modelValue,
-    set: (value) => emit('update:modelValue', value)
+    set: (value) => {
+        emit('update:modelValue', value)
+        emit('change', value)
+    }
 })
 
 let inputLeftWidth = $ref(0)
@@ -142,7 +145,8 @@ const updatePadding = () => {
     width: 100%;
     font-size: var(--ctool-form-font-size);
 }
-.ctool-input :is(.ctool-input-append,.ctool-input-prepend):has(.ctool-select,.ctool-button){
+
+.ctool-input :is(.ctool-input-append,.ctool-input-prepend):has(.ctool-select,.ctool-button) {
     --ctool-input-prepend-padding: 0;
     --ctool-input-append-padding: 0;
 }

@@ -38,14 +38,5 @@ export default defineConfig({
         },
         reportCompressedSize: false,
         chunkSizeWarningLimit: 5000
-    },
-    server: {
-        proxy: {
-            "/__proxy/api.jdoodle.com": {
-                target: 'https://api.jdoodle.com',
-                changeOrigin: true,
-                rewrite: (path) => path.replace('/__proxy/api.jdoodle.com', '')
-            }
-        }
     }
 })
