@@ -8,7 +8,7 @@
     "routes": [
         {
             "src": "/proxy",
-            "dest": "packages/ctool-site/api/proxy.ts"
+            "dest": "/packages/ctool-site/api/proxy.ts"
         },
         {
             "src": "/privacy",
