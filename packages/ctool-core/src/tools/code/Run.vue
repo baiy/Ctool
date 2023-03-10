@@ -141,6 +141,9 @@ watch(
 )
 
 const resetUsed = () => {
+    if (config.client_id === "" || config.client_secret === "" ){
+        return;
+    }
     getUsed().then(times => {
         used = times
         isEnable = true
