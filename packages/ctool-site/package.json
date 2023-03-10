@@ -1,6 +1,7 @@
 {
     "name": "ctool-site",
     "private": true,
+    "type": "module",
     "scripts": {
         "check": "vue-tsc --noEmit",
         "dev": "pnpm run check && vite --force",

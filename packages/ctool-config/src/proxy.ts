@@ -5,7 +5,7 @@ const domains: string[] = [
 ]
 
 export default {
-    defaultProxyUrl: "https://ctool.dev/api/proxy",
+    defaultProxyUrl: "https://ctool.dev/proxy",
     is(url: string) {
         if (url !== "") {
             for (let domain of domains) {

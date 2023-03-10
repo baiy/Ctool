@@ -4,5 +4,18 @@
     },
     "github": {
         "silent": true
-    }
+    },
+    "routes": [
+        {
+            "src": "/proxy",
+            "dest": "packages/ctool-site/api/proxy.ts"
+        },
+        {
+            "src": "/privacy",
+            "status": 302,
+            "headers": {
+                "Location": "https://github.com/baiy/Ctool/blob/master/PRIVACY.md"
+            }
+        }
+    ]
 }
