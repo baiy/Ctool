@@ -406,6 +406,15 @@
 				"main_privacy_policy": {
 					"message": "隐私条款"
 				},
+				"main_auto_fill": {
+					"message": "自动填充"
+				},
+				"main_auto_fill_explain": {
+					"message": "优先使用 {0} 秒内历史数据",
+					"placeholders": [
+						"0"
+					]
+				},
 				"tool_hash": {
 					"message": "哈希(hash)"
 				},
@@ -3191,6 +3200,15 @@
 				},
 				"main_privacy_policy": {
 					"message": "Privacy Policy"
+				},
+				"main_auto_fill": {
+					"message": "Auto Fill"
+				},
+				"main_auto_fill_explain": {
+					"message": "Prioritize the use of historical data within {0} seconds",
+					"placeholders": [
+						"0"
+					]
 				},
 				"tool_hash": {
 					"message": "Hash"
