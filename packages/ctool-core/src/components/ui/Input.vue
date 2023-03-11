@@ -31,7 +31,7 @@ export default {
 <script setup lang="ts">
 import {onMounted, onUnmounted, onUpdated, PropType, StyleValue} from "vue"
 import {sizeConvert} from "../util"
-import {ComponentSizeType, SelectValue} from "@/types";
+import {ComponentSizeType} from "@/types";
 import event from "@/event";
 
 const props = defineProps({

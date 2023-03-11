@@ -30,7 +30,7 @@ export default {
             if (lists.length === 2) {
                 return [`*.${domain}`, domain]
             }
-            return lists.join("*");
+            return lists.join(".");
         }).flat().filter(str => str !== "").map(str => `*://${str}/*`)
     }
 }
