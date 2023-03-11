@@ -17,6 +17,7 @@ interface Setting {
     layout: "complex" | "simple",
     proxy_enable: boolean,
     proxy_url: string,
+    fill_history_expire: number,
 }
 
 const getSystemTheme = (): ThemeRawType => {
@@ -35,7 +36,8 @@ const defaultValue: Setting = {
     common: [...commonTool],
     layout: "complex",
     proxy_enable: false,
-    proxy_url: proxy.defaultProxyUrl
+    proxy_url: proxy.defaultProxyUrl,
+    fill_history_expire: 3600,
 }
 
 const useSetting = defineStore('setting', () => {

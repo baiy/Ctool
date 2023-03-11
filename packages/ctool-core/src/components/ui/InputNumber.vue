@@ -37,11 +37,15 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits<{ (e: 'update:modelValue', value: number): void }>()
+const emit = defineEmits<{ (e: 'update:modelValue', value: number): void, (e: 'change', value: number): void }>()
 
 const current = $computed({
     get: () => `${props.modelValue}`,
-    set: (value) => emit('update:modelValue', toNumber(`${value}`))
+    set: (value) => {
+        const _value = toNumber(`${value}`)
+        emit('update:modelValue', _value)
+        emit('change', _value)
+    }
 })
 </script>
 <style>

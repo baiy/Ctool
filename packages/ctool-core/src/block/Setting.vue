@@ -66,16 +66,15 @@
                     @change="(value)=>storeSetting.save('auto_read_copy_filter',value)"
                 />
             </div>
+            <span>{{ $t('main_auto_fill') }}</span>
+            <Align>
+                <InputNumber :model-value="storeSetting.items.fill_history_expire" :width="120" @change="(value)=>storeSetting.save('fill_history_expire',value)"/>
+                <span style="font-size: 12px">{{ $t('main_auto_fill_explain', [storeSetting.items.fill_history_expire]) }}</span>
+            </Align>
             <span>{{ $t('main_common_tool') }}</span>
             <div>
                 <Button :size="'small'" @click="openCommon = !openCommon" :text="`${$t(`main_ui_config`)}`"/>
             </div>
-            <template v-if="platform.isUtools()">
-                <span>uTools</span>
-                <div>
-                    <Button :size="'small'" @click="openUtoolsKeyword = !openUtoolsKeyword" :text="`${$t(`main_ui_keyword`)}${$t(`main_ui_config`)}`"/>
-                </div>
-            </template>
             <template v-if="platform.runtime.webSecurity()">
                 <span>{{ $t('main_network_request_proxy') }}</span>
                 <Align>
@@ -93,6 +92,12 @@
                         <Link type="primary" style="font-size: 12px" href="https://ctool.dev/privacy">{{ $t('main_privacy_policy') }}</Link>
                     </template>
                 </Align>
+            </template>
+            <template v-if="platform.isUtools()">
+                <span>uTools</span>
+                <div>
+                    <Button :size="'small'" @click="openUtoolsKeyword = !openUtoolsKeyword" :text="`${$t(`main_ui_keyword`)}${$t(`main_ui_config`)}`"/>
+                </div>
             </template>
         </div>
     </Card>
@@ -120,6 +125,7 @@ import Align from "@/components/Align.vue";
 import Input from "@/components/ui/Input.vue";
 import Link from "@/components/ui/Link.vue";
 import Button from "@/components/ui/Button.vue";
+import InputNumber from "@/components/ui/InputNumber.vue";
 
 const storeSetting = useSetting()
 let openUtoolsKeyword = $ref(false)

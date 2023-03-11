@@ -85,5 +85,7 @@
     "last_updated": "Last Updated on ",
     "network_request_proxy": "Network Request Proxy",
     "network_request_proxy_prompt": "The current function requires accessing the network. Due to platform security restrictions (cross-origin issues), you need to access it through a proxy. Please enable [Network Request Proxy] on the settings page.",
-    "privacy_policy": "Privacy Policy"
+    "privacy_policy": "Privacy Policy",
+    "auto_fill": "Auto Fill",
+    "auto_fill_explain": "Prioritize the use of historical data within {0} seconds"
 }

@@ -47,7 +47,16 @@ class History<T = any> {
         const item: T = cloneDeep(_item)
         // 过滤超大数据
         if (JSON.stringify(item).length > 20 * 1024) {
-            console.log("Data Too Big")
+            console.log("skip data too big")
+            return;
+        }
+
+        // 与最新一致过滤
+        if (
+            this.lists.length > 0
+            && isEqual(this.lists[0].v, item)
+        ) {
+            console.log("skip latest")
             return;
         }
 
@@ -72,6 +81,10 @@ class History<T = any> {
     // 获取
     get(index: number): T | null {
         return index >= 0 && index < this.length() ? cloneDeep(this.lists[index].v) : null
+    }
+
+    getWithTime(index: number) {
+        return index >= 0 && index < this.length() ? cloneDeep(this.lists[index]) : null
     }
 
     // 长度

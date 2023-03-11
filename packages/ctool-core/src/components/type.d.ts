@@ -69,6 +69,7 @@ declare module '@vue/runtime-core' {
                 width?: number | string,
                 size?: ComponentSizeType
             }
+            $emit: { (e: 'change', value: number): void }
             $slots: {
                 prepend: () => VNode[]
                 append: () => VNode[]

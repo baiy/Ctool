@@ -1,5 +1,6 @@
 // 工具操作
-import {onUnmounted, reactive, toRaw} from 'vue'
+import {reactive, toRaw} from 'vue'
+import dayjs from 'dayjs'
 import {instanceOfInput, instanceOfHistorySerializable} from "@/helper/util"
 import {paste, copy as copyText, copyImage} from "@/helper/clipboard"
 import useOperate from "@/store/operate"
@@ -45,8 +46,7 @@ type initializeOption = {
  * 自动解析输入 优先级从高到低
  * * 固定输入: storage:_temp_input_storage | url?input=value
  * * 强制历史数据: url?history = index
- * * 最新历史数据
- * * 剪贴板数据
+ * * 剪贴板数据 || 最新历史数据 根据配置`fill_history_expire`确定
  * * 默认数据
  *
  * 固定输入/剪贴板数据 inputField != ""
@@ -95,32 +95,6 @@ export const initialize = async <T extends Record<string, any>>(
         }
     }
 
-    // 获取历史数据
-    const getHistory = () => {
-        if (history.length() < 1) {
-            return null
-        }
-        // 强制历史数据 && 最新历史数据
-        if (getUrlInput('history')) {
-            return history.get(parseInt(getUrlInput('history')))
-        }
-        if (keywordItems) {
-
-            const all = history.all()
-            for (let itemIndex in all) {
-                if (objectInObject(keywordItems, all[itemIndex].v)) {
-                    // 最新历史数据 根据索关键字过滤
-                    return history.get(parseInt(itemIndex))
-                }
-            }
-            return null;
-        }
-
-        // 最新历史数据
-        return history.get(0)
-    }
-
-
     // 默认数据中无输入字段 默认处理
     if (inputField && !(inputField in defaultItems)) {
         inputField = ""
@@ -147,11 +121,11 @@ export const initialize = async <T extends Record<string, any>>(
         }
     }
 
-    // 强制历史数据 && 最新历史数据
-    const historyItem = getHistory()
-    if (historyItem) {
+    // 强制历史数据
+    const historyIndexItem = getUrlInput('history') !== "" ? history.get(parseInt(getUrlInput('history'))) : null
+    if (historyIndexItem) {
         return result(
-            mergeWith(items, historyItem, (objValue, srcValue) => {
+            mergeWith(items, historyIndexItem, (objValue, srcValue) => {
                 if (instanceOfHistorySerializable(objValue)) {
                     return objValue.unserialize(srcValue)
                 }
@@ -159,20 +133,62 @@ export const initialize = async <T extends Record<string, any>>(
         )
     }
 
-    // 剪贴板数据
-    if (inputField && pasteCheck !== false && storeSetting.items.auto_read_copy) {
-        const pasteInput = await paste()
-        if (pasteInput.trim() && pasteCheck(pasteInput)) {
-            // 是否使用通用输入组件
-            if (isTextInput) {
-                items[inputField]['value'] = storeSetting.items.auto_read_copy_filter ? pasteInput.trim() : pasteInput
-                return result(items);
-            }
-            return result({
-                ...items,
-                [inputField]: storeSetting.items.auto_read_copy_filter ? pasteInput.trim() : pasteInput
-            })
+    // 最新历史数据
+    const latestHistory = (() => {
+        if (history.length() < 1) {
+            return null
         }
+
+        if (keywordItems) {
+            const all = history.all()
+            for (let itemIndex in all) {
+                if (objectInObject(keywordItems, all[itemIndex].v)) {
+                    // 最新历史数据 根据索关键字过滤
+                    return history.getWithTime(parseInt(itemIndex))
+                }
+            }
+            return null;
+        }
+        return history.getWithTime(0)
+    })()
+
+    // 剪贴板数据
+    const pasteInput = await (async () => {
+        if (inputField && pasteCheck !== false && storeSetting.items.auto_read_copy) {
+            const pasteInput = await paste()
+            if (pasteInput.trim() && pasteCheck(pasteInput)) {
+                return storeSetting.items.auto_read_copy_filter ? pasteInput.trim() : pasteInput
+            }
+        }
+        return "";
+    })()
+
+    if (
+        latestHistory
+        && (
+            pasteInput === "" // 剪贴板为空
+            || dayjs().unix() - dayjs(latestHistory.t).unix() < storeSetting.items.fill_history_expire // 配置优先访问内
+        )
+    ) {
+        return result(
+            mergeWith(items, latestHistory.v, (objValue, srcValue) => {
+                if (instanceOfHistorySerializable(objValue)) {
+                    return objValue.unserialize(srcValue)
+                }
+            })
+        )
+    }
+
+    if (pasteInput) {
+        // 是否使用通用输入组件
+        if (isTextInput) {
+            items[inputField]['value'] = storeSetting.items.auto_read_copy_filter ? pasteInput.trim() : pasteInput
+            return result(items);
+        }
+        return result({
+            ...items,
+            [inputField]: storeSetting.items.auto_read_copy_filter ? pasteInput.trim() : pasteInput
+        })
     }
 
     // 默认数据

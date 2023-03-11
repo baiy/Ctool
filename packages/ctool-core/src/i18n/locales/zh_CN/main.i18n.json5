@@ -86,4 +86,6 @@
     "network_request_proxy": "网络请求代理",
     "network_request_proxy_prompt": "当前功能需要访问网络, 由于平台安全限制(跨域问题)需要使用代理访问, 请到设置页面启用[网络请求代理]",
     "privacy_policy": "隐私条款",
+    "auto_fill": "自动填充",
+    "auto_fill_explain": "优先使用 {0} 秒内历史数据",
 }
