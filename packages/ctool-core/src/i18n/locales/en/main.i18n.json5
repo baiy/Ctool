@@ -44,6 +44,8 @@
     "ui_simple": "Simple",
     "ui_reference": "Reference",
     "ui_keyword": "Keyword",
+    "ui_enable": "Enable",
+    "ui_disable": "Disable",
     // views
     "setting_language": "Language",
     "setting_layout": "Page Layout",
@@ -80,5 +82,8 @@
     "clipboard_denied": "No Clipboard Authorization, Please Manually Authorize",
     "clipboard_prompt": "Click To Get Clipboard Authorization",
     "new_version_found": "New version found. Refresh to update.",
-    "last_updated": "Last Updated on "
+    "last_updated": "Last Updated on ",
+    "network_request_proxy": "Network Request Proxy",
+    "network_request_proxy_prompt": "The current function requires accessing the network. Due to platform security restrictions (cross-origin issues), you need to access it through a proxy. Please enable [Network Request Proxy] on the settings page.",
+    "privacy_policy": "Privacy Policy"
 }

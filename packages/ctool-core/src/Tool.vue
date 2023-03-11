@@ -20,6 +20,7 @@ import ComplexHeader from "@/block/layout/complex/Header.vue";
 import ComplexBottom from "@/block/layout/complex/Bottom.vue";
 import useSetting, {useTheme} from "@/store/setting";
 import {nextTick, onErrorCaptured, watch} from "vue";
+import {isObject} from "lodash";
 
 // 初始化配置
 const storeSetting = useSetting()
@@ -39,7 +40,7 @@ watch(() => {
 // 全局错误提示
 const globalErrorMessage = (err) => {
     console.log("error:", err)
-    const message: string = ("message" in err ? err.message : err).toString()
+    const message: string = (isObject(err) && "message" in err ? err.message : err).toString()
     Message.closeAll()
     if (message.includes("\n")) {
         Message.error(`${message}`, {duration: 0})

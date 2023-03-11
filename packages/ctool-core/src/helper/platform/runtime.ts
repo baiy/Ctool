@@ -27,6 +27,10 @@ export default class {
         return this.platformRuntime.name
     }
 
+    webSecurity() {
+        return this.platformRuntime.webSecurity?.() || false
+    }
+
     openUrl(url: string) {
         return this.platformRuntime.openUrl(url)
     }

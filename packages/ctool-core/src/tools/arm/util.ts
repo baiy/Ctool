@@ -1,12 +1,7 @@
-import axios from "axios";
-import Json from "@/helper/json";
+import {axios} from "@/helper/proxy";
 
 export type Field = "arm64" | "arm" | "thumb" | "armbe" | "thumbbe"
-export type Response = {
-    code: number,
-    info: string,
-    data: { asm?: Partial<Record<Field, [boolean, string]>>, hex?: Partial<Record<Field, [boolean, string]>> }
-} | ""
+export type Response = { asm?: Partial<Record<Field, [boolean, string]>>, hex?: Partial<Record<Field, [boolean, string]>> } | ""
 export type InitializeType = {
     input: string,
     offset: string,
@@ -38,10 +33,8 @@ export const handleResult = (type: "asm" | "hex", field: Field, {response, prefi
     if (response === "") {
         return ""
     }
-    if (response.code !== 0) {
-        return response.info
-    }
-    let text = response.data[type]?.[field]?.[1]
+
+    let text = response[type]?.[field]?.[1]
     if (text === undefined) {
         return "";
     }
@@ -63,11 +56,6 @@ export const handleResult = (type: "asm" | "hex", field: Field, {response, prefi
 }
 
 export const request = (data: object) => {
-    return axios({
-        url: 'https://www.baiy.org/chrome_tool/armconverter/',
-        method: 'post',
-        data: Json.stringify(data),
-        headers: {'Content-Type': 'application/json'}
-    })
+    return axios().post("https://armconverter.com/api/convert", data)
 }
 

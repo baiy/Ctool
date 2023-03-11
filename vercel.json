@@ -4,5 +4,14 @@
     },
     "github": {
         "silent": true
-    }
+    },
+    "routes": [
+        {
+            "src": "/privacy",
+            "status": 302,
+            "headers": {
+                "Location": "https://github.com/baiy/Ctool/blob/master/PRIVACY"
+            }
+        }
+    ]
 }

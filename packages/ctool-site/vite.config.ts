@@ -32,6 +32,10 @@ export default defineConfig({
             registerType: "prompt",
             manifest: false,
             workbox: {
+                navigateFallbackDenylist: [
+                    /^\/api/,
+                    /^\/privacy/,
+                ],
                 globPatterns: ["**\/*.{js,css,html,png,jpg,ico,svg,json}"],
                 cleanupOutdatedCaches: true,
                 maximumFileSizeToCacheInBytes: 10485760

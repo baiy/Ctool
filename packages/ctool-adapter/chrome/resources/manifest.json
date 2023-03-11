@@ -24,9 +24,10 @@
     "permissions": [
         "clipboardWrite",
         "clipboardRead",
-        "*://get.geojs.io/*",
-        "*://api.jdoodle.com/*",
-        "*://*.baiy.org/*"
+        "##permissions##",
+        "*://*.baiy.org/*",
+        "*://ctool.dev/*",
+        "*://*.ctool.dev/*"
     ],
     "commands": {
         "panel": {

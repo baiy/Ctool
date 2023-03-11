@@ -18,23 +18,10 @@
         "skipLibCheck": true,
         "types": [
             "node"
-        ],
-        "paths": {
-            "@/*": [
-                "./src/*"
-            ]
-        }
+        ]
     },
     "include": [
-        "src/**/*.ts",
-        "src/**/*.d.ts",
-        "src/**/*.tsx",
-        "src/**/*.vue",
         "api/**/*.ts"
-    ],
-    "references": [
-        {
-            "path": "./tsconfig.node.json"
-        }
     ]
 }
+

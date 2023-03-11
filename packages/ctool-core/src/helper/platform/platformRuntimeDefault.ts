@@ -4,6 +4,10 @@ import storage from "./storage";
 export const runtime = new (class implements PlatformRuntime {
     name = "web"
 
+    webSecurity() {
+        return true
+    }
+
     is() {
         return true
     }
@@ -19,4 +23,5 @@ export const runtime = new (class implements PlatformRuntime {
     storage() {
         return storage
     }
+
 })

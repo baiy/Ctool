@@ -1,6 +1,6 @@
 import storage from "@/helper/storage"
-import {proxyUrl} from "@/helper/util"
-import axios, {AxiosError} from 'axios';
+import {axios} from '@/helper/proxy';
+import {AxiosError} from 'axios';
 
 type Language = {
     code: string,
@@ -1021,8 +1021,8 @@ export const getUsed = () => {
         if (config.client_secret === "" || config.client_id === "") {
             return reject("not found config")
         }
-        axios.post<{ used: number }>(
-            proxyUrl('https://api.jdoodle.com/v1/credit-spent'),
+        axios().post<{ used: number }>(
+            "https://api.jdoodle.com/v1/credit-spent",
             {
                 clientId: config.client_id,
                 clientSecret: config.client_secret
@@ -1041,8 +1041,9 @@ export const execute = async (lang: string, code: string, version: string) => {
         if (config.client_secret === "" || config.client_id === "") {
             return reject('not found config')
         }
-        axios.post<Result & { statusCode: number }>(
-            proxyUrl("https://api.jdoodle.com/v1/execute"),
+
+        axios().post<Result & { statusCode: number }>(
+            "https://api.jdoodle.com/v1/execute",
             {
                 clientId: config.client_id,
                 clientSecret: config.client_secret,

@@ -1,10 +1,11 @@
 <template>
-    <Input class="ctool-page-option" label="Offset (hex) 0x" v-model="action.current.offset" placeholder="0 - for branch and LDR put hex value here" style="margin-bottom: 5px">
+    <Input class="ctool-page-option" label="Offset (hex) 0x" v-model="action.current.offset" placeholder="0 - for branch and LDR put hex value here"
+           style="margin-bottom: 5px">
         <template #append>
             <Align>
                 <Bool v-model="action.current.prefix_0x" label="0x"/>
                 <Bool v-model="action.current.swap_endian" label="GDB/LLDB"/>
-                <HelpTip link="https://armconverter.com/" />
+                <HelpTip link="https://armconverter.com/"/>
             </Align>
         </template>
     </Input>
@@ -16,7 +17,7 @@
                     :height="height - 37"
                     :placeholder="inputPlaceholder"
                 />
-                <Button type="primary" :loading="loading" @click="convert" long :text="$t('arm_convert')" />
+                <Button type="primary" :loading="loading" @click="convert" long :text="$t('arm_convert')"/>
             </Align>
             <Align direction="vertical">
                 <Textarea
@@ -62,13 +63,16 @@ const convert = async () => {
         action.current.response = "";
         return;
     }
-    action.current.response = (await request({
+    request({
         "asm": action.current.input,
         "offset": action.current.offset,
         "arch": ["arm64", "arm", "thumb"]
-    })).data;
-    loading = false
-    action.success()
+    }).then(({data}) => {
+        action.current.response = data
+        action.success()
+    }).finally(() => {
+        loading = false
+    })
 }
 
 const result = $computed(() => {

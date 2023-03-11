@@ -44,6 +44,8 @@
     "ui_simple": "简单",
     "ui_reference": "参考",
     "ui_keyword": "关键字",
+    "ui_enable": "启用",
+    "ui_disable": "禁用",
     // 界面
     "setting_language": "语言",
     "setting_layout": "页面布局",
@@ -80,5 +82,8 @@
     "clipboard_denied": "暂无剪贴板授权, 请手动授权",
     "clipboard_prompt": "点击获取剪贴板授权",
     "new_version_found": "发现新版本, 建议重新加载页面",
-    "last_updated": "最后更新: "
+    "last_updated": "最后更新: ",
+    "network_request_proxy": "网络请求代理",
+    "network_request_proxy_prompt": "当前功能需要访问网络, 由于平台安全限制(跨域问题)需要使用代理访问, 请到设置页面启用[网络请求代理]",
+    "privacy_policy": "隐私条款",
 }
