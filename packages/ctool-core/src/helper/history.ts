@@ -9,6 +9,8 @@ import {cloneDeep, isEqual} from "lodash";
 const TOOL_DATA_EXPIRY: number = 3600 * 24 * 7
 // 最大历史条数
 const HISTORY_MAX_LENGTH: number = 50
+// 历史数据最大长度
+const HISTORY_MAX_SIZE: number = 200 * 1024
 
 class History<T = any> {
     lists: HistoryItemStructure<T>[] = []
@@ -46,8 +48,9 @@ class History<T = any> {
     push(_item: T): void {
         const item: T = cloneDeep(_item)
         // 过滤超大数据
-        if (JSON.stringify(item).length > 20 * 1024) {
-            console.log("skip data too big")
+        const itemLength = JSON.stringify(item).length;
+        if (itemLength > HISTORY_MAX_SIZE) {
+            console.log(`skip data too big:${itemLength} > ${HISTORY_MAX_SIZE}`)
             return;
         }
 
