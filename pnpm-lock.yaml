@@ -184,7 +184,7 @@ importers:
       '@imengyu/vue3-context-menu': ^1.2.2
       '@ltd/j-toml': ^1.38.0
       '@prettier/plugin-php': ^0.19.2
-      '@readme/httpsnippet': ^5.0.0
+      '@readme/httpsnippet': ^5.1.0
       '@types/bcryptjs': ^2.4.2
       '@types/crypto-js': ^4.1.1
       '@types/csso': ^5.0.0
@@ -300,7 +300,7 @@ importers:
       '@imengyu/vue3-context-menu': 1.2.2
       '@ltd/j-toml': 1.38.0
       '@prettier/plugin-php': 0.19.2_prettier@2.8.3
-      '@readme/httpsnippet': 5.0.0
+      '@readme/httpsnippet': 5.1.0
       '@types/yargs-parser': 21.0.0
       '@uiw/codemirror-extensions-basic-setup': 4.19.6_gt3jiwsocdv6hcum5sa3xbt4ie
       '@uiw/codemirror-theme-github': 4.15.1_mrfd7yq4c4erkbk7wfal7kobti
@@ -2516,8 +2516,8 @@ packages:
       prettier: 2.8.3
     dev: false
 
-  /@readme/httpsnippet/5.0.0:
-    resolution: {integrity: sha512-Xtaf68DeaMsHY1P9GOJfVgSIygRsUzkR+e7z8xPe3kfoGV3RJ1hOe8l3MutEqAgmRujYnb4Pm/HxD5kzdndoJQ==}
+  /@readme/httpsnippet/5.1.0:
+    resolution: {integrity: sha512-lzvxlmbbBh+Ijhwv5AbRk09yeKiC3A90hPzJK5sIVGuGk3fnkxvtJOYd0jznpY84AHtRhJ+A/DbTFS8ngkxLYg==}
     engines: {node: '>=14'}
     dependencies:
       event-stream: 4.0.1

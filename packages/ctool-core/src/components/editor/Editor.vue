@@ -1,5 +1,5 @@
 <template>
-    <Display :position="toolbar" class="ctool-code-editor" :style="{height:`${sizeConvert(height)}`,width:`100%`}" toggle>
+    <Display :position="toolbar" class="ctool-code-editor" :class="disableBorder ? ['ctool-code-editor-disable-border'] : []" :style="{height:`${sizeConvert(height)}`,width:`100%`}" toggle>
         <div ref="container" style="height: 100%;width: 100%" @contextmenu="contextMenuOpen($event)"></div>
         <context-menu v-model:show="contextMenuConfig.show" :options="contextMenuConfig.options">
             <context-menu-item icon="copy" :disabled="contextMenuConfig.selected_text === ''" :label="$t(`main_ui_copy`)" @click="contextMenuClick('copy')"/>
@@ -77,6 +77,10 @@ const props = defineProps({
         default: "100%"
     },
     disableLineWrapping: {
+        type: Boolean,
+        default: false
+    },
+    disableBorder: {
         type: Boolean,
         default: false
     },
@@ -438,7 +442,9 @@ const copyWithStyle = () => {
     font-size: .875rem;
     background-color: var(--ctool-form-element-background-color);
 }
-
+.ctool-code-editor-disable-border.ctool-code-editor .cm-editor{
+    border: none;
+}
 .ctool-code-editor .cm-editor .cm-scroller, .ctool-code-editor .cm-editor {
     height: 100% !important;
 

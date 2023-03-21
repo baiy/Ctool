@@ -12,7 +12,22 @@
             </template>
         </Display>
         <Display :position="'bottom-right'">
-            <Editor :lang="targetInfo.targetId" :model-value="output" :height="height" :placeholder="$t(`main_ui_output`)"/>
+            <template v-if="!isArray(output)">
+                <Editor :lang="targetInfo.targetId" :model-value="output" :height="height" :placeholder="$t(`main_ui_output`)"/>
+            </template>
+            <Tabs v-else
+                  :lists="range(0,output.length).map(index=>{return {name:`${index}`,label:`Entry ${index+1}`}})"
+                  padding="0"
+            >
+                <Editor
+                    v-for="item in output"
+                    :lang="targetInfo.targetId"
+                    :model-value="item"
+                    :height="height -36"
+                    :placeholder="$t(`main_ui_output`)"
+                    disableBorder
+                />
+            </Tabs>
             <template #extra>
                 <Align>
                     <HelpTip v-if="targetInfo.url !== ''" :link="targetInfo.url"/>
@@ -26,6 +41,7 @@
 <script lang="ts" setup>
 import {generate, targets, getTarget} from "./util";
 import {initialize, useAction} from "@/store/action";
+import {isArray, range} from 'lodash';
 
 const action = useAction(await initialize({
     input: "",
@@ -44,7 +60,6 @@ const output = $computed(() => {
         action.save()
         return result;
     } catch (e) {
-        console.error(e)
         return $error(e)
     }
 })

@@ -277,6 +277,7 @@ declare module '@vue/runtime-core' {
                 placeholder?: string,
                 height?: string | number
                 disableLineWrapping?: boolean,
+                disableBorder?: boolean,
                 disableLineNumbers?: boolean,
                 reload?: number
                 langCallback?: () => string | void

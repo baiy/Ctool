@@ -36,7 +36,11 @@ export const getTarget = (value) => {
 export const generate = (input: string, source: string, target: string) => {
     input = input.trim()
     const targetInfo = getTarget(target)
-    return har(source === "cURL" ? curlToHar(input) : Json.parse(input, {JSON_REPAIR: true})).convert(targetInfo.targetId, targetInfo.clientId) as string
+    const result = har(source === "cURL" ? curlToHar(input) : Json.parse(input, {JSON_REPAIR: true})).convert(targetInfo.targetId, targetInfo.clientId)
+    if (result === false) {
+        return "";
+    }
+    return result
 }
 
 
