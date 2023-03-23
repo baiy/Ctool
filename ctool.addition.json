@@ -292,6 +292,9 @@
 				"main_ui_disable": {
 					"message": "禁用"
 				},
+				"main_ui_other": {
+					"message": "其他"
+				},
 				"main_setting_language": {
 					"message": "语言"
 				},
@@ -414,6 +417,9 @@
 					"placeholders": [
 						"0"
 					]
+				},
+				"main_history_icon_badge_hidden": {
+					"message": "隐藏历史记录图标角标"
 				},
 				"tool_hash": {
 					"message": "哈希(hash)"
@@ -3087,6 +3093,9 @@
 				"main_ui_disable": {
 					"message": "Disable"
 				},
+				"main_ui_other": {
+					"message": "Other"
+				},
 				"main_setting_language": {
 					"message": "Language"
 				},
@@ -3209,6 +3218,9 @@
 					"placeholders": [
 						"0"
 					]
+				},
+				"main_history_icon_badge_hidden": {
+					"message": "Hide History Icon Badge"
 				},
 				"tool_hash": {
 					"message": "Hash"
