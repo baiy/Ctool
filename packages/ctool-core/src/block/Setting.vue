@@ -99,6 +99,14 @@
                     <Button :size="'small'" @click="openUtoolsKeyword = !openUtoolsKeyword" :text="`${$t(`main_ui_keyword`)}${$t(`main_ui_config`)}`"/>
                 </div>
             </template>
+            <span>{{ $t('main_ui_other') }}</span>
+            <div>
+                <Bool
+                    :label="$t(`main_history_icon_badge_hidden`)"
+                    :model-value="storeSetting.items.history_icon_badge_hidden"
+                    @change="(value)=>storeSetting.save('history_icon_badge_hidden',value)"
+                />
+            </div>
         </div>
     </Card>
     <ExtendPage v-model="openUtoolsKeyword" disable-replace>

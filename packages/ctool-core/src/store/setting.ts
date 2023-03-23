@@ -18,6 +18,7 @@ interface Setting {
     proxy_enable: boolean,
     proxy_url: string,
     fill_history_expire: number,
+    history_icon_badge_hidden: boolean,
 }
 
 const getSystemTheme = (): ThemeRawType => {
@@ -38,6 +39,7 @@ const defaultValue: Setting = {
     proxy_enable: false,
     proxy_url: proxy.defaultProxyUrl,
     fill_history_expire: 3600,
+    history_icon_badge_hidden: false,
 }
 
 const useSetting = defineStore('setting', () => {

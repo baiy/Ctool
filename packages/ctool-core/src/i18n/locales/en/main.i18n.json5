@@ -46,6 +46,7 @@
     "ui_keyword": "Keyword",
     "ui_enable": "Enable",
     "ui_disable": "Disable",
+    "ui_other": "Other",
     // views
     "setting_language": "Language",
     "setting_layout": "Page Layout",
@@ -87,5 +88,6 @@
     "network_request_proxy_prompt": "The current function requires accessing the network. Due to platform security restrictions (cross-origin issues), you need to access it through a proxy. Please enable [Network Request Proxy] on the settings page.",
     "privacy_policy": "Privacy Policy",
     "auto_fill": "Auto Fill",
-    "auto_fill_explain": "Prioritize the use of historical data within {0} seconds"
+    "auto_fill_explain": "Prioritize the use of historical data within {0} seconds",
+    "history_icon_badge_hidden": "Hide History Icon Badge",
 }

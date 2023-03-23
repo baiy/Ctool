@@ -4,7 +4,7 @@
             <Notice />
         </div>
         <Align class="ctool-bottom-right" :gap="'large'">
-            <span style="display: inline-flex;" :class="historyExist ? `ctool-bottom-exist-history` : ''">
+            <span style="display: inline-flex;" :class="!storeSetting.items.history_icon_badge_hidden && historyExist ? `ctool-bottom-exist-history` : ''">
                 <Icon :size="18" hover name="history" @click="openHistory = !openHistory" :tooltip="$t('tool_'+storeOperate.items.tool) + ' -' + $t('main_history')"/>
             </span>
             <Icon hover :size="18" name="setting" @click="event.dispatch('open_setting')" :tooltip="$t('main_ui_setting')"/>
@@ -26,6 +26,7 @@
 
 <script setup lang="ts">
 import useOperate from "@/store/operate";
+import useSetting from "@/store/setting";
 import History from "../../History.vue"
 import platform from "@/helper/platform"
 import Notice from "../../Notice.vue"
@@ -35,6 +36,7 @@ import {onMounted, onUnmounted} from "vue";
 import event from "@/event";
 
 const storeOperate = useOperate()
+const storeSetting = useSetting()
 
 let openHistory = $ref(false)
 let historyExist = $ref(false);

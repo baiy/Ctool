@@ -46,6 +46,7 @@
     "ui_keyword": "关键字",
     "ui_enable": "启用",
     "ui_disable": "禁用",
+    "ui_other": "其他",
     // 界面
     "setting_language": "语言",
     "setting_layout": "页面布局",
@@ -88,4 +89,5 @@
     "privacy_policy": "隐私条款",
     "auto_fill": "自动填充",
     "auto_fill_explain": "优先使用 {0} 秒内历史数据",
+    "history_icon_badge_hidden": "隐藏历史记录图标角标",
 }

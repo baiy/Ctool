@@ -23,7 +23,7 @@
         <Align :gap="'large'">
             <Search/>
             <Icon hover @click="openTools = !openTools" name="common" :tooltip="$t(`main_tools_lists`)"/>
-            <span style="display: inline-flex;" :class="historyExist ? `ctool-header-exist-history` : ''">
+            <span style="display: inline-flex;" :class="!storeSetting.items.history_icon_badge_hidden && historyExist ? `ctool-header-exist-history` : ''">
                 <Icon hover name="history" @click="openHistory = !openHistory" :tooltip="$t('tool_'+storeOperate.items.tool) + ' -' + $t('main_history')"/>
             </span>
             <Icon hover name="setting" @click="event.dispatch('open_setting')" :tooltip="$t('main_ui_setting')"/>
@@ -41,6 +41,7 @@
 
 <script setup lang="ts">
 import useOperate from "@/store/operate";
+import useSetting from "@/store/setting";
 import {openUrl} from "@/helper/helper"
 import {getTool, toolExists, FeatureInterface} from "@/config";
 import Search from "../../Search.vue";
@@ -54,6 +55,7 @@ import Notice from "../../Notice.vue"
 import Tools from "../../Tools.vue";
 
 const storeOperate = useOperate()
+const storeSetting = useSetting()
 let historyExist = $ref(false);
 let openHistory = $ref(false)
 let openTools = $ref(false);
