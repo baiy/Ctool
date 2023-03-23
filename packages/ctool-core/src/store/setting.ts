@@ -8,16 +8,27 @@ import {setCurrentLocale} from '@/i18n';
 import event from "@/event";
 
 interface Setting {
+    // 常用工具
     common: ToolType[],
+    // 语言
     locale: Locale,
+    // 主题
     theme: ThemeType,
+    // 自动读取剪贴板
     auto_read_copy: boolean,
+    // 读取剪贴板内容过滤首尾不可见字符
     auto_read_copy_filter: boolean,
+    // 自动复制结果到剪贴板
     auto_save_copy: boolean,
+    // 布局
     layout: "complex" | "simple",
+    // 代理是否启用
     proxy_enable: boolean,
+    // 代理地址
     proxy_url: string,
+    // 自动填充历史过期时间
     fill_history_expire: number,
+    // 历史记录角标隐藏
     history_icon_badge_hidden: boolean,
 }
 
