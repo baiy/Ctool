@@ -27,14 +27,12 @@
 
 <script lang="ts" setup>
 import {initialize, useAction} from "@/store/action";
+import {watch} from "vue";
 
 // 1-String 2-NUMBER 3-Long,4-Timestamp
 const TYPE_STR = ['String', 'Integer', 'Long', 'Timestamp']
 
-const action = useAction(await initialize({
-    input: "",
-    params: "",
-}, {paste: false}))
+const action = useAction(await initialize({input: "", params: ""}))
 
 /**
  * 将一行参数转化为值和类型的对象有序列表
@@ -151,13 +149,6 @@ const splitSqlAndParams = () => {
 
 const output = $computed(() => {
     try {
-        // 尝试从输入中直接解析出SQL串和参数串
-        if (!action.current.input || !action.current.params) {
-            // 仅存在输入串时尝试解析出sql串和参数串
-            if (action.current.input) {
-                splitSqlAndParams()
-            }
-        }
         // 做参数填充
         let resultStr = fill()
         action.save()
@@ -166,4 +157,13 @@ const output = $computed(() => {
         return $error(e)
     }
 })
+
+watch(() => {
+    return {input: action.current.input, params: action.current.params}
+}, ({input, params}) => {
+    // 如果参数为空，但是输入不为空，则尝试从输入中分离出SQL和参数
+    if (params === "" && input !== "") {
+        splitSqlAndParams()
+    }
+}, {immediate: true})
 </script>
