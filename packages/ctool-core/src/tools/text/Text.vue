@@ -65,7 +65,7 @@
                 {value:'asc',label:$t('text_line_sort_asc')},
                 {value:'desc',label:$t('text_line_sort_desc')},
             ]"
-                @select="(type)=>handle('lineSort',type)"
+                @select="(type)=>handle('lineSort',{type})"
             />
             <Dropdown
                 :size="size"
