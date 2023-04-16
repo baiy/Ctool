@@ -17,9 +17,12 @@
     "line_number": "行号",
     "line_number_add": "添加",
     "line_number_remove": "移除",
-    "line_sort": "排序",
+    "sort": "排序",
     "line_sort_asc": "行升序",
     "line_sort_desc": "行降序",
+    "reverse_line": "行反转",
+    "reverse_line_string": "行字符反转",
+    "reverse_all": "字符串反转",
     "filter": "过滤",
     "filter_trim": "过滤行首尾不可见字符(trim)",
     "filter_blank_line": "过滤多余空行",
@@ -68,5 +71,5 @@
     "escape_backspace": "退格符",
     "escape_form_feed": "换页符",
     "escape_forward": "正向转义(\\'=>')",
-    "escape_reverse": "逆向转义('=>\\')",
+    "escape_reverse": "逆向转义('=>\\')"
 }

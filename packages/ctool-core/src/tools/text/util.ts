@@ -160,9 +160,28 @@ export default class {
         return this.text.split('\n').map((line, index) => `${index + 1}. ${line}`).join('\n')
     }
 
-    // 行排序
-    lineSort({type = "asc"}: Record<string, any> = {}) {
-        return orderBy(this.text.split(/\r?\n/), (item) => item, type as "asc" | "desc").join("\n");
+    // 排序
+    sort({type = ""}: Record<string, any> = {}) {
+        switch (type) {
+            // 行反转
+            case "reverse_line":
+                return this.text.split(/\r?\n/).reverse().join("\n");
+            // 行字符串反转
+            case "reverse_line_string":
+                return this.text.split(/\r?\n/).map(text => {
+                    return text.split("").reverse().join("");
+                }).join("\n")
+            // 字符串反转
+            case "reverse_all":
+                return this.text.split("").reverse().join("");
+
+            // 行排序
+            case "line_asc":
+                return orderBy(this.text.split(/\r?\n/), (item) => item, "asc").join("\n");
+            case "line_desc":
+                return orderBy(this.text.split(/\r?\n/), (item) => item, "desc").join("\n")
+        }
+        return this.text;
     }
 
     // trim
@@ -219,6 +238,7 @@ export default class {
         return text
     }
 
+    // 命名
     rename({type = "lowerSnakeCase"}) {
         return this.text.replace(/\b[\w\-_]+\b/g, function (str) {
             return nameConvent(str, type as RenameType);
