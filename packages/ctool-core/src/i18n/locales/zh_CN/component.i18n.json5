@@ -7,6 +7,7 @@
     "content_type_text": "文本",
     "content_type_base64": "Base64",
     "content_type_hex": "Hex",
+    "content_type_hex_preserve_line_breaks": "保留换行符",
     "content_type_upload": "上传",
     "content_type_down": "下载",
     "content_type_image": "图片",

@@ -7,6 +7,7 @@
     "content_type_text": "Text",
     "content_type_base64": "Base64",
     "content_type_hex": "Hex",
+    "content_type_hex_preserve_line_breaks": "Preserve Line Breaks",
     "content_type_upload": "Upload",
     "content_type_down": "Download",
     "content_type_image": "Image",
