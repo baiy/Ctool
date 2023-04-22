@@ -34,6 +34,9 @@
 				"component_content_type_hex": {
 					"message": "Hex"
 				},
+				"component_content_type_hex_preserve_line_breaks": {
+					"message": "保留换行符"
+				},
 				"component_content_type_upload": {
 					"message": "上传"
 				},
@@ -2837,6 +2840,9 @@
 				},
 				"component_content_type_hex": {
 					"message": "Hex"
+				},
+				"component_content_type_hex_preserve_line_breaks": {
+					"message": "Preserve Line Breaks"
 				},
 				"component_content_type_upload": {
 					"message": "Upload"
