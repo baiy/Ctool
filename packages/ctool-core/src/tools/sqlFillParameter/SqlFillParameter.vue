@@ -45,7 +45,8 @@ const convertParam = (params: string) => {
         return paramStrList.map(x => {
             let valueEndIndex = x.lastIndexOf('(')
             if (valueEndIndex < 0) {
-                throw new Error($t('sqlFillParameter_invalid_param', [x]))
+                // 直接将整个串作为值，类型为其他
+                return {value: x, type: null}
             }
             // 从串中截取出值，并对前后空格进行清除
             let value = x.substring(0, valueEndIndex)
@@ -124,14 +125,18 @@ const splitSqlAndParams = (input: string) => {
     // 寻找SQL串的开始
     let sqlStartStr = 'Preparing:'
     let sqlStartIndex = input.indexOf(sqlStartStr)
-    if (sqlStartIndex >= 0) {
-        // mybatis打印的SQL都以行为结束标记，因此寻找到该行的\n即认为结束
-        let sqlEndIndex = input.indexOf("\n", sqlStartIndex)
-        if (sqlEndIndex < 0) {
-            sqlEndIndex = input.length
-        }
-        result.sql = input.substring(sqlStartIndex + sqlStartStr.length, sqlEndIndex)
+    if (sqlStartIndex < 0) {
+        // 没有找到Preparing:则认为整个串是SQL
+        sqlStartIndex = 0
+    } else {
+        sqlStartIndex += sqlStartStr.length
     }
+    // mybatis打印的SQL都以行为结束标记，因此寻找到该行的\n即认为结束
+    let sqlEndIndex = input.indexOf("\n", sqlStartIndex)
+    if (sqlEndIndex < 0) {
+        sqlEndIndex = input.length
+    }
+    result.sql = input.substring(sqlStartIndex, sqlEndIndex)
     // 寻找参数串的开始
     let paramStartStr = 'Parameters:'
     let paramStartIndex = input.indexOf(paramStartStr)
@@ -163,10 +168,9 @@ const output = $computed(() => {
 watch(() => {
     return {input: action.current.input, params: action.current.params}
 }, ({input, params}) => {
-    // 如果参数为空，且输入不为空，且输入包含Preparing:和Parameters:，则尝试分离SQL和参数
+    // 输入不为空，且输入包含Preparing:和Parameters:，则尝试分离SQL和参数
     if (
-        params === ""
-        && input !== ""
+        input !== ""
         && input.includes('Preparing:')
         && input.includes('Parameters:')
     ) {
