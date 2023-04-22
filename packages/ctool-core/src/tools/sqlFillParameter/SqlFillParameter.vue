@@ -168,10 +168,9 @@ const output = $computed(() => {
 watch(() => {
     return {input: action.current.input, params: action.current.params}
 }, ({input, params}) => {
-    // 如果参数为空，且输入不为空，且输入包含Preparing:和Parameters:，则尝试分离SQL和参数
+    // 输入不为空，且输入包含Preparing:和Parameters:，则尝试分离SQL和参数
     if (
-        params === ""
-        && input !== ""
+        input !== ""
         && input.includes('Preparing:')
         && input.includes('Parameters:')
     ) {
