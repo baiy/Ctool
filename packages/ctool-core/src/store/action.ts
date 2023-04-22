@@ -170,6 +170,7 @@ export const initialize = async <T extends Record<string, any>>(
             || dayjs().unix() - dayjs(latestHistory.t).unix() < storeSetting.items.fill_history_expire // 配置优先访问内
         )
     ) {
+        console.log(`use latest history data`)
         return result(
             mergeWith(items, latestHistory.v, (objValue, srcValue) => {
                 if (instanceOfHistorySerializable(objValue)) {
@@ -180,6 +181,7 @@ export const initialize = async <T extends Record<string, any>>(
     }
 
     if (pasteInput) {
+        console.log(`use paste data`)
         // 是否使用通用输入组件
         if (isTextInput) {
             items[inputField]['value'] = storeSetting.items.auto_read_copy_filter ? pasteInput.trim() : pasteInput

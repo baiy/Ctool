@@ -3,23 +3,23 @@
         <Align direction="vertical">
             <div v-row="`1-1`">
                 <Textarea
-                        v-model="action.current.input"
-                        :height="height/2"
-                        :placeholder="`Sql:SELECT * FROM T WHERE id=? AND name = ?`"
-                        copy="Sql"
+                    v-model="action.current.input"
+                    :height="height/2"
+                    :placeholder="`Sql:SELECT * FROM T WHERE id=? AND name = ?`"
+                    copy="Sql"
                 />
                 <Textarea
-                        v-model="action.current.params"
-                        :height="height/2"
-                        :placeholder="`${$t('sqlFillParameter_parameter')}:1(Integer),zhangshan(String)`"
-                        :copy="$t('sqlFillParameter_parameter')"
+                    v-model="action.current.params"
+                    :height="height/2"
+                    :placeholder="`${$t('sqlFillParameter_parameter')}:1(Integer),zhangshan(String)`"
+                    :copy="$t('sqlFillParameter_parameter')"
                 />
             </div>
             <Textarea
-                    :model-value="output"
-                    copy
-                    :height="height/2"
-                    :placeholder="`${$t('main_ui_output')}:SELECT * FROM T WHERE id=1 AND name='zhangshan'`"
+                :model-value="output"
+                copy
+                :height="height/2"
+                :placeholder="`${$t('main_ui_output')}:SELECT * FROM T WHERE id=1 AND name='zhangshan'`"
             />
         </Align>
     </HeightResize>
@@ -27,14 +27,12 @@
 
 <script lang="ts" setup>
 import {initialize, useAction} from "@/store/action";
+import {watch} from "vue";
 
 // 1-String 2-NUMBER 3-Long,4-Timestamp
 const TYPE_STR = ['String', 'Integer', 'Long', 'Timestamp']
 
-const action = useAction(await initialize({
-    input: "",
-    params: "",
-}, {paste: false}))
+const action = useAction(await initialize({input: "", params: ""}))
 
 /**
  * 将一行参数转化为值和类型的对象有序列表
@@ -119,49 +117,44 @@ const fill = () => {
 /**
  * 从串中分离sql模板和参数
  */
-const splitSqlAndParams = () => {
-    let tempStr = action.current.input
-    if (tempStr) {
-        let sqlStr = '', paramStr = ''
-        // 寻找SQL串的开始
-        let sqlStartStr = 'Preparing:'
-        let sqlStartIndex = tempStr.indexOf(sqlStartStr)
-        if (sqlStartIndex < 0) {
-            // 没有找到Preparing:则认为整个串是SQL
-            sqlStartIndex = 0
-        } else {
-            sqlStartIndex += sqlStartStr.length
-        }
-        // mybatis打印的SQL都以行为结束标记，因此寻找到该行的\n即认为结束
-        let sqlEndIndex = tempStr.indexOf("\n", sqlStartIndex)
-        if (sqlEndIndex < 0) {
-            sqlEndIndex = tempStr.length
-        }
-        sqlStr = tempStr.substring(sqlStartIndex, sqlEndIndex)
-        // 寻找参数串的开始
-        let paramStartStr = 'Parameters:'
-        let paramStartIndex = tempStr.indexOf(paramStartStr)
-        if (paramStartIndex >= 0) {
-            // mybatis打印的SQL都以行为结束标记，因此寻找到该行的\n即认为结束
-            let paramEndIndex = tempStr.indexOf("\n", paramStartIndex)
-            if (paramEndIndex < 0) {
-                paramEndIndex = tempStr.length
-            }
-            paramStr = tempStr.substring(paramStartIndex + paramStartStr.length, paramEndIndex)
-        }
-        action.current.input = sqlStr
-        action.current.params = paramStr
+const splitSqlAndParams = (input: string) => {
+    const result = {
+        sql: "",
+        params: ""
     }
+    // 寻找SQL串的开始
+    let sqlStartStr = 'Preparing:'
+    let sqlStartIndex = input.indexOf(sqlStartStr)
+    if (sqlStartIndex < 0) {
+        // 没有找到Preparing:则认为整个串是SQL
+        sqlStartIndex = 0
+    } else {
+        sqlStartIndex += sqlStartStr.length
+    }
+    // mybatis打印的SQL都以行为结束标记，因此寻找到该行的\n即认为结束
+    let sqlEndIndex = input.indexOf("\n", sqlStartIndex)
+    if (sqlEndIndex < 0) {
+        sqlEndIndex = input.length
+    }
+    result.sql = input.substring(sqlStartIndex, sqlEndIndex)
+    // 寻找参数串的开始
+    let paramStartStr = 'Parameters:'
+    let paramStartIndex = input.indexOf(paramStartStr)
+    if (paramStartIndex >= 0) {
+        // mybatis打印的SQL都以行为结束标记，因此寻找到该行的\n即认为结束
+        let paramEndIndex = input.indexOf("\n", paramStartIndex)
+        if (paramEndIndex < 0) {
+            paramEndIndex = input.length
+        }
+        result.params = input.substring(paramStartIndex + paramStartStr.length, paramEndIndex)
+    }
+    return result
 }
 
 const output = $computed(() => {
     try {
-        // 尝试从输入中直接解析出SQL串和参数串
         if (!action.current.input || !action.current.params) {
-            // 仅存在输入串时尝试解析出sql串和参数串
-            if (action.current.input) {
-                splitSqlAndParams()
-            }
+            return ""
         }
         // 做参数填充
         let resultStr = fill()
@@ -171,4 +164,24 @@ const output = $computed(() => {
         return $error(e)
     }
 })
+
+watch(() => {
+    return {input: action.current.input, params: action.current.params}
+}, ({input, params}) => {
+    // 如果参数为空，且输入不为空，且输入包含Preparing:和Parameters:，则尝试分离SQL和参数
+    if (
+        params === ""
+        && input !== ""
+        && input.includes('Preparing:')
+        && input.includes('Parameters:')
+    ) {
+        const result = splitSqlAndParams(input)
+        if (result.sql !== "" && result.params !== "") {
+            setTimeout(() => {
+                action.current.input = result.sql
+                action.current.params = result.params
+            })
+        }
+    }
+}, {immediate: true})
 </script>
