@@ -60,12 +60,15 @@
             />
             <Dropdown
                 :size="size"
-                :placeholder="$t('text_line_sort')"
+                :placeholder="$t('text_sort')"
                 :options="[
-                {value:'asc',label:$t('text_line_sort_asc')},
-                {value:'desc',label:$t('text_line_sort_desc')},
+                {value:'line_asc',label:$t('text_line_sort_asc')},
+                {value:'line_desc',label:$t('text_line_sort_desc')},
+                {value:'reverse_line',label:$t('text_reverse_line')},
+                {value:'reverse_line_string',label:$t('text_reverse_line_string')},
+                {value:'reverse_all',label:$t('text_reverse_all')},
             ]"
-                @select="(type)=>handle('lineSort',{type})"
+                @select="(type)=>handle('sort',{type})"
             />
             <Dropdown
                 :size="size"
