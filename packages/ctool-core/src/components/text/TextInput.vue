@@ -12,7 +12,7 @@
                         <Icon name="right" :size="14"/>
                         {{ current.text.name() || "" }}
                         <template v-if="current.text.isImage()">
-                            {{current.text.imageSizeString ? `(${current.text.imageSizeString})` : ''}}
+                            {{ current.text.imageSizeString ? `(${current.text.imageSizeString})` : '' }}
                         </template>
                     </template>
                     <template v-else>
@@ -30,6 +30,12 @@
                     v-model="current.option.text.encoding"
                     v-if="encoding && current.type === 'text'"
                 />
+                <Bool
+                    size="small"
+                    v-model="current.option.hex.preserve_line_breaks"
+                    :label="$t('component_content_type_hex_preserve_line_breaks')"
+                    v-if="current.type === 'hex' && isString(current.value) && current.value.includes('\n')"
+                />
                 <Select
                     size="small"
                     :disabled="disabled"
@@ -43,7 +49,7 @@
                     }
                 })"
                 />
-                <slot />
+                <slot/>
             </Align>
         </template>
     </Display>
@@ -56,6 +62,7 @@ import Text, {encodings} from "@/helper/text"
 import {TextInputUpload, textInputEncoderLists, TextInputEncoderType} from "@/types"
 import {debounce, isString} from "lodash";
 import {sizeConvert} from "@/components/util";
+import Bool from "@/components/ui/Bool.vue";
 
 const props = defineProps({
     modelValue: {
@@ -131,7 +138,7 @@ const transform = debounce(async () => {
             case "base64":
                 return current.text = Text.fromBase64(current.value)
             case "hex":
-                return current.text = Text.fromHex(current.value)
+                return current.text = Text.fromHex(current.value, {preserve_line_breaks: current.option.hex.preserve_line_breaks})
             case "url":
                 return current.text = await Text.fromUrl(current.value)
         }

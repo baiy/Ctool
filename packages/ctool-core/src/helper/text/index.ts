@@ -74,8 +74,18 @@ class Text {
         return new Text(Uint.fromString(str).to(toEncoding))
     }
 
-    static fromHex(str: string): Text {
-        return Text.fromBuffer(Buffer.from(str.replaceAll(" ", "").trim(), 'hex'))
+    static fromHex(
+        str: string,
+        {preserve_line_breaks = false}: { preserve_line_breaks?: boolean } = {}
+    ): Text {
+        return Text.fromBuffer(
+            Buffer.from(
+                str.replaceAll(" ", "") // 过滤空格
+                    .replaceAll("\n", preserve_line_breaks ? "0a" : "") // 换行符处理
+                    .trim(),
+                'hex'
+            )
+        )
     }
 
     static fromBuffer(item: Buffer): Text {
@@ -117,7 +127,7 @@ class Text {
     toHexString() {
         return this.toHex({type: "hex"})
     }
-    
+
     toHexArray() {
         return this.toArray().map(item => {
             return Number(item).toString(16)

@@ -5,11 +5,18 @@ import {has, isEmpty, merge} from "lodash";
 type Option = {
     text: {
         encoding: Encoding
+    },
+    hex: {
+        // 是否保留换行符
+        preserve_line_breaks: boolean
     }
 }
 const defaultOption: Option = {
     text: {
         encoding: "utf-8"
+    },
+    hex: {
+        preserve_line_breaks: false
     }
 }
 
