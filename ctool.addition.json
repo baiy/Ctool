@@ -2793,12 +2793,6 @@
 				"ipcalc_mask_set_title": {
 					"message": "通过可用IP数量设置掩码"
 				},
-				"sqlFillParameter_invalid_param": {
-					"message": "无效的参数: {0}",
-					"placeholders": [
-						"0"
-					]
-				},
 				"sqlFillParameter_parameter": {
 					"message": "参数"
 				},
@@ -5602,12 +5596,6 @@
 				},
 				"ipcalc_mask_set_title": {
 					"message": "Calculate mask by number of available IP"
-				},
-				"sqlFillParameter_invalid_param": {
-					"message": "Invalid Parameter: {0}",
-					"placeholders": [
-						"0"
-					]
 				},
 				"sqlFillParameter_parameter": {
 					"message": "Parameter"
