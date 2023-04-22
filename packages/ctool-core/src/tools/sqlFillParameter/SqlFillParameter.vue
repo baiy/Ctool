@@ -3,23 +3,23 @@
         <Align direction="vertical">
             <div v-row="`1-1`">
                 <Textarea
-                    v-model="action.current.input"
-                    :height="height/2"
-                    :placeholder="`Sql:SELECT * FROM T WHERE id=? AND name = ?`"
-                    copy="Sql"
+                        v-model="action.current.input"
+                        :height="height/2"
+                        :placeholder="`Sql:SELECT * FROM T WHERE id=? AND name = ?`"
+                        copy="Sql"
                 />
                 <Textarea
-                    v-model="action.current.params"
-                    :height="height/2"
-                    :placeholder="`${$t('sqlFillParameter_parameter')}:1(Integer),zhangshan(String)`"
-                    :copy="$t('sqlFillParameter_parameter')"
+                        v-model="action.current.params"
+                        :height="height/2"
+                        :placeholder="`${$t('sqlFillParameter_parameter')}:1(Integer),zhangshan(String)`"
+                        :copy="$t('sqlFillParameter_parameter')"
                 />
             </div>
             <Textarea
-                :model-value="output"
-                copy
-                :height="height/2"
-                :placeholder="`${$t('main_ui_output')}:SELECT * FROM T WHERE id=1 AND name='zhangshan'`"
+                    :model-value="output"
+                    copy
+                    :height="height/2"
+                    :placeholder="`${$t('main_ui_output')}:SELECT * FROM T WHERE id=1 AND name='zhangshan'`"
             />
         </Align>
     </HeightResize>
@@ -47,7 +47,8 @@ const convertParam = (params: string) => {
         return paramStrList.map(x => {
             let valueEndIndex = x.lastIndexOf('(')
             if (valueEndIndex < 0) {
-                throw new Error($t('sqlFillParameter_invalid_param', [x]))
+                // 直接将整个串作为值，类型为其他
+                return {value: x, type: null}
             }
             // 从串中截取出值，并对前后空格进行清除
             let value = x.substring(0, valueEndIndex)
@@ -121,18 +122,22 @@ const fill = () => {
 const splitSqlAndParams = () => {
     let tempStr = action.current.input
     if (tempStr) {
-        let sqlStr, paramStr
+        let sqlStr = '', paramStr = ''
         // 寻找SQL串的开始
         let sqlStartStr = 'Preparing:'
         let sqlStartIndex = tempStr.indexOf(sqlStartStr)
-        if (sqlStartIndex >= 0) {
-            // mybatis打印的SQL都以行为结束标记，因此寻找到该行的\n即认为结束
-            let sqlEndIndex = tempStr.indexOf("\n", sqlStartIndex)
-            if (sqlEndIndex < 0) {
-                sqlEndIndex = tempStr.length
-            }
-            sqlStr = tempStr.substring(sqlStartIndex + sqlStartStr.length, sqlEndIndex)
+        if (sqlStartIndex < 0) {
+            // 没有找到Preparing:则认为整个串是SQL
+            sqlStartIndex = 0
+        } else {
+            sqlStartIndex += sqlStartStr.length
         }
+        // mybatis打印的SQL都以行为结束标记，因此寻找到该行的\n即认为结束
+        let sqlEndIndex = tempStr.indexOf("\n", sqlStartIndex)
+        if (sqlEndIndex < 0) {
+            sqlEndIndex = tempStr.length
+        }
+        sqlStr = tempStr.substring(sqlStartIndex, sqlEndIndex)
         // 寻找参数串的开始
         let paramStartStr = 'Parameters:'
         let paramStartIndex = tempStr.indexOf(paramStartStr)
