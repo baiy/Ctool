@@ -2457,7 +2457,7 @@
 				"text_line_number_remove": {
 					"message": "移除"
 				},
-				"text_line_sort": {
+				"text_sort": {
 					"message": "排序"
 				},
 				"text_line_sort_asc": {
@@ -2465,6 +2465,15 @@
 				},
 				"text_line_sort_desc": {
 					"message": "行降序"
+				},
+				"text_reverse_line": {
+					"message": "行反转"
+				},
+				"text_reverse_line_string": {
+					"message": "行字符反转"
+				},
+				"text_reverse_all": {
+					"message": "字符串反转"
 				},
 				"text_filter": {
 					"message": "过滤"
@@ -5258,7 +5267,7 @@
 				"text_line_number_remove": {
 					"message": "Remove"
 				},
-				"text_line_sort": {
+				"text_sort": {
 					"message": "Sort"
 				},
 				"text_line_sort_asc": {
@@ -5266,6 +5275,15 @@
 				},
 				"text_line_sort_desc": {
 					"message": "Line Desc"
+				},
+				"text_reverse_line": {
+					"message": "Reverse Line"
+				},
+				"text_reverse_line_string": {
+					"message": "Reverse Line String"
+				},
+				"text_reverse_all": {
+					"message": "Reverse All"
 				},
 				"text_filter": {
 					"message": "Filter"
