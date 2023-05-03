@@ -1,6 +1,8 @@
 import {CornerDotType, CornerSquareType, DotType, ErrorCorrectionLevel, Gradient, Options} from "qr-code-styling";
 import Text from "@/helper/text";
 import {cloneDeep} from "lodash";
+import qrcodeParser from "qrcode-parser";
+import decoder from './lib/decoder.js'
 
 export interface GenerateColor {
     is_gradient: boolean
@@ -127,4 +129,21 @@ export const generateOptionsHandle = (_option: GenerateOptions, data: string, im
             ...generateOptionsColorHandle(option.background_options.color)
         }
     }
+}
+
+
+export const parser = async (text: Text) => {
+    return new Promise<string>((resolve, reject) => {
+        qrcodeParser(text.toBase64()).then((data) => {
+            return resolve(data)
+        }).catch(() => {
+            // 使用另外一种解码方案
+            decoder(text.toDataUrl(), result => {
+                console.log("This QR code may have problems, please use it with caution.")
+                return resolve(result)
+            }, (e) => {
+                return reject(e)
+            })
+        })
+    })
 }

@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 import {initialize, useAction} from "@/store/action";
 import {createTextInput} from "@/components/text";
-import qrcodeParser from 'qrcode-parser'
+import {parser} from './util'
 import {watch} from "vue";
 
 const action = useAction(await initialize({
@@ -37,7 +37,7 @@ watch(() => action.current.input.text, (text) => {
     if (!text.isImage()) {
         return output = $t('qrCode_reader_parsing_failure')
     }
-    qrcodeParser(text.toBase64()).then((data) => {
+    parser(text).then((data) => {
         output = data
         action.save()
     }).catch((e) => {
