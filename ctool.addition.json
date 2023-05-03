@@ -424,6 +424,9 @@
 				"main_history_icon_badge_hidden": {
 					"message": "隐藏历史记录图标角标"
 				},
+				"main_content_clear": {
+					"message": "清空输入"
+				},
 				"tool_hash": {
 					"message": "哈希(hash)"
 				},
@@ -700,6 +703,15 @@
 				"tool_hmac_hmac_keywords": {
 					"message": "md5,sha1,sha256,sha512,sm3"
 				},
+				"tool_gzip": {
+					"message": "GZIP"
+				},
+				"tool_gzip_encoder": {
+					"message": "编码/压缩"
+				},
+				"tool_gzip_decoder": {
+					"message": "解码/解压"
+				},
 				"tool_hash_hash": {
 					"message": "哈希(hash)"
 				},
@@ -954,6 +966,12 @@
 				},
 				"tool_hmac_hmac": {
 					"message": "HMAC"
+				},
+				"tool_gzip_encoder_keywords": {
+					"message": ""
+				},
+				"tool_gzip_decoder_keywords": {
+					"message": ""
 				},
 				"hash_uppercase": {
 					"message": "大写"
@@ -1479,6 +1497,12 @@
 				"crontab_symbol": {
 					"message": "特殊符号"
 				},
+				"crontab_l_prompt": {
+					"message": "谨慎使用 'L' 参数, 提前确认环境是否支持"
+				},
+				"crontab_second_prompt": {
+					"message": "谨慎使用 秒级 任务, 提前确认环境是否支持"
+				},
 				"crontab_description": {
 					"message": "描述"
 				},
@@ -1493,6 +1517,42 @@
 				},
 				"crontab_symbol_description_4": {
 					"message": "那个n代表数字，即是每隔n单位间隔的意思，例如每五分钟进行一次，则：*/5 * * * * command用*与/5来搭配，也可以写成0-59/5，意思相同"
+				},
+				"crontab_generate": {
+					"message": "生成"
+				},
+				"crontab_generate_ignore": {
+					"message": "忽略"
+				},
+				"crontab_generate_second": {
+					"message": "秒"
+				},
+				"crontab_generate_minute": {
+					"message": "分"
+				},
+				"crontab_generate_hour": {
+					"message": "时"
+				},
+				"crontab_generate_day": {
+					"message": "日"
+				},
+				"crontab_generate_month": {
+					"message": "月"
+				},
+				"crontab_generate_week": {
+					"message": "周"
+				},
+				"crontab_generate_any": {
+					"message": "任意"
+				},
+				"crontab_generate_scope": {
+					"message": "范围"
+				},
+				"crontab_generate_interval": {
+					"message": "间隔"
+				},
+				"crontab_generate_list": {
+					"message": "指定"
 				},
 				"websocket_connect": {
 					"message": "连接"
@@ -3231,6 +3291,9 @@
 				"main_history_icon_badge_hidden": {
 					"message": "Hide History Icon Badge"
 				},
+				"main_content_clear": {
+					"message": "Clear Input"
+				},
 				"tool_hash": {
 					"message": "Hash"
 				},
@@ -3488,6 +3551,15 @@
 				},
 				"tool_hmac": {
 					"message": "HMAC"
+				},
+				"tool_gzip": {
+					"message": "GZIP"
+				},
+				"tool_gzip_encoder": {
+					"message": "Encoder"
+				},
+				"tool_gzip_decoder": {
+					"message": "Decoder"
 				},
 				"tool_hash_hash": {
 					"message": "Hash"
@@ -3760,6 +3832,12 @@
 					"message": "HMAC"
 				},
 				"tool_hmac_hmac_keywords": {
+					"message": ""
+				},
+				"tool_gzip_encoder_keywords": {
+					"message": ""
+				},
+				"tool_gzip_decoder_keywords": {
 					"message": ""
 				},
 				"hash_uppercase": {
@@ -4286,6 +4364,12 @@
 				"crontab_symbol": {
 					"message": "Symbol"
 				},
+				"crontab_l_prompt": {
+					"message": "Use the 'L' parameter with caution and confirm in advance whether the environment supports it."
+				},
+				"crontab_second_prompt": {
+					"message": "Use sub-second tasks with caution and confirm in advance whether the environment supports them."
+				},
 				"crontab_description": {
 					"message": "Description"
 				},
@@ -4300,6 +4384,42 @@
 				},
 				"crontab_symbol_description_4": {
 					"message": "step values"
+				},
+				"crontab_generate": {
+					"message": "Generate"
+				},
+				"crontab_generate_ignore": {
+					"message": "Ignore"
+				},
+				"crontab_generate_second": {
+					"message": "Second"
+				},
+				"crontab_generate_minute": {
+					"message": "Minute"
+				},
+				"crontab_generate_hour": {
+					"message": "Hour"
+				},
+				"crontab_generate_day": {
+					"message": "Day"
+				},
+				"crontab_generate_month": {
+					"message": "Month"
+				},
+				"crontab_generate_week": {
+					"message": "Week"
+				},
+				"crontab_generate_any": {
+					"message": "Any"
+				},
+				"crontab_generate_scope": {
+					"message": "Scope"
+				},
+				"crontab_generate_interval": {
+					"message": "Interval"
+				},
+				"crontab_generate_list": {
+					"message": "List"
 				},
 				"websocket_connect": {
 					"message": "Connect"
