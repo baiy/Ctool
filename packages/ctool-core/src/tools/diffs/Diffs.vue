@@ -47,6 +47,7 @@ import {githubLight, githubDark} from '@uiw/codemirror-theme-github';
 import {initialize, useAction} from "@/store/action";
 import formatter from "@/tools/code/formatter";
 import {allLanguage, getEditorLanguage} from "@/helper/code";
+import event from "@/event";
 
 type MergeConfig = ConstructorParameters<typeof MergeView>
 
@@ -164,7 +165,11 @@ onMounted(() => {
     setTimeout(() => {
         init(<HTMLElement>container)
     }, 200)
-
+    event.addListener('content_clear', () => {
+        action.current.a = ""
+        action.current.b = ""
+        init(<HTMLElement>container)
+    })
 })
 
 onUnmounted(() => {

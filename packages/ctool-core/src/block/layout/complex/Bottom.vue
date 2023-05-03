@@ -4,6 +4,7 @@
             <Notice />
         </div>
         <Align class="ctool-bottom-right" :gap="'large'">
+            <Icon hover :size="18" name="clear" @click="event.dispatch('content_clear')" :tooltip="$t('main_content_clear')"/>
             <span style="display: inline-flex;" :class="!storeSetting.items.history_icon_badge_hidden && historyExist ? `ctool-bottom-exist-history` : ''">
                 <Icon :size="18" hover name="history" @click="openHistory = !openHistory" :tooltip="$t('tool_'+storeOperate.items.tool) + ' -' + $t('main_history')"/>
             </span>

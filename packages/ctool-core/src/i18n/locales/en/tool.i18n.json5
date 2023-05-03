@@ -84,5 +84,8 @@
     "dataValidation_crc": 'CRC',
     "dataValidation_lrc": 'LRC',
     "color": "Color",
-    "hmac": "HMAC"
+    "hmac": "HMAC",
+    "gzip": "GZIP",
+    "gzip_encoder": "Encoder",
+    "gzip_decoder": "Decoder",
 }

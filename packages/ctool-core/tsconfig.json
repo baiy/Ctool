@@ -17,7 +17,8 @@
         ],
         "skipLibCheck": true,
         "types": [
-            "node"
+            "node",
+            "@vue-macros/reactivity-transform/macros-global"
         ],
         "paths": {
             "@/*": [

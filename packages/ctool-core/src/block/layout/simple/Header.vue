@@ -23,6 +23,7 @@
         <Align :gap="'large'">
             <Search/>
             <Icon hover @click="openTools = !openTools" name="common" :tooltip="$t(`main_tools_lists`)"/>
+            <Icon hover name="clear" @click="event.dispatch('content_clear')" :tooltip="$t('main_content_clear')"/>
             <span style="display: inline-flex;" :class="!storeSetting.items.history_icon_badge_hidden && historyExist ? `ctool-header-exist-history` : ''">
                 <Icon hover name="history" @click="openHistory = !openHistory" :tooltip="$t('tool_'+storeOperate.items.tool) + ' -' + $t('main_history')"/>
             </span>

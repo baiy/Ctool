@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 // 下拉菜单
-import {PropType, onMounted, onUpdated, StyleValue, onUnmounted} from "vue"
+import {PropType, onMounted, onUpdated, StyleValue, onUnmounted, nextTick} from "vue"
 import {isNumber, isString} from "lodash"
 import event from "@/event"
 import {SelectOption, ComponentSizeType, SelectType, SelectValue} from "@/types";
@@ -196,6 +196,10 @@ const toggle = () => {
     }
     dialogShow = !!container?.querySelector("details")?.open
 }
+onMounted(async () => {
+    await nextTick();
+    update()
+})
 onMounted(() => {
     container?.querySelector("details")?.addEventListener('toggle', toggle)
 })

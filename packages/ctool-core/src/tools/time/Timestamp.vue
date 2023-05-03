@@ -99,7 +99,7 @@ const action = useAction(await initialize({
         unix_type: Time.unix,
     },
     {
-        paste: (str) => (new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+$/)).test(str) || (new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+\.\d+$/)).test(str) || (new RegExp(/^\d{5,}$/)).test(str)
+        paste: (str) => (new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+$/)).test(str) || (new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+\.\d+$/)).test(str) || (new RegExp(/^-?\d{5,}$/)).test(str)
     }
 ))
 
@@ -115,14 +115,14 @@ const inputTimeType = $computed(() => {
     if ((new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+\.\d+$/)).test(inputTime)) {
         return Time.normal_millisecond
     }
-    if ((new RegExp(/^\d+$/)).test(inputTime)) {
+    if ((new RegExp(/^-?\d+$/)).test(inputTime)) {
         return Time.unix
     }
     return false
 })
 
 const unixInputType = $computed(() => {
-    return (new RegExp(/^\d{1,12}$/)).test(inputTime) ? Time.unix_second : Time.unix_millisecond
+    return (new RegExp(/^-?\d{1,12}$/)).test(inputTime) ? Time.unix_second : Time.unix_millisecond
 })
 
 const result = $computed(() => {

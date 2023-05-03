@@ -232,6 +232,11 @@ class Text {
         return this._isError
     }
 
+    setExtension(extension: string) {
+        this.fileName = `ctool-${dayjs().format('YYYY-MM-DD-HH-mm-ss')}${extension}`
+        return this
+    }
+
     setFileName(name: string) {
         this.fileName = name
         return this

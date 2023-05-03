@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import {nodePolyfills} from 'vite-plugin-node-polyfills'
 import {readFileSync} from "fs";
 import HtmlConfig from "vite-plugin-html-config"
+import ReactivityTransform from '@vue-macros/reactivity-transform/vite'
 
 export default defineConfig({
     base: "./",
@@ -21,7 +22,8 @@ export default defineConfig({
                 }
             ]
         }),
-        vue({reactivityTransform: true}),
+        vue(),
+        ReactivityTransform()
     ],
     resolve: {
         alias: {
