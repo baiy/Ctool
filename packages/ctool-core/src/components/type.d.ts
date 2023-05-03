@@ -47,6 +47,7 @@ declare module '@vue/runtime-core' {
                 label?: string,
                 size?: ComponentSizeType,
                 width?: number | string,
+                disableClear?:boolean,
             }
             $emit: { (e: 'change', value: string): void, (e: "load", value: HTMLInputElement): void }
             $slots: {
@@ -67,7 +68,8 @@ declare module '@vue/runtime-core' {
                 min?: number | boolean
                 max?: number | boolean
                 width?: number | string,
-                size?: ComponentSizeType
+                size?: ComponentSizeType,
+                disableClear?:boolean,
             }
             $emit: { (e: 'change', value: number): void }
             $slots: {
@@ -163,6 +165,7 @@ declare module '@vue/runtime-core' {
                 floatType?: ButtonType,
                 disabled?: boolean,
                 readonly?: boolean,
+                disableClear?:boolean,
             }
             $emit: (e: "clickFloatText", value: boolean) => void
         }
@@ -280,7 +283,8 @@ declare module '@vue/runtime-core' {
                 disableBorder?: boolean,
                 disableLineNumbers?: boolean,
                 reload?: number
-                langCallback?: () => string | void
+                langCallback?: () => string | void,
+                disableClear?:boolean,
             }
         }
         Tooltip: new () => {
@@ -377,6 +381,8 @@ declare module '@vue/runtime-core' {
             $props: {
                 modelValue: boolean,
                 disableReplace?: boolean
+                offset?: number
+                closeText?: string
             }
             $slots: {
                 default: () => VNode[]

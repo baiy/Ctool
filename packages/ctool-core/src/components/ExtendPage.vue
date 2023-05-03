@@ -9,7 +9,7 @@
             <div class="ctool-extend-page-close" v-if="show">
                 <Button :size="'small'" :type="'primary'" @click="close">
                     <Icon name="up" :size="10"/>
-                    <span style="margin-left: 5px">{{ $t(`main_ui_close`) }}</span>
+                    <span style="margin-left: 5px">{{ closeText }}</span>
                 </Button>
             </div>
         </Transition>
@@ -42,6 +42,16 @@ const props = defineProps({
     disableReplace: {
         type: Boolean,
         default: false
+    },
+    offset: {
+        type: Number,
+        default: 0
+    },
+    closeText:{
+        type: String,
+        default: ()=>{
+            return $t(`main_ui_close`)
+        }
     }
 })
 
@@ -57,8 +67,8 @@ let bottom = $ref(document.querySelector<HTMLElement>('.ctool-bottom')?.offsetHe
 
 const style = $computed(() => {
     const css: StyleValue = {
-        "top": `${top}px`,
-        "height": `calc(100vh - ${top + bottom}px)`,
+        "top": `${top + props.offset}px`,
+        "height": `calc(100vh - ${top + bottom + props.offset}px)`,
     }
     return css
 })
