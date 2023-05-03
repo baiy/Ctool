@@ -1,6 +1,12 @@
 <template>
     <div v-row="'10-14'">
         <Align direction="vertical">
+            <TextInput
+                class="ctool-page-option"
+                v-model="action.current.secret"
+                :use-input="$t(`hmac_secret`)"
+                :allow="['text','hex','base64']"
+            />
             <Display>
                 <HeightResize v-slot="{height}" :append="['.ctool-page-option']" :reduce="5">
                     <TextInput v-model="action.current.input" :height="height" upload="file" encoding/>
@@ -14,12 +20,6 @@
                     </Align>
                 </template>
             </Display>
-            <TextInput
-                class="ctool-page-option"
-                v-model="action.current.secret"
-                :use-input="$t(`hmac_secret`)"
-                :allow="['text','hex','base64']"
-            />
         </Align>
         <HeightResize v-slot="{height}">
             <Align direction="vertical">
@@ -64,7 +64,7 @@ const result = $computed(() => {
     if (action.current.input.text.isEmpty() || action.current.secret.text.isEmpty()) {
         return r;
     }
-    console.log(123123)
+
     let isError = false
     for (let type of methods) {
         try {
