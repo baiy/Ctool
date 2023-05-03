@@ -94,5 +94,8 @@
     "dataValidation_lrc": 'LRC',
     "color": "颜色",
     "hmac": "HMAC",
-    "hmac_hmac_keywords": "md5,sha1,sha256,sha512,sm3"
+    "hmac_hmac_keywords": "md5,sha1,sha256,sha512,sm3",
+    "gzip": "GZIP",
+    "gzip_encoder": "编码/压缩",
+    "gzip_decoder": "解码/解压",
 }
