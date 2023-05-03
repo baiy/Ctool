@@ -1,5 +1,6 @@
 <template>
-    <Display :position="toolbar" class="ctool-code-editor" :class="disableBorder ? ['ctool-code-editor-disable-border'] : []" :style="{height:`${sizeConvert(height)}`,width:`100%`}" toggle>
+    <Display :position="toolbar" class="ctool-code-editor" :class="disableBorder ? ['ctool-code-editor-disable-border'] : []"
+             :style="{height:`${sizeConvert(height)}`,width:`100%`}" toggle>
         <div ref="container" style="height: 100%;width: 100%" @contextmenu="contextMenuOpen($event)"></div>
         <context-menu v-model:show="contextMenuConfig.show" :options="contextMenuConfig.options">
             <context-menu-item icon="copy" :disabled="contextMenuConfig.selected_text === ''" :label="$t(`main_ui_copy`)" @click="contextMenuClick('copy')"/>
@@ -42,6 +43,7 @@ import {copy, paste} from "@/helper/clipboard";
 import {sizeConvert} from "../util";
 import {isArray, isPlainObject} from "lodash";
 import Message from "@/helper/message";
+import event from "@/event";
 
 const props = defineProps({
     modelValue: {
@@ -85,6 +87,10 @@ const props = defineProps({
         default: false
     },
     disableLineNumbers: {
+        type: Boolean,
+        default: false
+    },
+    disableClear: {
         type: Boolean,
         default: false
     }
@@ -202,6 +208,7 @@ const create = async (element: HTMLElement) => {
 }
 
 onMounted(async () => {
+    (!props.disableClear) && event.addListener('content_clear', () => updateEditor(''));
     await create(<HTMLElement>container)
 })
 
@@ -442,9 +449,11 @@ const copyWithStyle = () => {
     font-size: .875rem;
     background-color: var(--ctool-form-element-background-color);
 }
-.ctool-code-editor-disable-border.ctool-code-editor .cm-editor{
+
+.ctool-code-editor-disable-border.ctool-code-editor .cm-editor {
     border: none;
 }
+
 .ctool-code-editor .cm-editor .cm-scroller, .ctool-code-editor .cm-editor {
     height: 100% !important;
 

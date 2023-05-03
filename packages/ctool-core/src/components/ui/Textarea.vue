@@ -19,9 +19,10 @@
     </div>
 </template>
 <script setup lang="ts">
-import {StyleValue, PropType} from "vue"
+import {StyleValue, PropType, onMounted} from "vue"
 import {ButtonType, DisplayPosition} from "@/types";
 import {sizeConvert} from "@/components/util";
+import event from "@/event";
 
 const props = defineProps({
     modelValue: {
@@ -60,6 +61,10 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+    disableClear: {
+        type: Boolean,
+        default: false
+    },
 })
 
 const emit = defineEmits<{ (e: 'update:modelValue', value: string): void, (e: 'clickFloatText'): void }>()
@@ -72,11 +77,15 @@ const style = $computed(() => {
     return css
 })
 
-const current = $computed({
+let current = $computed({
     get: () => props.modelValue,
     set: (value) => {
         emit('update:modelValue', value)
     }
+})
+
+onMounted(() => {
+    (!props.disableClear) && event.addListener('content_clear', () => current = "")
 })
 
 const clickFloatText = () => {

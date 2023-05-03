@@ -18,6 +18,8 @@ const events = [
     'tool_change',
     // 打开设置页面
     'open_setting',
+    // 页面内容一建清空
+    'content_clear'
 ] as const
 
 type Event = typeof events[number]

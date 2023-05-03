@@ -66,7 +66,11 @@ const props = defineProps({
     center: {
         type: Boolean,
         default: false
-    }
+    },
+    disableClear: {
+        type: Boolean,
+        default: false
+    },
 });
 
 const container = $ref<HTMLInputElement | null>(null)
@@ -75,7 +79,7 @@ const inputRight = $ref<HTMLElement | null>(null)
 
 const emit = defineEmits<{ (e: 'update:modelValue', value: string): void, (e: 'load', value: HTMLInputElement): void, (e: 'change', value: string): void }>()
 
-const content = $computed({
+let content = $computed({
     get: () => props.modelValue,
     set: (value) => {
         emit('update:modelValue', value)
@@ -110,7 +114,8 @@ const inputStyle = $computed(() => {
 
 onMounted(() => {
     updatePadding()
-    event.addListener('component_resize', updatePadding)
+    event.addListener('component_resize', updatePadding);
+    (!props.disableClear) && event.addListener('content_clear', () => content = "");
     if (container) {
         emit('load', container as HTMLInputElement)
     }

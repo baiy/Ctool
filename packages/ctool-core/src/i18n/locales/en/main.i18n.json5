@@ -90,4 +90,5 @@
     "auto_fill": "Auto Fill",
     "auto_fill_explain": "Prioritize the use of historical data within {0} seconds",
     "history_icon_badge_hidden": "Hide History Icon Badge",
+    "content_clear": "Clear Input",
 }

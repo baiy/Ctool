@@ -90,4 +90,5 @@
     "auto_fill": "自动填充",
     "auto_fill_explain": "优先使用 {0} 秒内历史数据",
     "history_icon_badge_hidden": "隐藏历史记录图标角标",
+    "content_clear": "清空输入"
 }
