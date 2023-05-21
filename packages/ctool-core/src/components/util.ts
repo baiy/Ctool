@@ -1,5 +1,4 @@
-import {isNumber, isString, isObject} from "lodash";
-import {VNode, isVNode, defineComponent, PropType, VNodeTypes} from "vue";
+import {isNumber} from "lodash";
 
 /**
  * 尺寸转换 适用于 width height 等

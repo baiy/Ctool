@@ -1,16 +1,16 @@
 <template>
     <div
-        class="ctool-select"
-        :data-size="size"
-        :data-type="type"
-        :data-disabled="disabled ? 'y' : 'n'"
-        :style="style"
-        ref="container"
+            class="ctool-select"
+            :data-size="size"
+            :data-type="type"
+            :data-disabled="disabled ? 'y' : 'n'"
+            :style="style"
+            ref="container"
     >
         <details role="list" ref="details">
             <summary aria-haspopup="listbox" role="button">{{ placeholderValue }}</summary>
             <ul role="listbox" class="ctool-select-option-hidden" v-if="!dialog">
-                <li v-for="item in getOptions" :key="item.value"><a @click="selected = item.value"> {{ item.label }}</a></li>
+                <li v-for="item in getOptions" :key="item.value"><a @click="selected = item.value"> {{ item.label }}{{item.description !== '' ? ` - ${item.description}` : ''}}</a></li>
             </ul>
         </details>
         <div class="ctool-select-left">
@@ -21,11 +21,11 @@
         <Modal v-model="dialogShow" :title="label" padding="20px 10px" width="85%" @close="close">
             <Align horizontal="center">
                 <Button
-                    :type="selected === item.value ? `primary` : `general`"
-                    v-for="item in getOptions"
-                    :key="item.value"
-                    @click="selected = item.value"
-                    :text="item.label"
+                        :type="selected === item.value ? `primary` : `general`"
+                        v-for="item in getOptions"
+                        :key="item.value"
+                        @click="selected = item.value"
+                        :text="item.label"
                 />
             </Align>
         </Modal>
@@ -34,9 +34,8 @@
 
 <script setup lang="ts">
 // 下拉菜单
-import {PropType, onMounted, onUpdated, StyleValue, onUnmounted, nextTick} from "vue"
+import {PropType, onMounted, StyleValue, onUnmounted, nextTick} from "vue"
 import {isNumber, isString} from "lodash"
-import event from "@/event"
 import {SelectOption, ComponentSizeType, SelectType, SelectValue} from "@/types";
 import {sizeConvert, measureTextMaxWidth} from "@/components/util";
 
@@ -116,12 +115,12 @@ const close = () => {
 }
 
 const getOptions = $computed(() => {
-    let items: Array<{ value: SelectValue, label: string }> = []
+    let items: Array<{ value: SelectValue, label: string, description: string }> = []
     for (let item of props.options) {
         if (isNumber(item) || isString(item)) {
-            items.push({value: item, label: `${item}`})
+            items.push({value: item, label: `${item}`, description: ""})
         } else {
-            items.push({value: item.value, label: `${item.label}`})
+            items.push({value: item.value, label: `${item.label}`, description: item.description || ""})
         }
     }
     return items

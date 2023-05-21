@@ -43,7 +43,7 @@ export type TextInputUpload = UploadFileType | "none"
 // Button 组件
 export type ButtonType = "general" | "primary" | "danger" | "dotted"
 // Select 组件
-export type SelectOption = Array<string | number | { value: string | number, label: string | number }>
+export type SelectOption = Array<string | number | { value: string | number, label: string | number, description?: string }>
 export type SelectValue = string | number
 export type SelectType = "general" | "primary"
 // Radio 组件
