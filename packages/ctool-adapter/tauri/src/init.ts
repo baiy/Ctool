@@ -10,6 +10,9 @@ mkdirSync(tempPath);
 // 核心文件
 copyCoreDist(tempPath)
 
+// 重写首页跳转文件
+writeFileSync(join(tempPath, 'index.html'), readFileSync(join(__dirname, '../index.html')).toString())
+
 // 清理文件
 const configFilePath = join(__dirname, '../src-tauri/tauri.conf.json5')
 const iconsPath = join(__dirname, '../src-tauri/icons')

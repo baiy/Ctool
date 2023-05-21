@@ -2,7 +2,6 @@ import {release} from "ctool-adapter-base";
 import {parse, join} from "path";
 import {readdirSync, statSync, existsSync, rmSync, mkdirSync, cpSync} from "fs";
 import os from 'os';
-import {getCoreDistPath} from "ctool-adapter-base/src";
 
 const platform = ["win32", "darwin"].includes(os.platform()) ? os.platform() : "linux";
 

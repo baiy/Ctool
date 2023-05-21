@@ -52,7 +52,14 @@
             }
         },
         "security": {
-            "csp": null
+            "csp": null,
+            "dangerousRemoteDomainIpcAccess": [
+                {
+                    "domain": "ctool.dev",
+                    "windows": ["main"],
+                    "enableTauriAPI": true
+                }
+            ]
         },
         "updater": {
             "active": false

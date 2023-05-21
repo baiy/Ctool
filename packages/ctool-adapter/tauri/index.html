@@ -7,9 +7,9 @@
     <link rel="icon" href="./favicon.ico" type="image/x-ico">
     <meta name="X-UA-Compatible" content="IE=edge, chrome=1">
     <script>
-        window.ctoolIsUseOffline().then((result) => {
+        window.__TAURI__.invoke("ctool_is_use_offline").then((result) => {
             console.log(result)
-            if (result.is) {
+            if (result) {
                 return window.location.href = "./tool.html"
             }
             return window.location.href = "https://ctool.dev/tool.html"
