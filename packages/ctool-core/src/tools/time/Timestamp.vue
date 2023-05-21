@@ -185,13 +185,13 @@ watch(() => {
 }, {immediate: true, deep: true})
 
 const timezoneLists: SelectOption = $computed(() => {
-    const supported = Intl.supportedValuesOf("timeZone")
-    return Object.entries($t('main_locale') === "zh_CN" ? zhTimezone : enTimezone).filter(([key]) => {
-        return supported.includes(key)
-    }).map(([key, value]) => {
+    return Object.entries($t('main_locale') === "zh_CN" ? zhTimezone : enTimezone).map(([key, value]) => {
         return {value: key, label: `${value}`}
     })
 })
+
+console.log(timezoneLists);
+
 
 let current = $ref(dayjs().valueOf())
 const currentTimer = setInterval(() => {
