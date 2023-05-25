@@ -36,5 +36,5 @@ export const stringify = (data) => {
 }
 
 export default {
-    stringify: (data) => `<?php\n${stringify(data)}`
+    stringify: (data) => `<?php\n    return ${stringify(data)};`
 }
