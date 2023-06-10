@@ -4,6 +4,7 @@
     "current_time": "Current Time",
     "second": "Second",
     "millisecond": "Millisecond",
+    "nanosecond": "Nanosecond",
 
     // Calculator
     "diff_tool": "Difference Calculator",
@@ -30,12 +31,14 @@
     analyze_month_output: "{month}:{weekOfMonth} Week,{hourOfMonth} Hour,{minuteOfMonth} Minute,{secondOfMonth} Second",
 
     // Timestamp
-    "timestamp_input_placeholder": "Allow YYYY-MM-DD HH:mm:ss[.SSS] Or Timestamp Input",
+    "timestamp_input_placeholder": "Allow YYYY-MM-DD HH:mm:ss[.\\d+] Or Timestamp(Second/Millisecond/Nanosecond) Input",
     "unix_auto": "Auto Type Inference",
     "normal_second": "Normal Second",
     "normal_millisecond":"Normal Millisecond",
+    "normal_nanosecond":"Normal Nanosecond",
     "unix_second": "Unix Timestamp Second",
     "unix_millisecond":"Unix Timestamp Millisecond",
+    "unix_nanosecond": "Unix Timestamp Nanosecond",
     "format": "Format",
     "value":"Value",
 
