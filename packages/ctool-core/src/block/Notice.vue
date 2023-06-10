@@ -48,8 +48,8 @@ let isToggle = $ref(true);
 let items: ItemType[] = $ref<ItemType[]>([])
 
 const CACHE_NAME = 'notice_cache_items';
-const CACHE_EXPIRY = 3600 * 24;
-const CACHE_EMPTY_EXPIRY = 3600;
+const CACHE_EXPIRY = 1800;
+const CACHE_EMPTY_EXPIRY = 3600 * 24;
 
 let toggleTimer: any = null;
 

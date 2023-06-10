@@ -1,6 +1,6 @@
 <template>
     <div class="ctool-input" :style="style" :data-size="size" :data-disabled="disabled ? 'y' : 'n'">
-        <input ref="container" v-model="content" :placeholder="placeholder" :style="inputStyle" :disabled="disabled" :type="type" v-bind="$attrs"/>
+        <input ref="container" v-model="content" :placeholder="placeholder" :style="inputStyle" :disabled="disabled" :readonly="readonly" :type="type" v-bind="$attrs"/>
         <div class="ctool-input-left" ref="inputLeft">
             <template v-if="$slots.prefix || label!=='' || $slots.prepend">
                 <div class="ctool-input-prepend" v-if="$slots.prepend || label!==''" :class="label !== '' ? `ctool-input-label` : ``">
@@ -60,6 +60,10 @@ const props = defineProps({
         default: "text"
     },
     disabled: {
+        type: Boolean,
+        default: false
+    },
+    readonly: {
         type: Boolean,
         default: false
     },

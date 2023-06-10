@@ -19,16 +19,17 @@
             <template #extra>
                 <Align>
                     <Select
-                        v-if="inputTimeType === Time.unix"
-                        v-model="action.current.unix_type"
+                        v-if="output.type === InputType.unix"
+                        v-model="action.current.format"
                         size="small"
                         :options="[
                         {
-                            value:Time.unix,
-                            label:`${$t('time_unix_auto')}:${unixInputType === Time.unix_second ? $t(`time_second`) : $t(`time_millisecond`)}`
+                            value:`auto`,
+                            label:`${$t('time_unix_auto')}:${$t(`time_unix_${output.autoFormat}`)}`
                         },
-                        {value:Time.unix_second,label:$t('time_unix_second')},
-                        {value:Time.unix_millisecond,label:$t('time_unix_millisecond')},
+                        {value:Format.second,label:$t('time_unix_second')},
+                        {value:Format.millisecond,label:$t('time_unix_millisecond')},
+                        {value:Format.nanosecond,label:$t('time_unix_nanosecond')},
                     ]"
                     />
                     <Button
@@ -40,12 +41,15 @@
                 </Align>
             </template>
         </Display>
+        <Display position="right-center" :text="output.isValid ? $t(`main_ui_copy`) : ''" @click="()=>$copy(output.second)">
+            <Input readonly size="large" :model-value="output.second" :label="$t(`time_second`)"/>
+        </Display>
         <div v-row="`1-1`">
-            <Display position="right-center" :text="isValid ? $t(`main_ui_copy`) : ''" @click="()=>$copy(secondOutput)">
-                <Input size="large" :model-value="secondOutput" :label="$t(`time_second`)"/>
+            <Display position="right-center" :text="output.isValid ? $t(`main_ui_copy`) : ''" @click="()=>$copy(output.millisecond)">
+                <Input readonly size="large" :model-value="output.millisecond" :label="$t(`time_millisecond`)"/>
             </Display>
-            <Display position="right-center" :text="isValid ? $t(`main_ui_copy`) : ''" @click="()=>$copy(millisecondOutput)">
-                <Input size="large" :model-value="millisecondOutput" :label="$t(`time_millisecond`)"/>
+            <Display position="right-center" :text="output.isValid ? $t(`main_ui_copy`) : ''" @click="()=>$copy(output.nanosecond)">
+                <Input readonly size="large" :model-value="output.nanosecond" :label="$t(`time_nanosecond`)"/>
             </Display>
         </div>
         <div>
@@ -74,109 +78,39 @@
 
 <script lang="ts" setup>
 import {useAction, initialize} from "@/store/action";
-import dayjs, {Dayjs, isDayjs} from "dayjs"
+import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
 import timezone from "dayjs/plugin/timezone"
 import {onUnmounted, watch} from "vue"
 import zhTimezone from "./timezone/zh_CN.json";
 import enTimezone from "./timezone/en_US.json";
 import {SelectOption} from "@/types";
+import {Format, transform, InputType} from "./util/timestamp";
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
 
-enum Time {
-    normal_second,
-    normal_millisecond,
-    unix,
-    unix_second,
-    unix_millisecond,
-}
+const format = "auto" as (Format | "auto")
 
 const action = useAction(await initialize({
         input: "",
         timezone: dayjs.tz.guess(),
-        unix_type: Time.unix,
+        format
     },
     {
         paste: (str) => (new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+$/)).test(str) || (new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+\.\d+$/)).test(str) || (new RegExp(/^-?\d{5,}$/)).test(str)
     }
 ))
 
-const inputTime = $computed(() => (action.current.input || "").trim())
-
-const inputTimeType = $computed(() => {
-    if (inputTime === "") {
-        return false
-    }
-    if ((new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+$/)).test(inputTime)) {
-        return Time.normal_second
-    }
-    if ((new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+\.\d+$/)).test(inputTime)) {
-        return Time.normal_millisecond
-    }
-    if ((new RegExp(/^-?\d+$/)).test(inputTime)) {
-        return Time.unix
-    }
-    return false
+const output = $computed(() => {
+    return transform((action.current.input || "").trim(), action.current.timezone, action.current.format)
 })
-
-const unixInputType = $computed(() => {
-    return (new RegExp(/^-?\d{1,12}$/)).test(inputTime) ? Time.unix_second : Time.unix_millisecond
-})
-
-const result = $computed(() => {
-    try {
-        if (inputTime === "") {
-            return ""
-        }
-        if (inputTimeType === false) {
-            throw new Error($t('time_error_format'))
-        }
-        let t: Dayjs;
-        if (inputTimeType === Time.normal_second) {
-            t = dayjs.tz(inputTime, action.current.timezone)
-        } else if (inputTimeType === Time.normal_millisecond) {
-            t = dayjs.tz(inputTime, action.current.timezone)
-        } else {
-            // 自动推断类型
-            let unixType = action.current.unix_type === Time.unix ? unixInputType : action.current.unix_type
-            if (unixType === Time.unix_second) {
-                t = dayjs(parseInt(inputTime) * 1000).tz(action.current.timezone)
-            } else {
-                t = dayjs(parseInt(inputTime)).tz(action.current.timezone)
-            }
-        }
-        if (!t.isValid()) {
-            throw new Error($t('time_error_format'))
-        }
-        return t
-    } catch (e) {
-        return $error(e)
-    }
-})
-
-const isValid = $computed(() => isDayjs(result))
-
-const secondOutput = $computed(() => {
-    if (!isDayjs(result)) {
-        return result;
-    }
-    return inputTimeType !== Time.unix ? result.unix().toString() : result.format('YYYY-MM-DD HH:mm:ss')
-})
-
-const millisecondOutput = $computed(() => {
-    if (!isDayjs(result)) {
-        return result;
-    }
-    return inputTimeType !== Time.unix ? result.valueOf().toString() : result.format('YYYY-MM-DD HH:mm:ss.SSS')
-})
-
 
 watch(() => {
     return {
         data: action.current,
-        is_valid: isValid
+        is_valid: output.isValid,
+        format: output.format
     }
 }, ({is_valid}) => {
     if (is_valid) {
@@ -189,9 +123,6 @@ const timezoneLists: SelectOption = $computed(() => {
         return {value: key, label: `${value}`}
     })
 })
-
-console.log(timezoneLists);
-
 
 let current = $ref(dayjs().valueOf())
 const currentTimer = setInterval(() => {

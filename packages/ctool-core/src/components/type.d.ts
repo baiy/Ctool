@@ -43,6 +43,7 @@ declare module '@vue/runtime-core' {
                 modelValue?: string,
                 placeholder?: string,
                 disabled?: boolean,
+                readonly?: boolean,
                 center?: boolean,
                 label?: string,
                 size?: ComponentSizeType,
@@ -63,6 +64,7 @@ declare module '@vue/runtime-core' {
                 placeholder?: string
                 center?: boolean,
                 disabled?: boolean
+                readonly?: boolean
                 label?: string,
                 step?: number | string
                 min?: number | boolean
