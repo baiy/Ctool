@@ -2193,6 +2193,9 @@
 				"time_millisecond": {
 					"message": "毫秒"
 				},
+				"time_nanosecond": {
+					"message": "纳秒"
+				},
 				"time_diff_tool": {
 					"message": "差值计算器"
 				},
@@ -2284,7 +2287,7 @@
 					]
 				},
 				"time_timestamp_input_placeholder": {
-					"message": "支持 YYYY-MM-DD HH:mm:ss[.SSS] 与 时间戳 输入"
+					"message": "支持 YYYY-MM-DD HH:mm:ss[.\\d+] 与 时间戳(秒/毫秒/纳秒) 输入"
 				},
 				"time_unix_auto": {
 					"message": "自动识别类型"
@@ -2295,11 +2298,17 @@
 				"time_normal_millisecond": {
 					"message": "标准时间(毫秒)"
 				},
+				"time_normal_nanosecond": {
+					"message": "标准时间(纳秒)"
+				},
 				"time_unix_second": {
 					"message": "Unix时间戳(秒)"
 				},
 				"time_unix_millisecond": {
 					"message": "Unix时间戳(毫秒)"
+				},
+				"time_unix_nanosecond": {
+					"message": "Unix时间戳(纳秒)"
 				},
 				"time_format": {
 					"message": "格式"
@@ -5060,6 +5069,9 @@
 				"time_millisecond": {
 					"message": "Millisecond"
 				},
+				"time_nanosecond": {
+					"message": "Nanosecond"
+				},
 				"time_diff_tool": {
 					"message": "Difference Calculator"
 				},
@@ -5151,7 +5163,7 @@
 					]
 				},
 				"time_timestamp_input_placeholder": {
-					"message": "Allow YYYY-MM-DD HH:mm:ss[.SSS] Or Timestamp Input"
+					"message": "Allow YYYY-MM-DD HH:mm:ss[.\\d+] Or Timestamp(Second/Millisecond/Nanosecond) Input"
 				},
 				"time_unix_auto": {
 					"message": "Auto Type Inference"
@@ -5162,11 +5174,17 @@
 				"time_normal_millisecond": {
 					"message": "Normal Millisecond"
 				},
+				"time_normal_nanosecond": {
+					"message": "Normal Nanosecond"
+				},
 				"time_unix_second": {
 					"message": "Unix Timestamp Second"
 				},
 				"time_unix_millisecond": {
 					"message": "Unix Timestamp Millisecond"
+				},
+				"time_unix_nanosecond": {
+					"message": "Unix Timestamp Nanosecond"
 				},
 				"time_format": {
 					"message": "Format"

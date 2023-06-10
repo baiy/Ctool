@@ -1,1 +1,0 @@
-import{p as t}from"./standalone-31158379.js";import{p as r}from"./parser-html-2d19066c.js";import{B as e}from"./base-f0edccdd.js";import"./tool-f12e4b81.js";import"./modulepreload-polyfill-3cfb730f.js";const m=new class extends e{async beautify(){return t.format(this.code,{plugins:[r],parser:"vue",tabWidth:this.getOptionValue("tab",4)})}};export{m as formatter};
