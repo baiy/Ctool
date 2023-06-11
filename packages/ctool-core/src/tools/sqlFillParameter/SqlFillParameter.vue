@@ -79,8 +79,8 @@ const convertParam = (params: string) => {
         return paramStrList.map(x => {
             let valueEndIndex = x.lastIndexOf('(')
             if (valueEndIndex < 0) {
-              // 直接将整个串作为值，类型为其他
-              return {value: x, type: null}
+                // 直接将整个串作为值，类型为其他
+                return {value: x, type: null}
             }
             // 从串中截取出值，并对前后空格进行清除
             let value = x.substring(0, valueEndIndex)
@@ -90,12 +90,12 @@ const convertParam = (params: string) => {
             // 从串中截取出类型，并进行前后空格清除
             let typeEndIndex = x.lastIndexOf(')')
             if (typeEndIndex < 0) {
-              typeEndIndex = x.length
+                typeEndIndex = x.length
             }
             let type = x.substring(valueEndIndex + 1, typeEndIndex)
             type = type.trim()
             return {value, type}
-          })
+        })
     } else {
         return []
     }
