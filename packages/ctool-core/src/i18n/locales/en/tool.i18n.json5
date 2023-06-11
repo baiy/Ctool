@@ -88,4 +88,5 @@
     "gzip": "GZIP",
     "gzip_encoder": "Encoder",
     "gzip_decoder": "Decoder",
+    "urlParse": "UrlParse",
 }
