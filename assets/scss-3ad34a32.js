@@ -1,0 +1,1 @@
+import{p as t}from"./standalone-e10e3a67.js";import{p as r}from"./parser-postcss-6fa00d73.js";import{B as s}from"./base-f0edccdd.js";import"./tool-65d7eee7.js";import"./modulepreload-polyfill-3cfb730f.js";const m=new class extends s{async beautify(){return t.format(this.code,{plugins:[r],parser:"scss",tabWidth:this.getOptionValue("tab",4)})}};export{m as formatter};
