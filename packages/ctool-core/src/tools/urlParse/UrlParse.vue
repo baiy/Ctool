@@ -31,18 +31,40 @@ const action = useAction(await initialize({
 }, {paste: (item) => item.includes("://")}))
 
 const output = $computed(() => {
-    const url = new URL(action.current.input)
-    return {
-        base: url.origin,
-        path: url.pathname,
-        query: Serialize.formQueryString((url.search.startsWith("?") ? url.search.substring(1) : output.query) || ""),
-        hash: url.hash
+    const input = action.current.input.trim()
+    if (input === "") {
+        return {
+            base: "",
+            path: "",
+            query: Serialize.formQueryString(""),
+            hash: ""
+        }
+    }
+    try {
+        const url = new URL(action.current.input)
+        return {
+            base: url.origin,
+            path: url.pathname,
+            query: Serialize.formQueryString((url.search.startsWith("?") ? url.search.substring(1) : url.search) || ""),
+            hash: url.hash
+        }
+    } catch (e) {
+        return {
+            base: $error(e),
+            path: "",
+            query: Serialize.formQueryString(""),
+            hash: ""
+        }
     }
 })
 
 watch(() => {
     return {url: action.current.input}
 }, () => {
-    action.save()
+    try {
+        new URL(action.current.input)
+        action.save()
+    } catch (_) {
+    }
 }, {immediate: true})
 </script>
