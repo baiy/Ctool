@@ -41,7 +41,41 @@ const action = useAction(await initialize({input: "", params: ""}))
  */
 const convertParam = (params: string) => {
     if (params) {
-        let paramStrList = params.split(',', -1)
+        let tempList = params.split(',', -1)
+        // 因为参数中可能存在逗号，例如json数据，为此采取的方案是先分割，后合并的策略
+        // 分割后是不包含,的，检查串是否为null或者)结尾，如果是则认为是正常的参数，如果不是则认为是分割后的串的一部分
+        // 举例{"goodsService":[],"goodsSpecs":{"id":"db6c56a224a788c5a7458017731c9255","imageFileId":"16925e7fc297452a984d4b3e2e9e6e40"}}(String),
+        // null, null, 1(Integer),1(Integer)
+        // paramStrList 为合并后的实际参数列表
+        let paramStrList:string[] = []
+        let paramIndex = 0
+        // 标记是否在合并中
+        let combining = false
+        tempList.forEach((x) => {
+            // 对null值采用endsWith的原因是因为有前置空格，直接判断endWith比去掉空格处理更方便
+            // 遇到null值直接作为参数
+            if (x.endsWith('null')) {
+              paramStrList.push(x)
+              paramIndex ++
+            } else if (x.endsWith(')')) {
+                // 前面的串处在合并过程中，遇到了）结尾的情况，说明合并结束
+                if (combining) {
+                    paramStrList[paramIndex] += ',' + x
+                    combining = false
+                } else {
+                    paramStrList.push(x)
+                }
+                paramIndex ++
+            } else {
+                let tempStr = paramStrList[paramIndex]
+                if (!tempStr) {
+                  paramStrList.push(x)
+                  combining= true
+                } else {
+                  paramStrList[paramIndex] +=  ',' + x
+                }
+            }
+        })
         return paramStrList.map(x => {
             let valueEndIndex = x.lastIndexOf('(')
             if (valueEndIndex < 0) {
@@ -51,6 +85,8 @@ const convertParam = (params: string) => {
             // 从串中截取出值，并对前后空格进行清除
             let value = x.substring(0, valueEndIndex)
             value = value.trim();
+            // 对数据中的'进行转义，mybatis输出的参数中的'是不进行转义的
+            value = value.replaceAll('\'', '\\\'')
             // 从串中截取出类型，并进行前后空格清除
             let typeEndIndex = x.lastIndexOf(')')
             if (typeEndIndex < 0) {
