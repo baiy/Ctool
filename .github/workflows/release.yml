@@ -8,7 +8,7 @@ on:
 
 jobs:
   base:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout
@@ -23,7 +23,7 @@ jobs:
         name: Install pnpm
         id: pnpm-install
         with:
-          version: 7
+          version: 8
           run_install: false
 
       - name: Get pnpm store directory

@@ -1,13 +1,17 @@
 // https://github.com/json-to-proto/json-to-proto.github.io/blob/master/src/convert.ts
 import Json from "@/helper/json"
 import {Option, Transform} from "./type";
-import {defaultTargetLanguages} from "quicktype-core";
 
 const googleAnyImport = "google/protobuf/any.proto";
 const googleTimestampImport = "google/protobuf/timestamp.proto";
 
 const googleAny = "google.protobuf.Any";
 const googleTimestamp = "google.protobuf.Timestamp";
+
+
+const isBigInt = (value: unknown): value is BigInt => {
+    return typeof value === 'bigint';
+}
 
 class Result {
     constructor(
@@ -431,10 +435,10 @@ function mergePrimitiveType(a: ProtoPrimitiveType, b: ProtoPrimitiveType): Proto
 }
 
 function numberType(value: number | BigInt): string {
-    if (typeof value === "bigint") {
+    if (isBigInt(value)) {
         return "int64";
     }
-    if ((value as number) % 1 === 0) {
+    if (value % 1 === 0) {
         if (value < 0) {
             if (value < -2147483648) {
                 return "int64";
