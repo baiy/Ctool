@@ -1279,6 +1279,9 @@
 				"pinyin_tone_is_number": {
 					"message": "数字声调"
 				},
+				"pinyin_upper": {
+					"message": "大写"
+				},
 				"ip_input": {
 					"message": "请输入IP地址 (IPv4/IPv6)"
 				},
@@ -4163,6 +4166,9 @@
 				},
 				"pinyin_tone_is_number": {
 					"message": "Tone Number"
+				},
+				"pinyin_upper": {
+					"message": "Uppercase"
 				},
 				"ip_input": {
 					"message": "Please enter IP address (IPv4/IPv6)"

@@ -1,0 +1,1 @@
+import{l as t}from"./index-5f84d6d3.js";import{B as a}from"./base-f0edccdd.js";const o=new class extends a{async beautify(){var e;return t.format(this.code,{language:((e=this.option)==null?void 0:e.language)||"sql",tabWidth:this.getOptionValue("tab",4)})}async compress(){return this.code.replace(/\s+/g," ").replace(/\s+\(/,"(").replace(/\s+\)/,")")}};export{o as formatter};
