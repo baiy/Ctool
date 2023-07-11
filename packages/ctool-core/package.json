@@ -18,7 +18,7 @@
         "@imengyu/vue3-context-menu": "^1.2.2",
         "@ltd/j-toml": "^1.38.0",
         "@prettier/plugin-php": "^0.19.2",
-        "@readme/httpsnippet": "^5.1.0",
+        "@readme/httpsnippet": "^6.2.1",
         "@types/yargs-parser": "^21.0.0",
         "@uiw/codemirror-extensions-basic-setup": "^4.19.6",
         "@uiw/codemirror-theme-github": "4.15.1",
