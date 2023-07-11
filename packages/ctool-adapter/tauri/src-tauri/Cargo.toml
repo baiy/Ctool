@@ -11,12 +11,12 @@ rust-version = "1.57"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [build-dependencies]
-tauri-build = { version = "1.3", features = ["config-json5"] }
+tauri-build = { version = "1.4", features = ["config-json5"] }
 
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-tauri = { version = "1.3", features = ["api-all", "config-json5", "devtools"] }
+tauri = { version = "1.4", features = ["api-all", "config-json5", "devtools"] }
 reqwest = { version = "0.11", features = ["blocking"] }
 dirs = "5.0"
 

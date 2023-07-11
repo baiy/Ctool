@@ -1,9 +1,22 @@
 <template>
     <div class="ctool-input" :style="style" :data-size="size" :data-disabled="disabled ? 'y' : 'n'">
-        <input ref="container" v-model="content" :placeholder="placeholder" :style="inputStyle" :disabled="disabled" :readonly="readonly" :type="type" v-bind="$attrs"/>
+        <input
+            ref="container"
+            v-model="content"
+            :placeholder="placeholder"
+            :style="inputStyle"
+            :disabled="disabled"
+            :readonly="readonly"
+            :type="type"
+            v-bind="$attrs"
+        />
         <div class="ctool-input-left" ref="inputLeft">
-            <template v-if="$slots.prefix || label!=='' || $slots.prepend">
-                <div class="ctool-input-prepend" v-if="$slots.prepend || label!==''" :class="label !== '' ? `ctool-input-label` : ``">
+            <template v-if="$slots.prefix || label !== '' || $slots.prepend">
+                <div
+                    class="ctool-input-prepend"
+                    v-if="$slots.prepend || label !== ''"
+                    :class="label !== '' ? `ctool-input-label` : ``"
+                >
                     <slot name="prepend">{{ label }}</slot>
                 </div>
                 <div class="ctool-input-prefix" v-if="$slots.prefix">
@@ -25,129 +38,132 @@
 </template>
 <script lang="ts">
 export default {
-    inheritAttrs: false
-}
+    inheritAttrs: false,
+};
 </script>
 <script setup lang="ts">
-import {onMounted, onUnmounted, onUpdated, PropType, StyleValue} from "vue"
-import {sizeConvert} from "../util"
-import {ComponentSizeType} from "@/types";
+import { onMounted, onUnmounted, onUpdated, PropType, StyleValue } from "vue";
+import { sizeConvert } from "../util";
+import { ComponentSizeType } from "@/types";
 import event from "@/event";
 
 const props = defineProps({
     modelValue: {
         type: String,
-        default: ""
+        default: "",
     },
     placeholder: {
         type: String,
-        default: ""
+        default: "",
     },
     width: {
         type: [Number, String],
-        default: ""
+        default: "",
     },
     size: {
         type: String as PropType<ComponentSizeType>,
-        default: "default"
+        default: "default",
     },
     label: {
         type: String,
-        default: ""
+        default: "",
     },
     type: {
         type: String as PropType<"text" | "number">,
-        default: "text"
+        default: "text",
     },
     disabled: {
         type: Boolean,
-        default: false
+        default: false,
     },
     readonly: {
         type: Boolean,
-        default: false
+        default: false,
     },
     center: {
         type: Boolean,
-        default: false
+        default: false,
     },
     disableClear: {
         type: Boolean,
-        default: false
+        default: false,
     },
 });
 
-const container = $ref<HTMLInputElement | null>(null)
-const inputLeft = $ref<HTMLElement | null>(null)
-const inputRight = $ref<HTMLElement | null>(null)
+const container = $ref<HTMLInputElement | null>(null);
+const inputLeft = $ref<HTMLElement | null>(null);
+const inputRight = $ref<HTMLElement | null>(null);
 
-const emit = defineEmits<{ (e: 'update:modelValue', value: string): void, (e: 'load', value: HTMLInputElement): void, (e: 'change', value: string): void }>()
+const emit = defineEmits<{
+    (e: "update:modelValue", value: string): void;
+    (e: "load", value: HTMLInputElement): void;
+    (e: "change", value: string): void;
+}>();
 
 let content = $computed({
     get: () => props.modelValue,
-    set: (value) => {
-        emit('update:modelValue', value)
-        emit('change', value)
-    }
-})
+    set: value => {
+        emit("update:modelValue", value);
+        emit("change", value);
+    },
+});
 
-let inputLeftWidth = $ref(0)
-let inputRightWidth = $ref(0)
+let inputLeftWidth = $ref(0);
+let inputRightWidth = $ref(0);
 
 const style = $computed(() => {
-    let css: StyleValue = {}
+    let css: StyleValue = {};
     if (props.width !== "") {
-        css.width = sizeConvert(props.width)
+        css.width = sizeConvert(props.width);
     }
     if (inputLeftWidth) {
-        css['--ctool-input-left-padding'] = `${inputLeftWidth}px`
+        css["--ctool-input-left-padding"] = `${inputLeftWidth}px`;
     }
     if (inputRightWidth) {
-        css['--ctool-input-right-padding'] = `${inputRightWidth}px`
+        css["--ctool-input-right-padding"] = `${inputRightWidth}px`;
     }
-    return css
-})
+    return css;
+});
 
 const inputStyle = $computed(() => {
-    let css: StyleValue = {}
+    let css: StyleValue = {};
     if (props.center) {
-        css['text-align'] = "center"
+        css["text-align"] = "center";
     }
-    return css
-})
+    return css;
+});
 
 onMounted(() => {
-    updatePadding()
-    event.addListener('component_resize', updatePadding);
-    (!props.disableClear) && event.addListener('content_clear', () => content = "");
+    updatePadding();
+    event.addListener("component_resize", updatePadding);
+    !props.disableClear && event.addListener("content_clear", () => (content = ""));
     if (container) {
-        emit('load', container as HTMLInputElement)
+        emit("load", container as HTMLInputElement);
     }
-})
+});
 onUpdated(() => {
-    updatePadding()
-})
+    updatePadding();
+});
 onUnmounted(() => {
-    event.removeListener("component_resize", updatePadding)
-})
+    event.removeListener("component_resize", updatePadding);
+});
 const updatePadding = () => {
     if (!inputLeft || !inputRight) {
         return;
     }
-    inputLeftWidth = inputLeft.offsetWidth
-    inputRightWidth = inputRight.offsetWidth
-}
-
+    inputLeftWidth = inputLeft.offsetWidth;
+    inputRightWidth = inputRight.offsetWidth;
+};
 </script>
 <style>
 .ctool-input {
     --height: var(--ctool-form-item-height);
     --ctool-input-left-padding: 0px;
     --ctool-input-right-padding: 0px;
-    --ctool-input-prepend-padding: .4rem;
-    --ctool-input-append-padding: .4rem;
-    --form-element-spacing-vertical: .0625rem;
-    --form-element-spacing-horizontal: .4rem;
+    --ctool-input-prepend-padding: 0.4rem;
+    --ctool-input-append-padding: 0.4rem;
+    --form-element-spacing-vertical: 0.0625rem;
+    --form-element-spacing-horizontal: 0.4rem;
     position: relative;
     display: inline-flex;
     box-sizing: border-box;
@@ -155,17 +171,17 @@ const updatePadding = () => {
     font-size: var(--ctool-form-font-size);
 }
 
-.ctool-input :is(.ctool-input-append,.ctool-input-prepend):has(.ctool-select,.ctool-button) {
+.ctool-input :is(.ctool-input-append, .ctool-input-prepend):has(.ctool-select, .ctool-button) {
     --ctool-input-prepend-padding: 0;
     --ctool-input-append-padding: 0;
 }
 
 .ctool-input[data-size="small"] {
-    --form-element-spacing-vertical: 0rem
+    --form-element-spacing-vertical: 0rem;
 }
 
 .ctool-input[data-size="large"] {
-    --form-element-spacing-vertical: .25rem
+    --form-element-spacing-vertical: 0.25rem;
 }
 
 .ctool-input > input {
@@ -176,14 +192,18 @@ const updatePadding = () => {
     height: calc(var(--height)) !important;
 }
 
-.ctool-input-append, .ctool-input-suffix, .ctool-input-prepend, .ctool-input-prefix {
+.ctool-input-append,
+.ctool-input-suffix,
+.ctool-input-prepend,
+.ctool-input-prefix {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     height: calc(var(--height) - var(--border-width) * 2) !important;
 }
 
-.ctool-input-append, .ctool-input-prepend {
+.ctool-input-append,
+.ctool-input-prepend {
     background-color: var(--ctool-block-title-bg-color);
     color: var(--ctool-info-color);
 }
@@ -206,12 +226,14 @@ const updatePadding = () => {
     padding-left: 0;
 }
 
-.ctool-input-suffix, .ctool-input-prefix {
+.ctool-input-suffix,
+.ctool-input-prefix {
     color: var(--form-element-placeholder-color);
-    padding: 0 .4rem;
+    padding: 0 0.4rem;
 }
 
-.ctool-input-left, .ctool-input-right {
+.ctool-input-left,
+.ctool-input-right {
     position: absolute;
     top: 1px;
 }
@@ -224,9 +246,8 @@ const updatePadding = () => {
     right: 2px;
 }
 
-:is(.ctool-input-append, .ctool-input-prepend) :is(.ctool-select,.ctool-button) {
+:is(.ctool-input-append, .ctool-input-prepend) :is(.ctool-select, .ctool-button) {
     --height: calc(var(--ctool-form-item-height) - 2px);
     --border-width: 0px;
 }
-
 </style>
