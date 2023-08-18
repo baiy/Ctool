@@ -1,32 +1,35 @@
-import {Base64} from "js-base64";
+import { Base64 } from "js-base64";
 import platform from "./platform";
-import {onUnmounted, ref} from "vue";
+import { onUnmounted, ref } from "vue";
 
 // 剪贴板权限
-export let permission: PermissionState = "denied"
+export let permission: PermissionState = "denied";
 
 // 初始化剪贴板权限
 export const initPermission = async () => {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
         if (platform.isUtools() || platform.isDesktop()) {
-            permission = "granted"
-            return resolve("")
+            permission = "granted";
+            return resolve("");
         }
 
         // https://github.com/nolanlawson/pinafore/pull/618/files
         if (!navigator.permissions || !navigator.permissions.query) {
-            return resolve("")
+            return resolve("");
         }
 
-        //@ts-ignore
-        navigator.permissions.query({name: 'clipboard-read'}).then((result) => {
-            permission = result.state
-            resolve("")
-        }).catch(() => {
-            resolve("")
-        })
-    })
-}
+        navigator.permissions
+            //@ts-ignore
+            .query({ name: "clipboard-read" })
+            .then(result => {
+                permission = result.state;
+                resolve("");
+            })
+            .catch(() => {
+                resolve("");
+            });
+    });
+};
 
 // 复制文本
 export const copy = (data: string, successCallback?: () => void) => {
@@ -34,33 +37,39 @@ export const copy = (data: string, successCallback?: () => void) => {
         if (data === "") {
             return;
         }
-        navigator.clipboard.writeText(data).then(() => {
-            successCallback && successCallback()
-        }, function (e) {
-            console.log('copy failed', e)
-        });
+        navigator.clipboard.writeText(data).then(
+            () => {
+                successCallback && successCallback();
+            },
+            function (e) {
+                console.log("copy failed", e);
+            },
+        );
     } catch (e) {
-        console.log('copy error', e)
+        console.log("copy error", e);
     }
-}
+};
 // 获取剪贴板数据
 export const paste = async (force: boolean = false): Promise<string> => {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
         try {
             if (!force && permission !== "granted") {
-                return resolve("")
+                return resolve("");
             }
-            navigator.clipboard.readText().then((text) => {
-                return resolve(text ? text : "error")
-            }).catch((e) => {
-                console.error(e)
-                return resolve("")
-            })
+            navigator.clipboard
+                .readText()
+                .then(text => {
+                    return resolve(text ? text : "error");
+                })
+                .catch(e => {
+                    console.error(e);
+                    return resolve("");
+                });
         } catch {
-            resolve("")
+            resolve("");
         }
     });
-}
+};
 
 export const copyImage = (imageBase64: string, successCallback?: () => void) => {
     if (imageBase64) {
@@ -68,45 +77,58 @@ export const copyImage = (imageBase64: string, successCallback?: () => void) => 
             if (permission !== "granted") {
                 return;
             }
-            let arr = imageBase64.split(',')
-            if (arr.length < 1) {
+
+            if (imageBase64.split(",").length < 1) {
                 return;
             }
-            const temp = arr[0].match(/:(.*?);/) || []
-            let mime = temp.length > 1 ? temp[1] : "";
-            if (!mime) {
-                return;
-            }
-            let data = [new window.ClipboardItem({
-                [mime]: new Blob([Base64.toUint8Array(arr[1])], {type: mime})
-            })];
-            navigator.clipboard.write(data).then(function () {
-                successCallback && successCallback()
-            }, function (e) {
-                console.log('copy image failed', e)
-            });
+
+            // 图片转png 因为部分图片格式剪贴板展示不支持
+            // https://stackoverflow.com/questions/62909538/is-there-any-way-to-copy-image-to-clipboard-with-pure-javascript-without-librari
+
+            const inputImage = new Image();
+            inputImage.onload = function () {
+                const canvas = document.createElement("canvas");
+                canvas.width = inputImage.width;
+                canvas.height = inputImage.height;
+
+                const ctx = canvas.getContext("2d");
+                ctx?.drawImage(inputImage, 0, 0, inputImage.width, inputImage.height);
+
+                canvas.toBlob(blob => {
+                    if (!blob) {
+                        console.error("Canvas 转换为 Blob 失败");
+                        return;
+                    }
+                    throw new Error("图片复制失败");
+                    let data = [new window.ClipboardItem({ [blob.type]: blob })];
+                    navigator.clipboard.write(data).then(
+                        () => successCallback && successCallback(),
+                        e => console.log("copy image failed", e),
+                    );
+                }, "image/png");
+            };
+            inputImage.src = imageBase64;
         } catch (e) {
-            console.log('copy image error', e)
+            console.log("copy image error", e);
         }
     }
-}
-
+};
 
 export const useClipboardPermission = () => {
-    let state = ref(permission)
+    let state = ref(permission);
     const timer = setInterval(async () => {
-        await initPermission()
-        state.value = permission
-        console.log(`clipboard permission check ${state.value}`)
-    }, 500)
+        await initPermission();
+        state.value = permission;
+        console.log(`clipboard permission check ${state.value}`);
+    }, 500);
     onUnmounted(() => {
-        clearInterval(timer)
-    })
-    return {state}
-}
+        clearInterval(timer);
+    });
+    return { state };
+};
 
 export default {
     copy,
     paste,
-    copyImage
-}
+    copyImage,
+};
