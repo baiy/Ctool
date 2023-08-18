@@ -189,7 +189,6 @@ let result = $ref("");
 let analyseEncoding = $ref<Encoding>("utf-8");
 
 const copyImage = (base64: string) => {
-    console.log(base64);
     _copyImage(base64, () => {
         Message.success($t("main_ui_copy_image_ok"));
     });
