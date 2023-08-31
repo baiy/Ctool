@@ -4,87 +4,128 @@
             <div class="ctool-header-top">
                 <a href="/" class="ctool-logo">
                     <div class="ctool-logo-image">
-                        <Logo/>
+                        <Logo />
                     </div>
                     <span class="ctool-site-name">Ctool</span>
                 </a>
                 <div class="ctool-option">
                     <a href="https://github.com/baiy/ctool" rel="external nofollow noreferrer" target="_blank">
-                        <img alt="GitHub Repo stars" style="height:26px;opacity:.8" src="https://img.shields.io/github/stars/baiy/ctool?style=social">
+                        <img
+                            alt="GitHub Repo stars"
+                            style="height: 26px; opacity: 0.8"
+                            src="https://img.shields.io/github/stars/baiy/ctool?style=social"
+                        />
                     </a>
                     <a class="ctool-theme ctool-hover-opacity" @click="setting.update('theme')">
-                        <Theme/>
+                        <Theme />
                     </a>
                     <a class="ctool-locale ctool-hover-opacity" @click="setting.update('locale')">
-                        <Lang/>
+                        <Lang />
                     </a>
                     <Tooltip :content="translation('suggest')">
-                        <a class="ctool-suggest ctool-hover-opacity" href="https://github.com/baiy/Ctool/issues/new" target="_blank">
-                            <Suggest/>
+                        <a
+                            class="ctool-suggest ctool-hover-opacity"
+                            href="https://github.com/baiy/Ctool/issues/new"
+                            target="_blank"
+                        >
+                            <Suggest />
                         </a>
                     </Tooltip>
-
                 </div>
             </div>
             <div class="ctool-header-bottom">
-                <h1>{{ translation('short_description') }}</h1>
-                <h2>{{ translation('description') }}</h2>
+                <h1>{{ translation("short_description") }}</h1>
+                <h2>{{ translation("description") }}</h2>
                 <div class="ctool-use">
                     <div class="ctool-use-button">
                         <a href="./tool.html" class="ctool-hover-opacity">
-                            {{ translation('online') }}
+                            {{ translation("online") }}
                         </a>
-                        <a @click="pwaInstaller?.()" v-if="pwaInstaller!==null" class="ctool-hover-opacity">
-                            {{ translation('install') }}
+                        <a @click="pwaInstaller?.()" v-if="pwaInstaller !== null" class="ctool-hover-opacity">
+                            {{ translation("install") }}
                         </a>
-                        <a href="https://github.com/baiy/Ctool/releases/latest" target="_blank" class="ctool-hover-opacity">
-                            {{ translation('download') }}
+                        <a
+                            href="https://github.com/baiy/Ctool/releases/latest"
+                            target="_blank"
+                            class="ctool-hover-opacity"
+                        >
+                            {{ translation("download") }}
                         </a>
                     </div>
                     <a class="ctool-use-time ctool-hover-opacity" href="https://github.com/baiy/ctool">
-                        Ctool v{{ version }} {{ translation('main_last_updated') }}{{ formatDate(buildTimestamp) }}
+                        Ctool v{{ version }} {{ translation("main_last_updated") }}{{ formatDate(buildTimestamp) }}
                     </a>
                     <div class="ctool-platform">
                         <Tooltip :content="`Windows ${translation('application')}`">
-                            <a href="https://www.microsoft.com/store/apps/9P63J98XZ0M1" target="_blank" class="ctool-hover-opacity">
-                                <Windows/>
+                            <a
+                                href="https://www.microsoft.com/store/apps/9P63J98XZ0M1"
+                                target="_blank"
+                                class="ctool-hover-opacity"
+                            >
+                                <Windows />
                             </a>
                         </Tooltip>
                         <Tooltip :content="`Mac OS ${translation('application')}`">
-                            <a href="https://github.com/baiy/Ctool/releases/latest" target="_blank" class="ctool-hover-opacity">
-                                <Mac/>
+                            <a
+                                href="https://github.com/baiy/Ctool/releases/latest"
+                                target="_blank"
+                                class="ctool-hover-opacity"
+                            >
+                                <Mac />
                             </a>
                         </Tooltip>
                         <Tooltip :content="`Linux ${translation('application')}`">
-                            <a href="https://github.com/baiy/Ctool/releases/latest" target="_blank" class="ctool-hover-opacity ctool-platform-bg">
-                                <Linux/>
+                            <a
+                                href="https://github.com/baiy/Ctool/releases/latest"
+                                target="_blank"
+                                class="ctool-hover-opacity ctool-platform-bg"
+                            >
+                                <Linux />
                             </a>
                         </Tooltip>
                         <Tooltip :content="`Google Chrome ${translation('extension')}`">
-                            <a href="https://chrome.google.com/webstore/detail/ipfcebkfhpkjeikaammlkcnalknjahmh" target="_blank"
-                               class="ctool-hover-opacity ctool-platform-bg">
-                                <Chrome/>
+                            <a
+                                href="https://chrome.google.com/webstore/detail/ipfcebkfhpkjeikaammlkcnalknjahmh"
+                                target="_blank"
+                                class="ctool-hover-opacity ctool-platform-bg"
+                            >
+                                <Chrome />
                             </a>
                         </Tooltip>
                         <Tooltip :content="`Microsoft Edge ${translation('extension')}`">
-                            <a href="https://microsoftedge.microsoft.com/addons/detail/cihekagpnnadjjplgljkmkpcfiopfplc" target="_blank"
-                               class="ctool-hover-opacity ctool-platform-bg">
-                                <Edge/>
+                            <a
+                                href="https://microsoftedge.microsoft.com/addons/detail/cihekagpnnadjjplgljkmkpcfiopfplc"
+                                target="_blank"
+                                class="ctool-hover-opacity ctool-platform-bg"
+                            >
+                                <Edge />
                             </a>
                         </Tooltip>
                         <Tooltip :content="`Firefox ${translation('extension')}`">
-                            <a href="https://addons.mozilla.org/zh-CN/firefox/addon/ctool/" target="_blank" class="ctool-hover-opacity">
-                                <Firefox/>
+                            <a
+                                href="https://addons.mozilla.org/zh-CN/firefox/addon/ctool/"
+                                target="_blank"
+                                class="ctool-hover-opacity"
+                            >
+                                <Firefox />
                             </a>
                         </Tooltip>
                         <Tooltip :content="`Utools ${translation('extension')}`">
-                            <a href="https://github.com/baiy/Ctool#utools-%E5%AE%89%E8%A3%85" target="_blank" class="ctool-platform-bg ctool-hover-opacity">
-                                <Utools/>
+                            <a
+                                href="https://github.com/baiy/Ctool#utools-%E5%AE%89%E8%A3%85"
+                                target="_blank"
+                                class="ctool-platform-bg ctool-hover-opacity"
+                            >
+                                <Utools />
                             </a>
                         </Tooltip>
                         <Tooltip :content="`Arch Linux AUR`">
-                            <a href="https://aur.archlinux.org/packages/ctool-bin" target="_blank" class="ctool-platform-bg ctool-hover-opacity">
-                                <Arc/>
+                            <a
+                                href="https://aur.archlinux.org/packages/ctool-bin"
+                                target="_blank"
+                                class="ctool-platform-bg ctool-hover-opacity"
+                            >
+                                <Arc />
                             </a>
                         </Tooltip>
                     </div>
@@ -95,7 +136,11 @@
     <section class="ctool-list">
         <div class="ctool-list-block">
             <div class="ctool-list-item">
-                <a :href="`/tool.html#${tool.firstFeature().getRouter()}`" v-for="tool in common" class="ctool-hover-opacity">
+                <a
+                    :href="`/tool.html#${tool.firstFeature().getRouter()}`"
+                    v-for="tool in recently"
+                    class="ctool-hover-opacity"
+                >
                     {{ translation(`tool_${tool.name}`) }}
                 </a>
             </div>
@@ -107,8 +152,16 @@
             </div>
             <div class="ctool-list-item">
                 <template v-for="tool in cate.tools">
-                    <a :href="`/tool.html#${item.getRouter()}`" v-for="item in tool.features" class="ctool-hover-opacity">
-                        {{ `${translation(`tool_${item.tool.name}`)}${item.tool.isSimple() ? `` : ` - ${translation(`tool_${item.tool.name}_${item.name}`)}`}` }}
+                    <a
+                        :href="`/tool.html#${item.getRouter()}`"
+                        v-for="item in tool.features"
+                        class="ctool-hover-opacity"
+                    >
+                        {{
+                            `${translation(`tool_${item.tool.name}`)}${
+                                item.tool.isSimple() ? `` : ` - ${translation(`tool_${item.tool.name}_${item.name}`)}`
+                            }`
+                        }}
                     </a>
                 </template>
             </div>
@@ -119,61 +172,71 @@
             <span></span>
             <h3>{{ translation(`contribution_1`) }}</h3>
             <p>{{ translation(`contribution_2`) }}</p>
-            <a href="https://github.com/baiy/Ctool" class="ctool-contribution-button  ctool-hover-opacity">
-                <Github/>
+            <a href="https://github.com/baiy/Ctool" class="ctool-contribution-button ctool-hover-opacity">
+                <Github />
                 <span>Ctool Github</span>
             </a>
-            <a href="https://github.com/baiy/ctool/graphs/contributors" style="text-align: center;" target="_blank">
-                <img src="https://contrib.rocks/image?repo=baiy/ctool" style="max-width: 90%"/>
+            <a href="https://github.com/baiy/ctool/graphs/contributors" style="text-align: center" target="_blank">
+                <img src="https://contrib.rocks/image?repo=baiy/ctool" style="max-width: 90%" />
             </a>
         </section>
-        <p>© {{ (new Date()).getFullYear() }} Ctool.DEV, All rights reserved.</p>
+        <p>© {{ new Date().getFullYear() }} Ctool.DEV, All rights reserved.</p>
     </footer>
 </template>
 
 <script setup lang="ts">
-import Logo from "./statics/logo.svg?component"
-import Github from "./statics/github.svg?component"
-import Theme from "./statics/theme.svg?component"
-import Lang from "./statics/lang.svg?component"
-import Chrome from "./statics/chrome.svg?component"
-import Edge from "./statics/edge.svg?component"
-import Firefox from "./statics/firefox.svg?component"
-import Linux from "./statics/linux.svg?component"
-import Mac from "./statics/mac.svg?component"
-import Windows from "./statics/windows.svg?component"
-import Utools from "./statics/utools.svg?component"
-import Arc from "./statics/arc.svg?component"
-import Suggest from "./statics/suggest.svg?component"
-import Tooltip from "./Tooltip.vue"
-import {ref, onMounted} from "vue"
-import {version, buildTimestamp, useSetting, translation} from "@/helper"
-import {categories as _categories, CategoryInterface, commonTool, ToolInterface, getTool} from "ctool-config"
+import Logo from "./statics/logo.svg?component";
+import Github from "./statics/github.svg?component";
+import Theme from "./statics/theme.svg?component";
+import Lang from "./statics/lang.svg?component";
+import Chrome from "./statics/chrome.svg?component";
+import Edge from "./statics/edge.svg?component";
+import Firefox from "./statics/firefox.svg?component";
+import Linux from "./statics/linux.svg?component";
+import Mac from "./statics/mac.svg?component";
+import Windows from "./statics/windows.svg?component";
+import Utools from "./statics/utools.svg?component";
+import Arc from "./statics/arc.svg?component";
+import Suggest from "./statics/suggest.svg?component";
+import Tooltip from "./Tooltip.vue";
+import { ref, onMounted } from "vue";
+import { version, buildTimestamp, useSetting, translation, getRecently } from "@/helper";
+import {
+    categories as _categories,
+    CategoryInterface,
+    commonTool,
+    ToolInterface,
+    getTool,
+    toolExists,
+} from "ctool-config";
 
-const pwaInstaller = ref<(() => void) | null>(null)
-const setting = useSetting()
+const pwaInstaller = ref<(() => void) | null>(null);
+const setting = useSetting();
 
-const categories: CategoryInterface[] = _categories
-const common: ToolInterface[] = commonTool.map(name => getTool(name))
+const categories: CategoryInterface[] = _categories;
+
+const recently: ToolInterface[] = [...new Set([...getRecently(), ...commonTool])]
+    .filter(name => toolExists(name))
+    .slice(0, 12)
+    .map(name => getTool(name));
 
 onMounted(() => {
-    window.addEventListener('ctool_pwa_install', (event: any) => {
-        pwaInstaller.value = event.detail.installer
-    })
-    window.addEventListener('ctool_service_worker_update', (event: any) => {
-        event.detail.update()
-    })
-})
+    window.addEventListener("ctool_pwa_install", (event: any) => {
+        pwaInstaller.value = event.detail.installer;
+    });
+    window.addEventListener("ctool_service_worker_update", (event: any) => {
+        event.detail.update();
+    });
+});
 
 const formatDate = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
     const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    const hour = date.getHours().toString().padStart(2, '0');
-    const minute = date.getMinutes().toString().padStart(2, '0');
-    const second = date.getSeconds().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    const hour = date.getHours().toString().padStart(2, "0");
+    const minute = date.getMinutes().toString().padStart(2, "0");
+    const second = date.getSeconds().toString().padStart(2, "0");
     return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
-}
-
+};
 </script>
