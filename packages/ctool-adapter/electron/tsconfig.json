@@ -11,21 +11,12 @@
         "isolatedModules": true,
         "esModuleInterop": true,
         "noImplicitAny": false,
-        "lib": [
-            "ESNext",
-            "DOM"
-        ],
+        "lib": ["ESNext", "DOM"],
         "skipLibCheck": true,
-        "types": [
-            "node"
-        ],
+        "types": ["node"],
         "paths": {
-            "@/*": [
-                "./src/*"
-            ]
+            "@/*": ["./src/*"]
         }
     },
-    "include": [
-        "src/**/*.ts"
-    ]
+    "include": ["src/**/*.ts"]
 }

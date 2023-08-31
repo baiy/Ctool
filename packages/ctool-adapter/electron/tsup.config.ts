@@ -1,15 +1,8 @@
-import {defineConfig} from "tsup";
+import { defineConfig } from "tsup";
 
 export default defineConfig({
-    entry: [
-        "./src/index.ts",
-        "./src/release.ts",
-        "./src/sync.ts",
-        "./src/preload.ts",
-        "./src/main.ts"
-    ],
+    entry: ["./src/index.ts", "./src/release.ts", "./src/sync.ts", "./src/preload.ts", "./src/main.ts"],
     outDir: "./dist/",
-    legacyOutput: true,
     format: ["cjs", "esm"],
     platform: "node",
     target: "node16",
