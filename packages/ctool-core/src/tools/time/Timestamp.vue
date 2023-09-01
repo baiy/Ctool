@@ -117,13 +117,20 @@ const action = useAction(
             paste: str =>
                 new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+$/).test(str) ||
                 new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+\.\d+$/).test(str) ||
-                new RegExp(/^-?\d{5,}$/).test(str),
+                new RegExp(/^-?\d{5,}$/).test(str) ||
+                // 科学计数法
+                new RegExp(/^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/).test(str),
         },
     ),
 );
 
 const output = $computed(() => {
-    return transform((action.current.input || "").trim(), action.current.timezone, action.current.format);
+    let input = (action.current.input || "").trim();
+    // 科学计数法
+    if (action.current.input.toLowerCase().includes("e")) {
+        input = `${parseFloat(action.current.input)}`;
+    }
+    return transform(input, action.current.timezone, action.current.format);
 });
 
 watch(
