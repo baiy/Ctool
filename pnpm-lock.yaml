@@ -280,8 +280,8 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0(ajv@8.12.0)
       axios:
-        specifier: ^0.27.2
-        version: 0.27.2
+        specifier: ^1.5.0
+        version: 1.5.0
       bcryptjs:
         specifier: ^2.4.3
         version: 2.4.3
@@ -2135,7 +2135,7 @@ packages:
     resolution: {integrity: sha512-2Hx945qKX7FBan5/gUdTM8fsMYrNG9clIgEcPXestbLVFAUyQYFAuju/5BMNf/PwgpVaX5pvRm4+ovjbp9D9gQ==}
     dependencies:
       '@codemirror/state': 6.2.1
-      '@codemirror/view': 6.17.0
+      '@codemirror/view': 6.17.1
       crelt: 1.0.6
     dev: false
 
@@ -2170,8 +2170,8 @@ packages:
       w3c-keyname: 2.2.6
     dev: false
 
-  /@codemirror/view@6.17.0:
-    resolution: {integrity: sha512-0yVhPSyKWwYDy6Xwd7aDoj8ZXtdoHwC7El4z1/JJpIimrtDR5CVGY4lvQ0r2hP11ezB+eCHexZ6Zbz6rPUe06A==}
+  /@codemirror/view@6.17.1:
+    resolution: {integrity: sha512-I5KVxsLbm1f56n9SUajLW0/AzMXYEZVvkiYahMw/yGl5gUjT2WquuKO39xUtiT4z/hNhGD7YuAEVPI8u0mncaQ==}
     dependencies:
       '@codemirror/state': 6.2.1
       style-mod: 4.1.0
@@ -3815,11 +3815,12 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /axios@0.27.2:
-    resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
+  /axios@1.5.0:
+    resolution: {integrity: sha512-D4DdjDo5CY50Qms0qGQTTw6Q44jl7zRwY7bthds06pUGfChBCTcQs+N743eFWGEd6pRTMd6A+I87aWyFV5wiZQ==}
     dependencies:
       follow-redirects: 1.15.2
       form-data: 4.0.0
+      proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
     dev: false
@@ -4012,8 +4013,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001524
-      electron-to-chromium: 1.4.506
+      caniuse-lite: 1.0.30001525
+      electron-to-chromium: 1.4.507
       node-releases: 2.0.13
       update-browserslist-db: 1.0.11(browserslist@4.21.10)
     dev: true
@@ -4121,8 +4122,8 @@ packages:
       function-bind: 1.1.1
       get-intrinsic: 1.2.0
 
-  /caniuse-lite@1.0.30001524:
-    resolution: {integrity: sha512-Jj917pJtYg9HSJBF95HVX3Cdr89JUyLT4IZ8SvM5aDRni95swKgYi3TgYLH5hnGfPE/U1dg6IfZ50UsIlLkwSA==}
+  /caniuse-lite@1.0.30001525:
+    resolution: {integrity: sha512-/3z+wB4icFt3r0USMwxujAqRvaD/B7rvGTsKhbhSQErVrJvkZCLhgNLJxU8MevahQVH6hCU9FsHdNUFbiwmE7Q==}
     dev: true
 
   /chalk@2.4.2:
@@ -4748,8 +4749,8 @@ packages:
       - supports-color
     dev: true
 
-  /electron-to-chromium@1.4.506:
-    resolution: {integrity: sha512-xxGct4GPAKSRlrLBtJxJFYy74W11zX6PO9GyHgl/U+2s3Dp0ZEwAklDfNHXOWcvH7zWMpsmgbR0ggEuaYAVvHA==}
+  /electron-to-chromium@1.4.507:
+    resolution: {integrity: sha512-brvPFnO1lu3UYBpBht2qWw9qqhdG4htTjT90/9oOJmxQ77VvTxL9+ghErFqQzgj7n8268ONAmlebqjBR/S+qgA==}
     dev: true
 
   /electron@26.1.0:
@@ -6906,6 +6907,10 @@ packages:
     resolution: {integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==}
     engines: {node: '>=0.4.0'}
     dev: true
+
+  /proxy-from-env@1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
+    dev: false
 
   /public-encrypt@4.0.3:
     resolution: {integrity: sha512-zVpa8oKZSz5bTMTFClc1fQOnyyEzpl5ozpi1B5YcvBrdohMjH2rfsBtyXcuNuwjsDIXmBYlF2N5FlJYhR29t8Q==}

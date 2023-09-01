@@ -10,7 +10,7 @@
                 <Align>
                     <Select
                         v-model="action.current.timezone[i]"
-                        :options="timezoneLists"
+                        :options="timezoneOptions"
                         :size="'small'"
                         :disabled="isValid && action.current.timezone[i] === action.current.type"
                     />
@@ -33,7 +33,7 @@
     <ExtendPage v-model="isMore">
         <Align direction="vertical">
             <Display
-                v-for="item in timezoneLists"
+                v-for="item in timezoneOptions"
                 position="right-center"
                 :text="item['label']"
                 :type="item['value'] === action.current.type ? `danger` : `general`"
@@ -49,12 +49,11 @@
 import { initialize, useAction } from "@/store/action";
 import { range } from "lodash";
 import { watch, computed } from "vue";
-import { SelectOption, ComponentSizeType } from "@/types";
+import { ComponentSizeType } from "@/types";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import zhTimezone from "./timezone/zh_CN.json";
-import enTimezone from "./timezone/en_US.json";
+import { timezoneOptions } from "./util/timezone";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -69,13 +68,6 @@ const defaultTimezoneLists = [
     "Africa/Cairo",
     "Asia/Calcutta",
 ];
-const timezoneLists: SelectOption = $computed(() => {
-    return (
-        Object.entries($t("main_locale") === "zh_CN" ? zhTimezone : enTimezone).map(([key, value]) => {
-            return { value: key, label: `${value}` };
-        }) || []
-    );
-});
 
 const check = (value: string) => {
     return (

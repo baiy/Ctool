@@ -6,7 +6,7 @@
             :center="false"
             :label="$t('time_timezone')"
             v-model="action.current.timezone"
-            :options="timezoneLists"
+            :options="timezoneOptions"
             @change="value => (action.current.timezone = value)"
         />
         <Display position="right-center">
@@ -98,10 +98,8 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import { onUnmounted, watch } from "vue";
-import zhTimezone from "./timezone/zh_CN.json";
-import enTimezone from "./timezone/en_US.json";
-import { SelectOption } from "@/types";
 import { Format, transform, InputType } from "./util/timestamp";
+import { timezoneOptions } from "./util/timezone";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -144,14 +142,6 @@ watch(
     { immediate: true, deep: true },
 );
 
-const timezoneLists: SelectOption = $computed(() => {
-    return (
-        Object.entries($t("main_locale") === "zh_CN" ? zhTimezone : enTimezone).map(([key, value]) => {
-            return { value: key, label: `${value}` };
-        }) || []
-    );
-});
-
 let current = $ref(dayjs().valueOf());
 const currentTimer = setInterval(() => {
     current = dayjs().valueOf();
@@ -169,4 +159,10 @@ const example = $computed(() => {
         { format: $t("time_unix_millisecond"), value: day.valueOf().toString() },
     ];
 });
+
+console.log(dayjs.tz(dayjs("2013-12-01"), "Europe/Dublin").format("YYYY-MM-DD HH:mm:ss"));
+console.log(dayjs.tz(dayjs("2013-06-01"), "Europe/Dublin").format("YYYY-MM-DD HH:mm:ss"));
+console.log(dayjs.tz(dayjs(), "Europe/Dublin").format("Z"));
+console.log(dayjs.tz(dayjs("2023-01-01 07:09:50"), "Europe/Dublin").format("Z"));
+console.log(timezoneOptions);
 </script>
