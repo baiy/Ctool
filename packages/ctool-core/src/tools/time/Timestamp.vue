@@ -159,10 +159,4 @@ const example = $computed(() => {
         { format: $t("time_unix_millisecond"), value: day.valueOf().toString() },
     ];
 });
-
-console.log(dayjs.tz(dayjs("2013-12-01"), "Europe/Dublin").format("YYYY-MM-DD HH:mm:ss"));
-console.log(dayjs.tz(dayjs("2013-06-01"), "Europe/Dublin").format("YYYY-MM-DD HH:mm:ss"));
-console.log(dayjs.tz(dayjs(), "Europe/Dublin").format("Z"));
-console.log(dayjs.tz(dayjs("2023-01-01 07:09:50"), "Europe/Dublin").format("Z"));
-console.log(timezoneOptions);
 </script>
