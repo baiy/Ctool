@@ -1,7 +1,7 @@
 import { HTTPSnippet, HarRequest } from "@readme/httpsnippet";
 import Json from "@/helper/json";
 import curlToHar from "./curlToHar";
-import { ClientId, TargetId, targets as httpTargets } from "@readme/httpsnippet/dist/targets/targets";
+import { ClientId, TargetId, targets as httpTargets } from "@readme/httpsnippet/targets";
 import { isArray } from "lodash";
 
 interface Entry {

@@ -259,8 +259,8 @@ importers:
         specifier: ^0.19.2
         version: 0.19.4(prettier@2.8.8)
       '@readme/httpsnippet':
-        specifier: ^6.2.1
-        version: 6.2.1
+        specifier: ^7.1.2
+        version: 7.1.2
       '@types/yargs-parser':
         specifier: ^21.0.0
         version: 21.0.0
@@ -424,8 +424,8 @@ importers:
         specifier: ^2.8.3
         version: 2.8.8
       prettier-plugin-java:
-        specifier: ^2.0.0
-        version: 2.1.0
+        specifier: ^2.3.1
+        version: 2.3.1
       qr-code-styling:
         specifier: github:baiy/styled-qr-code
         version: github.com/baiy/styled-qr-code/ad58da595ea2c1301ff4ff607dfae4f33d2b791a
@@ -2722,12 +2722,12 @@ packages:
       prettier: 2.8.8
     dev: false
 
-  /@readme/httpsnippet@6.2.1:
-    resolution: {integrity: sha512-78XI0YPhaYHjrLaCxfnXTjDiiiQvZz4fFeDpRdSAO1OU3+8mHfjZlv197R8b03y2RjpA9vlMmUE2LMbgnnJfOQ==}
+  /@readme/httpsnippet@7.1.2:
+    resolution: {integrity: sha512-jnFAUT//yrIWm6vgSdOWHXvnuPcAAOKhvfUN+Fu2JUfvAEJd9QtvvCeW2AbilyyGVkxqveyQueB9IzV0DEldOA==}
     engines: {node: '>=16'}
     dependencies:
-      event-stream: 4.0.1
       form-data: 4.0.0
+      map-stream: 0.0.7
       qs: 6.11.2
       stringify-object: 3.3.0
     dev: false
@@ -4712,10 +4712,6 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /duplexer@0.1.2:
-    resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
-    dev: false
-
   /edge-runtime@2.1.4:
     resolution: {integrity: sha512-SertKByzAmjm+MkLbFl1q0ko+/90V24dhZgQM8fcdguQaDYVEVtb6okEBGeg8IQgL1/JUP8oSlUIxSI/bvsVRQ==}
     engines: {node: '>=14'}
@@ -5172,18 +5168,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /event-stream@4.0.1:
-    resolution: {integrity: sha512-qACXdu/9VHPBzcyhdOWR5/IahhGMf0roTeZJfzz077GwylcDd90yOHLouhmv7GJ5XzPi6ekaQWd8AvPP2nOvpA==}
-    dependencies:
-      duplexer: 0.1.2
-      from: 0.1.7
-      map-stream: 0.0.7
-      pause-stream: 0.0.11
-      split: 1.0.1
-      stream-combiner: 0.2.2
-      through: 2.3.8
-    dev: false
-
   /eventemitter3@4.0.7:
     resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
     dev: false
@@ -5343,10 +5327,6 @@ packages:
 
   /fraction.js@4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
-    dev: false
-
-  /from@0.1.7:
-    resolution: {integrity: sha512-twe20eF1OxVxp/ML/kq2p1uc6KvFK/+vs8WjEbeKmV2He22MKm7YF2ANIt+EOqhJ5L3K/SuuPhk0hWQDjOM23g==}
     dev: false
 
   /fs-constants@1.0.0:
@@ -6014,8 +5994,8 @@ packages:
       minimatch: 3.1.2
     dev: true
 
-  /java-parser@2.0.4:
-    resolution: {integrity: sha512-8dzy+3lJdSakeXgYArzqJCTy2PuH4iW1WjbhPsDaiYDXPeeroksy0s1/TWoc9Zw8zWzS3x8soanHh0AThwwqrQ==}
+  /java-parser@2.0.5:
+    resolution: {integrity: sha512-AwieTO24Itcu0GgP9pBXs8gkqBtkmReclpBgXF4NkbIjdS7cn7hqpebjTmb5ouYYLFR+m3yh5fR3nW1NRrthdg==}
     dependencies:
       chevrotain: 6.5.0
       lodash: 4.17.21
@@ -6751,12 +6731,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /pause-stream@0.0.11:
-    resolution: {integrity: sha512-e3FBlXLmN/D1S+zHzanP4E/4Z60oFAa3O051qt1pxa7DEJWKAyil6upYVXCWadEnuoqa4Pkc9oUx9zsxYeRv8A==}
-    dependencies:
-      through: 2.3.8
-    dev: false
-
   /pbkdf2@3.1.2:
     resolution: {integrity: sha512-iuh7L6jA7JEGu2WxDwtQP1ddOpaJNC4KlDEFfdQajSGgGPNi4OyDc2R7QnbY2bR9QjBVGwgvTdNJZoE7RaxUMA==}
     engines: {node: '>=0.12'}
@@ -6891,23 +6865,23 @@ packages:
       source-map-js: 1.0.2
     dev: true
 
-  /prettier-plugin-java@2.1.0:
-    resolution: {integrity: sha512-fALvx3PoabX6gar5Ock/reSEJVTmmJXowkvEXWhn6AxXnLfXoZxKqPNsUdQ+jcVaXO7jnQTW39hVGBnbfgFj+A==}
+  /prettier-plugin-java@2.3.1:
+    resolution: {integrity: sha512-OYn8skqKnE5YUVL8f2ocayA6XCJK8PqsEz3pfATbDqzgdaSYDLhE/s8KrXrX9gj8KXIG6Wx0CMoXTNH8+ED22w==}
     dependencies:
-      java-parser: 2.0.4
+      java-parser: 2.0.5
       lodash: 4.17.21
-      prettier: 2.8.4
-    dev: false
-
-  /prettier@2.8.4:
-    resolution: {integrity: sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==}
-    engines: {node: '>=10.13.0'}
-    hasBin: true
+      prettier: 3.0.3
     dev: false
 
   /prettier@2.8.8:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: false
+
+  /prettier@3.0.3:
+    resolution: {integrity: sha512-L/4pUDMxcNa8R/EthV08Zt42WBO4h1rarVtK0K+QJG0X187OLo7l699jWw0GKuwzkPQ//jMFA/8Xm6Fh3J/DAg==}
+    engines: {node: '>=14'}
     hasBin: true
     dev: false
 
@@ -7494,12 +7468,6 @@ packages:
     deprecated: Please use @jridgewell/sourcemap-codec instead
     dev: true
 
-  /split@1.0.1:
-    resolution: {integrity: sha512-mTyOoPbrivtXnwnIxZRFYRrPNtEFKlpB2fvjSnCQUiAA6qAZzqwna5envK4uk6OIeP17CsdF3rSBGYVBsU0Tkg==}
-    dependencies:
-      through: 2.3.8
-    dev: false
-
   /sprintf-js@1.1.2:
     resolution: {integrity: sha512-VE0SOVEHCk7Qc8ulkWw3ntAzXuqf7S2lvwQaDLRnUeIEaKNQJzV6BwmLKhOqT61aGhfUMrXeaBk+oDGCzvhcug==}
     requiresBuild: true
@@ -7528,13 +7496,6 @@ packages:
       inherits: 2.0.4
       readable-stream: 3.6.2
     dev: true
-
-  /stream-combiner@0.2.2:
-    resolution: {integrity: sha512-6yHMqgLYDzQDcAkL+tjJDC5nSNuNIx0vZtRZeiPh7Saef7VHX9H5Ijn9l2VIol2zaNYlYEX6KyuT/237A58qEQ==}
-    dependencies:
-      duplexer: 0.1.2
-      through: 2.3.8
-    dev: false
 
   /stream-http@3.2.0:
     resolution: {integrity: sha512-Oq1bLqisTyK3TSCXpPbT4sdeYNdmyZJv1LxpEm2vu1ZhK89kSE5YXwZc3cWk0MagGaKriBh9mCFbVGtO+vY29A==}
@@ -7791,10 +7752,6 @@ packages:
     dependencies:
       any-promise: 1.3.0
     dev: true
-
-  /through@2.3.8:
-    resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}
-    dev: false
 
   /time-span@4.0.0:
     resolution: {integrity: sha512-MyqZCTGLDZ77u4k+jqg4UlrzPTPZ49NDlaekU6uuFaJLzPIN1woaRXCbGeqOfxwc3Y37ZROGAJ614Rdv7Olt+g==}

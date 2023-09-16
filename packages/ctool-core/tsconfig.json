@@ -11,27 +11,15 @@
         "isolatedModules": true,
         "esModuleInterop": true,
         "noImplicitAny": false,
-        "lib": [
-            "ESNext",
-            "DOM"
-        ],
+        "lib": ["ESNext", "DOM"],
         "skipLibCheck": true,
-        "types": [
-            "node",
-            "@vue-macros/reactivity-transform/macros-global"
-        ],
+        "types": ["node", "@vue-macros/reactivity-transform/macros-global"],
         "paths": {
-            "@/*": [
-                "./src/*"
-            ]
+            "@/*": ["./src/*"],
+            "@readme/httpsnippet/*": ["./node_modules/@readme/httpsnippet/dist/*"]
         }
     },
-    "include": [
-        "src/**/*.ts",
-        "src/**/*.d.ts",
-        "src/**/*.tsx",
-        "src/**/*.vue"
-    ],
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
     "references": [
         {
             "path": "./tsconfig.node.json"
