@@ -6,9 +6,9 @@
         "build": "pnpm exec tsup-node"
     },
     "devDependencies": {
-        "@types/node": "^20.4.1",
-        "tsup": "^7.1.0",
-        "typescript": "^5.1.6"
+        "@types/node": "^20.6.2",
+        "tsup": "^7.2.0",
+        "typescript": "^5.2.2"
     },
     "dependencies": {
         "zip-a-folder": "^1.1.5"

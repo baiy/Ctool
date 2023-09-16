@@ -16,10 +16,10 @@
         "ctool-config": "workspace:*"
     },
     "devDependencies": {
-        "@types/node": "^20.4.1",
+        "@types/node": "^20.6.2",
         "electron": "^26.1.0",
         "electron-builder": "^24.6.3",
-        "tsup": "^7.1.0",
-        "typescript": "^5.1.6"
+        "tsup": "^7.2.0",
+        "typescript": "^5.2.2"
     }
 }
