@@ -134,16 +134,17 @@
         </div>
     </header>
     <section class="ctool-list">
+        <div class="ctool-search">
+            <input :placeholder="translation(`main_search_placeholder`)" v-model="keyword" />
+            <Search />
+        </div>
         <div class="ctool-list-block">
-            <div class="ctool-list-item">
-                <a
-                    :href="`/tool.html#${tool.firstFeature().getRouter()}`"
-                    v-for="tool in recently"
-                    class="ctool-hover-opacity"
-                >
-                    {{ translation(`tool_${tool.name}`) }}
+            <div class="ctool-list-item" v-if="searchItems.length > 0">
+                <a :href="tool.url" v-for="tool in searchItems" class="ctool-hover-opacity">
+                    {{ tool.label }}
                 </a>
             </div>
+            <div class="ctool-list-item-null" v-else>{{ translation("main_ui_null") }}</div>
         </div>
         <div class="ctool-list-block" v-for="cate in categories">
             <div class="ctool-list-name">
@@ -198,27 +199,16 @@ import Windows from "./statics/windows.svg?component";
 import Utools from "./statics/utools.svg?component";
 import Arc from "./statics/arc.svg?component";
 import Suggest from "./statics/suggest.svg?component";
+import Search from "./statics/search.svg?component";
 import Tooltip from "./Tooltip.vue";
-import { ref, onMounted } from "vue";
-import { version, buildTimestamp, useSetting, translation, getRecently } from "@/helper";
-import {
-    categories as _categories,
-    CategoryInterface,
-    commonTool,
-    ToolInterface,
-    getTool,
-    toolExists,
-} from "ctool-config";
+import { ref, onMounted, computed } from "vue";
+import { version, buildTimestamp, useSetting, translation, search } from "@/helper";
+import { categories as _categories, CategoryInterface } from "ctool-config";
 
 const pwaInstaller = ref<(() => void) | null>(null);
 const setting = useSetting();
-
+const keyword = ref("");
 const categories: CategoryInterface[] = _categories;
-
-const recently: ToolInterface[] = [...new Set([...getRecently(), ...commonTool])]
-    .filter(name => toolExists(name))
-    .slice(0, 12)
-    .map(name => getTool(name));
 
 onMounted(() => {
     window.addEventListener("ctool_pwa_install", (event: any) => {
@@ -228,6 +218,8 @@ onMounted(() => {
         event.detail.update();
     });
 });
+
+const searchItems = computed(() => search(keyword.value));
 
 const formatDate = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
