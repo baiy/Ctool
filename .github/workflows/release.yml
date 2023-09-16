@@ -67,11 +67,11 @@ jobs:
               run: |
                   pnpm run initialize
                   ls -lha packages/ctool-core/dist
-                  node release.js clear
-                  node release.js init
+                  node release.cjs clear
+                  node release.cjs init
                   pnpm run only-release
                   ls -lh ./_release/
-                  node release.js get
+                  node release.cjs get
 
             - name: Get Release Files
               uses: edwardgeorge/file-outputs-action@main
@@ -144,11 +144,11 @@ jobs:
               run: |
                   pnpm run initialize
                   ls packages/ctool-core/dist
-                  node release.js clear
-                  node release.js init
+                  node release.cjs clear
+                  node release.cjs init
                   pnpm --filter ctool-adapter-tauri run platform-release
                   ls ./_release/
-                  node release.js get
+                  node release.cjs get
 
             - name: Get Release Files
               uses: edwardgeorge/file-outputs-action@main

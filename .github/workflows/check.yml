@@ -9,7 +9,7 @@ on:
             - "package.json"
             - "pnpm-lock.yaml"
             - "pnpm-workspace.yaml"
-            - "release.js"
+            - "release.cjs"
 
 jobs:
     check:
