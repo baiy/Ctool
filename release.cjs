@@ -36,10 +36,10 @@ const clear = () => {
 };
 
 const run = () => {
-    const arguments = process.argv.splice(2) || [];
+    const args = process.argv.splice(2) || [];
     let type = "init";
-    if (arguments.length > 0) {
-        type = `${arguments[0]}`;
+    if (args.length > 0) {
+        type = `${args[0]}`;
     }
     switch (type) {
         case "init":

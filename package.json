@@ -1,9 +1,9 @@
 {
     "name": "ctool",
-    "version": "2.2.0",
+    "version": "2.3.0",
     "type": "module",
     "description": "程序开发常用工具 chrome / edge / firefox / utools / windows / linux / mac",
-    "homepage": "https://github.com/baiy/Ctool",
+    "homepage": "https://ctool.dev",
     "repository": "https://github.com/baiy/Ctool",
     "author": "baiy",
     "license": "MIT",
@@ -12,7 +12,7 @@
         "check": "pnpm run initialize && pnpm --filter ctool-core run check",
         "dev": "pnpm run initialize && pnpm --filter ctool-core run dev",
         "build": "pnpm run initialize && pnpm --filter ctool-core run build",
-        "release": "node release.js && pnpm run build && pnpm -r run platform-release",
+        "release": "node release.cjs && pnpm run build && pnpm -r run platform-release",
         "only-release": "node release.js && pnpm -r run platform-release",
         "vercel-build": "pnpm run build && pnpm --filter ctool-site run build"
     },
