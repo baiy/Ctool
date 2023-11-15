@@ -9,7 +9,7 @@
             <div class="ctool-extend-page-close" v-if="show">
                 <Button :size="'small'" :type="'primary'" @click="close">
                     <Icon name="up" :size="10"/>
-                    <span style="margin-left: 5px">{{ closeText }}</span>
+                    <span style="margin-left: 5px">{{ closeTextI18n }}</span>
                 </Button>
             </div>
         </Transition>
@@ -49,12 +49,16 @@ const props = defineProps({
     },
     closeText:{
         type: String,
-        default: ()=>{
-            return $t(`main_ui_close`)
-        }
+        default: ''
     }
 })
-
+let closeI18n = $ref($t(`main_ui_close`));
+event.addListener("locale_change", () => {
+    closeI18n = $t(`main_ui_close`)
+});
+const closeTextI18n = $computed(() => {
+    return props.closeText || closeI18n
+})
 const emit = defineEmits<{ (e: 'update:modelValue', value: boolean): void }>()
 
 let show = $computed({
