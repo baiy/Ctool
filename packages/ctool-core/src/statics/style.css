@@ -1,5 +1,4 @@
 @import "./pico.css";
-@import '@imengyu/vue3-context-menu/lib/vue3-context-menu.css';
 
 [data-theme="light"] {
     --ctool-color-primary-theme: #515a6e;
