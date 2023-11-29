@@ -43,7 +43,6 @@ import { DisplayPosition } from "@/types";
 import { useTheme } from "@/store/setting";
 import { sizeConvert } from "../util";
 import event from "@/event";
-import { ILineChange } from "monaco-editor";
 
 const original = defineModel<string>("original", {
     default: "",

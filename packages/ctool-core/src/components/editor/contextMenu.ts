@@ -124,7 +124,7 @@ class contextMenu {
         setTimeout(() => {
             // 移除多余右键菜单
             this.editor.createContextKey("editorHasDocumentFormattingProvider", false);
-            this.editor.createContextKey("editorHasDocumentSymbolProvider", false);
+            // this.editor.createContextKey("editorHasDocumentSymbolProvider", false);
             this.editor.createContextKey("editorHasReferenceProvider", false);
             this.editor.createContextKey("editorHasDefinitionProvider", false);
             this.editor.createContextKey("editorHasDocumentSelectionFormattingProvider", false);

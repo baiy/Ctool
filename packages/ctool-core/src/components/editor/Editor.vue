@@ -14,7 +14,7 @@
 </template>
 <script lang="ts" setup>
 // 代码编辑器
-import { loader, ContextMenu, monacoInstance, monaco } from "./monaco";
+import { loader, ContextMenu, monacoInstance, monaco, lineInfo } from "./monaco";
 import PlaceholderContentWidget from "./placeholderContentWidget";
 import { onUnmounted, onMounted, unref, watch, PropType, ref, shallowRef } from "vue";
 import { getEditorLanguage } from "@/helper/code";
@@ -22,6 +22,7 @@ import { DisplayPosition } from "@/types";
 import { useTheme } from "@/store/setting";
 import { sizeConvert } from "../util";
 import event from "@/event";
+
 const modelValue = defineModel<string>({
     default: "",
 });
@@ -98,6 +99,8 @@ const updateEditorConfig = async () => {
 
     // 主题
     monacoInstance()?.editor.setTheme(storeTheme.theme.raw === "dark" ? "vs-dark" : "vs");
+
+    editorView.value.render(true);
 };
 
 const create = async (element: HTMLElement) => {
@@ -114,6 +117,7 @@ const create = async (element: HTMLElement) => {
             },
             lineNumbers: lineNumbers.value ? "on" : "off",
             wordWrap: lineWrapping.value ? "on" : "off",
+            language: getLanguage(props.lang).id,
             scrollbar: {
                 verticalScrollbarSize: 5,
             },
@@ -134,10 +138,14 @@ const create = async (element: HTMLElement) => {
         // 右键菜单
         const contextMenu = new ContextMenu(editor);
 
+        // 行信息展示
+        lineInfo(editor);
+
         contextMenu.setHandle("ctool_line_wrapping", (ed, id, result) => (lineWrapping.value = result));
         contextMenu.setHandle("ctool_line_number", (ed, id, result) => (lineNumbers.value = result));
 
         editorView.value = editor;
+
         // 编辑器配置
         updateEditorConfig();
     });
