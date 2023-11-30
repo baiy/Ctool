@@ -284,6 +284,7 @@ declare module "@vue/runtime-core" {
                 disableLineWrapping?: boolean;
                 disableBorder?: boolean;
                 disableLineNumbers?: boolean;
+                lineInfo?: boolean;
                 reload?: number;
                 langCallback?: () => string | void;
                 disableClear?: boolean;

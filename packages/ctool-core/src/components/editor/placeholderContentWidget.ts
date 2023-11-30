@@ -1,4 +1,4 @@
-import * as monaco from "monaco-editor";
+import { monaco } from "./monaco";
 
 class PlaceholderContentWidget implements monaco.editor.IContentWidget {
     private static readonly ID = "editor.widget.placeholderHint";

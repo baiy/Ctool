@@ -12,7 +12,7 @@ type Range = {
     startColumn: number;
 };
 
-const render = (range: Range, editor: monaco.editor.ICodeEditor) => {
+const render = (range: Range, editor: monaco.editor.IStandaloneCodeEditor) => {
     const code: string = trimEnd(
         editor.getModel()?.getValueInRange({
             startLineNumber: range.startLineNumber,
@@ -66,7 +66,7 @@ const render = (range: Range, editor: monaco.editor.ICodeEditor) => {
     ]);
 };
 
-const lineCountDecoration = debounce(function (editor: monaco.editor.ICodeEditor) {
+const lineInfoHandle = (editor: monaco.editor.IStandaloneCodeEditor) => {
     const ranges = editor.getVisibleRanges();
     if (ranges.length === 0) {
         return;
@@ -98,12 +98,62 @@ const lineCountDecoration = debounce(function (editor: monaco.editor.ICodeEditor
         .forEach(item => {
             render(item.range, editor);
         });
-}, 100);
+};
+const lineInfoDecoration = debounce(function (editor: monaco.editor.IStandaloneCodeEditor) {
+    setTimeout(() => lineInfoHandle(editor), 100);
+}, 300);
 
-export default (editor: monaco.editor.ICodeEditor) => {
-    editor.onDidScrollChange(() => lineCountDecoration(editor));
-    editor.onDidChangeModelLanguage(() => lineCountDecoration(editor));
-    editor.onDidChangeModel(() => lineCountDecoration(editor));
-    editor.onDidLayoutChange(() => lineCountDecoration(editor));
-    setTimeout(() => lineCountDecoration(editor), 1000);
+class LineInfo {
+    private readonly editor: monaco.editor.IStandaloneCodeEditor;
+
+    private _status: boolean = false;
+
+    constructor(editor: monaco.editor.IStandaloneCodeEditor) {
+        this.editor = editor;
+        this.init();
+    }
+
+    init() {
+        this.editor.onDidScrollChange(() => this.render());
+        this.editor.onDidChangeModelLanguage(() => this.render());
+        this.editor.onDidChangeModel(() => this.render());
+        this.editor.onDidChangeModelContent(() => this.render());
+        setTimeout(() => this.render(), 500);
+    }
+
+    status(status: boolean) {
+        this._status = status;
+        this.render();
+        if (!this._status) {
+            const ids =
+                this.editor
+                    .getModel()
+                    ?.getAllDecorations()
+                    .filter(item => item.options.after?.inlineClassName?.includes("ctool-monaco-editor-line-info"))
+                    .map(item => item.id) || [];
+            if (ids.length > 0) {
+                this.editor.removeDecorations(ids);
+            }
+        }
+    }
+
+    private render() {
+        if (this._status) {
+            return lineInfoDecoration(this.editor);
+        }
+    }
+}
+
+const instance: Map<string, LineInfo> = new Map();
+
+export default (editor: monaco.editor.IStandaloneCodeEditor) => {
+    if (!instance.has(editor.getId())) {
+        const id = editor.getId();
+        instance.set(id, new LineInfo(editor));
+        editor.onDidDispose(() => {
+            instance.delete(id);
+        });
+    }
+
+    return instance.get(editor.getId()) as LineInfo;
 };

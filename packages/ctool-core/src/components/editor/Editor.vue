@@ -72,6 +72,10 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    lineInfo: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const storeTheme = useTheme();
@@ -92,6 +96,9 @@ const updateEditorConfig = async () => {
     if (!editorView.value) {
         return;
     }
+
+    lineInfo(editorView.value).status(props.lineInfo);
+
     const model = editorView.value.getModel();
 
     // 设置语言
@@ -121,9 +128,8 @@ const create = async (element: HTMLElement) => {
             scrollbar: {
                 verticalScrollbarSize: 5,
             },
+            automaticLayout: true,
         });
-
-        window["_editor"] = editor;
 
         // 内容更新
         editor.onDidChangeModelContent(() => {
@@ -139,7 +145,7 @@ const create = async (element: HTMLElement) => {
         const contextMenu = new ContextMenu(editor);
 
         // 行信息展示
-        lineInfo(editor);
+        lineInfo(editor).status(props.lineInfo);
 
         contextMenu.setHandle("ctool_line_wrapping", (ed, id, result) => (lineWrapping.value = result));
         contextMenu.setHandle("ctool_line_number", (ed, id, result) => (lineNumbers.value = result));
@@ -196,6 +202,7 @@ watch(
             color: storeTheme.theme.raw,
             lang: props.lang,
             reload: props.reload,
+            lineInfo: props.lineInfo,
         };
     },
     () => updateEditorConfig(),
