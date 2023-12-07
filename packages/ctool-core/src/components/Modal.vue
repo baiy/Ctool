@@ -76,12 +76,12 @@ const clickClose = (event: MouseEvent) => {
 }
 
 const open = () => {
-    if (!container) {
+        if (!container) {
         return;
     }
     container.show()
     setTimeout(() => {
-        document.addEventListener('click', clickClose)
+        container && document.addEventListener('click', clickClose)
     }, 300)
 }
 
@@ -96,7 +96,7 @@ const close = () => {
         return;
     }
     setTimeout(() => {
-        container.close()
+        container && container.close()
         emit('close')
     }, 300)
     document.removeEventListener('click', clickClose);
@@ -107,7 +107,7 @@ const update = () => {
 }
 watch(() => show, () => update())
 onMounted(() => {
-    update()
+        update()
     // esc 关闭
     document.addEventListener('keydown', event => {
         if (event.key === 'Escape') {
