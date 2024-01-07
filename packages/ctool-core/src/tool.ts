@@ -18,8 +18,5 @@ import { initPermission as initClipboardPermission } from "@/helper/clipboard";
         }
     }
     const app = createApp(Tool);
-    app.use(pinia).use(router).use(ctool);
-    await platform.runtime.entry(() => {
-        app.mount("#app");
-    }, storage);
+    app.use(pinia).use(router).use(ctool).mount("#app");
 })();

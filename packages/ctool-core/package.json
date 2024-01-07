@@ -3,7 +3,7 @@
     "private": true,
     "scripts": {
         "check": "vue-tsc --noEmit",
-        "dev": "pnpm run check && vite",
+        "dev": "pnpm run check && vite --host",
         "build": "pnpm run check && vite build",
         "preview": "vite preview"
     },
