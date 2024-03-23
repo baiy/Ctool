@@ -31,7 +31,6 @@
         "csv-stringify": "^6.2.3",
         "ctool-adapter-chrome": "workspace:*",
         "ctool-adapter-edge": "workspace:*",
-        "ctool-adapter-electron": "workspace:*",
         "ctool-adapter-firefox": "workspace:*",
         "ctool-adapter-tauri": "workspace:*",
         "ctool-adapter-utools": "workspace:*",
