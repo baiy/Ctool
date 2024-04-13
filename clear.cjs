@@ -11,9 +11,9 @@ const lists = [
     "packages/ctool-adapter/tauri",
     "packages/ctool-adapter/utools",
     "packages/ctool-adapter/web",
-    "packages/ctool-adapter/ctool-config",
-    "packages/ctool-adapter/ctool-core",
-    "packages/ctool-adapter/ctool-site",
+    "packages/ctool-config",
+    "packages/ctool-core",
+    "packages/ctool-site",
 ];
 
 lists.forEach(item => {

@@ -297,9 +297,6 @@ importers:
       ctool-adapter-edge:
         specifier: workspace:*
         version: link:../ctool-adapter/edge
-      ctool-adapter-electron:
-        specifier: workspace:*
-        version: link:../ctool-adapter/electron
       ctool-adapter-firefox:
         specifier: workspace:*
         version: link:../ctool-adapter/firefox
@@ -470,7 +467,7 @@ importers:
         version: 8.13.0
       x2js:
         specifier: github:abdolence/x2js
-        version: git+https://git@github.com:abdolence/x2js.git#185e410b3fa621070fea1f86a389b477afa216b9
+        version: https://codeload.github.com/abdolence/x2js/tar.gz/185e410b3fa621070fea1f86a389b477afa216b9
       xml-formatter:
         specifier: ^2.6.1
         version: 2.6.1
@@ -1403,10 +1400,6 @@ packages:
     resolution: {integrity: sha512-HLhSWOLRi875zjjMG/r+Nv0oCW8umGb0BgEhyX3dDX3egwZtB8PqLnjz3yedt8R5StBrzcg4aBpnh8UA9D1BoQ==}
     engines: {node: '>=6.0.0'}
 
-  '@jridgewell/resolve-uri@3.1.0':
-    resolution: {integrity: sha512-F2msla3tad+Mfht5cJq7LSXcdudKTWCVYUgw6pLFOOHSTtZlj6SWNYAp+AhuqLmWdBO2X5hPrLcu8cVP8fy28w==}
-    engines: {node: '>=6.0.0'}
-
   '@jridgewell/resolve-uri@3.1.1':
     resolution: {integrity: sha512-dSYZh7HhCDtCKm4QakX0xFpsRDqjjtZf/kjI/v3T3Nwt5r8/qz/M19F9ySyOqU94SXBmeG9ttTul+YnR4LOxFA==}
     engines: {node: '>=6.0.0'}
@@ -1418,14 +1411,8 @@ packages:
   '@jridgewell/source-map@0.3.5':
     resolution: {integrity: sha512-UTYAUj/wviwdsMfzoSJspJxbkH5o1snzwX0//0ENX1u/55kkZZkcTZP6u9bwKGkv+dkk9at4m1Cpt0uY80kcpQ==}
 
-  '@jridgewell/sourcemap-codec@1.4.14':
-    resolution: {integrity: sha512-XPSJHWmi394fuUuzDnGz1wiKqWfo1yXecHQMRf2l6hztTO+nPru658AyDngaBe7isIxEkRsPR3FZh+s7iVa4Uw==}
-
   '@jridgewell/sourcemap-codec@1.4.15':
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
-
-  '@jridgewell/trace-mapping@0.3.18':
-    resolution: {integrity: sha512-w+niJYzMHdd7USdiH2U6869nqhD2nbfZXND5Yp93qIbEmnDNk7PD48o+YchRVpzMU7M6jVCbenTR7PA1FLQ9pA==}
 
   '@jridgewell/trace-mapping@0.3.20':
     resolution: {integrity: sha512-R8LcPeWZol2zR8mmH3JeKQ6QRCFb7XgUhV9ZlGhHLGyg4wpPiPZNQOOWhFZhxKw8u//yTbNGI42Bx/3paXEQ+Q==}
@@ -2913,9 +2900,11 @@ packages:
 
   glob@7.1.6:
     resolution: {integrity: sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-agent@3.0.0:
     resolution: {integrity: sha512-PT6XReJ+D07JvGoxQMkT6qji/jVNfX/h364XHZOWeRzy64sSFr+xJ5OX7LI3b4MPQzdL4H8Y8M0xzPpsVMwA8Q==}
@@ -3053,6 +3042,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -4708,8 +4698,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  x2js@git+https://git@github.com:abdolence/x2js.git#185e410b3fa621070fea1f86a389b477afa216b9:
-    resolution: {commit: 185e410b3fa621070fea1f86a389b477afa216b9, repo: git@github.com:abdolence/x2js.git, type: git}
+  x2js@https://codeload.github.com/abdolence/x2js/tar.gz/185e410b3fa621070fea1f86a389b477afa216b9:
+    resolution: {tarball: https://codeload.github.com/abdolence/x2js/tar.gz/185e410b3fa621070fea1f86a389b477afa216b9}
     version: 1.2.0
 
   xml-formatter@2.6.1:
@@ -5660,9 +5650,7 @@ snapshots:
     dependencies:
       '@jridgewell/set-array': 1.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
-      '@jridgewell/trace-mapping': 0.3.18
-
-  '@jridgewell/resolve-uri@3.1.0': {}
+      '@jridgewell/trace-mapping': 0.3.20
 
   '@jridgewell/resolve-uri@3.1.1': {}
 
@@ -5673,14 +5661,7 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.20
 
-  '@jridgewell/sourcemap-codec@1.4.14': {}
-
   '@jridgewell/sourcemap-codec@1.4.15': {}
-
-  '@jridgewell/trace-mapping@0.3.18':
-    dependencies:
-      '@jridgewell/resolve-uri': 3.1.0
-      '@jridgewell/sourcemap-codec': 1.4.14
 
   '@jridgewell/trace-mapping@0.3.20':
     dependencies:
@@ -7469,7 +7450,7 @@ snapshots:
 
   globalthis@1.0.3:
     dependencies:
-      define-properties: 1.2.0
+      define-properties: 1.2.1
 
   globby@11.1.0:
     dependencies:
@@ -9333,7 +9314,7 @@ snapshots:
 
   ws@8.13.0: {}
 
-  x2js@git+https://git@github.com:abdolence/x2js.git#185e410b3fa621070fea1f86a389b477afa216b9: {}
+  x2js@https://codeload.github.com/abdolence/x2js/tar.gz/185e410b3fa621070fea1f86a389b477afa216b9: {}
 
   xml-formatter@2.6.1:
     dependencies:
