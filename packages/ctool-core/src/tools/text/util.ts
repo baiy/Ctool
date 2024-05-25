@@ -25,6 +25,10 @@ const getGbkStrLength = (str: string) => {
 
 
 export const escapeChars = {
+    backslash: {
+        string: "\\\\",
+        char: "\\"
+    },
     single_quote: {
         string: "\\'",
         char: "\'"
@@ -32,10 +36,6 @@ export const escapeChars = {
     double_quote: {
         string: "\\\"",
         char: "\""
-    },
-    backslash: {
-        string: "\\\\",
-        char: "\\"
     },
     new_line: {
         string: "\\n",
