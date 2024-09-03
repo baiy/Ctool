@@ -145,6 +145,12 @@ watch(() => {
 
 <style scoped>
 .select-box {
-    width: 100%;
+    width: 100%; /* Ensure it uses full width of the container */
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+}
+
+.select-box {
+    min-width: 0; /* Prevent overflow issues */
+    max-width: 120px; /* Adjust this value to control the size */
 }
 </style>
