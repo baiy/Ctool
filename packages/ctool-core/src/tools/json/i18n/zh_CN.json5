@@ -19,4 +19,5 @@
     "repair": "JSON 修复",
     "json_path": "JSONPath",
     "jmes_path": "JMESPath",
+    "line_info": "长度",
 }

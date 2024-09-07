@@ -2,6 +2,8 @@ export type {
     StorageDataStructureInterface,
     StorageDataStructure,
     StorageInterface,
+    Storage,
+    Initializer,
     PlatformRuntime,
     LocaleLists,
     Locale,
@@ -12,10 +14,10 @@ export type {
     RouteMeta,
     ToolRouteConfig,
     ThemeType,
-    ThemeRawType
-} from "ctool-config"
+    ThemeRawType,
+} from "ctool-config";
 
-export {localesReal, locales, themes} from "ctool-config"
+export { localesReal, locales, themes } from "ctool-config";
 
 // 组件尺寸
 export type ComponentSizeType = "small" | "large" | "default";
@@ -43,7 +45,11 @@ export type TextInputUpload = UploadFileType | "none"
 // Button 组件
 export type ButtonType = "general" | "primary" | "danger" | "dotted"
 // Select 组件
-export type SelectOption = Array<string | number | { value: string | number, label: string | number, description?: string }>
+export type SelectOption = Array<string | number | {
+    value: string | number,
+    label: string | number,
+    description?: string
+}>
 export type SelectValue = string | number
 export type SelectType = "general" | "primary"
 // Radio 组件
@@ -56,9 +62,9 @@ export type CheckboxValue = (string | number)[]
 export type TableConfig = { key: string, title: string, width?: number, html?: boolean }[]
 export type TableLists = Record<string, any>[]
 // link 组件
-export type LinkType = 'primary' | 'default'
+export type LinkType = "primary" | "default"
 // Modal 组件
-export type ModalFooterType = 'normal' | 'long' | 'none'
+export type ModalFooterType = "normal" | "long" | "none"
 // Tabs 组件
 export type TabsListsType = { name: string, label: string }[]
 // Align 组件
@@ -69,13 +75,13 @@ export type AlignSize = ComponentSizeType | "none" | string | number
 
 // 历史数据序列化/反序列化
 export interface HistorySerializable<T = any> {
-    __: "_history_serializable_"
+    __: "_history_serializable_";
 
-    isSaveHistory(): boolean
+    isSaveHistory(): boolean;
 
-    serialize(): Record<string, any>
+    serialize(): Record<string, any>;
 
-    unserialize(data?: Record<string, any>): T
+    unserialize(data?: Record<string, any>): T;
 }
 
 // 输入输出组件
@@ -93,24 +99,24 @@ export interface InputBase<T extends string = string, V = string> extends InputO
 }
 
 export interface OutputBase<T extends string = string> extends InputOutputBase<T> {
-    _: "_output_"
+    _: "_output_";
 }
 
 // 文本输入输出
-const _textInputEncoderLists = ['text', 'base64', 'hex', 'upload', 'url'] as const
+const _textInputEncoderLists = ["text", "base64", "hex", "upload", "url"] as const;
 export type TextInputEncoderType = typeof _textInputEncoderLists[number]
-export const textInputEncoderLists: TextInputEncoderType[] = _textInputEncoderLists as any
-const _textOutputEncoderLists = ['text', 'base64', 'hex', 'image', 'down'] as const
+export const textInputEncoderLists: TextInputEncoderType[] = _textInputEncoderLists as any;
+const _textOutputEncoderLists = ["text", "base64", "hex", "image", "down"] as const;
 export type TextOutputEncoderType = typeof _textOutputEncoderLists[number]
-export const textOutputEncoderLists: TextOutputEncoderType[] = _textOutputEncoderLists as any
+export const textOutputEncoderLists: TextOutputEncoderType[] = _textOutputEncoderLists as any;
 
 // 序列化输入输出
-const _serializeInputEncoderLists = ['json', 'http_query_string', 'csv', 'html_table', 'xml', 'yaml', 'toml', 'properties', 'php_array', 'php_serialize'] as const
+const _serializeInputEncoderLists = ["json", "http_query_string", "csv", "html_table", "xml", "yaml", "toml", "properties", "php_array", "php_serialize"] as const;
 export type SerializeInputEncoderType = typeof _serializeInputEncoderLists[number]
-export const serializeInputEncoderLists: SerializeInputEncoderType[] = _serializeInputEncoderLists as any
-const _serializeOutputEncoderLists = ['text', 'json', 'http_query_string', 'csv', 'html_table', 'xml', 'yaml', 'toml', 'properties', 'php_array', 'php_serialize'] as const
+export const serializeInputEncoderLists: SerializeInputEncoderType[] = _serializeInputEncoderLists as any;
+const _serializeOutputEncoderLists = ["text", "json", "http_query_string", "csv", "html_table", "xml", "yaml", "toml", "properties", "php_array", "php_serialize"] as const;
 export type SerializeOutputEncoderType = typeof _serializeOutputEncoderLists[number]
-export const serializeOutputEncoderLists: SerializeOutputEncoderType[] = _serializeOutputEncoderLists as any
+export const serializeOutputEncoderLists: SerializeOutputEncoderType[] = _serializeOutputEncoderLists as any;
 
 // 消息提示
 export type MessageType = "success" | "error" | "info"

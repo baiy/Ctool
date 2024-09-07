@@ -45,7 +45,7 @@
     "editor_multiple": "Column Selection Mode",
     "editor_goto": "Go to",
     "editor_search": "Find/Replace",
-    "editor_copy_with_style": "Copy With Style",
+    "editor_inline": "Inline",
     // help tip
     "click_help": "Click to view the help document",
     // display

@@ -17,7 +17,7 @@
                 :tooltip="$t('main_ui_open_full')"
                 @click="openUrl()"
             />
-            <Icon v-if="platform.isElectron() || platform.isTauri()" :size="18" hover name="devtools" :tooltip="$t('main_ui_open_devtools')" @click="platform.runtime.call('toggleDevTools')"/>
+            <Icon v-if="platform.isDesktop()" :size="18" hover name="devtools" :tooltip="$t('main_ui_open_devtools')" @click="platform.runtime.call('toggleDevTools')"/>
         </Align>
     </div>
     <ExtendPage v-model="openHistory">

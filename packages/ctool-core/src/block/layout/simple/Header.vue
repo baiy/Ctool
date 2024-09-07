@@ -29,7 +29,7 @@
             </span>
             <Icon hover name="setting" @click="event.dispatch('open_setting')" :tooltip="$t('main_ui_setting')"/>
             <Icon v-if="platform.isChromium() || platform.isFirefox() || platform.isWeb()" hover name="full" :tooltip="$t('main_ui_open_full')"  @click="openUrl()"/>
-            <Icon v-if="platform.isElectron() || platform.isTauri()" hover name="devtools" :tooltip="$t('main_ui_open_devtools')" @click="platform.runtime.call('toggleDevTools')"/>
+            <Icon v-if="platform.isDesktop()" hover name="devtools" :tooltip="$t('main_ui_open_devtools')" @click="platform.runtime.call('toggleDevTools')"/>
         </Align>
     </div>
     <ExtendPage v-model="openHistory">

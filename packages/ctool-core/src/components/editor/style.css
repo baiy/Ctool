@@ -1,0 +1,13 @@
+.view-line .ctool-monaco-editor-line-info {
+    margin: .1em .2em 0;
+    display: inline;
+    line-height: 100%;
+    height: 100%;
+    font-size: 10px;
+
+    padding: 0 6px;
+    background-color: grey;
+    border-radius: 4px;
+    text-shadow: none;
+    color: #fff;
+}
