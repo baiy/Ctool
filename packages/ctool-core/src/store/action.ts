@@ -202,7 +202,7 @@ export const useAction = <T extends Record<string, any>>(input: InitializeReturn
     const history = getHistoryInstance<T>(storeOperate.items.tool, storeOperate.items.feature)
     const storeSetting = useSetting()
 
-    const current: T = reactive(input.items)
+    const current = reactive<T>(input.items)
 
     const historyPush = debounce(function () {
         // 检查是否可以保存数据

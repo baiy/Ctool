@@ -1,4 +1,3 @@
-import { Base64 } from "js-base64";
 import platform from "./platform";
 import { onUnmounted, ref } from "vue";
 

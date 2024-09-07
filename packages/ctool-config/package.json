@@ -8,14 +8,14 @@
     },
     "dependencies": {
         "json5": "^2.2.3",
-        "lodash": "^4.17.21",
+        "lodash": "catalog:",
         "pinyin-pro": "^3.13.0",
         "svg-path-bounds": "^1.0.2"
     },
     "devDependencies": {
-        "@types/lodash": "^4.14.198",
-        "@types/node": "^20.6.2",
-        "tsup": "^7.2.0",
-        "typescript": "^5.2.2"
+        "@types/lodash": "catalog:",
+        "@types/node": "catalog:",
+        "tsup": "catalog:",
+        "typescript": "catalog:"
     }
 }

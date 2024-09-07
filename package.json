@@ -26,9 +26,9 @@
     },
     "devDependencies": {
         "@types/http-proxy": "^1.17.10",
-        "@types/node": "^20.6.2",
+        "@types/node": "catalog:",
         "@vercel/node": "^2.9.12",
-        "typescript": "^5.2.2"
+        "typescript": "catalog:"
     },
     "dependencies": {
         "ctool-config": "workspace:*",

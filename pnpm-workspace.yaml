@@ -1,2 +1,18 @@
 packages:
-  - 'packages/**'
+    - 'packages/**'
+
+catalog:
+    '@types/lodash': ^4.17.7
+    lodash: ^4.17.21
+    '@types/node': ^22.0.0
+    '@vitejs/plugin-vue': ^5.1.0
+    typescript: ^5.5.0
+    vite: ^5.4.3
+    vue-tsc: ^2.1.6
+    tsup: ^8.2.4
+    '@vueuse/core': ^11.0.0
+    axios: ^1.7.0
+    vue: ^3.5.0
+    '@vue/runtime-core': ^3.5.0
+    vue-router: ^4.4.0
+    dayjs: ^1.11.12

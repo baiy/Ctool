@@ -17,7 +17,11 @@ const lists = [
 ];
 
 lists.forEach(item => {
-    const removePath = resolve(__dirname, `${item}/dist/`);
-    console.log(removePath)
+    let removePath = resolve(__dirname, `${item}/dist/`);
+    console.log(removePath);
+    rmSync(removePath, { recursive: true, force: true });
+    removePath = resolve(__dirname, `${item}/node_modules/`);
+    console.log(removePath);
     rmSync(removePath, { recursive: true, force: true });
 });
+rmSync(resolve(__dirname, `node_modules/`), { recursive: true, force: true });

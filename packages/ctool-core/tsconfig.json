@@ -1,26 +1,9 @@
 {
-    "compilerOptions": {
-        "target": "ESNext",
-        "useDefineForClassFields": true,
-        "module": "ESNext",
-        "moduleResolution": "node",
-        "strict": true,
-        "jsx": "preserve",
-        "sourceMap": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "esModuleInterop": true,
-        "noImplicitAny": false,
-        "lib": ["ESNext", "DOM"],
-        "skipLibCheck": true,
-        "types": ["node", "@vue-macros/reactivity-transform/macros-global"],
-        "paths": {
-            "@/*": ["./src/*"],
-            "@readme/httpsnippet/*": ["./node_modules/@readme/httpsnippet/dist/*"]
-        }
-    },
-    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+    "files": [],
     "references": [
+        {
+            "path": "./tsconfig.app.json"
+        },
         {
             "path": "./tsconfig.node.json"
         }

@@ -28,7 +28,7 @@ class History<T = any> {
         event.dispatch('history_change')
     }
 
-    static repository<T = any>(name): History<T> {
+    static repository<T = any>(name:string): History<T> {
         if (!(name in History.instance)) {
             History.instance[name] = new History<T>(name)
         }

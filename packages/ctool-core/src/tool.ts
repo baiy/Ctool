@@ -1,7 +1,6 @@
 import { createApp } from "vue";
 import { pinia } from "@/helper/pinia";
 import platform from "@/helper/platform";
-import storage from "@/helper/storage";
 import ctool from "@/helper/plugin";
 import router from "@/helper/router";
 import "@/statics/style.css";

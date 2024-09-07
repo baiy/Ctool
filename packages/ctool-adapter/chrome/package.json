@@ -15,8 +15,8 @@
     },
     "devDependencies": {
         "@types/chrome": "^0.0.193",
-        "@types/node": "^20.6.2",
-        "tsup": "^7.2.0",
-        "typescript": "^5.2.2"
+        "@types/node": "catalog:",
+        "tsup": "catalog:",
+        "typescript": "catalog:"
     }
 }

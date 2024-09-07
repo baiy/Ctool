@@ -1,12 +1,25 @@
 {
     "compilerOptions": {
-        "composite": true,
+        "target": "ES2022",
+        "lib": [
+            "ES2023"
+        ],
         "module": "ESNext",
-        "moduleResolution": "Node",
-        "allowSyntheticDefaultImports": true
+        "skipLibCheck": true,
+        /* Bundler mode */
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "isolatedModules": true,
+        "moduleDetection": "force",
+        "noEmit": true,
+        /* Linting */
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true
     },
     "include": [
-        "vite.config.ts",
-        "ctool.ts"
+        "vite.config.ts"
     ]
 }
