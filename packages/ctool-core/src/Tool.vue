@@ -19,11 +19,15 @@ import SimpleBottom from "@/block/layout/simple/Bottom.vue";
 import ComplexHeader from "@/block/layout/complex/Header.vue";
 import ComplexBottom from "@/block/layout/complex/Bottom.vue";
 import useSetting, { useTheme } from "@/store/setting";
-import { nextTick, onErrorCaptured, watch } from "vue";
+import { nextTick, onErrorCaptured, onMounted, watch } from "vue";
 import { isObject } from "lodash";
+import platform from "@/helper/platform";
+import storage from "@/helper/storage";
+import { useRouter,Router } from "vue-router";
 
 // 初始化配置
 const storeSetting = useSetting();
+const router = useRouter()
 // 初始化主题
 useTheme();
 
@@ -67,6 +71,10 @@ onErrorCaptured(err => {
     globalErrorMessage(err);
     return false;
 });
+
+onMounted(()=>{
+    platform.runtime.initialize( storage,router);
+})
 </script>
 <style>
 .ctool-global {

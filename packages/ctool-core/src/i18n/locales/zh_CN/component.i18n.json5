@@ -45,7 +45,7 @@
     "editor_multiple": "列选择模式",
     "editor_goto": "代码定位",
     "editor_search": "查找/替换",
-    "editor_copy_with_style": "复制(带样式)",
+    "editor_inline": "内联模式",
     // help tip
     "click_help": "点击查看说明文档",
     // display

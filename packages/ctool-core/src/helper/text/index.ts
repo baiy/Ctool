@@ -79,6 +79,7 @@ class Text {
         return Text.fromBuffer(
             Buffer.from(
                 str
+                    .replaceAll(/\\x/g, '') // 兼容 Unicode Escape 格式
                     .replaceAll(" ", "") // 过滤空格
                     .replaceAll("\n", preserve_line_breaks ? "0a" : "") // 换行符处理
                     .trim(),
@@ -86,7 +87,6 @@ class Text {
             ),
         );
     }
-
     static fromBuffer(item: Buffer): Text {
         return Text.fromUint8Array(Uint8Array.from(item));
     }

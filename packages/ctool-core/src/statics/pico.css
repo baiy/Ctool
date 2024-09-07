@@ -802,7 +802,7 @@ button,
 input[type=submit],
 input[type=button],
 input[type=reset],
-[role=button] {
+[role=button]:not(.monaco-editor [role=button]) {
     --background-color: var(--primary);
     --border-color: var(--primary);
     --color: var(--primary-inverse);
