@@ -98,5 +98,7 @@
     "gzip": "GZIP",
     "gzip_encoder": "编码/压缩",
     "gzip_decoder": "解码/解压",
-    "urlParse": "Url解析"
+    "urlParse": "Url解析",
+    "asn1": "ASN.1解码",
+    "dockerCompose": "Docker run到Compose",
 }

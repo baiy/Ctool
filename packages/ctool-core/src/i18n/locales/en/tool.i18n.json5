@@ -89,4 +89,6 @@
     "gzip_encoder": "Encoder",
     "gzip_decoder": "Decoder",
     "urlParse": "Url Parse",
+    "asn1": "ASN.1 Decode",
+    "dockerCompose": "Docker run to Compose",
 }

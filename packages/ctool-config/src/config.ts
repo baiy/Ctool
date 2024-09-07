@@ -186,6 +186,14 @@ export let _tools = {
     urlParse: {
         feature: ['urlParse'],
         parent_directory: ""
+    },
+    asn1: {
+        feature: ['asn1'],
+        parent_directory: ""
+    },
+    dockerCompose: {
+        feature: ['dockerCompose'],
+        parent_directory: ""
     }
 } as const;
 
@@ -193,8 +201,8 @@ export let _tools = {
 export const _categoryTool: Record<CategoryType, ToolType[]> = {
     encryption: ["hash", "hmac", "aes", "des", "tripleDes", "rc4", "rabbit", "sm2", "sm4", "rsa", "sign", "base64", "bcrypt"],
     check: ["sign", "regex", "diffs", "crontab", "bcrypt", "dataValidation"],
-    encoder_decoder: ["base64", "url", "unicode", "jwt", "hexString", "html", "gzip"],
-    conversion: ["json", "pinyin", "radix", "serialize", "unit", "time", "ascii", "variableConversion", "hexString", "arm", "httpSnippet", "color", "urlParse"],
+    encoder_decoder: ["base64", "url", "unicode", "jwt", "hexString", "html", "gzip", "asn1"],
+    conversion: ["json", "pinyin", "radix", "serialize", "unit", "time", "ascii", "variableConversion", "hexString", "arm", "httpSnippet", "color", "urlParse", "dockerCompose"],
     generate: ["qrCode", "barcode", "randomString", "uuid", "binary", "ipcalc", "sqlFillParameter", "httpSnippet"],
     other: ["ip", "code", "websocket", "unit", "text"]
 }
