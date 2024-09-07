@@ -14,7 +14,8 @@
         "build": "pnpm run initialize && pnpm --filter ctool-core run build",
         "release": "node release.cjs && pnpm run build && pnpm -r run platform-release",
         "only-release": "node release.cjs && pnpm -r run platform-release",
-        "vercel-build": "pnpm run build && pnpm --filter ctool-site run build"
+        "vercel-build": "pnpm run build && pnpm --filter ctool-site run build",
+        "clear": "node clear.cjs"
     },
     "pnpm": {
         "peerDependencyRules": {

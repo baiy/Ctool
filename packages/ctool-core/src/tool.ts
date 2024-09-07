@@ -6,7 +6,6 @@ import ctool from "@/helper/plugin";
 import router from "@/helper/router";
 import "@/statics/style.css";
 import Tool from "@/Tool.vue";
-import ContextMenu from "@imengyu/vue3-context-menu";
 import { initPermission as initClipboardPermission } from "@/helper/clipboard";
 
 (async () => {
@@ -19,8 +18,5 @@ import { initPermission as initClipboardPermission } from "@/helper/clipboard";
         }
     }
     const app = createApp(Tool);
-    app.use(pinia).use(router).use(ctool).use(ContextMenu);
-    await platform.runtime.entry(() => {
-        app.mount("#app");
-    }, storage);
+    app.use(pinia).use(router).use(ctool).mount("#app");
 })();
