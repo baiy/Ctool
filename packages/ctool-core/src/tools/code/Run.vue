@@ -63,8 +63,6 @@ import {useAction, initialize} from "@/store/action"
 import {language, getLanguage, getUsed, getConfig, setConfig, execute, Result} from "./runUtil"
 import {getDisplayName} from "@/helper/code"
 import {SelectOption} from "@/types";
-import {isNumber} from "lodash";
-import platform from "@/helper/platform"
 
 const action = useAction(await initialize({
     input: "",

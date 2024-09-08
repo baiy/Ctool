@@ -1,13 +1,13 @@
-import prettier from "prettier/standalone";
-import parserHtml from "prettier/parser-html";
+import { format } from "prettier/standalone";
+import html from "prettier/plugins/html";
 import Base from "./base";
 
-export const formatter = new (class extends Base<'vue'> {
+export const formatter = new (class extends Base<"vue"> {
     async beautify(): Promise<string> {
-        return prettier.format(this.code, {
-            plugins: [parserHtml],
+        return format(this.code, {
+            plugins: [html],
             parser: "vue",
-            tabWidth: this.getOptionValue('tab', 4)
+            tabWidth: this.getOptionValue("tab", 4),
         });
     }
-})
+});

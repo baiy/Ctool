@@ -19,7 +19,6 @@ export interface OptionMap {
     html: GlobalOption
     sql: { language: SqlLanguage } & GlobalOption
     vue: GlobalOption
-    angular: GlobalOption
     graphql: GlobalOption
 }
 

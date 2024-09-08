@@ -1,13 +1,13 @@
 import prettier from "prettier/standalone";
-import parserGraphql from "prettier/parser-graphql";
+import graphql from "prettier/plugins/graphql";
 import Base from "./base";
 
-export const formatter = new (class extends Base<'graphql'> {
+export const formatter = new (class extends Base<"graphql"> {
     async beautify(): Promise<string> {
         return prettier.format(this.code, {
-            plugins: [parserGraphql],
+            plugins: [graphql],
             parser: "graphql",
-            tabWidth: this.getOptionValue('tab', 4)
+            tabWidth: this.getOptionValue("tab", 4),
         });
     }
-})
+});

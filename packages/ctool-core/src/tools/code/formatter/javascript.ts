@@ -1,14 +1,16 @@
-import Base from "./base"
-import UglifyJS from 'uglify-js-export';
-import prettier from "prettier/standalone";
-import parser from "prettier/parser-babel";
+import Base from "./base";
+import UglifyJS from "uglify-js-export";
+import { format } from "prettier/standalone";
+import babel from "prettier/plugins/babel";
+import estree from "prettier/plugins/estree";
 
 export const formatter = new (class extends Base<"javascript"> {
     async beautify(): Promise<string> {
-        return prettier.format(this.code, {
-            plugins: [parser],
+        return format(this.code, {
+            plugins: [babel, estree],
             parser: "babel",
-            tabWidth: this.getOptionValue('tab', 4)
+            tabWidth: this.getOptionValue("tab", 4),
+
         });
     }
 
@@ -19,11 +21,11 @@ export const formatter = new (class extends Base<"javascript"> {
             mangle: false,
             output: {
                 beautify: false,
-            }
-        })
+            },
+        });
         if (!("code" in result) || !result.code) {
-            throw new Error(JSON.stringify(result.error))
+            throw new Error(JSON.stringify(result.error));
         }
-        return result.code
+        return result.code;
     }
-})
+});

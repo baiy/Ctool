@@ -1,16 +1,16 @@
 import prettier from "prettier/standalone";
-import parserTypeScript from "prettier/parser-typescript";
+import typescript from "prettier/plugins/typescript";
 import Base from "./base";
 
-export const formatter = new (class extends Base<'typescript'> {
+export const formatter = new (class extends Base<"typescript"> {
     async beautify(): Promise<string> {
         return prettier.format(this.code, {
-            plugins: [parserTypeScript],
+            plugins: [typescript],
             parser: "typescript",
-            tabWidth: this.getOptionValue('tab', 4)
+            tabWidth: this.getOptionValue("tab", 4),
         });
     }
-})
+});
 
 
 

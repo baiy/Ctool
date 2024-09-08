@@ -112,14 +112,6 @@ const languages: { [k in Languages]: Config<k> } = {
         }
     },
 
-    angular: {
-        beautify: true,
-        compress: false,
-        load() {
-            return import('./angular').then(m => m.formatter)
-        }
-    },
-
     graphql: {
         beautify: true,
         compress: false,

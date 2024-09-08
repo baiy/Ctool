@@ -52,7 +52,6 @@ const action = useAction(await initialize<{ option: { [k in Languages]: OptionMa
         php: {tab: 4},
         java: {tab: 4},
         vue: {tab: 4},
-        angular: {tab: 4},
         graphql: {tab: 4},
         sql: {tab: 4, language: "mysql"},
     }
