@@ -20,7 +20,7 @@
         "bcryptjs": "^2.4.3",
         "bignumber.js": "^9.1.1",
         "chardet": "^2.0.0",
-        "chinese-simple2traditional": "^1.1.0",
+        "chinese-simple2traditional": "^2.2.0",
         "colord": "^2.9.3",
         "composerize-ts": "^0.6.2",
         "crc": "^4.2.0",

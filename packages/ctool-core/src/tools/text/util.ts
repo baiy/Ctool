@@ -1,9 +1,12 @@
-import {simpleToTradition, traditionToSimple} from "chinese-simple2traditional";
-import {orderBy, uniq} from 'lodash'
-import {Buffer} from 'buffer'
-import {TypeLists as RenameType, convent as nameConvent} from "@/helper/nameConvert";
+import { toSimplified, toTraditional } from "chinese-simple2traditional";
+import { orderBy, uniq } from "lodash";
+import { Buffer } from "buffer";
+import { TypeLists as RenameType, convent as nameConvent } from "@/helper/nameConvert";
+import { setupEnhance } from "chinese-simple2traditional/enhance";
 
-const regExpQuote = function (str: string) {
+setupEnhance();
+
+const regExpQuote = function(str: string) {
     return str.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
 };
 
@@ -21,45 +24,45 @@ const getGbkStrLength = (str: string) => {
         }
     }
     return realLength;
-}
+};
 
 
 export const escapeChars = {
     backslash: {
         string: "\\\\",
-        char: "\\"
+        char: "\\",
     },
     single_quote: {
         string: "\\'",
-        char: "\'"
+        char: "\'",
     },
     double_quote: {
         string: "\\\"",
-        char: "\""
+        char: "\"",
     },
     new_line: {
         string: "\\n",
-        char: "\n"
+        char: "\n",
     },
     carriage_return: {
         string: "\\r",
-        char: "\r"
+        char: "\r",
     },
     tab: {
         string: "\\t",
-        char: "\t"
+        char: "\t",
     },
     vertical_tab: {
         string: "\\v",
-        char: "\v"
+        char: "\v",
     },
     backspace: {
         string: "\\b",
-        char: "\b"
+        char: "\b",
     },
     form_feed: {
         string: "\\f",
-        char: "\f"
+        char: "\f",
     },
 };
 
@@ -89,7 +92,7 @@ export default class {
             if (str.length < 1) {
                 return "";
             }
-            return str[0].toUpperCase() + str.substr(1)
+            return str[0].toUpperCase() + str.substr(1);
         }).join("\n");
     }
 
@@ -99,55 +102,55 @@ export default class {
             if (str.length < 1) {
                 return "";
             }
-            return str[0].toLowerCase() + str.substr(1)
+            return str[0].toLowerCase() + str.substr(1);
         }).join("\n");
     }
 
     // 词首大写
     upperStart() {
-        return this.text.replace(/\b\w/g, function (str) {
+        return this.text.replace(/\b\w/g, function(str) {
             return str.toUpperCase();
         });
     }
 
     // 词首小写
     lowerStart() {
-        return this.text.replace(/\b\w/g, function (str) {
+        return this.text.replace(/\b\w/g, function(str) {
             return str.toLowerCase();
         });
     }
 
     // 简繁转换
-    zhTran({type = "simplified"}: Record<string, any> = {}) {
+    zhTran({ type = "simplified" }: Record<string, any> = {}) {
         if (type === "simplified") {
-            return simpleToTradition(this.text)
+            return toTraditional(this.text);
         }
-        return traditionToSimple(this.text)
+        return toSimplified(this.text);
     }
 
     // 替换
-    replace({search = [], replace = []}: Record<string, any> = {}) {
+    replace({ search = [], replace = [] }: Record<string, any> = {}) {
         let text = this.text;
         for (let i in search) {
             if (search[i]) {
-                text = text.replace(new RegExp(regExpQuote(search[i]), 'g'), (i in replace ? replace[i] : ""));
+                text = text.replace(new RegExp(regExpQuote(search[i]), "g"), (i in replace ? replace[i] : ""));
             }
         }
         return text;
     }
 
     // 替换
-    regularReplace({search = "", replace = ""}: Record<string, any> = {}) {
+    regularReplace({ search = "", replace = "" }: Record<string, any> = {}) {
         let text = this.text;
         if (search) {
-            text = text.replace(new RegExp(search, 'g'), replace);
+            text = text.replace(new RegExp(search, "g"), replace);
         }
         return text;
     }
 
     // 移除重复行
     lineRemoveRepeat() {
-        return uniq(this.text.split("\n")).join("\n")
+        return uniq(this.text.split("\n")).join("\n");
     }
 
     // 移除行号
@@ -157,11 +160,11 @@ export default class {
 
     // 添加行号
     addLineIndex() {
-        return this.text.split('\n').map((line, index) => `${index + 1}. ${line}`).join('\n')
+        return this.text.split("\n").map((line, index) => `${index + 1}. ${line}`).join("\n");
     }
 
     // 排序
-    sort({type = ""}: Record<string, any> = {}) {
+    sort({ type = "" }: Record<string, any> = {}) {
         switch (type) {
             // 行反转
             case "reverse_line":
@@ -170,7 +173,7 @@ export default class {
             case "reverse_line_string":
                 return this.text.split(/\r?\n/).map(text => {
                     return text.split("").reverse().join("");
-                }).join("\n")
+                }).join("\n");
             // 字符串反转
             case "reverse_all":
                 return this.text.split("").reverse().join("");
@@ -179,70 +182,70 @@ export default class {
             case "line_asc":
                 return orderBy(this.text.split(/\r?\n/), (item) => item, "asc").join("\n");
             case "line_desc":
-                return orderBy(this.text.split(/\r?\n/), (item) => item, "desc").join("\n")
+                return orderBy(this.text.split(/\r?\n/), (item) => item, "desc").join("\n");
         }
         return this.text;
     }
 
     // trim
     lineTrim() {
-        return this.text.split(/\r?\n/).map((item) => item.trim()).join("\n")
+        return this.text.split(/\r?\n/).map((item) => item.trim()).join("\n");
     }
 
     // 移除空行
     filterBlankLine() {
         return this.text.split(/\r?\n/).filter((item) => {
-            return item.trim() !== ""
-        }).join("\n")
+            return item.trim() !== "";
+        }).join("\n");
     }
 
     // 过滤所有换行符
     filterAllBr() {
-        return this.text.replace(/\r?\n|\r/g, "")
+        return this.text.replace(/\r?\n|\r/g, "");
     }
 
     // 标点替换
-    replacePunctuation({type = "zh"}: Record<string, any> = {}) {
-        const zh = ["“", "”", "‘", "’", "。", "，", "；", "：", "？", "！", "……", "—", "～", "（", "）", "《", "》"]
-        const en = ['"', '"', "'", "'", ".", ",", ";", ":", "?", "!", "…", "-", "~", "(", ")", "<", ">"]
+    replacePunctuation({ type = "zh" }: Record<string, any> = {}) {
+        const zh = ["“", "”", "‘", "’", "。", "，", "；", "：", "？", "！", "……", "—", "～", "（", "）", "《", "》"];
+        const en = ["\"", "\"", "'", "'", ".", ",", ";", ":", "?", "!", "…", "-", "~", "(", ")", "<", ">"];
         let text = this.text;
         for (let i in zh) {
             text = text.replace(
-                new RegExp(regExpQuote(type === "zh" ? en[i] : zh[i]), 'g'),
-                type === "zh" ? zh[i] : en[i]
+                new RegExp(regExpQuote(type === "zh" ? en[i] : zh[i]), "g"),
+                type === "zh" ? zh[i] : en[i],
             );
         }
-        return text
+        return text;
 
     }
 
     // 转义
-    escape({lists = []}: { lists: EscapeCharsType[] } | Record<string, any>) {
+    escape({ lists = [] }: { lists: EscapeCharsType[] } | Record<string, any>) {
         let text = this.text;
         for (let item of lists) {
             if (item in escapeChars) {
-                text = text.replaceAll(escapeChars[item].string, escapeChars[item].char)
+                text = text.replaceAll(escapeChars[item].string, escapeChars[item].char);
             }
         }
-        return text
+        return text;
     }
 
     // 反转义
-    unescape({lists = []}: { lists: EscapeCharsType[] } | Record<string, any>) {
+    unescape({ lists = [] }: { lists: EscapeCharsType[] } | Record<string, any>) {
         let text = this.text;
         for (let item of lists) {
             if (item in escapeChars) {
-                text = text.replaceAll(escapeChars[item].char, escapeChars[item].string)
+                text = text.replaceAll(escapeChars[item].char, escapeChars[item].string);
             }
         }
-        return text
+        return text;
     }
 
     // 命名
-    rename({type = "lowerSnakeCase"}) {
-        return this.text.replace(/\b[\w\-_]+\b/g, function (str) {
+    rename({ type = "lowerSnakeCase" }) {
+        return this.text.replace(/\b[\w\-_]+\b/g, function(str) {
             return nameConvent(str, type as RenameType);
-        })
+        });
     }
 
     // 统计
@@ -259,7 +262,7 @@ export default class {
 
         return {
             // 字节数(utf8)
-            byte_utf8_length: Buffer.byteLength(this.text, 'utf8'),
+            byte_utf8_length: Buffer.byteLength(this.text, "utf8"),
             // 字节数(gbk)
             byte_gbk_length: getGbkStrLength(this.text),
             // 字符数
@@ -281,7 +284,7 @@ export default class {
             // 数字单词
             int_word,
             // 行数
-            line_length: this.text ? this.text.split("\n").length : 0
-        }
+            line_length: this.text ? this.text.split("\n").length : 0,
+        };
     }
 }
