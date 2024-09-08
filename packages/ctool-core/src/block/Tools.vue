@@ -34,23 +34,15 @@
 <script setup lang="ts">
 import useOperate from "@/store/operate";
 import useSetting from "@/store/setting";
-import {categories, CategoryInterface, ToolType, FeatureInterface, FeatureType, getTool} from "@/config"
+import {categories, CategoryInterface, ToolType, FeatureInterface, FeatureType} from "@/config"
 import Common from "./Common.vue";
 import {ComponentSizeType} from "@/types";
 
 const operate = useOperate()
 const setting = useSetting()
 let openCommon = $ref(false)
-const search = $ref({
-    show: false,
-    keyword: ""
-})
 
 const size: ComponentSizeType = "default"
-
-const common = $computed(() => {
-    return setting.items.common.map(name => getTool(name))
-})
 
 const selectTool = (tool: ToolType, category?: CategoryInterface, feature?: FeatureType) => {
     operate.redirectTool(tool, feature ? feature : operate.getToolLastFeature(tool), category ? category.name : "")

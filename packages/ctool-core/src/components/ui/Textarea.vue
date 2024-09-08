@@ -19,7 +19,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import {StyleValue, PropType, onMounted} from "vue"
+import {PropType, onMounted} from "vue"
 import {ButtonType, DisplayPosition} from "@/types";
 import {sizeConvert} from "@/components/util";
 import event from "@/event";
@@ -68,14 +68,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{ (e: 'update:modelValue', value: string): void, (e: 'clickFloatText'): void }>()
-
-const style = $computed(() => {
-    let css: StyleValue = {}
-    if (props.height) {
-        css.height = sizeConvert(props.height)
-    }
-    return css
-})
 
 let current = $computed({
     get: () => props.modelValue,

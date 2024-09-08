@@ -44,6 +44,7 @@ export default class Input implements InputBase<TextInputEncoderType, string | F
     serialize() {
         const option: Record<string, any> = {}
         if (this.type in this.option) {
+            // @ts-ignore
             option[this.type] = this.option[this.type]
         }
         return {

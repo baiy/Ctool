@@ -52,13 +52,13 @@ export default class implements Transform {
         return ['PHP']
     }
 
-    async execute(lang: string, input: string, options: Record<string, any>): Promise<string> {
+    async execute(_lang: string, input: string, options: Record<string, any>): Promise<string> {
         return new Promise<string>((resolve) => {
             return resolve(convert(input, options))
         })
     }
 
-    getOptionDefine(lang: string) {
+    getOptionDefine(_lang: string) {
         const define: Option[] = [
             {
                 name: 'namespace',

@@ -19,7 +19,6 @@ import {PropType, StyleValue, onMounted, onUnmounted} from "vue";
 import {MessageType} from '@/types'
 import Icon from './ui/Icon.vue'
 import {sizeConvert} from './util'
-import Code from "@/tools/code/Code.vue";
 
 const props = defineProps({
     type: {
@@ -40,8 +39,6 @@ const props = defineProps({
         }
     }
 })
-
-const emit = defineEmits<{ (e: 'click'): void }>()
 
 const container = $ref<HTMLDialogElement | null>(null)
 

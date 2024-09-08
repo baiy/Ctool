@@ -76,10 +76,12 @@ const style = $computed(() => {
     }
 
     if (props.direction === "horizontal") {
+        // @ts-ignore
         css.justifyContent = justify[props.horizontal] ?? "unset"
         css.alignItems = justify[props.vertical] ?? "center"
     }
     if (props.direction === "vertical") {
+        // @ts-ignore
         css.alignItems = justify[props.horizontal] ?? "unset"
         css.justifyContent = justify[props.vertical] ?? "unset"
     }

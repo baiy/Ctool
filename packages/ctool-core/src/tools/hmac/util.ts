@@ -1,8 +1,8 @@
-import CryptoJS from "crypto-js"
-import sm from "sm-crypto"
-import Text from "@/helper/text"
+import CryptoJS from "crypto-js";
+import sm from "sm-crypto";
+import Text from "@/helper/text";
 
-export const methods = ['md5', 'sha1', 'sha256', 'sha512', 'sm3'] as const
+export const methods = ["md5", "sha1", "sha256", "sha512", "sm3"] as const;
 export type methodType = typeof methods[number]
 
 const hmacMethod = {
@@ -19,36 +19,36 @@ const hmacMethod = {
         return CryptoJS.HmacSHA512(CryptoJS.enc.Base64.parse(message.toBase64()), CryptoJS.enc.Base64.parse(secret.toBase64())).toString();
     },
     sm3: (message: Text, secret: Text): string => {
-        const leftPad = (input, num) => {
-            if (input.length >= num) return input
+        const leftPad = (input: string, num: number) => {
+            if (input.length >= num) return input;
 
-            return (new Array(num - input.length + 1)).join('0') + input
-        }
+            return (new Array(num - input.length + 1)).join("0") + input;
+        };
 
-        let hexStr = message.toHexString()
+        let hexStr = message.toHexString();
 
-        const words: number[] = []
-        let hexStrLength = hexStr.length
+        const words: number[] = [];
+        let hexStrLength = hexStr.length;
 
         if (hexStrLength % 2 !== 0) {
-            hexStr = leftPad(hexStr, hexStrLength + 1)
+            hexStr = leftPad(hexStr, hexStrLength + 1);
         }
 
-        hexStrLength = hexStr.length
+        hexStrLength = hexStr.length;
 
         for (let i = 0; i < hexStrLength; i += 2) {
-            words.push(parseInt(hexStr.substr(i, 2), 16))
+            words.push(parseInt(hexStr.substr(i, 2), 16));
         }
 
         // @ts-ignore
-        return sm.sm3(words as any, {key: secret.toHexString()});
-    }
-}
+        return sm.sm3(words as any, { key: secret.toHexString() });
+    },
+};
 
 
 export default (type: methodType, input: Text, secret: Text): string => {
     if (!Object.keys(hmacMethod).includes(type)) {
-        throw new Error(`hmac method 不存在: ${type}`)
+        throw new Error(`hmac method 不存在: ${type}`);
     }
-    return hmacMethod[type](input, secret)
+    return hmacMethod[type](input, secret);
 }

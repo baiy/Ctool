@@ -26,12 +26,15 @@ const plugin: Plugin = {
     }
 }
 
+// @ts-ignore
 window['$t'] = $t
+// @ts-ignore
 window['$copy'] = (text: string) => {
     copy(text, () => {
         Message.success($t('main_ui_copy_text_ok'))
     })
 }
+// @ts-ignore
 window['$error'] = (err: any, isI18n = true) => {
     const error = `${isError(err) ? err.message : err.toString()}`
     return isI18n ? $t('main_ui_error', [error]) : error

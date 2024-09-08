@@ -23,11 +23,11 @@ import { nextTick, onErrorCaptured, onMounted, watch } from "vue";
 import { isObject } from "lodash";
 import platform from "@/helper/platform";
 import storage from "@/helper/storage";
-import { useRouter,Router } from "vue-router";
+import { useRouter } from "vue-router";
 
 // 初始化配置
 const storeSetting = useSetting();
-const router = useRouter()
+const router = useRouter();
 // 初始化主题
 useTheme();
 
@@ -44,7 +44,7 @@ watch(
 );
 
 // 全局错误提示
-const globalErrorMessage = err => {
+const globalErrorMessage = (err: any) => {
     console.log("error:", err);
     const message: string = (isObject(err) && "message" in err ? err.message : err).toString();
     Message.closeAll();
@@ -56,7 +56,7 @@ const globalErrorMessage = err => {
 };
 
 // Uncaught Promise Error
-window.addEventListener("unhandledrejection", function (event) {
+window.addEventListener("unhandledrejection", function(event) {
     event.preventDefault();
     globalErrorMessage(event.reason);
 });
@@ -72,9 +72,9 @@ onErrorCaptured(err => {
     return false;
 });
 
-onMounted(()=>{
-    platform.runtime.initialize( storage,router);
-})
+onMounted(() => {
+    platform.runtime.initialize(storage, router);
+});
 </script>
 <style>
 .ctool-global {

@@ -8,7 +8,7 @@
         </div>
     </HeightResize>
     <div style="display: grid; grid-template-columns: 1fr 5px 1fr; grid-column-gap: 10px; margin-top: 5px" class="ctool-page-option">
-        <div style="display: grid; grid-template-columns: 120px 1fr 120px; grid-column-gap: 5px">
+        <div style="display: grid; grid-template-columns: 120px 120px 1fr; grid-column-gap: 5px">
             <Select v-model="action.current.rounds" :options="rounds" class="select-box" />
             <Select v-model="action.current.version" :options="versionOptions" class="select-box" />
             <Button
@@ -106,7 +106,7 @@ const check = () => {
     workerPost('compare', { input: action.current.input, hash: action.current.hash })
 }
 
-const checkCallback = (err: Error, res: boolean) => {
+const checkCallback = (_err: Error, res: boolean) => {
     checkLoading = false
     action.current.check_result = res
     const result = (action.current.check_result ? $t(`bcrypt_check_result_success`) : $t('bcrypt_check_result_error'))

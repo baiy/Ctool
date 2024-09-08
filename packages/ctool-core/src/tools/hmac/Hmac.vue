@@ -76,8 +76,8 @@ const result = $computed(() => {
             }
             const temp = hmac(
                 type,
-                action.current.input.text,
-                action.current.secret.text,
+                action.current.input.text as Text,
+                action.current.secret.text as Text,
                 isAllowMultiple && action.current.multiple
             );
             r[type] = action.current.is_uppercase ? temp.toUpperCase() : temp.toLowerCase()

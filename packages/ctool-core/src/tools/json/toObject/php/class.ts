@@ -4,7 +4,7 @@ import {buildProperties, getPropertyInfo} from "./property";
 import {isScalarType} from "./types";
 import {indent} from "./utils";
 
-function getClassInfo(json, className, config, deps) {
+function getClassInfo(json, className, _config, deps) {
     const keys = Object.keys(json);
     const properties = keys.map((key) => {
         let info = getPropertyInfo(key, json[key]);
@@ -116,7 +116,7 @@ function buildToArray(properties, {typedMethods}) {
     return result;
 }
 
-function buildToJson(properties, {typedMethods}) {
+function buildToJson(_properties, {typedMethods}) {
     let result = "\n";
     let declaration = `public function toJson(`;
     declaration += !typedMethods ? ")" : "):string";

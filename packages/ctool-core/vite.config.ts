@@ -23,11 +23,7 @@ export default defineConfig({
                 },
             ],
         }),
-        vue({
-            script: {
-                defineModel: true,
-            },
-        }),
+        vue(),
         ReactivityTransform(),
         monacoEditorPlugin({}),
     ],

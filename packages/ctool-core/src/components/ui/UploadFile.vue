@@ -12,8 +12,7 @@
 
 <script setup lang="ts">
 import {PropType, onMounted, onUnmounted} from "vue";
-import Text from "@/helper/text"
-import {UploadFileType, UploadFileMode, UploadFileButtonType, ComponentSizeType, RadioValue} from "@/types"
+import {UploadFileType, UploadFileMode, UploadFileButtonType, ComponentSizeType} from "@/types"
 
 const emit = defineEmits<{ (e: 'update:modelValue', value: string | File): void, (e: 'success', content: File): void }>()
 const props = defineProps({

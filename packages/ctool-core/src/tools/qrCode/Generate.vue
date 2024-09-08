@@ -82,7 +82,7 @@
 import {initialize, useAction} from "@/store/action";
 import {createTextInput, createTextOutput} from "@/components/text"
 import Text from "@/helper/text";
-import {nextTick, onMounted, watch} from "vue";
+import {watch} from "vue";
 import GenerateOptionColor from "./GenerateOptionColor.vue";
 import {generateOptionsHandle, defaultGenerateOption} from "./util";
 import QRCodeStyling from 'qr-code-styling'

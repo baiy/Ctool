@@ -203,7 +203,7 @@ const output = $computed(() => {
 
 watch(() => {
     return {input: action.current.input, params: action.current.params}
-}, ({input, params}) => {
+}, ({input}) => {
     // 输入不为空，且输入包含Preparing:和Parameters:，则尝试分离SQL和参数
     if (
         input !== ""

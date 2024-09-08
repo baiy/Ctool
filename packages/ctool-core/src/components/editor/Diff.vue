@@ -1,9 +1,9 @@
 <template>
     <Display
-        :position="toolbar"
+        :position="props.toolbar"
         :right="35"
         class="ctool-code-diff"
-        :style="{ height: `${sizeConvert(height)}`, width: `100%` }"
+        :style="{ height: `${sizeConvert(props.height)}`, width: `100%` }"
         toggle
     >
         <div ref="container" style="height: 100%; width: 100%"></div>
@@ -103,11 +103,11 @@ const updateEditorConfig = async () => {
         // 设置语言
         model && monacoInstance()?.editor.setModelLanguage(model, getEditorLanguage(props.lang).id);
     });
-
+    
     editorView.value.updateOptions({
         renderSideBySide: !inline.value,
     });
-
+    
     // 主题
     monacoInstance()?.editor.setTheme(storeTheme.theme.raw === "dark" ? "vs-dark" : "vs");
 };
@@ -116,12 +116,12 @@ const create = async (element: HTMLElement) => {
     if (editorView.value) {
         editorView.value.dispose();
     }
-
+    
     loader.config({ "vs/nls": { availableLanguages: { "*": $t("main_locale") === "zh_CN" ? "zh-cn" : "en" } } });
     loader.init().then(monaco => {
         const originalModel = monaco.editor.createModel(original.value);
         const modifiedModel = monaco.editor.createModel(modified.value);
-
+        
         const diffEditor = monaco.editor.createDiffEditor(element, {
             lineNumbers: lineNumbers.value ? "on" : "off",
             wordWrap: lineWrapping.value ? "on" : "off",
@@ -135,40 +135,40 @@ const create = async (element: HTMLElement) => {
                 verticalScrollbarSize: 5,
             },
         });
-
+        
         window["_diffEditor"] = diffEditor;
-
+        
         diffEditor.setModel({
             original: originalModel,
             modified: modifiedModel,
         });
-
+        
         // 内容更新
         diffEditor.getOriginalEditor().onDidChangeModelContent(() => {
             if (diffEditor.getOriginalEditor().getValue() !== original.value) {
                 original.value = diffEditor.getOriginalEditor().getValue();
             }
         });
-
+        
         diffEditor.getModifiedEditor().onDidChangeModelContent(() => {
             if (diffEditor.getModifiedEditor().getValue() !== modified.value) {
                 modified.value = diffEditor.getModifiedEditor().getValue();
             }
         });
-
+        
         [diffEditor.getOriginalEditor(), diffEditor.getModifiedEditor()].forEach(editor => {
             // placeholder
             new PlaceholderContentWidget($t("main_ui_input"), editor);
             // 右键菜单
             const contextMenu = new ContextMenu(editor);
-            contextMenu.setHandle("ctool_line_wrapping", (ed, id, result) => (lineWrapping.value = result));
-            contextMenu.setHandle("ctool_line_number", (ed, id, result) => (lineNumbers.value = result));
+            contextMenu.setHandle("ctool_line_wrapping", (_ed, _id, result) => (lineWrapping.value = result));
+            contextMenu.setHandle("ctool_line_number", (_ed, _id, result) => (lineNumbers.value = result));
         });
         diffEditor.onDidUpdateDiff(() => {
             changes.value = diffEditor.getLineChanges()?.length || 0;
             currentChange.value = 1;
         });
-
+        
         editorView.value = diffEditor;
         // 编辑器配置
         updateEditorConfig();
@@ -217,7 +217,7 @@ watch(
         if (editorView.value) {
             return updateEditor(value.original, value.modified);
         }
-
+        
         // 防止初始内容变更 编辑器还没有初始化成功
         const timer = setInterval(() => {
             if (editorView.value) {

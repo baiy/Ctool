@@ -30,7 +30,7 @@ function fixObjectArray(o) {
     let names = ["row", "entry", "key", "item", "node"];
     let s = Json.stringify(o, null, '\t');
     let a = s.split(/\r\n|\n|\r/gm);
-    let c, i, j, k, x, z;
+    let c, j, k, x, z;
 
     function isArrayNoName(text, stop) {
         let count = 0;

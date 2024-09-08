@@ -11,50 +11,45 @@
             {name:`week`,label:$t('crontab_generate_week')},
         ]"
     >
-        <Item type="second" v-model="items.second"/>
-        <Item type="minute" v-model="items.minute"/>
-        <Item type="hour" v-model="items.hour"/>
-        <Item type="day" v-model="items.day"/>
-        <Item type="month" v-model="items.month"/>
-        <Item type="week" v-model="items.week"/>
+        <Item type="second" v-model="items.second" />
+        <Item type="minute" v-model="items.minute" />
+        <Item type="hour" v-model="items.hour" />
+        <Item type="day" v-model="items.day" />
+        <Item type="month" v-model="items.month" />
+        <Item type="week" v-model="items.week" />
     </Tabs>
 </template>
 
 <script lang="ts" setup>
-import './style.css'
+import "./style.css";
 import Tabs from "@/components/ui/Tabs.vue";
 import Item from "./Item.vue";
-import {watch} from 'vue';
-import {ItemType} from "./type";
+import { watch } from "vue";
+import { ItemType } from "./type";
 
-const props = defineProps({
-    modelValue: {
-        type: String,
-        default: ""
-    }
-})
+const modelValue = defineModel<string>({
+    default:""
+});
 
-const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>()
-
-let current = $ref<ItemType>('minute')
+let current = $ref<ItemType>("minute");
 let items = $ref({
     second: "",
     minute: "*",
     hour: "*",
     day: "*",
     month: "*",
-    week: "*"
-})
+    week: "*",
+});
 watch(() => {
-    return {items}
-}, ({items}) => {
-    emit('update:modelValue', [
+    return { items };
+}, ({ items }) => {
+    modelValue.value = [
         ...(items.second !== "" ? [items.second] : []),
         items.minute,
         items.hour,
         items.day,
         items.month,
-        items.week
-    ].join(" "))
-}, {immediate: true, deep: true})
+        items.week,
+    ].join(" ");
+}, { immediate: true, deep: true });
 </script>

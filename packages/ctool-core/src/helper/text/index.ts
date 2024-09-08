@@ -1,4 +1,5 @@
 import filetype from "magic-bytes.js";
+// @ts-ignore
 import { isText, isBinary } from "istextorbinary";
 import dayjs from "dayjs";
 import { FormatOptions as hexyFormatOptions, hexy } from "hexy";
@@ -60,7 +61,7 @@ class Text {
                     resolve(Text.fromError(`[${url}] load fail, status code:${xhr.status}`));
                 }
             };
-            xhr.onerror = e => {
+            xhr.onerror = () => {
                 resolve(Text.fromError(`[${url}] load fail`));
             };
             xhr.send();

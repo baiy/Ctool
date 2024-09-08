@@ -24,10 +24,11 @@
 
 <script lang="ts" setup>
 import {useAction, initialize} from "@/store/action"
-import {createTextInput, createTextOutput} from "@/components/text"
+import { createTextInput, createTextOutput } from "@/components/text";
 import Text from "@/helper/text"
 import {rc4, Option} from "../cryptoJS"
-import {watch} from "vue";
+import { watch } from "vue";
+import Input from "@/components/text/input";
 
 const option: Option = {
     key: "",
@@ -38,7 +39,6 @@ const action = useAction(await initialize({
     option: option,
     output: createTextOutput('base64'),
 }))
-
 const output = $computed<Text>(() => {
     if (action.current.input.text.isEmpty() || action.current.option.key === "") {
         return Text.empty()

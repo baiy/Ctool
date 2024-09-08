@@ -1,12 +1,12 @@
 <template>
-    <Tooltip :content="tooltip">
+    <Tooltip :content="props.tooltip">
         <div
             class="ctool-button"
-            :data-size="size"
-            :data-type="type"
-            :style="long ? {width:'100%'} : {}"
+            :data-size="props.size"
+            :data-type="props.type"
+            :style="props.long ? {width:'100%'} : {}"
         >
-            <button @click="click" :disabled="disabled" :aria-busy="loading ? `true` : `false`">
+            <button @click="click" :disabled="props.disabled" :aria-busy="props.loading ? `true` : `false`">
                 <slot>{{ text }}</slot>
             </button>
         </div>

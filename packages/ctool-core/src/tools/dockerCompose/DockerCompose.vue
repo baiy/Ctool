@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import {initialize, useAction} from "@/store/action";
 import {watch} from "vue";
-import { MessageType, composerize } from 'composerize-ts';
+import { composerize } from 'composerize-ts';
 
 const action = useAction(await initialize({
     input: "docker run -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro --restart always --log-opt max-size=1g nginx",

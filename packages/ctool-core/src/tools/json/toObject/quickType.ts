@@ -5,24 +5,13 @@ import {
     InputData,
     jsonInputForTargetLanguage,
     quicktype,
-    defaultTargetLanguages,
-    OptionDefinition
+    defaultTargetLanguages
 } from "quicktype-core";
-import {pick, omit, isArray, isBoolean} from "lodash";
+import {pick, omit} from "lodash";
 import {Transform, Option} from "./type";
 
 const getTargetOption = (lang: string) => {
     return getTargetLanguage(lang).optionDefinitions.map(({name}) => name)
-}
-const getOptionType = (option: OptionDefinition): Option["type"] => {
-    if (option.type === Boolean) {
-        return "boolean"
-    }
-
-    if (option.legalValues !== undefined && option.type === String) {
-        return "select"
-    }
-    return "string"
 }
 
 export default class implements Transform {

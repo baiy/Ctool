@@ -1,9 +1,9 @@
 <template>
     <Display
-        :position="toolbar"
+        :position="props.toolbar"
         class="ctool-code-editor"
-        :class="disableBorder ? ['ctool-code-editor-disable-border'] : []"
-        :style="{ height: `${sizeConvert(height)}`, width: `100%` }"
+        :class="props.disableBorder ? ['ctool-code-editor-disable-border'] : []"
+        :style="{ height: `${sizeConvert(props.height)}`, width: `100%` }"
         toggle
     >
         <div ref="container" style="height: 100%; width: 100%"></div>
@@ -147,8 +147,8 @@ const create = async (element: HTMLElement) => {
         // 行信息展示
         lineInfo(editor).status(props.lineInfo);
 
-        contextMenu.setHandle("ctool_line_wrapping", (ed, id, result) => (lineWrapping.value = result));
-        contextMenu.setHandle("ctool_line_number", (ed, id, result) => (lineNumbers.value = result));
+        contextMenu.setHandle("ctool_line_wrapping", (_ed, _id, result) => (lineWrapping.value = result));
+        contextMenu.setHandle("ctool_line_number", (_ed, _id, result) => (lineNumbers.value = result));
 
         editorView.value = editor;
 

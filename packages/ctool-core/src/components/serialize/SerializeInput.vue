@@ -118,6 +118,7 @@ const csvKeyedKey = $computed(() => {
     if (current.serialization.isError() || current.serialization.isEmpty()) {
         return [];
     }
+    // @ts-ignore
     return Object.keys(current.serialization.content()[0] || {}) || []
 })
 
@@ -128,6 +129,7 @@ const tableKeyedKey = $computed(() => {
     if (current.serialization.isError() || current.serialization.isEmpty()) {
         return [];
     }
+    // @ts-ignore
     return Object.keys(current.serialization.content()[0] || {}) || []
 })
 

@@ -52,6 +52,7 @@ const getMethodName = (str: string) => {
     return camelCaseToLowerSnakeCase;
 }
 
+
 class Convent {
     private str: string;
     private result: Record<string, string> = {}
@@ -61,6 +62,7 @@ class Convent {
         this.convert()
     }
 
+    // @ts-ignore
     // space case to Camel Case
     private spaceCaseToPascalCaseSpace() {
         return this.str.split(' ').map((str) => {
@@ -68,16 +70,19 @@ class Convent {
         }).join(' ').trim()
     }
 
+    // @ts-ignore
     // Camel Case to kebab-case
     private pascalCaseSpaceToKebabCase() {
         return this.str.replace(/ /g, "-").toLowerCase().trim();
     }
 
+    // @ts-ignore
     // kebab-case to SNAKE_CASE
     private kebabCaseToUpperSnakeCase() {
         return this.str.toUpperCase().replace(/-/g, "_").trim()
     }
 
+    // @ts-ignore
     // SNAKE_CASE to PascalCase
     private upperSnakeCaseToPascalCase() {
         return this.str.split('_').map((str) => {
@@ -85,11 +90,13 @@ class Convent {
         }).join('').trim()
     }
 
+    // @ts-ignore
     // PascalCase to camelCase
     private pascalCaseToCamelCase() {
         return firstToLower(this.str).trim()
     }
 
+    // @ts-ignore
     // camelCase to snake_case
     private camelCaseToLowerSnakeCase() {
         const str = this.str
@@ -108,6 +115,7 @@ class Convent {
         return temp.trim();
     }
 
+    // @ts-ignore
     // snake_case to space case
     private lowerSnakeCaseToSpaceCase() {
         return this.str.replace(/_/g, " ").trim();

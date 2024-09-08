@@ -21,16 +21,18 @@ export const debug = (value: any) => {
 export const instanceOfInputOutput = (object: any): object is InputOutputBase => {
     return instanceOfInput(object) || instanceOfOutput(object);
 }
-
 export const instanceOfInput = (object: any): object is InputBase => {
+    // @ts-ignore
     return isObject(object) && object['_'] === '_input_';
 }
 
 export const instanceOfOutput = (object: any): object is OutputBase => {
+    // @ts-ignore
     return isObject(object) && object['_'] === '_output_';
 }
 
 export const instanceOfHistorySerializable = (object: any): object is HistorySerializable => {
+    // @ts-ignore
     return isObject(object) && object['__'] === '_history_serializable_';
 }
 

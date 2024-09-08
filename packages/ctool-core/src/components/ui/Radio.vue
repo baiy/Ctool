@@ -1,68 +1,74 @@
 <template>
     <div class="ctool-radio">
-        <Button :size="size" :disabled="disabled" v-for="item in getOptions" :type="getButtonType(item.value)" @click="select(item.value)">{{ item.label }}</Button>
+        <Button :size="size" :disabled="disabled" v-for="item in getOptions" :type="getButtonType(item.value)"
+                @click="select(item.value)">{{ item.label }}
+        </Button>
     </div>
 </template>
 
 <script setup lang="ts">
 // 单选
-import {PropType} from "vue"
-import {isNumber, isString} from "lodash"
-import {ComponentSizeType, RadioOption, RadioValue} from "@/types";
+import { PropType } from "vue";
+import { isNumber, isString } from "lodash";
+import { ComponentSizeType, RadioOption, RadioValue } from "@/types";
 
 const props = defineProps({
     modelValue: {
         type: [String, Number],
-        default: ""
+        default: "",
     },
     options: {
         type: Array as PropType<RadioOption>,
-        default: []
+        default: [],
     },
     size: {
         type: String as PropType<ComponentSizeType>,
-        default: "default"
+        default: "default",
     },
     disabled: {
         type: Boolean,
-        default: false
+        default: false,
     },
-})
+});
 
-const emit = defineEmits<{ (e: 'update:modelValue', value: RadioValue): void, (e: 'change', value: RadioValue): void }>()
+const emit = defineEmits<{
+    (e: "update:modelValue", value: RadioValue): void,
+    (e: "change", value: RadioValue): void
+}>();
 
 let current = $computed({
     get: () => props.modelValue,
     set: (value) => {
-        emit('update:modelValue', value)
-        emit('change', value)
-    }
-})
+        emit("update:modelValue", value);
+        emit("change", value);
+    },
+});
 
 const getOptions = $computed(() => {
-    let items: Array<{ value: RadioValue, label: string }> = []
+    let items: Array<{ value: RadioValue, label: string }> = [];
     for (let item of props.options) {
         if (isNumber(item) || isString(item)) {
-            items.push({value: item, label: `${item}`})
+            items.push({ value: item, label: `${item}` });
         } else {
-            items.push({value: item.value, label: `${item.label}`})
+            items.push({ value: item.value, label: `${item.label}` });
         }
     }
-    return items
-})
+    return items;
+});
 
 const getButtonType = (value: RadioValue) => {
-    return value === current ? "primary" : "general"
-}
+    return value === current ? "primary" : "general";
+};
 
-const select = (value) => {
-    current = value
-}
+const select = (value: string | number) => {
+    current = value;
+};
 </script>
 <style>
-.ctool-radio{
+.ctool-radio {
     display: inline-block;
 }
+
 .ctool-radio .ctool-button:not(:first-of-type,:last-of-type) button {
     border-radius: 0;
 }

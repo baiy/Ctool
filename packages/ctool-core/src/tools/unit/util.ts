@@ -1,12 +1,11 @@
-import {create, all} from 'mathjs'
-
+import { create, all } from "mathjs";
 const math = create(all, {
-    number: 'BigNumber'
-})
+    number: "BigNumber",
+});
 
-const MAX_NUM = 14       //格式化后的最长限制
-const DECIMAL_NUM = 7    //四舍五入时小数点后位数
-const EXPONENTIAL_NUM = 4 //科学计数法小数点后位数
+const MAX_NUM = 14;       //格式化后的最长限制
+const DECIMAL_NUM = 7;    //四舍五入时小数点后位数
+const EXPONENTIAL_NUM = 4; //科学计数法小数点后位数
 type ConfigType = {
     key: string,
     main: string,
@@ -168,23 +167,23 @@ export const config: ConfigType[] = [
                 unit: "hao",
                 calc: `x / (0.0001 / 3)`,
                 init: `x * (0.0001 / 3)`,
-            }
+            },
         ],
         special: [],
         group: [
             {
                 key: "metric_system",
-                list: ["km", "m", "dm", "cm", "mm", "um", "nm", "pm", "ly", "au"]
+                list: ["km", "m", "dm", "cm", "mm", "um", "nm", "pm", "ly", "au"],
             },
             {
                 key: "imperial_units",
-                list: ["in", "ft", "yd", "mi", "nmi", "fm", "fur"]
+                list: ["in", "ft", "yd", "mi", "nmi", "fm", "fur"],
             },
             {
                 key: "chinese_units",
-                list: ["cn_li", "cn_zhang", "cn_chi", "cn_cun", "cn_fen", "cn_li2", "cn_hao"]
-            }
-        ]
+                list: ["cn_li", "cn_zhang", "cn_chi", "cn_cun", "cn_fen", "cn_li2", "cn_hao"],
+            },
+        ],
     },
     {
         key: "area",
@@ -297,23 +296,23 @@ export const config: ConfigType[] = [
                 unit: "cun²",
                 calc: `x / (0.01 / 9)`,
                 init: `x * (0.01 / 9)`,
-            }
+            },
         ],
         special: [],
         group: [
             {
                 key: "metric_system",
-                list: ["km_2", "ha", "are", "m_2", "dm_2", "cm_2", "mm_2"]
+                list: ["km_2", "ha", "are", "m_2", "dm_2", "cm_2", "mm_2"],
             },
             {
                 key: "imperial_units",
-                list: ["acre", "mi_2", "yd_2", "ft_2", "in_2", "rd_2"]
+                list: ["acre", "mi_2", "yd_2", "ft_2", "in_2", "rd_2"],
             },
             {
                 key: "chinese_units",
-                list: ["cn_qing", "cn_mu", "cn_fen", "cn_chi_2", "cn_cun_2"]
-            }
-        ]
+                list: ["cn_qing", "cn_mu", "cn_fen", "cn_chi_2", "cn_cun_2"],
+            },
+        ],
     },
     {
         key: "volume",
@@ -426,19 +425,19 @@ export const config: ConfigType[] = [
                 unit: "us oz",
                 calc: `x / (0.000001 * 29.57)`,
                 init: `(x * 0.000001 * 29.57)`,
-            }
+            },
         ],
         special: [],
         group: [
             {
                 key: "metric_system",
-                list: ["m_3", "dm_3", "cm_3", "mm_3", "l", "dl", "ml", "cl", "uL", "hl"]
+                list: ["m_3", "dm_3", "cm_3", "mm_3", "l", "dl", "ml", "cl", "uL", "hl"],
             },
             {
                 key: "imperial_units",
-                list: ["ft_3", "in_3", "yd_3", "acre_ft", "uk_gal", "us_gal", "uk_oz", "us_oz"]
-            }
-        ]
+                list: ["ft_3", "in_3", "yd_3", "acre_ft", "uk_gal", "us_gal", "uk_oz", "us_oz"],
+            },
+        ],
     },
     {
         key: "weight",
@@ -564,23 +563,23 @@ export const config: ConfigType[] = [
                 unit: "qian",
                 calc: `x / 0.005`,
                 init: `(x * 0.005)`,
-            }
+            },
         ],
         special: [],
         group: [
             {
                 key: "metric_system",
-                list: ["kg", "g", "mg", "ug", "t", "q", "ct"]
+                list: ["kg", "g", "mg", "ug", "t", "q", "ct"],
             },
             {
                 key: "imperial_units",
-                list: ["lb", "oz", "gr", "lt", "st1", "uk_cwt", "us_cwt", "st2", "dr"]
+                list: ["lb", "oz", "gr", "lt", "st1", "uk_cwt", "us_cwt", "st2", "dr"],
             },
             {
                 key: "chinese_units",
-                list: ["cn_dan", "cn_jin", "cn_liang", "cn_qian"]
-            }
-        ]
+                list: ["cn_dan", "cn_jin", "cn_liang", "cn_qian"],
+            },
+        ],
     },
     {
         key: "temperature",
@@ -615,15 +614,15 @@ export const config: ConfigType[] = [
                 unit: "°Re",
                 calc: `(x - 273.15) / 1.25`,
                 init: `(x * 1.25) + 273.15`,
-            }
+            },
         ],
         special: [],
         group: [
             {
                 key: "",
-                list: ["c", "f", "k", "r", "re"]
-            }
-        ]
+                list: ["c", "f", "k", "r", "re"],
+            },
+        ],
     },
     {
         key: "pressure",
@@ -712,15 +711,15 @@ export const config: ConfigType[] = [
                 unit: "MPa",
                 calc: `x / 1000000`,
                 init: `(x * 1000000)`,
-            }
+            },
         ],
         special: [],
         group: [
             {
                 key: "",
-                list: ["pa", "kpa", "hpa", "atm", "mmhg", "in_hg", "bar", "mbar", "psf", "psi", "mmwg", "kgf_cm_2", "kgf_m_2", "mpa"]
-            }
-        ]
+                list: ["pa", "kpa", "hpa", "atm", "mmhg", "in_hg", "bar", "mbar", "psf", "psi", "mmwg", "kgf_cm_2", "kgf_m_2", "mpa"],
+            },
+        ],
     },
     {
         key: "power",
@@ -798,15 +797,15 @@ export const config: ConfigType[] = [
                 unit: "dBW",
                 calc: `10 * log(x,10)`,
                 init: `10^(x/10)`,
-            }
+            },
         ],
         special: [],
         group: [
             {
                 key: "",
-                list: ["w", "kw", "hp", "ps", "kg_m_s", "kcal_s", "btu_s", "ft_lb_s", "j_s", "n_m_s", "dbm", "dbw"]
-            }
-        ]
+                list: ["w", "kw", "hp", "ps", "kg_m_s", "kcal_s", "btu_s", "ft_lb_s", "j_s", "n_m_s", "dbm", "dbw"],
+            },
+        ],
     },
     {
         key: "work",
@@ -877,15 +876,15 @@ export const config: ConfigType[] = [
                 unit: "kJ",
                 calc: `x / 1000`,
                 init: `(x * 1000)`,
-            }
+            },
         ],
         special: [],
         group: [
             {
                 key: "",
-                list: ["j", "kg_m", "ps_h", "hp_h", "kw_h", "kw_h_", "cal", "kcal", "btu", "ft_lb", "kj"]
-            }
-        ]
+                list: ["j", "kg_m", "ps_h", "hp_h", "kw_h", "kw_h_", "cal", "kcal", "btu", "ft_lb", "kj"],
+            },
+        ],
     },
     {
         key: "density",
@@ -926,15 +925,15 @@ export const config: ConfigType[] = [
                 unit: "g/m³",
                 calc: `(x * 1000)`,
                 init: `x / 1000`,
-            }
+            },
         ],
         special: [],
         group: [
             {
                 key: "",
-                list: ["kg_cm_3", "kg_dm_3", "kg_m_3", "g_cm_3", "g_dm_3", "g_m_3"]
-            }
-        ]
+                list: ["kg_cm_3", "kg_dm_3", "kg_m_3", "g_cm_3", "g_dm_3", "g_m_3"],
+            },
+        ],
     },
     {
         key: "strength",
@@ -987,15 +986,15 @@ export const config: ConfigType[] = [
                 unit: "dyn",
                 calc: `(x * 100000)`,
                 init: `x / 100000`,
-            }
+            },
         ],
         special: [],
         group: [
             {
                 key: "",
-                list: ["n", "kn", "kgf", "gf", "tf", "lbf", "kip", "dyn"]
-            }
-        ]
+                list: ["n", "kn", "kgf", "gf", "tf", "lbf", "kip", "dyn"],
+            },
+        ],
     },
     {
         key: "time",
@@ -1054,21 +1053,21 @@ export const config: ConfigType[] = [
                 unit: "ns",
                 calc: `x * 1000000000`,
                 init: `x / 1000000000`,
-            }
+            },
         ],
         special: [
             {
                 from: "h",
                 to: "min",
                 func: `x * 60`,
-            }
+            },
         ],
         group: [
             {
                 key: "",
-                list: ["yr", "week", "d", "h", "min", "s", "ms", "us", "ns"]
-            }
-        ]
+                list: ["yr", "week", "d", "h", "min", "s", "ms", "us", "ns"],
+            },
+        ],
     },
     {
         key: "speed",
@@ -1115,15 +1114,15 @@ export const config: ConfigType[] = [
                 unit: "in/s",
                 calc: `x * 39.370079`,
                 init: `x / 39.370079`,
-            }
+            },
         ],
         special: [],
         group: [
             {
                 key: "",
-                list: ["m_s", "km_s", "km_h", "c", "mach", "mile_h", "in_s"]
-            }
-        ]
+                list: ["m_s", "km_s", "km_h", "c", "mach", "mile_h", "in_s"],
+            },
+        ],
     },
     {
         key: "byte",
@@ -1176,15 +1175,15 @@ export const config: ConfigType[] = [
                 unit: "eb",
                 calc: `x / (2^60)`,
                 init: `(x * (2^60))`,
-            }
+            },
         ],
         special: [],
         group: [
             {
                 key: "",
-                list: ["bit", "b", "kb", "mb", "gb", "tb", "pb", "eb"]
-            }
-        ]
+                list: ["bit", "b", "kb", "mb", "gb", "tb", "pb", "eb"],
+            },
+        ],
     },
     {
         key: "angle",
@@ -1237,21 +1236,21 @@ export const config: ConfigType[] = [
                 unit: "mrad",
                 calc: `x * 17.453293`,
                 init: `x / 17.453293`,
-            }
+            },
         ],
         special: [],
         group: [
             {
                 key: "angle_units",
-                list: ["circle", "angle", "gon", "degree", "min", "s"]
+                list: ["circle", "angle", "gon", "degree", "min", "s"],
             },
             {
                 key: "radian_units",
-                list: ["rad", "mrad"]
-            }
-        ]
-    }
-]
+                list: ["rad", "mrad"],
+            },
+        ],
+    },
+];
 
 export const getGroupByUnit = (type: string, unit: string) => {
     for (let group of getType(type).group) {
@@ -1259,76 +1258,76 @@ export const getGroupByUnit = (type: string, unit: string) => {
             return group.key;
         }
     }
-    return ""
-}
+    return "";
+};
 
-export const calculate = function (type: string, num: string, from: string, to: string) {
-    let fromUnit = getUnit(type, from)
+export const calculate = function(type: string, num: string, from: string, to: string) {
+    let fromUnit = getUnit(type, from);
     if (from === to) {
-        return format(num)
+        return format(num);
     }
-    let toUnit = getUnit(type, to)
+    let toUnit = getUnit(type, to);
 
-    let special = getSpecial(type, from, to)
+    let special = getSpecial(type, from, to);
 
     const calc = (input: string, expression: string) => {
-        return math.evaluate(expression.replaceAll("x", input)).toString()
-    }
+        return math.evaluate(expression.replaceAll("x", input)).toString();
+    };
     if (special !== null) {
-        num = calc(num, special)
+        num = calc(num, special);
     } else {
-        num = calc(calc(num, fromUnit.init), toUnit.calc)
+        num = calc(calc(num, fromUnit.init), toUnit.calc);
     }
-    return format(num)
-}
+    return format(num);
+};
 
-export const getType = (name): ConfigType => {
+export const getType = (name: string): ConfigType => {
     for (let type of config) {
         if (name === type.key) {
             return type;
         }
     }
-    throw new Error(`${name} type not found`)
-}
+    throw new Error(`${name} type not found`);
+};
 
-export const getUnit = (type, unitKey) => {
+export const getUnit = (type: string, unitKey: string) => {
     for (let unit of getType(type).unit) {
         if (unitKey === unit.key) {
             return unit;
         }
     }
-    throw new Error(`${type} - ${unitKey} unit not found`)
-}
+    throw new Error(`${type} - ${unitKey} unit not found`);
+};
 
-const getSpecial = (name, from, to) => {
-    let type = getType(name)
+const getSpecial = (name: string, from: string, to: string) => {
+    let type = getType(name);
     if (type.special.length > 0) {
         for (let special of type.special) {
-            if (special['from'] === from && special['to'] === to) {
-                return special['func']
+            if (special["from"] === from && special["to"] === to) {
+                return special["func"];
             }
         }
     }
     return null;
-}
+};
 
 /*
  * 对结果进行格式化(内部使用)
  */
-const format = function (_num: string) {
-    let num = Number(_num)
+const format = function(_num: string) {
+    let num = Number(_num);
 
     //格式策略，整体不超过14位
     let strNum = `${num}`,
         isFloat = false,
-        arr, intPart, decPart
+        arr, intPart, decPart;
     //只有包括.且整数位小于14位才认为是浮点数（便于以后格式化）
-    if (strNum.indexOf('.') > -1) {
-        let match = strNum.match(/\.\d+e[+-](\d+)$/)
+    if (strNum.indexOf(".") > -1) {
+        let match = strNum.match(/\.\d+e[+-](\d+)$/);
         if (match && match[1]) {
-            isFloat = (match[1] as any) * 1 < (MAX_NUM - 1)
+            isFloat = (match[1] as any) * 1 < (MAX_NUM - 1);
         } else {
-            isFloat = true
+            isFloat = true;
         }
     }
     //小数处理逻辑
@@ -1337,45 +1336,45 @@ const format = function (_num: string) {
         if (num > -1 && num < 1 && num != 0) {
             //小数位开始有5个及以上0，转换为科学计数法，计数小数保留四位
             if (Math.abs(num) < 0.00001) {
-                num = exponential(num, EXPONENTIAL_NUM)
+                return exponential(num, EXPONENTIAL_NUM);
             } else {
                 //保留7位小数
-                num = Number(num.toFixed(DECIMAL_NUM))
+                num = Number(num.toFixed(DECIMAL_NUM));
             }
         } else {
-            arr = strNum.split('.')
-            intPart = arr[0]
-            decPart = arr[1]
+            arr = strNum.split(".");
+            intPart = arr[0];
+            decPart = arr[1];
             //整体超长
             if (strNum.length > MAX_NUM) {
                 //整数部分超长
                 if (intPart.length >= MAX_NUM) {
-                    num = exponential(num, EXPONENTIAL_NUM)
+                    return exponential(num, EXPONENTIAL_NUM);
                 } else {
                     if (intPart.length < DECIMAL_NUM - 1) {
-                        num = Number(num.toFixed(DECIMAL_NUM))
+                        num = Number(num.toFixed(DECIMAL_NUM));
                     } else {
-                        num = Number(num.toFixed(MAX_NUM - intPart.length - 1))
+                        num = Number(num.toFixed(MAX_NUM - intPart.length - 1));
                     }
                 }
             } else {
                 if (decPart.length > DECIMAL_NUM) {
-                    num = Number(num.toFixed(DECIMAL_NUM))
+                    num = Number(num.toFixed(DECIMAL_NUM));
                 }
             }
         }
     } else {
         if (strNum.length > MAX_NUM) {
-            num = exponential(num, EXPONENTIAL_NUM)
+            return exponential(num, EXPONENTIAL_NUM);
         }
     }
-    return num + ''
-}
+    return `${num}`;
+};
 
 // 科学计数法快捷函数
-const exponential = (num, n) => {
+const exponential = (num: number, n: number) => {
     //保留科学计数法小数后n位
-    let numExp = num.toExponential(n)
+    let numExp = num.toExponential(n);
     //如果计数小数位均为0，去掉
-    return (numExp + '').match(new RegExp('.0{' + n + '}e')) ? num.toExponential(0) : numExp
-}
+    return (numExp + "").match(new RegExp(".0{" + n + "}e")) ? num.toExponential(0) : numExp;
+};

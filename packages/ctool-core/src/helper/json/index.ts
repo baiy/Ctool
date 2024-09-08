@@ -8,7 +8,7 @@ export default {
     parse: (str: string, {BIGINT_TO_STING = false, JSON_REPAIR = false} = {}) => {
         return parse(
             JSON_REPAIR ? jsonrepair(str) : str,
-            (key, value) => {
+            (_key, value) => {
                 // 非安全数字转字符串
                 if (BIGINT_TO_STING && typeof value === "bigint") {
                     return (value as BigInt).toString()
