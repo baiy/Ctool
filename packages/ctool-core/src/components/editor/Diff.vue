@@ -35,7 +35,7 @@
 </template>
 <script lang="ts" setup>
 // 代码编辑器
-import { loader, ContextMenu, monacoInstance, monaco } from "./monaco";
+import { monacoInit, ContextMenu, monacoInstance, monacoEditor } from "./monaco";
 import PlaceholderContentWidget from "./placeholderContentWidget";
 import { onUnmounted, onMounted, watch, PropType, ref, shallowRef } from "vue";
 import { getEditorLanguage } from "@/helper/code";
@@ -84,7 +84,7 @@ const props = defineProps({
 
 const storeTheme = useTheme();
 const container = ref<HTMLElement | null>(null);
-const editorView = shallowRef<monaco.editor.IDiffEditor | null>(null);
+const editorView = shallowRef<monacoEditor.editor.IDiffEditor | null>(null);
 
 const lineWrapping = ref(!props.disableLineWrapping);
 const lineNumbers = ref(!props.disableLineNumbers);
@@ -116,9 +116,9 @@ const create = async (element: HTMLElement) => {
     if (editorView.value) {
         editorView.value.dispose();
     }
-    
-    loader.config({ "vs/nls": { availableLanguages: { "*": $t("main_locale") === "zh_CN" ? "zh-cn" : "en" } } });
-    loader.init().then(monaco => {
+    monacoInit({
+        "vs/nls": { availableLanguages: { "*": $t("main_locale") === "zh_CN" ? "zh-cn" : "en" } },
+    }).then(monaco => {
         const originalModel = monaco.editor.createModel(original.value);
         const modifiedModel = monaco.editor.createModel(modified.value);
         

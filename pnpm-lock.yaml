@@ -247,7 +247,7 @@ importers:
         version: 1.38.0
       '@monaco-editor/loader':
         specifier: ^1.4.0
-        version: 1.4.0(monaco-editor@0.44.0)
+        version: 1.4.0(monaco-editor@0.51.0)
       '@prettier/plugin-php':
         specifier: ^0.22.0
         version: 0.22.2(prettier@3.3.3)
@@ -389,9 +389,6 @@ importers:
       mathjs:
         specifier: ^13.0.0
         version: 13.1.1
-      monaco-editor:
-        specifier: 0.44.0
-        version: 0.44.0
       netmask:
         specifier: ^2.0.2
         version: 2.0.2
@@ -546,6 +543,9 @@ importers:
       '@vue/runtime-core':
         specifier: 'catalog:'
         version: 3.5.3
+      monaco-editor:
+        specifier: 0.51.0
+        version: 0.51.0
       text-decoding:
         specifier: ^1.0.0
         version: 1.0.0
@@ -558,9 +558,6 @@ importers:
       vite-plugin-html-config:
         specifier: ^2.0.2
         version: 2.0.2(vite@5.4.3(@types/node@22.5.4)(terser@5.31.6))
-      vite-plugin-monaco-editor:
-        specifier: ^1.1.0
-        version: 1.1.0(monaco-editor@0.44.0)
       vite-plugin-node-polyfills:
         specifier: ^0.22.0
         version: 0.22.0(rollup@4.21.2)(vite@5.4.3(@types/node@22.5.4)(terser@5.31.6))
@@ -3476,8 +3473,8 @@ packages:
   mlly@1.7.1:
     resolution: {integrity: sha512-rrVRZRELyQzrIUAVMHxP97kv+G786pHmOKzuFII8zDYahFBS7qnHh2AlYSl1GAHhaMPCz6/oHjVMcfFYgFYHgA==}
 
-  monaco-editor@0.44.0:
-    resolution: {integrity: sha512-5SmjNStN6bSuSE5WPT2ZV+iYn1/yI9sd4Igtk23ChvqB7kDk9lZbB9F5frsuvpB+2njdIeGGFf2G4gbE6rCC9Q==}
+  monaco-editor@0.51.0:
+    resolution: {integrity: sha512-xaGwVV1fq343cM7aOYB6lVE4Ugf0UyimdD/x5PWcWBMKENwectaEu77FAN7c5sFiyumqeJdX1RPTh1ocioyDjw==}
 
   mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
@@ -4353,11 +4350,6 @@ packages:
     engines: {node: '>=12.0.0'}
     peerDependencies:
       vite: '>=5.0.0'
-
-  vite-plugin-monaco-editor@1.1.0:
-    resolution: {integrity: sha512-IvtUqZotrRoVqwT0PBBDIZPNraya3BxN/bfcNfnxZ5rkJiGcNtO5eAOWWSgT7zullIAEqQwxMU83yL9J5k7gww==}
-    peerDependencies:
-      monaco-editor: '>=0.33.0'
 
   vite-plugin-node-polyfills@0.22.0:
     resolution: {integrity: sha512-F+G3LjiGbG8QpbH9bZ//GSBr9i1InSTkaulfUHFa9jkLqVGORFBoqc2A/Yu5Mmh1kNAbiAeKeK+6aaQUf3x0JA==}
@@ -5609,9 +5601,9 @@ snapshots:
 
   '@ltd/j-toml@1.38.0': {}
 
-  '@monaco-editor/loader@1.4.0(monaco-editor@0.44.0)':
+  '@monaco-editor/loader@1.4.0(monaco-editor@0.51.0)':
     dependencies:
-      monaco-editor: 0.44.0
+      monaco-editor: 0.51.0
       state-local: 1.0.7
 
   '@nodelib/fs.scandir@2.1.5':
@@ -7602,7 +7594,7 @@ snapshots:
       pkg-types: 1.2.0
       ufo: 1.5.4
 
-  monaco-editor@0.44.0: {}
+  monaco-editor@0.51.0: {}
 
   mri@1.2.0: {}
 
@@ -8536,10 +8528,6 @@ snapshots:
   vite-plugin-html-config@2.0.2(vite@5.4.3(@types/node@22.5.4)(terser@5.31.6)):
     dependencies:
       vite: 5.4.3(@types/node@22.5.4)(terser@5.31.6)
-
-  vite-plugin-monaco-editor@1.1.0(monaco-editor@0.44.0):
-    dependencies:
-      monaco-editor: 0.44.0
 
   vite-plugin-node-polyfills@0.22.0(rollup@4.21.2)(vite@5.4.3(@types/node@22.5.4)(terser@5.31.6)):
     dependencies:

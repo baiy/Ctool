@@ -14,7 +14,7 @@
 </template>
 <script lang="ts" setup>
 // 代码编辑器
-import { loader, ContextMenu, monacoInstance, monaco, lineInfo } from "./monaco";
+import { monacoInit, ContextMenu, monacoInstance, monacoEditor, lineInfo } from "./monaco";
 import PlaceholderContentWidget from "./placeholderContentWidget";
 import { onUnmounted, onMounted, unref, watch, PropType, ref, shallowRef } from "vue";
 import { getEditorLanguage } from "@/helper/code";
@@ -80,7 +80,7 @@ const props = defineProps({
 
 const storeTheme = useTheme();
 const container = ref<HTMLElement | null>(null);
-const editorView = shallowRef<monaco.editor.IStandaloneCodeEditor | null>(null);
+const editorView = shallowRef<monacoEditor.editor.IStandaloneCodeEditor | null>(null);
 const lineWrapping = ref(!props.disableLineWrapping);
 const lineNumbers = ref(!props.disableLineNumbers);
 
@@ -96,17 +96,17 @@ const updateEditorConfig = async () => {
     if (!editorView.value) {
         return;
     }
-
+    
     lineInfo(editorView.value).status(props.lineInfo);
-
+    
     const model = editorView.value.getModel();
-
+    
     // 设置语言
     model && monacoInstance()?.editor.setModelLanguage(model, getLanguage(props.lang).id);
-
+    
     // 主题
     monacoInstance()?.editor.setTheme(storeTheme.theme.raw === "dark" ? "vs-dark" : "vs");
-
+    
     editorView.value.render(true);
 };
 
@@ -114,9 +114,9 @@ const create = async (element: HTMLElement) => {
     if (editorView.value) {
         editorView.value.dispose();
     }
-
-    loader.config({ "vs/nls": { availableLanguages: { "*": $t("main_locale") === "zh_CN" ? "zh-cn" : "en" } } });
-    loader.init().then(monaco => {
+    monacoInit({
+        "vs/nls": { availableLanguages: { "*": $t("main_locale") === "zh_CN" ? "zh-cn" : "en" } },
+    }).then(monaco => {
         const editor = monaco.editor.create(element, {
             value: unref(modelValue.value),
             minimap: {
@@ -130,28 +130,28 @@ const create = async (element: HTMLElement) => {
             },
             automaticLayout: true,
         });
-
+        
         // 内容更新
         editor.onDidChangeModelContent(() => {
             if (editor.getValue() !== unref(modelValue.value)) {
                 modelValue.value = editor.getValue();
             }
         });
-
+        
         // placeholder
         new PlaceholderContentWidget(props.placeholder, editor);
-
+        
         // 右键菜单
         const contextMenu = new ContextMenu(editor);
-
+        
         // 行信息展示
         lineInfo(editor).status(props.lineInfo);
-
+        
         contextMenu.setHandle("ctool_line_wrapping", (_ed, _id, result) => (lineWrapping.value = result));
         contextMenu.setHandle("ctool_line_number", (_ed, _id, result) => (lineNumbers.value = result));
-
+        
         editorView.value = editor;
-
+        
         // 编辑器配置
         updateEditorConfig();
     });
@@ -184,7 +184,7 @@ watch(
         if (editorView.value) {
             return updateEditor(value);
         }
-
+        
         // 防止初始内容变更 编辑器还没有初始化成功
         const timer = setInterval(() => {
             if (editorView.value) {

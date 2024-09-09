@@ -5,7 +5,6 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 import { readFileSync } from "fs";
 import HtmlConfig from "vite-plugin-html-config";
 import ReactivityTransform from "@vue-macros/reactivity-transform/vite";
-import monacoEditorPlugin from "vite-plugin-monaco-editor";
 
 export default defineConfig({
     base: "./",
@@ -25,7 +24,6 @@ export default defineConfig({
         }),
         vue(),
         ReactivityTransform(),
-        monacoEditorPlugin({}),
     ],
     resolve: {
         alias: {
