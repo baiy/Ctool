@@ -33,9 +33,11 @@ const monacoInstance = () => {
 };
 
 const monacoInit = (params: Parameters<typeof loader.config>[0] = {}) => {
+    // 暂时无法设置 i18n
+    // https://github.com/suren-atoyan/monaco-loader/issues/40
     loader.config({
-        ...params,
-        monaco: monaco,
+        monaco,
+        ...params
     });
     return loader.init();
 };

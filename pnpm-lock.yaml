@@ -389,6 +389,9 @@ importers:
       mathjs:
         specifier: ^13.0.0
         version: 13.1.1
+      monaco-editor:
+        specifier: 0.51.0
+        version: 0.51.0
       netmask:
         specifier: ^2.0.2
         version: 2.0.2
@@ -543,9 +546,6 @@ importers:
       '@vue/runtime-core':
         specifier: 'catalog:'
         version: 3.5.3
-      monaco-editor:
-        specifier: 0.51.0
-        version: 0.51.0
       text-decoding:
         specifier: ^1.0.0
         version: 1.0.0
