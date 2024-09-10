@@ -1,219 +1,223 @@
 // 分类 定义
-const _categories = ['encryption', 'conversion', 'encoder_decoder', 'check', 'generate', 'other'] as const
+const _categories = ["encryption", "conversion", "encoder_decoder", "check", "generate", "other"] as const;
 
 // 工具 - 功能 - 父目录 定义
 export let _tools = {
     hash: {
-        feature: ['hash'],
-        parent_directory: ""
+        feature: ["hash"],
+        parent_directory: "",
     },
     aes: {
-        feature: ['encrypt', 'decrypt'],
-        parent_directory: "encrypt"
+        feature: ["encrypt", "decrypt"],
+        parent_directory: "encrypt",
     },
     des: {
-        feature: ['encrypt', 'decrypt'],
-        parent_directory: "encrypt"
+        feature: ["encrypt", "decrypt"],
+        parent_directory: "encrypt",
     },
     tripleDes: {
-        feature: ['encrypt', 'decrypt'],
-        parent_directory: "encrypt"
+        feature: ["encrypt", "decrypt"],
+        parent_directory: "encrypt",
     },
     rc4: {
-        feature: ['encrypt', 'decrypt'],
-        parent_directory: "encrypt"
+        feature: ["encrypt", "decrypt"],
+        parent_directory: "encrypt",
     },
     rabbit: {
-        feature: ['encrypt', 'decrypt'],
-        parent_directory: "encrypt"
+        feature: ["encrypt", "decrypt"],
+        parent_directory: "encrypt",
     },
     sm2: {
-        feature: ['encrypt', 'decrypt', 'sign', 'verify'],
-        parent_directory: "encrypt"
+        feature: ["encrypt", "decrypt", "sign", "verify"],
+        parent_directory: "encrypt",
     },
     sm4: {
-        feature: ['encrypt', 'decrypt'],
-        parent_directory: "encrypt"
+        feature: ["encrypt", "decrypt"],
+        parent_directory: "encrypt",
     },
     rsa: {
-        feature: ['encrypt', 'decrypt'],
-        parent_directory: "encrypt"
+        feature: ["encrypt", "decrypt"],
+        parent_directory: "encrypt",
     },
     sign: {
-        feature: ['sign'],
-        parent_directory: ""
+        feature: ["sign"],
+        parent_directory: "",
     },
     base64: {
-        feature: ['encoder', 'decoder'],
-        parent_directory: ""
+        feature: ["encoder", "decoder"],
+        parent_directory: "",
     },
     json: {
-        feature: ['json'],
-        parent_directory: ""
+        feature: ["json"],
+        parent_directory: "",
     },
     url: {
-        feature: ['encoder', 'decoder'],
-        parent_directory: ""
+        feature: ["encoder", "decoder"],
+        parent_directory: "",
     },
     qrCode: {
-        feature: ['generate', 'parse'],
-        parent_directory: ""
+        feature: ["generate", "parse"],
+        parent_directory: "",
     },
     barcode: {
-        feature: ['barcode'],
-        parent_directory: ""
+        feature: ["barcode"],
+        parent_directory: "",
     },
     pinyin: {
-        feature: ['pinyin'],
-        parent_directory: ""
+        feature: ["pinyin"],
+        parent_directory: "",
     },
     ip: {
-        feature: ['ip'],
-        parent_directory: ""
+        feature: ["ip"],
+        parent_directory: "",
     },
     code: {
-        feature: ['code', 'run'],
-        parent_directory: ""
+        feature: ["code", "run"],
+        parent_directory: "",
     },
     unicode: {
-        feature: ['encoder', 'decoder'],
-        parent_directory: ""
+        feature: ["encoder", "decoder"],
+        parent_directory: "",
     },
     radix: {
-        feature: ['radix'],
-        parent_directory: ""
+        feature: ["radix"],
+        parent_directory: "",
     },
     regex: {
-        feature: ['regex'],
-        parent_directory: ""
+        feature: ["regex"],
+        parent_directory: "",
     },
     randomString: {
-        feature: ['randomString'],
-        parent_directory: ""
+        feature: ["randomString"],
+        parent_directory: "",
     },
     serialize: {
-        feature: ['serialize'],
-        parent_directory: ""
+        feature: ["serialize"],
+        parent_directory: "",
     },
     diffs: {
-        feature: ['diffs'],
-        parent_directory: ""
+        feature: ["diffs"],
+        parent_directory: "",
     },
     crontab: {
-        feature: ['crontab'],
-        parent_directory: ""
+        feature: ["crontab"],
+        parent_directory: "",
     },
     websocket: {
-        feature: ['websocket'],
-        parent_directory: ""
+        feature: ["websocket"],
+        parent_directory: "",
     },
     unit: {
-        feature: ['unit'],
-        parent_directory: ""
+        feature: ["unit"],
+        parent_directory: "",
     },
     time: {
-        feature: ['timestamp', 'timezone', 'calculator'],
-        parent_directory: ""
+        feature: ["timestamp", "timezone", "calculator"],
+        parent_directory: "",
     },
     uuid: {
-        feature: ['uuid'],
-        parent_directory: ""
+        feature: ["uuid"],
+        parent_directory: "",
     },
     ascii: {
-        feature: ['ascii'],
-        parent_directory: ""
+        feature: ["ascii"],
+        parent_directory: "",
     },
     variableConversion: {
-        feature: ['variableConversion'],
-        parent_directory: ""
+        feature: ["variableConversion"],
+        parent_directory: "",
     },
     jwt: {
-        feature: ['jwt'],
-        parent_directory: ""
+        feature: ["jwt"],
+        parent_directory: "",
     },
     hexString: {
-        feature: ['stringToHex', 'hexToString'],
-        parent_directory: ""
+        feature: ["stringToHex", "hexToString"],
+        parent_directory: "",
     },
     text: {
-        feature: ['text'],
-        parent_directory: ""
+        feature: ["text"],
+        parent_directory: "",
     },
     html: {
-        feature: ['html'],
-        parent_directory: ""
+        feature: ["html"],
+        parent_directory: "",
     },
     binary: {
-        feature: ['binary'],
-        parent_directory: ""
+        feature: ["binary"],
+        parent_directory: "",
     },
     arm: {
-        feature: ['armToHex', 'hexToArm'],
-        parent_directory: ""
+        feature: ["armToHex", "hexToArm"],
+        parent_directory: "",
     },
     bcrypt: {
-        feature: ['bcrypt'],
-        parent_directory: ""
+        feature: ["bcrypt"],
+        parent_directory: "",
     },
     ipcalc: {
-        feature: ['ipv4', 'ipv6'],
-        parent_directory: ""
+        feature: ["ipv4", "ipv6"],
+        parent_directory: "",
     },
     sqlFillParameter: {
-        feature: ['sqlFillParameter'],
-        parent_directory: ""
+        feature: ["sqlFillParameter"],
+        parent_directory: "",
     },
     httpSnippet: {
-        feature: ['httpSnippet'],
-        parent_directory: ""
+        feature: ["httpSnippet"],
+        parent_directory: "",
     },
     dataValidation: {
-        feature: ['bcc', 'crc', 'lrc'],
-        parent_directory: ""
+        feature: ["bcc", "crc", "lrc"],
+        parent_directory: "",
     },
     color: {
-        feature: ['color'],
-        parent_directory: ""
+        feature: ["color"],
+        parent_directory: "",
     },
     hmac: {
-        feature: ['hmac'],
-        parent_directory: ""
+        feature: ["hmac"],
+        parent_directory: "",
     },
     gzip: {
-        feature: ['encoder', 'decoder'],
-        parent_directory: ""
+        feature: ["encoder", "decoder"],
+        parent_directory: "",
+    },
+    punycode: {
+        feature: ["encoder", "decoder"],
+        parent_directory: "",
     },
     urlParse: {
-        feature: ['urlParse'],
-        parent_directory: ""
+        feature: ["urlParse"],
+        parent_directory: "",
     },
     asn1: {
-        feature: ['asn1'],
-        parent_directory: ""
+        feature: ["asn1"],
+        parent_directory: "",
     },
     dockerCompose: {
-        feature: ['dockerCompose'],
-        parent_directory: ""
-    }
+        feature: ["dockerCompose"],
+        parent_directory: "",
+    },
 } as const;
 
 // 分类 配置
 export const _categoryTool: Record<CategoryType, ToolType[]> = {
     encryption: ["hash", "hmac", "aes", "des", "tripleDes", "rc4", "rabbit", "sm2", "sm4", "rsa", "sign", "base64", "bcrypt"],
     check: ["sign", "regex", "diffs", "crontab", "bcrypt", "dataValidation"],
-    encoder_decoder: ["base64", "url", "unicode", "jwt", "hexString", "html", "gzip", "asn1"],
+    encoder_decoder: ["base64", "url", "unicode", "jwt", "hexString", "html", "gzip", "asn1", "punycode"],
     conversion: ["json", "pinyin", "radix", "serialize", "unit", "time", "ascii", "variableConversion", "hexString", "arm", "httpSnippet", "color", "urlParse", "dockerCompose"],
     generate: ["qrCode", "barcode", "randomString", "uuid", "binary", "ipcalc", "sqlFillParameter", "httpSnippet"],
-    other: ["ip", "code", "websocket", "unit", "text"]
-}
+    other: ["ip", "code", "websocket", "unit", "text"],
+};
 
 // 默认常用
-export const _common: ToolType[] = ['hash', 'json', 'base64', 'url', 'time', 'qrCode', 'pinyin', 'ip', 'code', 'unicode', 'text', 'randomString', 'diffs']
+export const _common: ToolType[] = ["hash", "json", "base64", "url", "time", "qrCode", "pinyin", "ip", "code", "unicode", "text", "randomString", "diffs"];
 
 
 // ================ 类型定义 ================ //
 export type ToolType = keyof typeof _tools
-export type FeatureType<T extends ToolType = ToolType> = typeof _tools[T]['feature'][number]
+export type FeatureType<T extends ToolType = ToolType> = typeof _tools[T]["feature"][number]
 export type CategoryType = typeof _categories[number]
 
 export interface ToolInterface<T extends ToolType = ToolType> {

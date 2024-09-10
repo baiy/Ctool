@@ -2,7 +2,7 @@
 import JSON5 from "json5";
 import {fileCoreSrc, buildData, buildType} from "./fileSystem";
 import {difference, cloneDeep} from "lodash";
-import {tools,LocaleStructure, LocalListsStructure, AllLocaleStructure, localesReal} from '../index'
+import {tools,LocaleStructure, LocalListsStructure, AllLocaleStructure, localesReal} from "@/index"
 
 const localLists: LocalListsStructure[] = [
     {code: '_default', name: "默认(default)"},

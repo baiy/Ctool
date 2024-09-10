@@ -416,6 +416,9 @@ importers:
       prettier-plugin-java:
         specifier: 2.6.4
         version: 2.6.4
+      punycode:
+        specifier: ^2.3.1
+        version: 2.3.1
       qr-code-styling:
         specifier: github:baiy/styled-qr-code
         version: styled-qr-code@https://codeload.github.com/baiy/styled-qr-code/tar.gz/ad58da595ea2c1301ff4ff607dfae4f33d2b791a
@@ -522,6 +525,9 @@ importers:
       '@types/pako':
         specifier: ^2.0.0
         version: 2.0.3
+      '@types/punycode':
+        specifier: ^2.1.4
+        version: 2.1.4
       '@types/qs':
         specifier: ^6.9.7
         version: 6.9.15
@@ -1925,6 +1931,9 @@ packages:
 
   '@types/pako@2.0.3':
     resolution: {integrity: sha512-bq0hMV9opAcrmE0Byyo0fY3Ew4tgOevJmQ9grUhpXQhYfyLJ1Kqg3P33JT5fdbT2AjeAjR51zqqVjAL/HMkx7Q==}
+
+  '@types/punycode@2.1.4':
+    resolution: {integrity: sha512-trzh6NzBnq8yw5e35f8xe8VTYjqM3NE7bohBtvDVf/dtUer3zYTLK1Ka3DG3p7bdtoaOHZucma6FfVKlQ134pQ==}
 
   '@types/qs@6.9.15':
     resolution: {integrity: sha512-uXHQKES6DQKKCLh441Xv/dwxOq1TVS3JPUMlEqoEglvlhR6Mxnlew/Xq/LRVHpLyk7iK3zODe1qYHIMltO7XGg==}
@@ -6155,6 +6164,8 @@ snapshots:
       undici-types: 6.19.8
 
   '@types/pako@2.0.3': {}
+
+  '@types/punycode@2.1.4': {}
 
   '@types/qs@6.9.15': {}
 
