@@ -91,6 +91,7 @@
     "urlParse": "Url Parse",
     "asn1": "ASN.1 Decode",
     "dockerCompose": "Docker run to Compose",
+    "zhNumber": "Chinese digital conversion",
     "punycode": "Punycode",
     "punycode_encoder": "Encoder",
     "punycode_decoder": "Decoder"

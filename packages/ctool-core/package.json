@@ -59,6 +59,7 @@
         "mathjs": "^13.0.0",
         "monaco-editor": "^0.51.0",
         "netmask": "^2.0.2",
+        "nzh": "^1.0.13",
         "pako": "^2.1.0",
         "php-array-reader": "^2.1.2",
         "pinia": "^2.0.29",

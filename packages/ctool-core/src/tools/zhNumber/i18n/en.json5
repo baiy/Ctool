@@ -1,0 +1,8 @@
+{
+    "input_placeholder": "Please enter {0}",
+    "number": "number",
+    "lower": "lower(zh)",
+    "upper": "upper(zh)",
+    "money": "Money(zh)",
+    "traditional": "Traditional"
+}

@@ -1,0 +1,8 @@
+{
+    "input_placeholder": "请输入{0}",
+    "number": "数字",
+    "lower": "中文小写",
+    "upper": "中文大写",
+    "money": "人民币大写",
+    "traditional": "繁体",
+}
