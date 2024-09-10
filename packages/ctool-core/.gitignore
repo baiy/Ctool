@@ -32,3 +32,4 @@ public/ctool.addition.json
 test.js
 temp/
 dist1
+*.tsbuildinfo

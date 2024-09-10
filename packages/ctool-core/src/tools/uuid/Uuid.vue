@@ -10,12 +10,21 @@
         </HeightResize>
         <Card class="ctool-page-option">
             <Align horizontal="center">
-                <InputNumber v-model="action.current.amount" :label="$t('uuid_amount')" :width="110"/>
-                <Bool border :label="$t('uuid_hyphens')" v-model="action.current.hyphens"/>
-                <Bool border :label="$t('uuid_is_upper')" v-model="action.current.isUpper"/>
-                <Bool border :label="$t('uuid_uint8_array')" v-model="action.current.uint8_array"/>
+                <InputNumber v-model="action.current.amount" :label="$t('uuid_amount')" :width="110" />
+                <Bool border label="ULID" v-model="action.current.ulid" />
+                <Bool border :label="$t('uuid_is_upper')" v-model="action.current.isUpper" />
+                <Bool border
+                      :label="$t('uuid_hyphens')"
+                      :disabled="action.current.ulid"
+                      v-model="action.current.hyphens"
+                />
+                <Bool border
+                      :label="$t('uuid_uint8_array')"
+                      :disabled="action.current.ulid"
+                      v-model="action.current.uint8_array"
+                />
                 <Button @click="handle">
-                    <Icon name="refresh"/>
+                    <Icon name="refresh" />
                 </Button>
             </Align>
         </Card>
@@ -23,11 +32,11 @@
 </template>
 
 <script lang="ts" setup>
-import {parse as uuidParse, v4 as uuidV4} from './util';
-import {initialize, useAction} from "@/store/action";
+import { uuidParse, uuidV4, ulid } from "./util";
+import { initialize, useAction } from "@/store/action";
 import Serialize from "@/helper/serialize";
-import {onMounted, watch} from "vue";
-import {SerializeOutput as SerializeOutputType, createSerializeOutput} from "@/components/serialize";
+import { onMounted, watch } from "vue";
+import { SerializeOutput as SerializeOutputType, createSerializeOutput } from "@/components/serialize";
 
 const action = useAction(await initialize<{
     amount: number,
@@ -36,6 +45,7 @@ const action = useAction(await initialize<{
     is_add_quote: boolean,
     isUpper: boolean,
     uint8_array: boolean,
+    ulid: boolean
     result: string[]
 }>({
     amount: 10,
@@ -43,17 +53,18 @@ const action = useAction(await initialize<{
     is_add_quote: false,
     isUpper: false,
     uint8_array: false,
-    outputOption: createSerializeOutput('text'),
-    result: []
-}))
+    ulid: false,
+    outputOption: createSerializeOutput("text"),
+    result: [],
+}));
 
 const handle = () => {
     let result: string[] = [];
     for (let i = 0, l = action.current.amount; i < l; i++) {
-        result.push(uuidV4());
+        result.push(!action.current.ulid ? uuidV4() : ulid());
     }
-    action.current.result = result
-}
+    action.current.result = result;
+};
 
 const output = $computed<Serialize>(() => {
     if (action.current.result.length < 1) {
@@ -61,30 +72,37 @@ const output = $computed<Serialize>(() => {
     }
     return Serialize.formObject(
         action.current.result.map((item) => {
-            if (action.current.uint8_array) {
-                item = "[" + uuidParse(item).toString() + "]"
+            if (!action.current.ulid) {
+                if (action.current.uint8_array) {
+                    item = "[" + uuidParse(item).toString() + "]";
+                }
+                if (!action.current.hyphens) {
+                    item = item.replace(/-/g, "");
+                }
             }
-            if (!action.current.hyphens) {
-                item = item.replace(/-/g, "")
-            }
-            return action.current.isUpper ? item.toUpperCase() : item.toLowerCase()
-        })
-    )
-})
+            return action.current.isUpper ? item.toUpperCase() : item.toLowerCase();
+        }),
+    );
+});
 
 
 onMounted(() => {
     if (action.current.result.length < 1) {
-        handle()
+        handle();
     }
-})
-watch(() => action.current.amount, () => {
-    handle()
-})
+});
+watch(() => {
+    return {
+        amount: action.current.amount,
+        ulid: action.current.ulid,
+    };
+}, () => {
+    handle();
+});
 watch(() => action.current, (current) => {
     if (current.result.length < 1) {
         return;
     }
-    action.save()
-}, {deep: true, immediate: true})
+    action.save();
+}, { deep: true, immediate: true });
 </script>
