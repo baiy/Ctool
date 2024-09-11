@@ -1,11 +1,11 @@
-import {join, resolve} from 'path'
-import {defineConfig} from 'vite'
-import vue from '@vitejs/plugin-vue'
-import {VitePWA} from 'vite-plugin-pwa'
-import svgLoader from 'vite-svg-loader'
-import ctoolPlugin from './vitePlugin'
-import {readFileSync} from "fs";
-import HtmlConfig from "vite-plugin-html-config"
+import { join, resolve } from "path";
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import { VitePWA } from "vite-plugin-pwa";
+import svgLoader from "vite-svg-loader";
+import ctoolPlugin from "./vitePlugin";
+import { readFileSync } from "fs";
+import HtmlConfig from "vite-plugin-html-config";
 
 export default defineConfig({
     base: "./",
@@ -15,17 +15,17 @@ export default defineConfig({
             metas: [
                 {
                     name: "ctool-version",
-                    content: JSON.parse(readFileSync(join(__dirname, '../../package.json')).toString())['version'],
+                    content: JSON.parse(readFileSync(join(__dirname, "../../package.json")).toString())["version"],
                 },
                 {
                     name: "ctool-build-timestamp",
                     content: `${Date.parse((new Date()).toString()) / 1000}`,
-                }
-            ]
+                },
+            ],
         }),
         vue(),
         svgLoader({
-            defaultImport: "component"
+            defaultImport: "component",
         }),
         VitePWA({
             injectRegister: null,
@@ -38,9 +38,9 @@ export default defineConfig({
                 ],
                 globPatterns: ["**\/*.{js,css,html,png,jpg,ico,svg,json}"],
                 cleanupOutdatedCaches: true,
-                maximumFileSizeToCacheInBytes: 10485760
+                maximumFileSizeToCacheInBytes: 10485760,
             },
-        })
+        }),
     ],
     resolve: {
         alias: {
@@ -52,9 +52,9 @@ export default defineConfig({
         emptyOutDir: true,
         rollupOptions: {
             input: {
-                index: resolve(__dirname, 'index.html'),
-            }
+                index: resolve(__dirname, "index.html"),
+            },
         },
-        reportCompressedSize: false
-    }
-})
+        reportCompressedSize: false,
+    },
+});

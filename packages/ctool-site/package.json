@@ -2,8 +2,8 @@
     "name": "ctool-site",
     "private": true,
     "scripts": {
-        "check": "vue-tsc --noEmit",
-        "dev": "pnpm run check && vite --force",
+        "check": "vue-tsc -b",
+        "dev": "pnpm run check && vite --host",
         "build": "pnpm run check && vite build"
     },
     "dependencies": {
@@ -17,7 +17,7 @@
         "@vitejs/plugin-vue": "catalog:",
         "typescript": "catalog:",
         "vite": "catalog:",
-        "vite-plugin-html-config": "^1.0.11",
+        "vite-plugin-html-config": "^2.0.2",
         "vite-plugin-pwa": "^0.20.5",
         "vite-svg-loader": "^4.0.0",
         "vue-tsc": "catalog:",
