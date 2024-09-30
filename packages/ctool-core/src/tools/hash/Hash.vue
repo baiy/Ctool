@@ -35,7 +35,7 @@
                 <template v-for="item in methods">
                     <Textarea
                         :model-value="result[item]"
-                        :height="(height - 20) / 5"
+                        :height="(height - 20) / methods.length"
                         :placeholder="item"
                         :copy="item"
                     />
