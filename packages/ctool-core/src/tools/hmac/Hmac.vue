@@ -26,7 +26,7 @@
                 <template v-for="item in methods">
                     <Textarea
                         :model-value="result[item]"
-                        :height="(height - 20) / 5"
+                        :height="(height - 20) / methods.length"
                         :placeholder="`HMAC-${item}`"
                         :copy="`HMAC-${item}`"
                     />
@@ -60,6 +60,7 @@ const result = $computed(() => {
         sha256: "",
         sha512: "",
         sm3: "",
+        ripemd160: "",
     }
     if (action.current.input.text.isEmpty() || action.current.secret.text.isEmpty()) {
         return r;

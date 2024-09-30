@@ -2,7 +2,7 @@ import CryptoJS from "crypto-js"
 import sm from "sm-crypto"
 import Text from "@/helper/text"
 
-export const methods = ['md5', 'sha1', 'sha256', 'sha512', 'sm3'] as const
+export const methods = ['md5', 'sha1', 'sha256', 'sha512', 'sm3', 'ripemd160'] as const
 export type methodType = typeof methods[number]
 
 const hmacMethod = {
@@ -42,6 +42,9 @@ const hmacMethod = {
 
         // @ts-ignore
         return sm.sm3(words as any, {key: secret.toHexString()});
+    },
+    ripemd160: (message: Text, secret: Text): string => {
+        return CryptoJS.HmacRIPEMD160(CryptoJS.enc.Base64.parse(message.toBase64()), CryptoJS.enc.Base64.parse(secret.toBase64())).toString();
     }
 }
 
