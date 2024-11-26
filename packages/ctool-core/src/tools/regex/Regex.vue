@@ -37,6 +37,7 @@
             <template #extra>
                 <Align>
                     <Bool border :size="'small'" v-model="action.current.is_global" :label="$t('regex_global')" />
+                    <Bool border :size="'small'" v-model="action.current.is_muti_line" :label="$t('regex_muti_line')" />
                     <Bool
                         border
                         :size="'small'"
@@ -66,6 +67,7 @@ const action = useAction(
             content: new Date().getFullYear() + " hello WORLD 你好世界",
             replace: "",
             is_global: true,
+            is_muti_line: true,
             is_ignore_case: true,
             is_delete: false,
         },
@@ -86,7 +88,7 @@ watch(
             const replace =
                 !current.is_delete && current.replace === "" ? false : current.is_delete ? "" : current.replace;
 
-            let reg = new RegExp(current.input, (current.is_ignore_case ? "i" : "") + (current.is_global ? "g" : ""));
+            let reg = new RegExp(current.input, (current.is_ignore_case ? "i" : "") + (current.is_global ? "g" : "")+ (current.is_muti_line ? "m" : ""));
             if (replace !== false) {
                 output = current.content.replace(reg, replace);
             } else {
