@@ -21,10 +21,11 @@ import xyzPlugin from 'colord/plugins/xyz';
 import namesPlugin from 'colord/plugins/names';
 import lchPlugin from 'colord/plugins/lch';
 import * as AColorPicker from 'a-color-picker';
+import {normalizeRGBStringify, normalized2RGB} from './util';
 
 extend([cmykPlugin, hwbPlugin, namesPlugin, lchPlugin, labPlugin, xyzPlugin]);
 
-const typeLists = ["name", "hex", "rgb", "hsl", "hwb", "cmyk", "lch", "hsv", "lab", "xyz"]
+const typeLists = ["name", "hex", "rgb", "hsl", "hwb", "cmyk", "lch", "hsv", "lab", "xyz", "normalizedRgb"]
 
 const action = useAction(await initialize({
     type: "rgb",
@@ -67,7 +68,13 @@ const getHandle = (target: string) => {
         return action.current.input
     }
     try {
-        const color = colord(["hsv", "lab", "xyz"].includes(action.current.type) ? JSON.parse(action.current.input) : action.current.input);
+        const color = colord(
+            ["hsv", "lab", "xyz"].includes(action.current.type) 
+            ? JSON.parse(action.current.input) 
+            : action.current.type === 'normalizedRgb' 
+                ? normalized2RGB(action.current.input) 
+                : action.current.input
+        )
         let result = ""
 
         if (target === 'name') {
@@ -100,6 +107,9 @@ const getHandle = (target: string) => {
         if (target === 'xyz') {
             result = JSON.stringify(color.toXyz());
         }
+        if (target === 'normalizedRgb') {
+            result = normalizeRGBStringify(color.toRgb())
+        }
         return result;
     } catch (e) {
         return $error(e)
@@ -131,6 +141,7 @@ const colorLch = computed(handler('lch'))
 const colorHsv = computed(handler('hsv'))
 const colorLab = computed(handler('lab'))
 const colorXyz = computed(handler('xyz'))
+const colorRgbNormalized = computed(handler('normalizedRgb'))
 
 const colorInstance = {
     name: colorName,
@@ -143,6 +154,7 @@ const colorInstance = {
     hsv: colorHsv,
     lab: colorLab,
     xyz: colorXyz,
+    normalizedRgb: colorRgbNormalized,
 }
 watch(() => {
     return {color: colorRgb.value}
@@ -166,6 +178,7 @@ const example = (() => {
         hsv: JSON.stringify(color.toHsv()),
         lab: JSON.stringify(color.toLab()),
         xyz: JSON.stringify(color.toXyz()),
+        normalizedRgb: normalizeRGBStringify(color.toRgb()),
     }
 })()
 </script>
