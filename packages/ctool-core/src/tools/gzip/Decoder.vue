@@ -10,7 +10,7 @@
             />
             <TextOutput
                 v-model="action.current.output"
-                :allow="['text']"
+                :allow="['text','base64', 'hex']"
                 :content="output"
                 :height="large"
                 @success="action.save()"
