@@ -22,7 +22,8 @@
     },
     "permissions": [
         "clipboardWrite",
-        "clipboardRead"
+        "clipboardRead",
+        "sidePanel"
     ],
     "host_permissions": [
         "*://get.geojs.io/*",
@@ -35,6 +36,9 @@
             "description": "__MSG_main_manifest_commands_panel_description__",
             "global": true
         }
+    },
+    "side_panel": {
+        "default_path": "index.html"
     },
     "update_url": "http://clients2.google.com/service/update2/crx"
 }
