@@ -5,16 +5,15 @@
     "author": "wo@baiy.org",
     "offline_enabled": true,
     "homepage_url": "https://github.com/baiy/Ctool",
-    "manifest_version": 2,
-    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-    "browser_action": {
+    "manifest_version": 3,
+    "default_locale": "zh_CN",
+    "action": {
         "default_icon": "icon/icon_chrome.png",
         "default_title": "__MSG_main_manifest_default_title__",
         "default_popup": "index.html"
     },
-    "default_locale": "zh_CN",
     "background": {
-        "scripts": ["background.js"]
+        "service_worker": "background.js"
     },
     "icons": {
         "16": "icon/icon_chrome.png",
@@ -23,13 +22,16 @@
     },
     "permissions": [
         "clipboardWrite",
-        "clipboardRead",
+        "clipboardRead"
+    ],
+    "host_permissions": [
         "##permissions##",
         "*://*.baiy.org/*",
         "*://ctool.dev/*",
         "*://*.ctool.dev/*"
     ],
     "commands": {
+        "_execute_action": {},
         "panel": {
             "description": "__MSG_main_manifest_commands_panel_description__",
             "global": true

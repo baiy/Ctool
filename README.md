@@ -61,8 +61,6 @@ pnpm run release
 pnpm --filter ctool-adapter-chrome run platform-release
 // edge
 pnpm --filter ctool-adapter-edge run platform-release
-// electron
-pnpm --filter ctool-adapter-electron run platform-release
 // tauri 无法交叉编译, 请在对应操作系统下运行
 pnpm --filter ctool-adapter-tauri run platform-release
 // firefox

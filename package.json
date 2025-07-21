@@ -1,6 +1,6 @@
 {
     "name": "ctool",
-    "version": "2.3.0",
+    "version": "2.4.0",
     "type": "module",
     "description": "程序开发常用工具 chrome / edge / firefox / utools / windows / linux / mac",
     "homepage": "https://ctool.dev",

@@ -605,8 +605,8 @@ importers:
         specifier: 'catalog:'
         version: 5.4.3(@types/node@22.5.4)(terser@5.32.0)
       vite-plugin-html-config:
-        specifier: ^1.0.11
-        version: 1.0.11(vite@5.4.3(@types/node@22.5.4)(terser@5.32.0))
+        specifier: ^2.0.2
+        version: 2.0.2(vite@5.4.3(@types/node@22.5.4)(terser@5.32.0))
       vite-plugin-pwa:
         specifier: ^0.20.5
         version: 0.20.5(vite@5.4.3(@types/node@22.5.4)(terser@5.32.0))(workbox-build@7.1.1)(workbox-window@7.1.0)
@@ -4575,12 +4575,6 @@ packages:
   version-range@4.14.0:
     resolution: {integrity: sha512-gjb0ARm9qlcBAonU4zPwkl9ecKkas+tC2CGwFfptTCWWIVTWY1YUbT2zZKsOAF1jR/tNxxyLwwG0cb42XlYcTg==}
     engines: {node: '>=4'}
-
-  vite-plugin-html-config@1.0.11:
-    resolution: {integrity: sha512-hUybhgI+/LQQ5q6xoMMsTvI4PBuQD/Wv6Z1vtDPVWjanS8weCIexXuLLYNGD/93f0v8W2hpNfXpmxgpZMahJ0g==}
-    engines: {node: '>=12.0.0'}
-    peerDependencies:
-      vite: '>=2.0.0'
 
   vite-plugin-html-config@2.0.2:
     resolution: {integrity: sha512-g09u0XsmgKyMUIp1RZSyNSkJWvIusaXxw3KylyxU3vkCq7/G8hyemLctT+4IvO42fCPlNySmrNC9g0qSoKmvpw==}
@@ -9047,10 +9041,6 @@ snapshots:
   valid-data-url@5.0.0: {}
 
   version-range@4.14.0: {}
-
-  vite-plugin-html-config@1.0.11(vite@5.4.3(@types/node@22.5.4)(terser@5.32.0)):
-    dependencies:
-      vite: 5.4.3(@types/node@22.5.4)(terser@5.32.0)
 
   vite-plugin-html-config@2.0.2(vite@5.4.3(@types/node@22.5.4)(terser@5.32.0)):
     dependencies:
