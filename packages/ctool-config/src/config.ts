@@ -203,6 +203,10 @@ export let _tools = {
         feature: ["zhNumber"],
         parent_directory: "",
     },
+    simpleImage: {
+        feature: ["simpleImage"],
+        parent_directory: "",
+    },
 } as const;
 
 // 分类 配置
@@ -211,7 +215,7 @@ export const _categoryTool: Record<CategoryType, ToolType[]> = {
     check: ["sign", "regex", "diffs", "crontab", "bcrypt", "dataValidation"],
     encoder_decoder: ["base64", "url", "unicode", "jwt", "hexString", "html", "gzip", "asn1", "punycode"],
     conversion: ["json", "pinyin", "radix", "serialize", "unit", "time", "ascii", "variableConversion", "hexString", "arm", "httpSnippet", "color", "urlParse", "dockerCompose", "zhNumber"],
-    generate: ["qrCode", "barcode", "randomString", "uuid", "binary", "ipcalc", "sqlFillParameter", "httpSnippet"],
+    generate: ["qrCode", "barcode", "randomString", "uuid", "binary", "ipcalc", "sqlFillParameter", "httpSnippet", "simpleImage"],
     other: ["ip", "code", "websocket", "unit", "text"],
 };
 
