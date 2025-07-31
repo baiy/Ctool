@@ -94,5 +94,6 @@
     "zhNumber": "Chinese digital conversion",
     "punycode": "Punycode",
     "punycode_encoder": "Encoder",
-    "punycode_decoder": "Decoder"
+    "punycode_decoder": "Decoder",
+    "simpleImage": "Easy image generator"
 }
