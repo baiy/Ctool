@@ -96,6 +96,9 @@ const getTimeType = (input: string): TimeType => {
     if (input === "") {
         return {type: InputType.empty, format: Format.second}
     }
+    if ((new RegExp(/^\d+-\d+-\d+$/)).test(input)) {
+        return {type: InputType.normal, format: Format.second}
+    }
     if ((new RegExp(/^\d+-\d+-\d+ \d+:\d+:\d+$/)).test(input)) {
         return {type: InputType.normal, format: Format.second}
     }
