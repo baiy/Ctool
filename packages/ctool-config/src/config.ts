@@ -67,6 +67,10 @@ export let _tools = {
         feature: ["pinyin"],
         parent_directory: "",
     },
+    ipDecimal: {
+        feature: ["ipDecimal"],
+        parent_directory: "",
+    },
     ip: {
         feature: ["ip"],
         parent_directory: "",
@@ -210,7 +214,7 @@ export const _categoryTool: Record<CategoryType, ToolType[]> = {
     encryption: ["hash", "hmac", "aes", "des", "tripleDes", "rc4", "rabbit", "sm2", "sm4", "rsa", "sign", "base64", "bcrypt"],
     check: ["sign", "regex", "diffs", "crontab", "bcrypt", "dataValidation"],
     encoder_decoder: ["base64", "url", "unicode", "jwt", "hexString", "html", "gzip", "asn1", "punycode"],
-    conversion: ["json", "pinyin", "radix", "serialize", "unit", "time", "ascii", "variableConversion", "hexString", "arm", "httpSnippet", "color", "urlParse", "dockerCompose", "zhNumber"],
+    conversion: ["json", "pinyin", "ipDecimal", "radix", "serialize", "unit", "time", "ascii", "variableConversion", "hexString", "arm", "httpSnippet", "color", "urlParse", "dockerCompose", "zhNumber"],
     generate: ["qrCode", "barcode", "randomString", "uuid", "binary", "ipcalc", "sqlFillParameter", "httpSnippet"],
     other: ["ip", "code", "websocket", "unit", "text"],
 };
