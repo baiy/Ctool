@@ -1,0 +1,6 @@
+{
+    decimal_placeholder: "Enter decimal IPv4 (one per line)",
+    ipv4_placeholder: "Enter dotted IPv4 (one per line)",
+    invalid_decimal: "Invalid decimal IPv4: {0}",
+    invalid_ipv4: "Invalid dotted IPv4: {0}"
+}

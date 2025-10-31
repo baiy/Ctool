@@ -1,0 +1,6 @@
+{
+    decimal_placeholder: "输入十进制 IPv4（每行一个）",
+    ipv4_placeholder: "输入点分 IPv4（每行一个）",
+    invalid_decimal: "无效的十进制 IPv4: {0}",
+    invalid_ipv4: "无效的点分 IPv4: {0}"
+}
