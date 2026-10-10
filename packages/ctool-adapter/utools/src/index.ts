@@ -71,7 +71,10 @@ export const runtime = new (class implements PlatformRuntime {
             const query: Record<string, string> = {};
             // 输入框数据写入临时存储
             if (["over", "regex"].includes(type) && payload !== "") {
-                initializer.storage().setNoVersion("_temp_input_storage", payload, 10);
+                const input = code === "ctool-jwt-jwt"
+                    ? payload.replace(/^[ \t]+|[ \t]+$/g, "").replace(/^Bearer[ \t]+/i, "")
+                    : payload;
+                initializer.storage().setNoVersion("_temp_input_storage", input, 10);
                 //添加随机数 防止页面不刷新
                 query["_t"] = `${Math.random()}`;
             }
