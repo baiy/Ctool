@@ -10,6 +10,18 @@ export type CustomCmd = {
 export const customCmds = new Map<FeatureInterface, CustomCmd[]>()
 
 customCmds.set(
+    getTool('jwt').getFeature('jwt'),
+    [
+        {
+            "type": "regex",
+            // Exclude trailing newlines that JavaScript's $ anchor otherwise permits.
+            "match": "/^[ \\t]*(?:Bearer[ \\t]+)?[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+[ \\t]*$(?![\\s\\S])/i",
+            "minLength": 5
+        }
+    ]
+)
+
+customCmds.set(
     getTool('time').getFeature('timestamp'),
     [
         {
@@ -53,4 +65,3 @@ customCmds.set(
         }
     ]
 )
-

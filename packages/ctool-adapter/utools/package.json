@@ -5,6 +5,7 @@
     "types": "./dist/index.d.ts",
     "scripts": {
         "build": "pnpm exec tsup-node",
+        "test": "pnpm --filter ctool-config run build && pnpm --filter ctool-adapter-base run build && pnpm run build && node --test test/runtime.test.cjs",
         "release": "node dist/release.js",
         "adapter-build": "pnpm run build",
         "platform-release": "pnpm run release"
