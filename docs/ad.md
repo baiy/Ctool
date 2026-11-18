@@ -1,0 +1,33 @@
+# Module: ad
+
+**File:** `\packages\ctool-config\src\generate\icon\ad.ts`
+
+## Overview
+
+Module `ad` contains 0 analyzed entities.
+
+```
+export default [
+    "M535.6544 110.1824L309.7088 264.96H161.1776C128.7168 264.96 102.4 291.328 102.4 323.7888v376.4736c0 32.4608 26.3168 58.7776 58.7776 58.7776h148.5312l225.9456 154.7776a44.032 44.032 0 0 0 68.864-36.3008V146.4832a44.032 44.032 0 0 0-68.864-36.3008zM699.6992 417.792a25.6 25.6 0 0 0-4.8128 35.8912c10.6496 13.8752 16.2304 30.5664 16.2304 48.128 0 17.664-5.632 34.3552-16.3328 48.2816a25.6 25.6 0 0 0 40.6016 31.232c17.664-22.9376 26.9312-50.432 26.9312-79.4624 0-28.928-9.2672-56.32-26.7264-79.2576a25.6512 25.6512 0 0 0-35.8912-4.8128z",
+    "M800.4608 304.5376a25.6 25.6 0 1 0-23.1936 45.6704A169.216 169.216 0 0 1 870.4 501.8112a169.216 169.216 0 0 1-93.0304 151.552 25.5488 25.5488 0 1 0 23.1936 45.6192A220.16 220.16 0 0 0 921.6 501.8112a220.3136 220.3136 0 0 0-121.1392-197.2736z"
+]
+```
+
+## Key Components
+
+| Entity | Type | Description |
+|--------|------|-------------|
+| _none_ | — | — |
+
+## Git History
+
+- Commits: 1
+- Authors: 1
+- Bug fixes: 1
+- Features: 0
+
+## Note
+
+Connect an NVIDIA Nemotron model (Ollama locally or Nebius Serverless) and re-run
+`documentor generate` to upgrade these pages to AI-generated narrative docs with
+purpose, usage examples, and gotchas.
